@@ -19,14 +19,19 @@ var closeDropLong = function () {
 	$('.lang').removeClass('lang-opened');
 };
 function dropLanguageInit() {
-	$('.lang-active a').on('click', function (e) {
+	var $langList = $('.lang-list');
+	if(!$langList.length){return;}
+
+	$('.lang-active').on('click', function (e) {
 		e.preventDefault();
 		$(this).closest('.lang').toggleClass('lang-opened');
 		e.stopPropagation();
 	});
-	$('.lang-list').on('click', function (e) {
+
+	$langList.on('click', function (e) {
 		e.stopPropagation();
 	});
+
 	$(document).on('click', function () {
 		closeDropLong();
 	})
@@ -37,8 +42,6 @@ function dropLanguageInit() {
 function showFormSearch(){
 	var searchForm = $('.search-form__header');
 	if(!searchForm.length){ return; }
-
-	var dur = 300;
 
 	var $body = $('body');
 	$body.on('click', '.btn-search-open', function(){
@@ -74,11 +77,50 @@ function showFormSearch(){
 }
 /*show form search end*/
 
+/*phones drop*/
+function phonesDrop(){
+	var $phonesContainer = $('.phones');
+	if(!$phonesContainer.length){return;}
+
+	var animateSpeed = 200;
+	$phonesContainer.on('click', '.phones__opener', function (e) {
+		e.preventDefault();
+
+		var $phonesOpener = $(this),
+			$phonesDrop = $phonesOpener.closest($phonesContainer).find('.phones-drop');
+
+		if($phonesContainer.hasClass('show-drop')){
+			closeDropPhones();
+			return;
+		}
+		$phonesContainer.addClass('show-drop');
+		$phonesDrop.css('width',$phonesContainer.outerWidth())
+			.fadeIn(animateSpeed);
+
+		e.stopPropagation();
+	});
+
+	$('.phones-drop').on('click', function (e) {
+		e.stopPropagation();
+	});
+
+	$(document).on('click', function () {
+		closeDropPhones();
+	});
+
+	function closeDropPhones(){
+		$phonesContainer.removeClass('show-drop');
+		$('.phones-drop').fadeOut(animateSpeed);
+	}
+}
+/*phones drop end*/
+
 /** ready/load/resize document **/
 
 $(document).ready(function(){
 	placeholderInit();
 	dropLanguageInit();
 	showFormSearch();
+	phonesDrop();
 	//addClass();
 });
