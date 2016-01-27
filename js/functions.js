@@ -4,16 +4,6 @@ function placeholderInit(){
 }
 /* placeholder end */
 
-//function addClass(){
-//	var $tbl = $('.tbl');
-//	if($tbl.length){
-//		$tbl.find('tr:even').addClass('nth-child-even');
-//		$tbl.find('tr:odd').addClass('nth-child-odd');
-//		$tbl.find('tbody tr:even').addClass('tbody-nth-child-even');
-//		$tbl.find('tbody tr:odd').addClass('tbody-nth-child-odd');
-//	}
-//}
-
 /*drop language*/
 var closeDropLong = function () {
 	$('.lang').removeClass('lang-opened');
@@ -115,6 +105,131 @@ function phonesDrop(){
 }
 /*phones drop end*/
 
+/*multi accordion*/
+(function () {
+	var MultiAccordion = function (settings) {
+		var options = $.extend({
+			collapsibleAll: false,
+			animateSpeed: 300,
+			resizeCollapsible: false
+		}, settings || {});
+
+		this.options = options;
+		var container = $(options.accordionContainer);
+		this.$accordionContainer = container; //блок с аккордеоном
+		this.$accordionItem = $(options.accordionItem, container); //непосредственный родитель сворачиваемого элемента
+		this.$accordionEvent = $(options.accordionEvent, container); //элемент, по которому производим клик
+		this.$collapsibleElement = $(options.collapsibleElement); //элемент, который сворачивается/разворачивается
+		this._collapsibleAll = options.collapsibleAll;
+		this._animateSpeed = options.animateSpeed;
+		this.$totalCollapsible = $(options.totalCollapsible);//элемент, по клику на который сворачиваются все аккордены в наборе
+		this._resizeCollapsible = options.resizeCollapsible;//флаг, сворачивание всех открытых аккордеонов при ресайзе
+
+		this.modifiers = {
+			active: 'active'
+		};
+
+		this.bindEvents();
+		this.totalCollapsible();
+		this.totalCollapsibleOnResize();
+
+	};
+
+	MultiAccordion.prototype.totalCollapsible = function () {
+		var self = this;
+		self.$totalCollapsible.on('click', function () {
+			self.$collapsibleElement.slideUp(self._animateSpeed);
+			self.$accordionItem.removeClass(self.modifiers.active);
+		})
+	};
+
+	MultiAccordion.prototype.totalCollapsibleOnResize = function () {
+		var self = this;
+		$(window).on('resize', function () {
+			if(self._resizeCollapsible){
+				self.$collapsibleElement.slideUp(self._animateSpeed);
+				self.$accordionItem.removeClass(self.modifiers.active);
+			}
+		});
+	};
+
+	MultiAccordion.prototype.bindEvents = function () {
+		var self = this,
+				modifiers = this.modifiers,
+				animateSpeed = this._animateSpeed,
+				accordionContainer = this.$accordionContainer,
+				anyAccordionItem = this.$accordionItem,
+				collapsibleElement = this.$collapsibleElement;
+
+		self.$accordionEvent.on('click', function (e) {
+			var current = $(this);
+			var currentAccordionItem = current.closest(anyAccordionItem);
+
+			if (!currentAccordionItem.has(collapsibleElement).length){
+				return;
+			}
+
+			e.preventDefault();
+
+			if (current.parent().prop("tagName") != currentAccordionItem.prop("tagName")) {
+				current = current.parent();
+			}
+
+			if (current.siblings(collapsibleElement).is(':visible')){
+				currentAccordionItem.removeClass(modifiers.active).find(collapsibleElement).slideUp(animateSpeed);
+				currentAccordionItem.find(anyAccordionItem).removeClass(modifiers.active);
+				return;
+			}
+
+
+			if (self._collapsibleAll){
+				var siblingContainers = $(accordionContainer).not(current.closest(accordionContainer));
+				siblingContainers.find(collapsibleElement).slideUp(animateSpeed);
+				siblingContainers.find(anyAccordionItem).removeClass(modifiers.active);
+			}
+
+			currentAccordionItem.siblings().removeClass(modifiers.active).find(collapsibleElement).slideUp(animateSpeed);
+			currentAccordionItem.siblings().find(anyAccordionItem).removeClass(modifiers.active);
+
+			currentAccordionItem.addClass(modifiers.active);
+			current.siblings(collapsibleElement).slideDown(animateSpeed);
+		})
+	};
+
+	window.MultiAccordion = MultiAccordion;
+}());
+
+function multiAccordionInit() {
+	if($('.nav__list').length){
+		new MultiAccordion({
+			accordionContainer: '.nav__list',
+			accordionItem: 'li',
+			accordionEvent: 'a',
+			collapsibleElement: '.nav-drop, .nav-sub-drop',
+			animateSpeed: 200
+		});
+	}
+}
+/*multi accordion end*/
+
+/*site map*/
+function siteMapInit(){
+	var siteMap = $('.site-map');
+	if (!siteMap.length){ return; }
+	$('.map-site-switcher').on('click', function () {
+		var switcher = $(this);
+		var siteMapCurrent = switcher.closest('.footer').find('.site-map');
+		if(siteMapCurrent.is(':visible')){
+			siteMapCurrent.slideUp();
+			switcher.removeClass('active');
+			return;
+		}
+		siteMapCurrent.slideDown();
+		switcher.addClass('active');
+	})
+}
+/*site map end*/
+
 /** ready/load/resize document **/
 
 $(document).ready(function(){
@@ -122,5 +237,6 @@ $(document).ready(function(){
 	dropLanguageInit();
 	showFormSearch();
 	phonesDrop();
-	//addClass();
+	multiAccordionInit();
+	siteMapInit();
 });
