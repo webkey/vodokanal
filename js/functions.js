@@ -220,15 +220,44 @@ function siteMapInit(){
 		var switcher = $(this);
 		var siteMapCurrent = switcher.closest('.footer').find('.site-map');
 		if(siteMapCurrent.is(':visible')){
-			siteMapCurrent.slideUp();
+			siteMapCurrent.slideUp().removeClass('active');
 			switcher.removeClass('active');
 			return;
 		}
-		siteMapCurrent.slideDown();
+		siteMapCurrent.slideDown().addClass('active');
 		switcher.addClass('active');
 	})
 }
 /*site map end*/
+
+/*road popup*/
+function roadPopupInit(){
+	var $roadBox = $('.road');
+	if(!$roadBox.length){return;}
+	$('.road-view').on('click', function (e) {
+		e.preventDefault();
+		var $roadBoxCurrent = $(this).closest('.road');
+		if($roadBoxCurrent.find('.road-popup').is(':visible')){
+			closeRoadPopup($roadBoxCurrent);
+			return;
+		}
+		$roadBoxCurrent.addClass('show-popup');
+		e.stopPropagation();
+	});
+
+	$('.road-popup').on('click', function (e) {
+		e.stopPropagation();
+	});
+
+	$(document).on('click', function () {
+		closeRoadPopup($roadBox);
+	});
+
+	function closeRoadPopup(wrapper){
+		wrapper.removeClass('show-popup');
+	}
+}
+/*road popup end*/
 
 /** ready/load/resize document **/
 
@@ -239,4 +268,5 @@ $(document).ready(function(){
 	phonesDrop();
 	multiAccordionInit();
 	siteMapInit();
+	roadPopupInit();
 });
