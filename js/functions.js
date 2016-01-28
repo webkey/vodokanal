@@ -126,7 +126,8 @@ function phonesDrop(){
 		this._resizeCollapsible = options.resizeCollapsible;//флаг, сворачивание всех открытых аккордеонов при ресайзе
 
 		this.modifiers = {
-			active: 'active'
+			active: 'active',
+			current: 'current'
 		};
 
 		this.bindEvents();
@@ -140,6 +141,7 @@ function phonesDrop(){
 		self.$totalCollapsible.on('click', function () {
 			self.$collapsibleElement.slideUp(self._animateSpeed);
 			self.$accordionItem.removeClass(self.modifiers.active);
+			self.$accordionItem.removeClass(self.modifiers.current);
 		})
 	};
 
@@ -177,7 +179,8 @@ function phonesDrop(){
 
 			if (current.siblings(collapsibleElement).is(':visible')){
 				currentAccordionItem.removeClass(modifiers.active).find(collapsibleElement).slideUp(animateSpeed);
-				currentAccordionItem.find(anyAccordionItem).removeClass(modifiers.active);
+				currentAccordionItem.removeClass(modifiers.current);
+				currentAccordionItem.find(anyAccordionItem).removeClass(modifiers.active).removeClass(modifiers.current);
 				return;
 			}
 
@@ -185,11 +188,12 @@ function phonesDrop(){
 			if (self._collapsibleAll){
 				var siblingContainers = $(accordionContainer).not(current.closest(accordionContainer));
 				siblingContainers.find(collapsibleElement).slideUp(animateSpeed);
-				siblingContainers.find(anyAccordionItem).removeClass(modifiers.active);
+				siblingContainers.find(anyAccordionItem).removeClass(modifiers.active).removeClass(modifiers.current);
 			}
 
 			currentAccordionItem.siblings().removeClass(modifiers.active).find(collapsibleElement).slideUp(animateSpeed);
-			currentAccordionItem.siblings().find(anyAccordionItem).removeClass(modifiers.active);
+			currentAccordionItem.siblings().removeClass(modifiers.current);
+			currentAccordionItem.siblings().find(anyAccordionItem).removeClass(modifiers.active).removeClass(modifiers.current);
 
 			currentAccordionItem.addClass(modifiers.active);
 			current.siblings(collapsibleElement).slideDown(animateSpeed);
@@ -220,11 +224,15 @@ function siteMapInit(){
 		var switcher = $(this);
 		var siteMapCurrent = switcher.closest('.footer').find('.site-map');
 		if(siteMapCurrent.is(':visible')){
-			siteMapCurrent.slideUp().removeClass('active');
+			siteMapCurrent.slideUp('fast', function () {
+				footerBottom();
+			}).removeClass('active');
 			switcher.removeClass('active');
 			return;
 		}
-		siteMapCurrent.slideDown().addClass('active');
+		siteMapCurrent.slideDown('fast', function () {
+			footerBottom();
+		}).addClass('active');
 		switcher.addClass('active');
 	})
 }
@@ -259,7 +267,316 @@ function roadPopupInit(){
 }
 /*road popup end*/
 
-/** ready/load/resize document **/
+/*card switch*/
+function cardSwitch(){
+	var caseList = $('.case__list');
+	if(!caseList.length){return;}
+
+	$('.card-switcher-js').on('click', function () {
+		var $switcher = $(this);
+		//var $itemCard = $switcher.closest('.case__item').siblings();
+		//$itemCard.removeClass('contacts-opened');
+
+		var $itemCardCurrent = $switcher.closest('.case__item');
+		if($itemCardCurrent.hasClass('contacts-opened')){
+			$itemCardCurrent.removeClass('contacts-opened');
+			return;
+		}
+
+		$itemCardCurrent.addClass('contacts-opened');
+	})
+}
+/*card switch end*/
+
+
+/*equal height initial*/
+function equalHeightInit(){
+	var parentsList = $('.case__list');
+	if(parentsList.length){
+		/*parentsList.find('.case__item').equalHeight({
+			amount: 4,
+			//useParent: true,
+			//parent: parentsList,
+			resize: true
+		});
+		parentsList.find('.case__photo-card, .case__contacts-card').equalHeight({
+			amount: 8,
+			//useParent: true,
+			//parent: parentsList,
+			resize: true
+		});*/
+		parentsList.find('.photo-card__img, .contacts-card__caption').equalHeight({
+			amount: 8,
+			//useParent: true,
+			//parent: parentsList,
+			resize: true
+		});
+		parentsList.find('.photo-card__name, .contacts-card__share, .contacts-card__name').equalHeight({
+			amount: 12,
+			//useParent: true,
+			//parent: parentsList,
+			resize: true
+		});
+		parentsList.find('.photo-card__post, .contacts-card__post, .contacts-card__works').equalHeight({
+			amount: 12,
+			//useParent: true,
+			//parent: parentsList,
+			resize: true
+		});
+	}
+}
+/*equal height initial end*/
+
+/*slick sliders init*/
+function slickSlidersInit(){
+	/*glance slider*/
+	var sliderDepartments = $('.glance__slider');
+	if(sliderDepartments.length){
+		sliderDepartments.on('init', function () {
+			$(this).css({'visibility':'visible'});
+		});
+		sliderDepartments.slick({
+			slidesToShow: 4,
+			slidesToScroll: 4,
+			speed: 200,
+			cssEase: 'cubic-bezier(0.95, 0.05, 0.795, 0.035)',
+			infinite: false,
+			dots: false,
+			arrows: true,
+			responsive: [{
+				breakpoint: 1279,
+				settings: {
+					slidesToShow: 3,
+					slidesToScroll: 1
+				}
+			},{
+				breakpoint: 1039,
+				settings: {
+					slidesToShow: 2,
+					slidesToScroll: 1
+				}
+			}]
+		});
+	}
+	/*glance slider end*/
+}
+/*slick sliders init end*/
+
+/*map init*/
+var styleMap = [
+	{
+		"featureType": "water",
+		"elementType": "geometry.fill",
+		"stylers": [
+			{ "color": "#46bcec" },
+			//{ saturation: 0 },
+			//{ lightness: 0 },
+			//{ gamma: 1.51 }
+		]
+	},{
+		"featureType": "transit",
+		"stylers": [
+			{ "color": "#808080" },
+			{ "visibility": "off" }
+		]
+	},{
+		"featureType": "road.highway",
+		"elementType": "geometry.stroke",
+		"stylers": [
+			{ "visibility": "on" },
+			{ "color": "#b4c2d3" }
+		]
+	},{
+		"featureType": "road.highway",
+		"elementType": "geometry.fill",
+		"stylers": [
+			{ "color": "#ffffff" }
+		]
+	},{
+		"featureType": "road.local",
+		"elementType": "geometry.fill",
+		"stylers": [
+			{ "visibility": "on" },
+			{ "color": "#ffffff" },
+			{ "weight": 1.8 }
+		]
+	},{
+		"featureType": "poi",
+		"elementType": "geometry.fill",
+		"stylers": [
+			{ "visibility": "on" },
+			{ "color": "#ebebeb" }
+		]
+	},{
+		"featureType": "administrative",
+		"elementType": "geometry",
+		"stylers": [
+			{ "color": "#0059A5" }
+		]
+	},{
+		"featureType": "road.arterial",
+		"elementType": "geometry.fill",
+		"stylers": [
+			{ "color": "#ffffff" }
+		]
+	},{
+		"featureType": "landscape",
+		"elementType": "geometry.fill",
+		"stylers": [
+			{ "visibility": "on" },
+			{ "color": "#f5f5f5" }
+		]
+	},{
+		"featureType": "road",
+		"elementType": "labels.text.fill",
+		"stylers": [
+			{ "color": "#696969" }
+		]
+	},{
+		"featureType": "administrative",
+		"elementType": "labels.text.fill",
+		"stylers": [
+			{ "visibility": "on" },
+			{ "color": "#414141" }
+		]
+	},{
+		"featureType": "poi",
+		"elementType": "labels.icon",
+		"stylers": [
+			{ "visibility": "off" }
+		]
+	},{
+		"featureType": "poi",
+		"elementType": "labels",
+		"stylers": [
+			{ "visibility": "off" }
+		]
+	},{
+		"featureType": "road.arterial",
+		"elementType": "geometry.stroke",
+		"stylers": [
+			{ "color": "#d6d6d6" }
+		]
+	},{
+		"featureType": "road",
+		"elementType": "labels.icon",
+		"stylers": [
+			{ "visibility": "off" }
+		]
+	},{
+	},{
+		"featureType": "poi",
+		"elementType": "geometry.fill",
+		"stylers": [
+			{ "color": "#f2f2f2" }
+		]
+	}
+];
+
+function mapMainInit(){
+	if (!$('#main-map').length) {return;}
+
+	google.maps.event.addDomListener(window, 'load', init);
+	var map,
+			centerMapL = "53.9004",
+			centerMapR = "27.5788";
+
+	if($(window).width() < 640) {
+		centerMapL = "53.9004";
+		centerMapR = "27.5788";
+	}
+
+	function init() {
+		var mapOptions = {
+			center: new google.maps.LatLng(centerMapL, centerMapR),
+			zoom: 15,
+			zoomControl: true,
+			zoomControlOptions: {
+				style: google.maps.ZoomControlStyle.DEFAULT
+			},
+			disableDoubleClickZoom: true,
+			mapTypeControl: false,
+			scaleControl: false,
+			scrollwheel: false,
+			panControl: true,
+			streetViewControl: false,
+			draggable : true,
+			overviewMapControl: true,
+			overviewMapControlOptions: {
+				opened: false
+			},
+			mapTypeId: google.maps.MapTypeId.ROADMAP,
+			styles: styleMap
+		};
+		var mapElement = document.getElementById('main-map');
+		var map = new google.maps.Map(mapElement, mapOptions);
+		var locations = [
+			['ул. Пулихова д.15', '220088 Беларусь, Минск', 'undefined', 'undefined', 'undefined', 53.8984, 27.5788, 'img/map-pin.png']
+		];
+		for (i = 0; i < locations.length; i++) {
+			if (locations[i][1] =='undefined'){ description ='';} else { description = locations[i][1];}
+			if (locations[i][2] =='undefined'){ telephone ='';} else { telephone = locations[i][2];}
+			if (locations[i][3] =='undefined'){ email ='';} else { email = locations[i][3];}
+			if (locations[i][4] =='undefined'){ web ='';} else { web = locations[i][4];}
+			if (locations[i][7] =='undefined'){ markericon ='';} else { markericon = locations[i][7];}
+			marker = new google.maps.Marker({
+				icon: markericon,
+				position: new google.maps.LatLng(locations[i][5], locations[i][6]),
+				map: map,
+				title: locations[i][0],
+				desc: description,
+				tel: telephone,
+				email: email,
+				web: web
+			});
+			link = '';            bindInfoWindow(marker, map, locations[i][0], description, telephone, email, web, link);
+		}
+		function bindInfoWindow(marker, map, title, desc, telephone, email, web, link) {
+			var infoWindowVisible = (function () {
+				var currentlyVisible = false;
+				return function (visible) {
+					if (visible !== undefined) {
+						currentlyVisible = visible;
+					}
+					return currentlyVisible;
+				};
+			}());
+			iw = new google.maps.InfoWindow();
+			google.maps.event.addListener(marker, 'click', function() {
+				if (infoWindowVisible()) {
+					iw.close();
+					infoWindowVisible(false);
+				} else {
+					var html= "<div style='color:#000;background-color:#fff;padding:5px;width:150px;'><h4>"+title+"</h4><p>"+desc+"<p></div>";
+					iw = new google.maps.InfoWindow({content:html});
+					iw.open(map,marker);
+					infoWindowVisible(true);
+				}
+			});
+			google.maps.event.addListener(iw, 'closeclick', function () {
+				infoWindowVisible(false);
+			});
+		}
+	}
+}
+/*map init end*/
+
+/* footer at bottom */
+function footerBottom(){
+	var footer = $('.footer');
+	var footerOuterHeight = footer.outerHeight();
+	footer.css({
+		'margin-top': -footerOuterHeight
+	});
+	$('.spacer').css({
+		'height': footerOuterHeight
+	});
+}
+/* footer at bottom end */
+
+/**!
+ * ready/load/resize document
+ */
 
 $(document).ready(function(){
 	placeholderInit();
@@ -269,4 +586,16 @@ $(document).ready(function(){
 	multiAccordionInit();
 	siteMapInit();
 	roadPopupInit();
+	cardSwitch();
+	slickSlidersInit();
+	mapMainInit();
+});
+
+$(window).load(function () {
+	equalHeightInit();
+	footerBottom();
+});
+
+;$(window).resize(function(){
+	footerBottom();
 });
