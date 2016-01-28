@@ -1648,20 +1648,35 @@ label{
 .main-contacts{
 	overflow: hidden;
 	background: #008acf;
+	padding-top: 1px;
 }
-.main-contacts .max-wrap{
+.main-contacts .max-wraps{
 	overflow: hidden;
 	position: relative;
 	min-height: 495px;
 }
 /*local map*/
+.main-map-wrapper{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	-webkit-transform: translate(0, 0);
+	-ms-transform: translate(0, 0);
+	transform: translate(0, 0);
+	-webkit-transition: all 0.4s cubic-bezier(0.65, 0.05, 0.36, 1);
+	transition: all 0.4s cubic-bezier(0.65, 0.05, 0.36, 1);
+}
+.contacts-opened .main-map-wrapper{
+	-webkit-transform: translate(-20%, 0);
+	-ms-transform: translate(-20%, 0);
+	transform: translate(-20%, 0);
+}
 .local-map {
 	width: 100%;
 	background: #f2f2f2;
-	height: 495px;
-}
-.main-contacts .local-map{
-	position: absolute;
+	height: 494px;
 }
 /*local map end*/
 
@@ -1669,35 +1684,50 @@ label{
 .contacts{
 	float: right;
 	width: 480px;
-	padding: 20px 30px;
+	padding: 40px 30px 0;
 	background: #fff;
 	position: relative;
-	box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
+	min-height: 494px;
+	box-shadow: -10px 0 10px rgba(0, 0, 0, 0.0);
 	z-index: 1;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
+	-webkit-transform: translate(100%, 0);
+	-ms-transform: translate(100%, 0);
+	transform: translate(100%, 0);
+	-webkit-transition: all 0.4s cubic-bezier(0.65, 0.05, 0.36, 1);
+	transition: all 0.4s cubic-bezier(0.65, 0.05, 0.36, 1);
+}
+.contacts-opened .contacts{
+	box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
+	-webkit-transform: translate(0, 0);
+	-ms-transform: translate(0, 0);
+	transform: translate(0, 0);
 }
 .contacts h4{
 	font-size: 18px;
 	line-height: 24px;
+	letter-spacing: 0.05em;
 	color: #333;
 	font-weight: normal;
-	padding: 0 0 20px;
+	padding: 0 0 12px;
 }
+
 .contacts-list,
 .user-content .contacts-list{
 	list-style: none;
-	padding: 0;
+	padding: 0 0 36px;
 	margin: 0;
 	color: #808080;
 }
 .contacts-list li,
 .user-content .contacts-list li{
 	margin: 0;
-	padding: 0 0 0 28px;
+	padding: 0 0 5px 28px;
 	position: relative;
 	min-height: 24px;
+	letter-spacing: 0.05em;
 }
 .contacts-list li:before,
 .user-content .contacts-list li:before{
@@ -1706,10 +1736,59 @@ label{
 .contacts-list li [class*="depict-"]{
 	position: absolute;
 	left: 0;
-	top: 0;
+	top: 4px;
 }
 .contacts-list a{
 	color: #808080;
+}
+
+.contacts-phones,
+.user-content .contacts-phones{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	color: #808080;
+}
+.contacts-phones li,
+.user-content .contacts-phones li{
+	line-height: 18px;
+	margin: 0;
+	padding: 0 0 6px;
+	font-size: 0;
+	letter-spacing: -4px;
+}
+.contacts-phones li:before,
+.user-content .contacts-phones li:before{
+	content: none;
+}
+.cont-dt{
+	display: inline-block;
+	vertical-align: bottom;
+	font-size: 14px;
+	letter-spacing: 0.03em;
+	width: 63.9%;
+	padding-right: 6px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.cont-dd{
+	display: inline-block;
+	vertical-align: bottom;
+	font-size: 14px;
+	letter-spacing: 0.03em;
+	color: #333;
+	text-align: right;
+	width: 35.9%;
+}
+.cont-dd .tel-more{
+	border-bottom: 1px dotted #333;
+	-webkit-transition: border 0.2s;
+	transition: border 0.2s;
+	cursor: pointer;
+}
+.cont-dd .tel-more:hover{
+	border-color: transparent;
 }
 
 .contacts-switcher{
@@ -1732,6 +1811,16 @@ label{
 	left: 50%;
 	top: 50%;
 	margin: -10px 0 0 -6px;
+	-webkit-transform: rotate(-180deg);
+	-ms-transform: rotate(-180deg);
+	transform: rotate(-180deg);
+	-webkit-transition: all 0.4s;
+	transition: all 0.4s;
+}
+.contacts-opened .contacts-switcher>i{
+	-webkit-transform: rotate(0deg);
+	-ms-transform: rotate(0deg);
+	transform: rotate(0deg);
 }
 /*contacts end*/
 /*main contacts end*/
@@ -1930,7 +2019,7 @@ li.has-drop.current>.nav-sub-drop:after,
 	background: #009eed;
 }
 .footer-top{
-	padding: 25px 40px;
+	padding: 33px 40px 29px;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -1955,6 +2044,7 @@ li.has-drop.current>.nav-sub-drop:after,
 	height: 40px;
 	text-indent: -9999px;
 	overflow: hidden;
+	margin: 7px 0 0;
 }
 /*footer logo end*/
 
@@ -1964,7 +2054,8 @@ li.has-drop.current>.nav-sub-drop:after,
 	cursor: pointer;
 	display: inline-block;
 	position: relative;
-	padding-right: 29px;
+	padding-right: 28px;
+	letter-spacing: 0.06em;
 }
 .map-site-text{
 	border-bottom: 1px dotted #fff;
@@ -1981,7 +2072,7 @@ li.has-drop.current>.nav-sub-drop:after,
 	position: absolute;
 	right: 0;
 	top: 50%;
-	margin-top: -6px;
+	margin-top: -3px;
 }
 .map-site-btn:before,
 .map-site-btn:after,
@@ -2027,7 +2118,7 @@ li.has-drop.current>.nav-sub-drop:after,
 /*footer phones*/
 .ft-phones{
 	list-style: none;
-	padding: 0;
+	padding: 3px 0 0;
 	margin: 0 0 0 -12px;
 	font-size: 0;
 	letter-spacing: -4px;
@@ -2039,7 +2130,7 @@ li.has-drop.current>.nav-sub-drop:after,
 	font-size: 14px;
 	line-height: 17px;
 	color: #fff;
-	letter-spacing: normal;
+	letter-spacing: 0.06em;
 	padding: 0 0 10px 12px;
 	overflow: hidden;
 	-webkit-box-sizing: border-box;
@@ -2058,6 +2149,7 @@ li.has-drop.current>.nav-sub-drop:after,
 .ft-phones__dd{
 	display: block;
 	overflow: hidden;
+	letter-spacing: normal;
 }
 /*footer phones end*/
 /*footer top*/
@@ -2182,7 +2274,7 @@ li.has-drop.current>.nav-sub-drop:after,
 	background: #009eed;
 }
 .footer-contacts{
-	padding: 30px 40px;
+	padding: 35px 40px 30px;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -2199,8 +2291,9 @@ li.has-drop.current>.nav-sub-drop:after,
 	line-height: 22px;
 	font-weight: bold;
 	color: #00334c;
+	letter-spacing: 0.04em;
 	text-transform: uppercase;
-	padding: 0 0 20px;
+	padding: 0 0 11px;
 }
 
 /*work list*/
@@ -2380,7 +2473,7 @@ li.has-drop.current>.nav-sub-drop:after,
 /*social networks*/
 .social-networks{
 	list-style: none;
-	padding: 15px 40px;
+	padding: 15px 40px 14px;
 	margin: 0;
 	font-size: 0;
 	letter-spacing: -4px;
@@ -2449,6 +2542,7 @@ li.has-drop.current>.nav-sub-drop:after,
 .footer-holder{
 	font-size: 0;
 	letter-spacing: -4px;
+	padding: 0 40px;
 }
 .footer-holder:before{
 	content: '';
@@ -2462,7 +2556,7 @@ li.has-drop.current>.nav-sub-drop:after,
 	vertical-align: middle;
 	font-size: 12px;
 	line-height: 20px;
-	letter-spacing: normal;
+	letter-spacing: 0.05em;
 	text-align: center;
 	width: 33.29%;
 	padding: 0 12px;

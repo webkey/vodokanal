@@ -224,13 +224,13 @@ function siteMapInit(){
 		var switcher = $(this);
 		var siteMapCurrent = switcher.closest('.footer').find('.site-map');
 		if(siteMapCurrent.is(':visible')){
-			siteMapCurrent.slideUp('fast', function () {
+			siteMapCurrent.slideUp(400, function () {
 				footerBottom();
 			}).removeClass('active');
 			switcher.removeClass('active');
 			return;
 		}
-		siteMapCurrent.slideDown('fast', function () {
+		siteMapCurrent.slideDown(400, function () {
 			footerBottom();
 		}).addClass('active');
 		switcher.addClass('active');
@@ -269,13 +269,13 @@ function roadPopupInit(){
 
 /*card switch*/
 function cardSwitch(){
-	var caseList = $('.case__list');
-	if(!caseList.length){return;}
+	var $caseList = $('.case__list');
+	if(!$caseList.length){return;}
 
 	$('.card-switcher-js').on('click', function () {
 		var $switcher = $(this);
-		//var $itemCard = $switcher.closest('.case__item').siblings();
-		//$itemCard.removeClass('contacts-opened');
+		var $itemCard = $switcher.closest('.case__item').siblings();
+		$itemCard.removeClass('contacts-opened');
 
 		var $itemCardCurrent = $switcher.closest('.case__item');
 		if($itemCardCurrent.hasClass('contacts-opened')){
@@ -288,6 +288,23 @@ function cardSwitch(){
 }
 /*card switch end*/
 
+/*contacts switcher*/
+function contactsSwitcher(){
+	var $contacts = $('.main-contacts');
+	if(!$contacts.length){return;}
+
+	$('.contacts-switcher').on('click', function () {
+		var $switcher = $(this);
+		var $itemCardCurrent = $switcher.closest($contacts);
+		if($itemCardCurrent.hasClass('contacts-opened')){
+			$itemCardCurrent.removeClass('contacts-opened');
+			return;
+		}
+
+		$itemCardCurrent.addClass('contacts-opened');
+	})
+}
+/*contacts switcher end*/
 
 /*equal height initial*/
 function equalHeightInit(){
@@ -587,6 +604,7 @@ $(document).ready(function(){
 	siteMapInit();
 	roadPopupInit();
 	cardSwitch();
+	contactsSwitcher();
 	slickSlidersInit();
 	mapMainInit();
 });
@@ -596,6 +614,6 @@ $(window).load(function () {
 	footerBottom();
 });
 
-;$(window).resize(function(){
+$(window).resize(function(){
 	footerBottom();
 });
