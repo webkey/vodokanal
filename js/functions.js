@@ -578,6 +578,17 @@ function mapMainInit(){
 }
 /*map init end*/
 
+/*ui tabs initial*/
+function tabsInit(){
+	var $tabs = $('.tabs-js');
+	if(!$tabs.length){return;}
+
+	$tabs.tabs({
+		//animate: 'easeInOutQuint'
+	});
+}
+/*ui tabs initial end*/
+
 /* footer at bottom */
 function footerBottom(){
 	var footer = $('.footer');
@@ -607,11 +618,13 @@ $(document).ready(function(){
 	contactsSwitcher();
 	slickSlidersInit();
 	mapMainInit();
+	tabsInit();
 });
 
 $(window).load(function () {
 	equalHeightInit();
 	footerBottom();
+	tabsInit();
 });
 
 $(window).resize(function(){
