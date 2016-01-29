@@ -21,3 +21,43 @@
 	z-index: 99;
 	border:0;
 }
+
+/*btn-transparent*/
+.btn-transparent{
+	font-size: 18px;
+	line-height: 24px;
+	color: #fff;
+	padding: 13px 10px;
+	background: rgba(0, 138, 207, 0.87);
+	min-width: 220px;
+	-webkit-transition: background 0.2s;
+	transition: background 0.2s;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.btn-transparent:hover{
+	background: rgba(0, 138, 207, 0.97);
+}
+/*btn-transparent end*/
+
+/*btn-default-alt*/
+.btn-default-alt{
+	font: 18px/24px Arial, Helvetica, sans-serif;
+	color: #fff;
+	padding: 11px 20px;
+	border: 2px solid #fff;
+	background: none;
+	position: relative;
+	border-radius: 3px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-transition: color 0.2s, background 0.2s;
+	transition: color 0.2s, background 0.2s;
+}
+.btn-default-alt:hover{
+	background: #fff;
+	color: #008acf;
+}
+/*btn-default-alt end*/

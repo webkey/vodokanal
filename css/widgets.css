@@ -196,7 +196,8 @@
 	list-style: none;
 	text-align: center;
 }
-.slick-dots li{
+.slick-dots li,
+.user-content .slick-dots li{
 	position: relative;
 	display: inline-block;
 	width: 20px;
@@ -204,6 +205,9 @@
 	margin: 0 5px;
 	padding: 0;
 	cursor: pointer;
+}
+.user-content .slick-dots li:before{
+	content: none;
 }
 .slick-dots li button{
 	font-size: 0;

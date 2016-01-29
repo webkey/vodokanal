@@ -354,9 +354,8 @@ function slickSlidersInit(){
 		});
 		sliderDepartments.slick({
 			slidesToShow: 4,
-			slidesToScroll: 4,
+			slidesToScroll: 1,
 			speed: 200,
-			cssEase: 'cubic-bezier(0.95, 0.05, 0.795, 0.035)',
 			infinite: false,
 			dots: false,
 			arrows: true,
@@ -376,6 +375,84 @@ function slickSlidersInit(){
 		});
 	}
 	/*glance slider end*/
+
+	/*questions slider*/
+	var sliderQuestions = $('.questions-slider');
+	if(sliderQuestions.length){
+		sliderQuestions.on('init', function () {
+			$(this).css({'visibility':'visible'});
+		});
+		sliderQuestions.slick({
+			slidesToShow: 4,
+			slidesToScroll: 1,
+			speed: 200,
+			infinite: true,
+			dots: false,
+			arrows: true,
+			responsive: [{
+				breakpoint: 960,
+				settings: {
+					slidesToShow: 3,
+					slidesToScroll: 1
+				}
+			},{
+				breakpoint: 640,
+				settings: {
+					slidesToShow: 2,
+					slidesToScroll: 1
+				}
+			}]
+		});
+	}
+	/*questions slider end*/
+
+	/*promo slider*/
+	var sliderPromo = $('.promo-slider');
+	if(sliderPromo.length){
+		sliderPromo.on('init', function () {
+			$(this).css({'visibility':'visible'});
+		});
+		sliderPromo.slick({
+			fade: true,
+			slidesToShow: 1,
+			slidesToScroll: 1,
+			speed: 500,
+			infinite: true,
+			dots: true,
+			arrows: true
+		});
+	}
+	/*promo slider end*/
+
+	/*uncos slider*/
+	var sliderUncos = $('.uncos-slider');
+	if(sliderUncos.length){
+		sliderUncos.on('init', function () {
+			$(this).css({'visibility':'visible'});
+		});
+		sliderUncos.slick({
+			slidesToShow: 3,
+			slidesToScroll: 3,
+			infinite: false,
+			speed: 200,
+			dots: true,
+			arrows: true,
+			responsive: [{
+				breakpoint: 960,
+				settings: {
+					slidesToShow: 2,
+					slidesToScroll: 1
+				}
+			},{
+				breakpoint: 640,
+				settings: {
+					slidesToShow: 1,
+					slidesToScroll: 1
+				}
+			}]
+		});
+	}
+	/*uncos slider end*/
 }
 /*slick sliders init end*/
 
