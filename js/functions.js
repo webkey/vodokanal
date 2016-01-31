@@ -84,7 +84,7 @@ function phonesDrop(){
 			return;
 		}
 		$phonesContainer.addClass('show-drop');
-		$phonesDrop.css('width',$phonesContainer.outerWidth())
+		$phonesDrop.css('width',$phonesContainer.outerWidth()/3)
 			.fadeIn(animateSpeed);
 
 		e.stopPropagation();
@@ -308,39 +308,63 @@ function contactsSwitcher(){
 
 /*equal height initial*/
 function equalHeightInit(){
-	var parentsList = $('.case__list');
-	if(parentsList.length){
-		/*parentsList.find('.case__item').equalHeight({
+	/*case list*/
+	var caseList = $('.case__list');
+	if(caseList.length){
+		/*caseList.find('.case__item').equalHeight({
 			amount: 4,
 			//useParent: true,
-			//parent: parentsList,
+			//parent: caseList,
 			resize: true
 		});
-		parentsList.find('.case__photo-card, .case__contacts-card').equalHeight({
+		caseList.find('.case__photo-card, .case__contacts-card').equalHeight({
 			amount: 8,
 			//useParent: true,
-			//parent: parentsList,
+			//parent: caseList,
 			resize: true
 		});*/
-		parentsList.find('.photo-card__img, .contacts-card__caption').equalHeight({
+		caseList.find('.photo-card__img, .contacts-card__caption').equalHeight({
 			amount: 8,
 			//useParent: true,
-			//parent: parentsList,
+			//parent: caseList,
 			resize: true
 		});
-		parentsList.find('.photo-card__name, .contacts-card__share, .contacts-card__name').equalHeight({
+		caseList.find('.photo-card__name, .contacts-card__share, .contacts-card__name').equalHeight({
 			amount: 12,
 			//useParent: true,
-			//parent: parentsList,
+			//parent: caseList,
 			resize: true
 		});
-		parentsList.find('.photo-card__post, .contacts-card__post, .contacts-card__works').equalHeight({
+		caseList.find('.photo-card__post, .contacts-card__post, .contacts-card__works').equalHeight({
 			amount: 12,
 			//useParent: true,
-			//parent: parentsList,
+			//parent: caseList,
 			resize: true
 		});
 	}
+	/*case list end*/
+}
+/*equal height initial end*/
+
+/*equal height initial*/
+function equelHeightInTabs(){
+	/*previews list*/
+	var previewsList = $('.previews__list');
+	if(previewsList.length){
+		previewsList.find('.previews__title').equalHeight({
+			//amount: 12,
+			useParent: true,
+			parent: previewsList,
+			resize: true
+		});
+		previewsList.find('.previews__text').equalHeight({
+			//amount: 12,
+			useParent: true,
+			parent: previewsList,
+			resize: true
+		});
+	}
+	/*previews list end*/
 }
 /*equal height initial end*/
 
@@ -677,11 +701,18 @@ function mapMainInit(){
 /*ui tabs initial*/
 function tabsInit(){
 	var $tabs = $('.tabs-js');
-	if(!$tabs.length){return;}
-
-	$tabs.tabs({
-		//animate: 'easeInOutQuint'
-	});
+	if($tabs.length){
+		$tabs.tabs({
+			//animate: 'easeInOutQuint',
+			activate: function( event, ui ) {
+				/*previews list*/
+				if($('.previews__list').length){
+					equelHeightInTabs();
+				}
+				/*previews list end*/
+			}
+		});
+	}
 }
 /*ui tabs initial end*/
 
@@ -719,6 +750,7 @@ $(document).ready(function(){
 
 $(window).load(function () {
 	equalHeightInit();
+	equelHeightInTabs();
 	footerBottom();
 	tabsInit();
 });
