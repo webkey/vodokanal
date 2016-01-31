@@ -199,6 +199,7 @@ button:hover{
 	color: #808080;
 	padding: 0 0 24px;
 }
+.user-content p{ letter-spacing: 0.05em; }
 .align-center{
 	text-align: center;
 }
@@ -746,6 +747,7 @@ label{
 	min-height: 60px;
 	background: #83cff0;
 	position: relative;
+	z-index: 1;
 }
 .header-options:before,
 .header-options:after { content: ""; display: table; }
@@ -1858,7 +1860,7 @@ li.has-drop.current>.nav-sub-drop:after,
 .questions__item:nth-child(4n+4) a{ background: #00bfff; }
 .questions__icon{
 	min-height: 70px;
-	margin: 0 0 15px;
+	margin: 0 0 13px;
 	text-align: center;
 	font-size: 0;
 	letter-spacing: -4px;
@@ -1878,6 +1880,7 @@ li.has-drop.current>.nav-sub-drop:after,
 }
 .questions__text{
 	text-align: center;
+	letter-spacing: 0.05em;
 	width: 200px;
 	max-width: 100%;
 	margin: 0 auto;
@@ -1958,7 +1961,7 @@ li.has-drop.current>.nav-sub-drop:after,
 	left: 0;
 	top: 124px;
 	background: #fff;
-	padding: 20px 20px 20px 90px;
+	padding: 15px 20px 24px 90px;
 	width: 640px;
 	max-width: 90%;
 	-webkit-box-sizing: border-box;
@@ -1969,11 +1972,12 @@ li.has-drop.current>.nav-sub-drop:after,
 	display: block;
 	font-size: 24px;
 	line-height: 36px;
+	letter-spacing: 0.05em;
 	text-transform: uppercase;
 	padding: 0 0 2px;
 	overflow: hidden;
 	max-height: 72px;
-	margin-bottom: 20px;
+	margin-bottom: 11px;
 }
 .promo-slider__title a{
 	text-decoration: none;
@@ -1990,7 +1994,7 @@ li.has-drop.current>.nav-sub-drop:after,
 .promo-slider__text{
 	font-size: 18px;
 	line-height: 24px;
-	letter-spacing: 0.03em;
+	letter-spacing: 0.05em;
 	color: #2b2a29;
 	overflow: hidden;
 	max-height: 72px;
@@ -2152,12 +2156,13 @@ li.has-drop.current>.nav-sub-drop:after,
 .category-links__icon{
 	display: inline-block;
 	vertical-align: middle;
-	margin-right: 5px;
+	margin-right: 13px;
 	line-height: 1;
 }
 .category-links__test{
 	display: inline-block;
 	vertical-align: middle;
+	letter-spacing: 0.05em;
 }
 /*category links end*/
 
@@ -2183,7 +2188,7 @@ li.has-drop.current>.nav-sub-drop:after,
 	font-size: 24px;
 	line-height: 29px;
 	font-weight: normal;
-	margin: 0 0 30px;
+	margin: 0 0 49px;
 	height: 87px;
 }
 .window__btns{
@@ -2194,7 +2199,7 @@ li.has-drop.current>.nav-sub-drop:after,
 }
 .window__works{
 	position: absolute;
-	bottom: 36px;
+	bottom: 39px;
 	left: 0;
 	width: 100%;
 	font-size: 14px;
@@ -2224,19 +2229,20 @@ li.has-drop.current>.nav-sub-drop:after,
 
 /*uncos*/
 .uncos{
-	padding: 20px 40px 0;
+	padding: 26px 40px 0;
 }
 .uncos-title{
 	display: block;
 	font-size: 24px;
 	line-height: 36px;
+	letter-spacing: 0.05em;
 	text-transform: uppercase;
 	color: #2b2a29;
-	padding: 0 0 20px;
+	padding: 0 0 17px;
 }
 .uncos-footer{
 	border-top: 1px solid #ccc;
-	padding: 20px 0;
+	padding: 16px 0;
 	position: relative;
 }
 .all-link{
@@ -2259,15 +2265,41 @@ li.has-drop.current>.nav-sub-drop:after,
 	margin: 0 -40px;
 	z-index: 1;
 }
+.uncos-slider .slick-list:before,
+.uncos-slider .slick-list:after{
+	content: '';
+	position: absolute;
+	top: 0;
+	height: 100%;
+	width: 40px;
+	z-index: 1;
+}
+.uncos-slider .slick-list:before{
+	left: 0;
+	background: #fff;
+	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMCIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+	background: -moz-linear-gradient(left,  rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+	background: -webkit-linear-gradient(left,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%);
+	background: linear-gradient(to right,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%);
+}
+.uncos-slider .slick-list:after{
+	right: 0;
+	background: #fff;
+	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+	background: -moz-linear-gradient(left,  rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+	background: -webkit-linear-gradient(left,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+	background: linear-gradient(to right,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=1 );
+}
 .uncos-item{
-	padding: 0 40px 20px;
+	padding: 0 40px 36px;
 }
 .uncos-item__title{
 	display: block;
 	font-size: 18px;
 	line-height: 22px;
 	font-weight: normal;
-	padding: 0 0 20px;
+	padding: 0 0 12px;
 }
 .uncos-item__title a{
 	color: #008acf;
@@ -2290,6 +2322,7 @@ li.has-drop.current>.nav-sub-drop:after,
 .uncos-item__text{
 	font-size: 14px;
 	line-height: 20px;
+	letter-spacing: 0.06em;
 }
 
 .uncos-slider .slick-prev,
@@ -2301,14 +2334,14 @@ li.has-drop.current>.nav-sub-drop:after,
 	-webkit-transform: translateY(0px);
 	-ms-transform: translateY(0px);
 	transform: translateY(0px);
-	margin-top: 21px;
+	margin-top: 22px;
 }
 .uncos-slider .slick-prev{
 	left: auto;
-	right: 64px;
+	right: 62px;
 }
 .uncos-slider .slick-next{
-	right: 40px;
+	right: 38px;
 }
 .uncos-slider .slick-prev:before,
 .uncos-slider .slick-next:before{
@@ -2316,7 +2349,18 @@ li.has-drop.current>.nav-sub-drop:after,
 	display: block;
 	width: 18px;
 	height: 18px;
+	opacity: 0.85;
 	background: url(../img/sprite-icons.png) no-repeat;
+	-webkit-transition: opacity 0.2s;
+	transition: opacity 0.2s;
+}
+.uncos-slider .slick-prev.made-arrow-disabled:before,
+.uncos-slider .slick-next.made-arrow-disabled:before{
+	/*opacity: 0.25;*/
+}
+.uncos-slider .slick-prev:hover:before,
+.uncos-slider .slick-next:hover:before{
+	opacity: 1;
 }
 .uncos-slider .slick-prev:before{
 	background-position: 0 -795px;

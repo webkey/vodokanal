@@ -425,15 +425,18 @@ function slickSlidersInit(){
 	/*promo slider end*/
 
 	/*uncos slider*/
-	var sliderUncos = $('.uncos-slider');
-	if(sliderUncos.length){
-		sliderUncos.on('init', function () {
-			$(this).css({'visibility':'visible'});
+	var $uncosSlider = $('.uncos-slider');
+	if($uncosSlider.length){
+		$uncosSlider.on('init', function (event, slick) {
+			if (slick.currentSlide == 0) {
+				$(this).css({'visibility':'visible'});
+				slick.$prevArrow.addClass('made-arrow-disabled');
+			}
 		});
-		sliderUncos.slick({
+		$uncosSlider.slick({
 			slidesToShow: 3,
-			slidesToScroll: 3,
-			infinite: false,
+			slidesToScroll: 1,
+			infinite: true,
 			speed: 200,
 			dots: true,
 			arrows: true,
@@ -450,6 +453,22 @@ function slickSlidersInit(){
 					slidesToScroll: 1
 				}
 			}]
+		}).on('afterChange', function (event, slick, currentSlide) {
+			var slidesLength = slick.$slides.length;
+			var $prevArrow = slick.$prevArrow;
+			var $nextArrow = slick.$nextArrow;
+			if(currentSlide > 0 && currentSlide < slidesLength - 1){
+				$prevArrow.removeClass('made-arrow-disabled');
+				$nextArrow.removeClass('made-arrow-disabled');
+				return;
+			}
+			if(currentSlide == 0){
+				$prevArrow.addClass('made-arrow-disabled');
+				return;
+			}
+			if(currentSlide == slidesLength - 1){
+				$nextArrow.addClass('made-arrow-disabled');
+			}
 		});
 	}
 	/*uncos slider end*/

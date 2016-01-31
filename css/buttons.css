@@ -26,6 +26,7 @@
 .btn-transparent{
 	font-size: 18px;
 	line-height: 24px;
+	letter-spacing: 0.03em;
 	color: #fff;
 	padding: 13px 10px;
 	background: rgba(0, 138, 207, 0.87);
@@ -45,7 +46,7 @@
 .btn-default-alt{
 	font: 18px/24px Arial, Helvetica, sans-serif;
 	color: #fff;
-	padding: 11px 20px;
+	padding: 11px 23px;
 	border: 2px solid #fff;
 	background: none;
 	position: relative;
