@@ -106,7 +106,7 @@ function phonesDrop(){
 /*phones drop end*/
 
 /*multi accordion*/
-(function () {
+(function ($) {
 	var MultiAccordion = function (settings) {
 		var options = $.extend({
 			collapsibleAll: false,
@@ -201,7 +201,7 @@ function phonesDrop(){
 	};
 
 	window.MultiAccordion = MultiAccordion;
-}());
+}(jQuery));
 
 function multiAccordionInit() {
 	if($('.nav__list').length){
@@ -217,6 +217,123 @@ function multiAccordionInit() {
 /*multi accordion end*/
 
 /*site map*/
+(function ($) {
+	var Disperse = function (settings) {
+		var options = $.extend({
+			wrapperContainer: 'body',
+			footer: '.footer',
+			animateSpeed: 300
+		}, settings || {});
+
+		this.options = options;
+		var container = $(options.wrapperContainer);
+		this.$wrapperContainer = container;
+		this.$switcher = $(options.switcher, container);
+		this.$footer = $(options.footer);
+		this.$disperseWrapper = $(options.disperseWrapper, container);
+		this.$disperseDrop = $(options.disperseDrop, container);
+		this._disperseHeight = this.$disperseDrop.outerHeight();
+
+		this._animateSpeed = options.animateSpeed;
+
+		this.modifiers = {
+			active: 'active',
+			drop: 'disperseDropJs'
+		};
+
+		this.bindAnimate();
+	};
+
+	//Disperse.prototype.bindSlide = function () {
+	//	var self = this,
+	//			_modifiersActive = this.modifiers.active,
+	//			_animateSpeed = this._animateSpeed,
+	//			$disperseDrop = self.$disperseDrop;
+	//
+	//	self.$switcher.on('click', function (e) {
+	//		e.preventDefault();
+	//		var $switcher = $(this);
+	//
+	//		if($switcher.hasClass(_modifiersActive)){
+	//			$disperseDrop.slideUp(_animateSpeed, function () {
+	//				footerBottom();
+	//			}).removeClass(_modifiersActive);
+	//			$switcher.removeClass(_modifiersActive);
+	//			return;
+	//		}
+	//
+	//		$disperseDrop.slideDown(_animateSpeed, function () {
+	//			footerBottom();
+	//		}).addClass(_modifiersActive);
+	//		$switcher.addClass(_modifiersActive);
+	//	})
+	//};
+
+	Disperse.prototype.bindAnimate = function () {
+		var self = this,
+				_modifiersActive = this.modifiers.active,
+				_modifiersDrop = this.modifiers.drop,
+				_animateSpeed = this._animateSpeed,
+				$disperseWrapper = self.$disperseWrapper;
+
+		self.$switcher.on('click', function (e) {
+			e.preventDefault();
+			var $switcher = $(this);
+
+			var _height = self._disperseHeight;
+
+			if($switcher.hasClass(_modifiersActive)){
+				$disperseWrapper.animate({'height':0},_animateSpeed).removeClass(''+_modifiersActive+' '+_modifiersDrop+'');
+				self.footerAtBottom(-(_height));
+
+				$switcher.removeClass(_modifiersActive);
+				return;
+			}
+
+			$disperseWrapper.animate({'height':_height},_animateSpeed).addClass(''+_modifiersActive+' '+_modifiersDrop+'');
+			self.footerAtBottom(_height);
+
+			$switcher.addClass(_modifiersActive);
+			$('html, body').animate({ scrollTop: $disperseWrapper.offset().top }, _animateSpeed);
+		})
+	};
+
+	Disperse.prototype.footerAtBottom = function (height) {
+		var self = this;
+
+		self.$footer.animate({
+			'margin-top': '-='+height+''
+		}, self._animateSpeed);
+
+		$('.spacer').animate({
+			'height': '+='+height+''
+		}, self._animateSpeed);
+	};
+
+	window.Disperse = Disperse;
+}(jQuery));
+
+function footerDropInit() {
+	if($('.footer-site-map').length){
+		new Disperse({
+			switcher: '.map-site-switcher',
+			wrapperContainer: '.footer',
+			disperseWrapper: '.footer-site-map',
+			disperseDrop: '.site-map',
+			animateSpeed: 400
+		});
+	}
+	if($('.footer-map-row').length){
+		new Disperse({
+			switcher: '.road-view',
+			wrapperContainer: '.footer',
+			disperseWrapper: '.footer-map-row',
+			disperseDrop: '.footer-local-map',
+			animateSpeed: 400
+		});
+	}
+}
+
 function siteMapInit(){
 	var siteMap = $('.site-map');
 	if (!siteMap.length){ return; }
@@ -696,6 +813,94 @@ function mapMainInit(){
 		}
 	}
 }
+
+function mapFooterInit(){
+	if (!$('#footer-main-map').length) {return;}
+
+	google.maps.event.addDomListener(window, 'load', init);
+	var map,
+			centerMapL = "53.9004",
+			centerMapR = "27.5788";
+
+	if($(window).width() < 640) {
+		centerMapL = "53.9004";
+		centerMapR = "27.5788";
+	}
+
+	function init() {
+		var mapOptions = {
+			center: new google.maps.LatLng(centerMapL, centerMapR),
+			zoom: 15,
+			zoomControl: true,
+			zoomControlOptions: {
+				style: google.maps.ZoomControlStyle.DEFAULT
+			},
+			disableDoubleClickZoom: true,
+			mapTypeControl: false,
+			scaleControl: false,
+			scrollwheel: false,
+			panControl: true,
+			streetViewControl: false,
+			draggable : true,
+			overviewMapControl: true,
+			overviewMapControlOptions: {
+				opened: false
+			},
+			mapTypeId: google.maps.MapTypeId.ROADMAP,
+			styles: styleMap
+		};
+		var mapElement = document.getElementById('footer-main-map');
+		var map = new google.maps.Map(mapElement, mapOptions);
+		var locations = [
+			['ул. Пулихова д.15', '220088 Беларусь, Минск', 'undefined', 'undefined', 'undefined', 53.8984, 27.5788, 'img/map-pin.png']
+		];
+		for (i = 0; i < locations.length; i++) {
+			if (locations[i][1] =='undefined'){ description ='';} else { description = locations[i][1];}
+			if (locations[i][2] =='undefined'){ telephone ='';} else { telephone = locations[i][2];}
+			if (locations[i][3] =='undefined'){ email ='';} else { email = locations[i][3];}
+			if (locations[i][4] =='undefined'){ web ='';} else { web = locations[i][4];}
+			if (locations[i][7] =='undefined'){ markericon ='';} else { markericon = locations[i][7];}
+			marker = new google.maps.Marker({
+				icon: markericon,
+				position: new google.maps.LatLng(locations[i][5], locations[i][6]),
+				map: map,
+				title: locations[i][0],
+				desc: description,
+				tel: telephone,
+				email: email,
+				web: web
+			});
+			link = '';
+			bindInfoWindow(marker, map, locations[i][0], description, telephone, email, web, link);
+		}
+		function bindInfoWindow(marker, map, title, desc, telephone, email, web, link) {
+			var infoWindowVisible = (function () {
+				var currentlyVisible = false;
+				return function (visible) {
+					if (visible !== undefined) {
+						currentlyVisible = visible;
+					}
+					return currentlyVisible;
+				};
+			}());
+			iw = new google.maps.InfoWindow();
+			google.maps.event.addListener(marker, 'click', function() {
+				if (infoWindowVisible()) {
+					iw.close();
+					infoWindowVisible(false);
+				} else {
+					var html= "<div style='color:#000;background-color:#fff;padding:5px;width:150px;'><h4>"+title+"</h4><p>"+desc+"<p></div>";
+					iw = new google.maps.InfoWindow({content:html});
+					iw.open(map,marker);
+					infoWindowVisible(true);
+				}
+			});
+			google.maps.event.addListener(iw, 'closeclick', function () {
+				infoWindowVisible(false);
+			});
+		}
+	}
+}
 /*map init end*/
 
 /*ui tabs initial*/
@@ -805,12 +1010,14 @@ $(document).ready(function(){
 	showFormSearch();
 	phonesDrop();
 	multiAccordionInit();
-	siteMapInit();
-	roadPopupInit();
+	//siteMapInit();
+	footerDropInit();
+	//roadPopupInit();
 	cardSwitch();
 	contactsSwitcher();
 	slickSlidersInit();
 	mapMainInit();
+	mapFooterInit();
 	tabsInit();
 	accordionInit();
 });
