@@ -117,9 +117,9 @@ function phonesDrop(){
 		this.options = options;
 		var container = $(options.accordionContainer);
 		this.$accordionContainer = container; //блок с аккордеоном
-		this.$accordionHeader = $(options.accordionHeader, container); //непосредственный родитель сворачиваемого элемента
+		this.$accordionItem = $(options.accordionItem, container); //непосредственный родитель сворачиваемого элемента
 		this.$accordionEvent = $(options.accordionEvent, container); //элемент, по которому производим клик
-		this.$accordionBody = $(options.accordionBody); //элемент, который сворачивается/разворачивается
+		this.$collapsibleElement = $(options.collapsibleElement); //элемент, который сворачивается/разворачивается
 		this._collapsibleAll = options.collapsibleAll;
 		this._animateSpeed = options.animateSpeed;
 		this.$totalCollapsible = $(options.totalCollapsible);//элемент, по клику на который сворачиваются все аккордены в наборе
@@ -139,9 +139,9 @@ function phonesDrop(){
 	MultiAccordion.prototype.totalCollapsible = function () {
 		var self = this;
 		self.$totalCollapsible.on('click', function () {
-			self.$accordionBody.slideUp(self._animateSpeed);
-			self.$accordionHeader.removeClass(self.modifiers.active);
-			self.$accordionHeader.removeClass(self.modifiers.current);
+			self.$collapsibleElement.slideUp(self._animateSpeed);
+			self.$accordionItem.removeClass(self.modifiers.active);
+			self.$accordionItem.removeClass(self.modifiers.current);
 		})
 	};
 
@@ -149,8 +149,8 @@ function phonesDrop(){
 		var self = this;
 		$(window).on('resize', function () {
 			if(self._resizeCollapsible){
-				self.$accordionBody.slideUp(self._animateSpeed);
-				self.$accordionHeader.removeClass(self.modifiers.active);
+				self.$collapsibleElement.slideUp(self._animateSpeed);
+				self.$accordionItem.removeClass(self.modifiers.active);
 			}
 		});
 	};
@@ -160,8 +160,8 @@ function phonesDrop(){
 				modifiers = this.modifiers,
 				animateSpeed = this._animateSpeed,
 				accordionContainer = this.$accordionContainer,
-				anyAccordionItem = this.$accordionHeader,
-				collapsibleElement = this.$accordionBody;
+				anyAccordionItem = this.$accordionItem,
+				collapsibleElement = this.$collapsibleElement;
 
 		self.$accordionEvent.on('click', function (e) {
 			var current = $(this);
@@ -744,7 +744,7 @@ function tabsInit(){
 
 	SimpleAccordion.prototype.beforeStart = function () {
 		var self = this,
-				_modifiersActive = self.modifiers.active,
+				_modifiersActive = 	self.modifiers.active,
 				_indexActive = self._active;
 		self.$accordionBody.eq(_indexActive).slideDown(0).addClass(_modifiersActive);
 		self.$accordionHeader.eq(_indexActive).addClass(_modifiersActive);
