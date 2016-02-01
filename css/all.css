@@ -1304,7 +1304,8 @@ li.has-drop.current>.nav-sub-drop:after,
 /*page heading end*/
 
 /*breadcrumbs*/
-.breadcrumbs{
+.breadcrumbs,
+.user-content .breadcrumbs{
 	font-size: 12px;
 	line-height: 18px;
 	letter-spacing: 0.1em;
@@ -2456,8 +2457,9 @@ li.has-drop.current>.nav-sub-drop:after,
 	color: #333;
 	font-size: 18px;
 	line-height: 22px;
+	letter-spacing: 0.05em;
 	text-decoration: none;
-	padding: 12px 18px;
+	padding: 12px;
 	position: relative;
 	border-radius: 3px;
 	-webkit-transition: background 0.2s;
@@ -2580,6 +2582,59 @@ li.has-drop.current>.nav-sub-drop:after,
 /*years list end*/
 /*tabs end*/
 
+/*faq*/
+.faq{
+	display: block;
+	position: relative;
+	margin: 0 -10px;
+}
+.faq-list h3{
+	cursor: pointer;
+	font-size: 24px;
+	line-height: 36px;
+	font-weight: normal;
+	padding: 22px 30px 26px 0;
+	position: relative;
+	border-top: 1px solid #d9d9d9;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.faq-list h3:first-child{
+	border-top: none;
+	padding-top: 0;
+}
+.faq-list h3>span{
+	border-bottom: 1px dotted #333;
+	-webkit-transition: border 0.2s, color 0.2s;
+	transition: border 0.2s, color 0.2s;
+}
+.faq-list h3:hover>span,
+.faq-list h3.active>span{
+	color: #008acf;
+	border-color: #008acf;
+}
+.faq-list h3>i{
+	position: absolute;
+	right: 0;
+	top: 37px;
+}
+.faq-list h3:first-child>i{
+	top: 16px;
+}
+.faq-list h3.active>i{
+	background-position: 0 -256px;
+}
+.faq-list h3.active>i{
+	background-position: 0 -340px;
+}
+.faq-list h3+div{
+	display: none;
+	padding: 0 30px 20px;
+	color: #666;
+}
+/*faq end*/
+
 /*previews*/
 .previews{
 	display: block;
@@ -2613,7 +2668,7 @@ li.has-drop.current>.nav-sub-drop:after,
 	z-index: 1;
 }
 .previews__content{
-	padding: 29px;
+	padding: 22px 28px 29px;
 	position: relative;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -2655,7 +2710,7 @@ li.has-drop.current>.nav-sub-drop:after,
 	display: block;
 	font-style: normal;
 	color: #9c9d9f;
-	padding: 0 45px 20px 0;
+	padding: 0 35px 7px 0;
 }
 .previews__icon{
 	position: absolute;
@@ -2687,12 +2742,13 @@ li.has-drop.current>.nav-sub-drop:after,
 	font-weight: bold;
 	color: #333;
 	display: block;
-	padding: 0 0 15px;
+	padding: 0 0 23px;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
 .previews__text{
+	letter-spacing: 0.05em;
 	opacity: 1;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;

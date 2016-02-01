@@ -117,9 +117,9 @@ function phonesDrop(){
 		this.options = options;
 		var container = $(options.accordionContainer);
 		this.$accordionContainer = container; //блок с аккордеоном
-		this.$accordionItem = $(options.accordionItem, container); //непосредственный родитель сворачиваемого элемента
+		this.$accordionHeader = $(options.accordionHeader, container); //непосредственный родитель сворачиваемого элемента
 		this.$accordionEvent = $(options.accordionEvent, container); //элемент, по которому производим клик
-		this.$collapsibleElement = $(options.collapsibleElement); //элемент, который сворачивается/разворачивается
+		this.$accordionBody = $(options.accordionBody); //элемент, который сворачивается/разворачивается
 		this._collapsibleAll = options.collapsibleAll;
 		this._animateSpeed = options.animateSpeed;
 		this.$totalCollapsible = $(options.totalCollapsible);//элемент, по клику на который сворачиваются все аккордены в наборе
@@ -139,9 +139,9 @@ function phonesDrop(){
 	MultiAccordion.prototype.totalCollapsible = function () {
 		var self = this;
 		self.$totalCollapsible.on('click', function () {
-			self.$collapsibleElement.slideUp(self._animateSpeed);
-			self.$accordionItem.removeClass(self.modifiers.active);
-			self.$accordionItem.removeClass(self.modifiers.current);
+			self.$accordionBody.slideUp(self._animateSpeed);
+			self.$accordionHeader.removeClass(self.modifiers.active);
+			self.$accordionHeader.removeClass(self.modifiers.current);
 		})
 	};
 
@@ -149,8 +149,8 @@ function phonesDrop(){
 		var self = this;
 		$(window).on('resize', function () {
 			if(self._resizeCollapsible){
-				self.$collapsibleElement.slideUp(self._animateSpeed);
-				self.$accordionItem.removeClass(self.modifiers.active);
+				self.$accordionBody.slideUp(self._animateSpeed);
+				self.$accordionHeader.removeClass(self.modifiers.active);
 			}
 		});
 	};
@@ -160,8 +160,8 @@ function phonesDrop(){
 				modifiers = this.modifiers,
 				animateSpeed = this._animateSpeed,
 				accordionContainer = this.$accordionContainer,
-				anyAccordionItem = this.$accordionItem,
-				collapsibleElement = this.$collapsibleElement;
+				anyAccordionItem = this.$accordionHeader,
+				collapsibleElement = this.$accordionBody;
 
 		self.$accordionEvent.on('click', function (e) {
 			var current = $(this);
@@ -716,6 +716,72 @@ function tabsInit(){
 }
 /*ui tabs initial end*/
 
+/*simple accordion*/
+(function () {
+	var SimpleAccordion = function (settings) {
+		var options = $.extend({
+			accordionHeader: 'h3',
+			active: '0',
+			animateSpeed: 300
+		}, settings || {});
+
+		this.options = options;
+		var container = $(options.accordionContainer);
+		this.$accordionContainer = container;
+		this.$accordionHeader = $(options.accordionHeader, container);
+		this.$accordionBody = $(this.$accordionHeader.next('div'));
+		this._active = options.active;
+		this._animateSpeed = options.animateSpeed;
+
+		this.modifiers = {
+			active: 'active',
+			current: 'current'
+		};
+
+		this.bindEvents();
+		this.beforeStart();
+	};
+
+	SimpleAccordion.prototype.beforeStart = function () {
+		var self = this,
+				_modifiersActive = self.modifiers.active,
+				_indexActive = self._active;
+		self.$accordionBody.eq(_indexActive).slideDown(0).addClass(_modifiersActive);
+		self.$accordionHeader.eq(_indexActive).addClass(_modifiersActive);
+	};
+
+	SimpleAccordion.prototype.bindEvents = function () {
+		var self = this,
+				_modifiersActive = this.modifiers.active,
+				animateSpeed = this._animateSpeed,
+				accordionBody = this.$accordionBody;
+
+		self.$accordionHeader.on('click', function (e) {
+			e.preventDefault();
+			var current = $(this);
+			if(current.hasClass(_modifiersActive)){
+				return;
+			}
+			accordionBody.slideUp(animateSpeed).removeClass(_modifiersActive);
+			self.$accordionHeader.removeClass(_modifiersActive);
+			current.next('div').slideDown(animateSpeed).addClass(_modifiersActive);
+			current.addClass(_modifiersActive);
+		})
+	};
+
+	window.SimpleAccordion = SimpleAccordion;
+}());
+
+function accordionInit() {
+	if($('.faq-list').length){
+		new SimpleAccordion({
+			accordionContainer: '.faq-list',
+			animateSpeed: 200
+		});
+	}
+}
+/*simple accordion end*/
+
 /* footer at bottom */
 function footerBottom(){
 	var footer = $('.footer');
@@ -746,6 +812,7 @@ $(document).ready(function(){
 	slickSlidersInit();
 	mapMainInit();
 	tabsInit();
+	accordionInit();
 });
 
 $(window).load(function () {
