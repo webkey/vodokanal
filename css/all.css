@@ -2789,7 +2789,7 @@ li.has-drop.current>.nav-sub-drop:after,
 	line-height: 36px;
 	color: #333;
 	display: block;
-	padding: 0 0 10px;
+	padding: 0 0 29px;
 }
 .gallery__title-text{
 	border-bottom: 1px solid #333;
@@ -2805,6 +2805,7 @@ li.has-drop.current>.nav-sub-drop:after,
 	line-height: 36px;
 	color: #ccc;
 	font-style: normal;
+	margin: 0 0 0 8px;
 	-webkit-transition: color 0.2s;
 	transition: color 0.2s ;
 }
@@ -2847,6 +2848,97 @@ li.has-drop.current>.nav-sub-drop:after,
 }
 /*gallery list end*/
 /*gallery end*/
+
+/*works*/
+.works{
+	position: relative;
+}
+.works__list,
+.user-content .works__list{
+	list-style: none;
+	padding: 0;
+	margin: 0 -20px;
+	font-size: 0;
+	letter-spacing: -4px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.works__list .works__item{
+	display: inline-block;
+	vertical-align: top;
+	padding: 0 20px 40px;
+	font-size: 14px;
+	letter-spacing: normal;
+	width: 49.99%;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.works__item-holder{
+	border: 1px solid #dcdcdc;
+}
+.works__img{
+	float: left;
+	position: relative;
+	margin: -1px -1px 0;
+}
+.works__container{
+	padding: 30px;
+	clear: both;
+}
+.works__title{
+	font-size: 24px;
+	line-height: 36px;
+	padding: 0 0 22px;
+	color: #333;
+}
+.works__tabs-control,
+.user-content .works__tabs-control{
+	overflow: hidden;
+	padding: 0 0 22px;
+	margin: 0;
+	list-style: none;
+	font-size: 12px;
+	line-height: 14px;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+}
+.works__tabs-control li,
+.user-content .works__tabs-control li{
+	float: left;
+	margin: 0;
+	padding: 0 30px 10px 0;
+}
+.works__tabs-control li:before,
+.user-content .works__tabs-control li:before{
+	content: none;
+}
+.works__tabs-control a{
+	text-decoration: none;
+	color: #b2b2b2;
+	border-bottom: 1px dotted #b2b2b2;
+	-webkit-transition: border 0.2s, color 0.2s;
+	transition: border 0.2s, color 0.2s;
+}
+.works__tabs-control a:hover{
+	color: #008acf;
+	border-color: #008acf;
+}
+.works__tabs-control .active a{
+	font-weight: bold;
+	color: #008acf;
+	border-color: transparent;
+}
+.works__text{
+	font-size: 14px;
+	line-height: 24px;
+	letter-spacing: 0.05em;
+	overflow: hidden;
+	height: 192px;
+	margin: 0 0 27px;
+}
+/*works end*/
 
 /*main contacts*/
 .main-contacts{

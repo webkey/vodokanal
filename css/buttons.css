@@ -62,3 +62,63 @@
 	color: #008acf;
 }
 /*btn-default-alt end*/
+
+/*btn-more*/
+.btn-more{
+	font: 12px/14px Arial, Helvetica, sans-serif;
+	text-transform: uppercase;
+	color: #808080;
+	padding: 14px 28px 13px;
+	border: 2px solid #008acf;
+	background: none;
+	position: relative;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-transition: color 0.2s, background 0.2s;
+	transition: color 0.2s, background 0.2s;
+}
+.btn-more:hover{
+	background: #008acf;
+	color: #fff;
+}
+.depict-more{
+	height: 14px;
+	width: 8px;
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	margin: 0 0 0 22px;
+}
+.depict-more:before,
+.depict-more:after{
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 14px;
+	width: 8px;
+	background: url(../img/sprite-icons.png) no-repeat 0 -867px;
+	opacity: 1;
+	-ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+	-webkit-transition: opacity 0.2s;
+	transition: opacity 0.2s;
+}
+.depict-more:after{
+	background-position: 0 -901px;
+	opacity: 0;
+	-ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+}
+.btn-more:hover .depict-more:before{
+	opacity: 0;
+	-ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+}
+.btn-more:hover .depict-more:after{
+	opacity: 1;
+	-ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+}
+/*btn-default-alt end*/

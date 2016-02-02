@@ -904,7 +904,7 @@ function mapFooterInit(){
 /*map init end*/
 
 /*ui tabs initial*/
-function tabsInit(){
+function uiTabsInit(){
 	var $tabs = $('.tabs-js');
 	if($tabs.length){
 		$tabs.tabs({
@@ -920,6 +920,40 @@ function tabsInit(){
 	}
 }
 /*ui tabs initial end*/
+
+/*simple tabs*/
+function tabsInit() {
+	var tabWrap = $('.tabs-wrap');
+	if (!tabWrap) { return; }
+
+	/*скрыть неактивные табы*/
+	tabWrap.each(function () {
+		var thisTabWrap = $(this);
+		var activeControlIndex = thisTabWrap.first('.tab-controls-list').find('li.active').index();
+		var tab = thisTabWrap.children('.tabs').children('.tab');
+		tab.fadeOut(0).eq(activeControlIndex).fadeIn(0);
+	});
+
+	/*по клику скрываем все табы и показываем активный*/
+	$('.tab-controls-list').on('click', 'a', function (e) {
+		var current = $(this);
+		/*если таб активный, функиця клика отменяется*/
+		if (current.parent('li').hasClass('active')) {
+			e.preventDefault();
+			return;
+		}
+
+		var index = current.parent().index();
+		current.closest('li').addClass('active').siblings().removeClass('active');
+		var tab = current.closest('.tabs-wrap').children('.tabs').children('.tab');
+		tab.fadeOut(0);
+		var currentTab = tab.eq(index);
+		currentTab.fadeIn(0);
+
+		e.preventDefault();
+	});
+}
+/*simple tabs end*/
 
 /*simple accordion*/
 (function () {
@@ -1026,7 +1060,7 @@ $(window).load(function () {
 	equalHeightInit();
 	equelHeightInTabs();
 	footerBottom();
-	tabsInit();
+	uiTabsInit();
 });
 
 $(window).resize(function(){
