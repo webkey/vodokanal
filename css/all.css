@@ -1113,6 +1113,9 @@ label{
 	display: block;
 	height: 100%;
 }
+.logo-print{
+	display: none;
+}
 /*logo end*/
 /*HEADER end*/
 
