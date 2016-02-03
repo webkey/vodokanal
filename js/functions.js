@@ -244,31 +244,6 @@ function multiAccordionInit() {
 		this.bindAnimate();
 	};
 
-	//Disperse.prototype.bindSlide = function () {
-	//	var self = this,
-	//			_modifiersActive = this.modifiers.active,
-	//			_animateSpeed = this._animateSpeed,
-	//			$disperseDrop = self.$disperseDrop;
-	//
-	//	self.$switcher.on('click', function (e) {
-	//		e.preventDefault();
-	//		var $switcher = $(this);
-	//
-	//		if($switcher.hasClass(_modifiersActive)){
-	//			$disperseDrop.slideUp(_animateSpeed, function () {
-	//				footerBottom();
-	//			}).removeClass(_modifiersActive);
-	//			$switcher.removeClass(_modifiersActive);
-	//			return;
-	//		}
-	//
-	//		$disperseDrop.slideDown(_animateSpeed, function () {
-	//			footerBottom();
-	//		}).addClass(_modifiersActive);
-	//		$switcher.addClass(_modifiersActive);
-	//	})
-	//};
-
 	Disperse.prototype.bindAnimate = function () {
 		var self = this,
 				_modifiersActive = this.modifiers.active,
@@ -410,15 +385,15 @@ function contactsSwitcher(){
 	var $contacts = $('.main-contacts');
 	if(!$contacts.length){return;}
 
-	$('.contacts-switcher').on('click', function () {
+	$('.contacts-panel__switcher').on('click', function () {
 		var $switcher = $(this);
 		var $itemCardCurrent = $switcher.closest($contacts);
-		if($itemCardCurrent.hasClass('contacts-opened')){
-			$itemCardCurrent.removeClass('contacts-opened');
+		if($itemCardCurrent.hasClass('contacts-panel_opened')){
+			$itemCardCurrent.removeClass('contacts-panel_opened');
 			return;
 		}
 
-		$itemCardCurrent.addClass('contacts-opened');
+		$itemCardCurrent.addClass('contacts-panel_opened');
 	})
 }
 /*contacts switcher end*/
@@ -617,288 +592,129 @@ function slickSlidersInit(){
 /*slick sliders init end*/
 
 /*map init*/
-var styleMap = [
-	{
-		"featureType": "water",
-		"elementType": "geometry.fill",
-		"stylers": [
-			{ "color": "#46bcec" },
-			//{ saturation: 0 },
-			//{ lightness: 0 },
-			//{ gamma: 1.51 }
-		]
-	},{
-		"featureType": "transit",
-		"stylers": [
-			{ "color": "#808080" },
-			{ "visibility": "off" }
-		]
-	},{
-		"featureType": "road.highway",
-		"elementType": "geometry.stroke",
-		"stylers": [
-			{ "visibility": "on" },
-			{ "color": "#b4c2d3" }
-		]
-	},{
-		"featureType": "road.highway",
-		"elementType": "geometry.fill",
-		"stylers": [
-			{ "color": "#ffffff" }
-		]
-	},{
-		"featureType": "road.local",
-		"elementType": "geometry.fill",
-		"stylers": [
-			{ "visibility": "on" },
-			{ "color": "#ffffff" },
-			{ "weight": 1.8 }
-		]
-	},{
-		"featureType": "poi",
-		"elementType": "geometry.fill",
-		"stylers": [
-			{ "visibility": "on" },
-			{ "color": "#ebebeb" }
-		]
-	},{
-		"featureType": "administrative",
-		"elementType": "geometry",
-		"stylers": [
-			{ "color": "#0059A5" }
-		]
-	},{
-		"featureType": "road.arterial",
-		"elementType": "geometry.fill",
-		"stylers": [
-			{ "color": "#ffffff" }
-		]
-	},{
-		"featureType": "landscape",
-		"elementType": "geometry.fill",
-		"stylers": [
-			{ "visibility": "on" },
-			{ "color": "#f5f5f5" }
-		]
-	},{
-		"featureType": "road",
-		"elementType": "labels.text.fill",
-		"stylers": [
-			{ "color": "#696969" }
-		]
-	},{
-		"featureType": "administrative",
-		"elementType": "labels.text.fill",
-		"stylers": [
-			{ "visibility": "on" },
-			{ "color": "#414141" }
-		]
-	},{
-		"featureType": "poi",
-		"elementType": "labels.icon",
-		"stylers": [
-			{ "visibility": "off" }
-		]
-	},{
-		"featureType": "poi",
-		"elementType": "labels",
-		"stylers": [
-			{ "visibility": "off" }
-		]
-	},{
-		"featureType": "road.arterial",
-		"elementType": "geometry.stroke",
-		"stylers": [
-			{ "color": "#d6d6d6" }
-		]
-	},{
-		"featureType": "road",
-		"elementType": "labels.icon",
-		"stylers": [
-			{ "visibility": "off" }
-		]
-	},{
-	},{
-		"featureType": "poi",
-		"elementType": "geometry.fill",
-		"stylers": [
-			{ "color": "#f2f2f2" }
-		]
-	}
+var smallPinMap = 'img/map-pin-sm.png',
+	largePinMap = 'img/map-pin.png';
+
+var localObjects = [
+	[
+		{lat: 53.8984, lng: 27.5788}, //coordinates of marker
+		{latBias: 0.0020, lngBias: 0}, //bias coordinates for center map
+		largePinMap, //image pin
+		7,
+		{
+			title: 'Минскводоканал',
+			address: '<b>Адрес:</b> 220088 Беларусь, Минск, ул. Пулихова д.15',
+			phone: '<b>Приёмная:</b> <div>+375 17 327 37 04</div> <div>+375 17 327 37 04</div>',
+			works: '<b>Эл. почта:</b> <div><span>Пн-Пт:</span> 10<sup>00</sup> – 20<sup>00</sup></div> <div><span>Сб-Вс:</span> 10<sup>00</sup> – 18<sup>00</sup></div>'
+		}
+	],[
+		{lat: 52.799394, lng: 27.558581},
+		{latBias: 0.1, lngBias: -2.5},
+		smallPinMap,
+		7,
+		{
+			title: 'Филиал "Завод горно-шахтного оборудования"',
+			address: '<b>Адрес:</b> Республика Беларусь, Метявичское шоссе 5/3, 223710 Солигорский р-н, Минская обл.',
+			phone: '<b>Главный технолог:</b> +375 174 21 20 59',
+			works: '<b>Эл. почта:</b> <a href="mailto:zgsho@niva.by">zgsho@niva.by</a>'
+		}
+	]
 ];
 
+var styleMap = [{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#444444"}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2f2f2"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"all","stylers":[{"saturation":-100},{"lightness":45}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#46bcec"},{"visibility":"on"}]}];
+
 function mapMainInit(){
-	if (!$('#main-map').length) {return;}
+	if (!$('[id*="-map"]').length) {return;}
 
-	google.maps.event.addDomListener(window, 'load', init);
-	var map,
-			centerMapL = "53.9004",
-			centerMapR = "27.5788";
+	function mapCenter(index){
+		var localObject = localObjects[index];
 
-	if($(window).width() < 640) {
-		centerMapL = "53.9004";
-		centerMapR = "27.5788";
-	}
-
-	function init() {
-		var mapOptions = {
-			center: new google.maps.LatLng(centerMapL, centerMapR),
-			zoom: 15,
-			zoomControl: true,
-			zoomControlOptions: {
-				style: google.maps.ZoomControlStyle.DEFAULT
-			},
-			disableDoubleClickZoom: true,
-			mapTypeControl: false,
-			scaleControl: false,
-			scrollwheel: false,
-			panControl: true,
-			streetViewControl: false,
-			draggable : true,
-			overviewMapControl: true,
-			overviewMapControlOptions: {
-				opened: false
-			},
-			mapTypeId: google.maps.MapTypeId.ROADMAP,
-			styles: styleMap
+		return{
+			lat: localObject[0].lat + localObject[1].latBias,
+			lng: localObject[0].lng + localObject[1].lngBias
 		};
-		var mapElement = document.getElementById('main-map');
-		var map = new google.maps.Map(mapElement, mapOptions);
-		var locations = [
-			['ул. Пулихова д.15', '220088 Беларусь, Минск', 'undefined', 'undefined', 'undefined', 53.8984, 27.5788, 'img/map-pin.png']
-		];
-		for (i = 0; i < locations.length; i++) {
-			if (locations[i][1] =='undefined'){ description ='';} else { description = locations[i][1];}
-			if (locations[i][2] =='undefined'){ telephone ='';} else { telephone = locations[i][2];}
-			if (locations[i][3] =='undefined'){ email ='';} else { email = locations[i][3];}
-			if (locations[i][4] =='undefined'){ web ='';} else { web = locations[i][4];}
-			if (locations[i][7] =='undefined'){ markericon ='';} else { markericon = locations[i][7];}
-			marker = new google.maps.Marker({
-				icon: markericon,
-				position: new google.maps.LatLng(locations[i][5], locations[i][6]),
-				map: map,
-				title: locations[i][0],
-				desc: description,
-				tel: telephone,
-				email: email,
-				web: web
-			});
-			link = '';            bindInfoWindow(marker, map, locations[i][0], description, telephone, email, web, link);
-		}
-		function bindInfoWindow(marker, map, title, desc, telephone, email, web, link) {
-			var infoWindowVisible = (function () {
-				var currentlyVisible = false;
-				return function (visible) {
-					if (visible !== undefined) {
-						currentlyVisible = visible;
-					}
-					return currentlyVisible;
-				};
-			}());
-			iw = new google.maps.InfoWindow();
-			google.maps.event.addListener(marker, 'click', function() {
-				if (infoWindowVisible()) {
-					iw.close();
-					infoWindowVisible(false);
-				} else {
-					var html= "<div style='color:#000;background-color:#fff;padding:5px;width:150px;'><h4>"+title+"</h4><p>"+desc+"<p></div>";
-					iw = new google.maps.InfoWindow({content:html});
-					iw.open(map,marker);
-					infoWindowVisible(true);
-				}
-			});
-			google.maps.event.addListener(iw, 'closeclick', function () {
-				infoWindowVisible(false);
-			});
-		}
-	}
-}
-
-function mapFooterInit(){
-	if (!$('#footer-main-map').length) {return;}
-
-	google.maps.event.addDomListener(window, 'load', init);
-	var map,
-			centerMapL = "53.9004",
-			centerMapR = "27.5788";
-
-	if($(window).width() < 640) {
-		centerMapL = "53.9004";
-		centerMapR = "27.5788";
 	}
 
-	function init() {
-		var mapOptions = {
-			center: new google.maps.LatLng(centerMapL, centerMapR),
-			zoom: 15,
-			zoomControl: true,
-			zoomControlOptions: {
-				style: google.maps.ZoomControlStyle.DEFAULT
-			},
-			disableDoubleClickZoom: true,
-			mapTypeControl: false,
-			scaleControl: false,
-			scrollwheel: false,
-			panControl: true,
-			streetViewControl: false,
-			draggable : true,
-			overviewMapControl: true,
-			overviewMapControlOptions: {
-				opened: false
-			},
-			mapTypeId: google.maps.MapTypeId.ROADMAP,
-			styles: styleMap
-		};
-		var mapElement = document.getElementById('footer-main-map');
-		var map = new google.maps.Map(mapElement, mapOptions);
-		var locations = [
-			['ул. Пулихова д.15', '220088 Беларусь, Минск', 'undefined', 'undefined', 'undefined', 53.8984, 27.5788, 'img/map-pin.png']
-		];
-		for (i = 0; i < locations.length; i++) {
-			if (locations[i][1] =='undefined'){ description ='';} else { description = locations[i][1];}
-			if (locations[i][2] =='undefined'){ telephone ='';} else { telephone = locations[i][2];}
-			if (locations[i][3] =='undefined'){ email ='';} else { email = locations[i][3];}
-			if (locations[i][4] =='undefined'){ web ='';} else { web = locations[i][4];}
-			if (locations[i][7] =='undefined'){ markericon ='';} else { markericon = locations[i][7];}
-			marker = new google.maps.Marker({
-				icon: markericon,
-				position: new google.maps.LatLng(locations[i][5], locations[i][6]),
-				map: map,
-				title: locations[i][0],
-				desc: description,
-				tel: telephone,
-				email: email,
-				web: web
-			});
-			link = '';
-			bindInfoWindow(marker, map, locations[i][0], description, telephone, email, web, link);
+	var mapOptions = {
+		zoom: 15,
+		center: mapCenter(0),
+		styles: styleMap,
+		mapTypeControl: false,
+		scaleControl: false,
+		scrollwheel: false
+	};
+
+	var markers = [],
+		elementById = [
+		document.getElementById('main-map'),
+		document.getElementById('footer-main-map'),
+		document.getElementById('contacts-map')
+	];
+	if($(elementById[0]).length){
+		var map = new google.maps.Map(elementById[0], mapOptions);
+		addMarker(0,map);
+	}
+	if($(elementById[1]).length){
+		var map2 = new google.maps.Map(elementById[1], mapOptions);
+		addMarker(0,map2);
+	}
+	if($(elementById[2]).length){
+		var map3 = new google.maps.Map(elementById[2], mapOptions);
+		addMarker(0,map3);
+	}
+
+	$('.location-link>a').click( function(e) {
+		var index = $(this).data('location');
+		deleteMarkers();
+		moveToLocation(index,map);
+		addMarker(index);
+		e.preventDefault();
+	});
+
+	function moveToLocation(index, map){
+		var object = localObjects[index];
+		var center = new google.maps.LatLng(mapCenter(index));
+		map.panTo(center);
+		map.setZoom(object[3]);
+	}
+
+	function addMarker(index,map) {
+		var object = localObjects[index];
+		var marker = new google.maps.Marker({
+			position: object[0],
+			//animation: google.maps.Animation.DROP,
+			map: map,
+			icon: object[2],
+			title: object[4].title
+		});
+		markers.push(marker);
+
+		var infoWindow = new google.maps.InfoWindow({
+			content: '<div class="map-popup">' +
+			'<h4>'+object[4].title+'</h4>' +
+			'<div class="map-popup__list">' +
+				'<div class="map-popup__row">'+object[4].address+'</div>' +
+				'<div class="map-popup__row">'+object[4].phone+'</div>' +
+				'<div class="map-popup__row">'+object[4].works+'</div>' +
+			'</div>' +
+			'</div>',
+			maxWidth: 220
+		});
+
+		marker.addListener('click', function() {
+			infoWindow.open(map, marker);
+		});
+	}
+
+	function setMapOnAll(map) {
+		for (var i = 0; i < markers.length; i++) {
+			markers[i].setMap(map);
 		}
-		function bindInfoWindow(marker, map, title, desc, telephone, email, web, link) {
-			var infoWindowVisible = (function () {
-				var currentlyVisible = false;
-				return function (visible) {
-					if (visible !== undefined) {
-						currentlyVisible = visible;
-					}
-					return currentlyVisible;
-				};
-			}());
-			iw = new google.maps.InfoWindow();
-			google.maps.event.addListener(marker, 'click', function() {
-				if (infoWindowVisible()) {
-					iw.close();
-					infoWindowVisible(false);
-				} else {
-					var html= "<div style='color:#000;background-color:#fff;padding:5px;width:150px;'><h4>"+title+"</h4><p>"+desc+"<p></div>";
-					iw = new google.maps.InfoWindow({content:html});
-					iw.open(map,marker);
-					infoWindowVisible(true);
-				}
-			});
-			google.maps.event.addListener(iw, 'closeclick', function () {
-				infoWindowVisible(false);
-			});
-		}
+	}
+
+	function deleteMarkers() {
+		setMapOnAll(null);
+		//markers = [];
 	}
 }
 /*map init end*/
@@ -909,7 +725,7 @@ function uiTabsInit(){
 	if($tabs.length){
 		$tabs.tabs({
 			//animate: 'easeInOutQuint',
-			activate: function( event, ui ) {
+			activate: function() {
 				/*previews list*/
 				if($('.previews__list').length){
 					equelHeightInTabs();
@@ -931,7 +747,7 @@ function tabsInit() {
 		var thisTabWrap = $(this);
 		var activeControlIndex = thisTabWrap.first('.tab-controls-list').find('li.active').index();
 		var tab = thisTabWrap.children('.tabs').children('.tab');
-		tab.fadeOut(0).eq(activeControlIndex).fadeIn(0);
+		tab.fadeOut(0).eq(activeControlIndex).fadeIn(0).addClass('tab-active');
 	});
 
 	/*по клику скрываем все табы и показываем активный*/
@@ -946,9 +762,9 @@ function tabsInit() {
 		var index = current.parent().index();
 		current.closest('li').addClass('active').siblings().removeClass('active');
 		var tab = current.closest('.tabs-wrap').children('.tabs').children('.tab');
-		tab.fadeOut(0);
+		tab.fadeOut(0).removeClass('tab-active');
 		var currentTab = tab.eq(index);
-		currentTab.fadeIn(0);
+		currentTab.fadeIn(0).addClass('tab-active');
 
 		e.preventDefault();
 	});
@@ -1046,14 +862,13 @@ $(document).ready(function(){
 	showFormSearch();
 	phonesDrop();
 	multiAccordionInit();
-	//siteMapInit();
 	footerDropInit();
+	//siteMapInit();
 	//roadPopupInit();
 	cardSwitch();
 	contactsSwitcher();
 	slickSlidersInit();
 	mapMainInit();
-	mapFooterInit();
 	tabsInit();
 	accordionInit();
 });
