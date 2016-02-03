@@ -999,6 +999,8 @@ function tabsInit() {
 			e.preventDefault();
 			var current = $(this);
 			if(current.hasClass(_modifiersActive)){
+				current.next('div').slideUp(animateSpeed).removeClass(_modifiersActive);
+				current.removeClass(_modifiersActive);
 				return;
 			}
 			accordionBody.slideUp(animateSpeed).removeClass(_modifiersActive);
