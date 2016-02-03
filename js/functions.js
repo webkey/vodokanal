@@ -435,6 +435,18 @@ function equalHeightInit(){
 		});
 	}
 	/*case list end*/
+
+	/*parents*/
+	var parents = $('.parents');
+	if(parents.length){
+		parents.find('.parents__item a').equalHeight({
+			//amount: 12,
+			useParent: true,
+			parent: parents,
+			resize: true
+		});
+	}
+	/*parents end*/
 }
 /*equal height initial end*/
 
