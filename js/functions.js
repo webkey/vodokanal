@@ -846,6 +846,11 @@ function tabsInit() {
 			current: 'tab-current'
 		};
 
+		this.wrappers = {
+			tabs: 'tab-item-wrap',
+			tab: 'tab-item'
+		};
+
 		this.bindEvents();
 		this.beforeStart();
 	};
@@ -858,18 +863,20 @@ function tabsInit() {
 		$(document).ready(function () {
 			self.$tabControlsItem.eq(_activeTabIndex).addClass(_modifiersActive);
 
-			var $tab, i;
-			for (i = 0; i < self.$tabs.length; i++) {
+			for (var i = 0; i < self.$tabs.length; i++) {
 				var $tabs = $(self.$tabs[i]);
-				$tabs.css({
+				$tabs.wrapInner('<div class="'+self.wrappers.tabs+'" />');
+				$tabs.find('.tab-item-wrap').css({
 					'height': $(self.$tab[i]).eq(_activeTabIndex).outerHeight(),
 					'position': 'relative'
 				});
 
-				$tab = $(self.$tab[i]);
-				var maxHeight = Math.max.apply(Math,$tab.map(function(){return $(this).outerHeight();}).get());
-				console.log(maxHeight);
-				$tab.css({
+				var $tab = $(self.$tab[i]);
+				//var maxHeight = Math.max.apply(Math,$tab.map(function(){return $(this).outerHeight();}).get());
+
+				$tab.wrap('<div class="'+self.wrappers.tab+'" />');
+				var $tabWrap = $tab.closest('.tab-item');
+				$tabWrap.css({
 					'position': 'absolute',
 					'width': '100%',
 					'left': 0,
@@ -879,7 +886,7 @@ function tabsInit() {
 					'transform': 'translateZ(0px)'
 				});
 
-				$tab.eq(_activeTabIndex).css({
+				$tabWrap.eq(_activeTabIndex).css({
 					'opacity': 1,
 					'z-index': 999
 				}).addClass(_modifiersActive);
@@ -894,7 +901,6 @@ function tabsInit() {
 		self.$tabControlsAnchor.on('click', function (e) {
 			e.preventDefault();
 			var currentTabControlsItem = $(this).closest(self.$tabControlsItem);
-			var index = currentTabControlsItem.index();
 			if (currentTabControlsItem.hasClass(_modifiersActive)) {
 				e.preventDefault();
 				return;
@@ -905,30 +911,25 @@ function tabsInit() {
 
 			var _currentTabItem = currentTabControlsItem.index();
 
-			var $tabs, $tab, i;
-			for (i = 0; i < self.$tabs.length; i++) {
-				$tabs = $(self.$tabs[i]);
-				$tab = $(self.$tab[i]);
-				console.log($tab);
+
+			for(var i = 0; i < self.$tabs.length; i++) {
+				var $tabs = $(self.$tabs[i]).find('.'+self.wrappers.tabs+'');
+				var $tab = $(self.$tab[i]).closest('.'+self.wrappers.tab+'');
 
 				$tab.removeClass(_modifiersActive);
 				$tab.eq(_currentTabItem).addClass(_modifiersActive);
+
+
+				$tab.css({
+					'z-index': 998, 'opacity': 0
+				});
+				$tab.eq(_currentTabItem).css({
+					'z-index': 999, 'opacity': 1
+				});
+
 				$tabs.animate({
 					'height': $tab.eq(_currentTabItem).outerHeight()
-				}, self._animateSpeed, function () {
-					console.log(index);
-					console.log($(self.$tab[index]));
-					for (var i = 0; i < self.$tab.length; i++) {
-						var $tab = $(self.$tab);
-
-						$tab.css({
-							'z-index': 998, 'opacity': 0
-						});
-						$tab.eq(_currentTabItem).css({
-							'z-index': 999, 'opacity': 1
-						})
-					}
-				});
+				}, self._animateSpeed);
 			}
 		})
 	};
