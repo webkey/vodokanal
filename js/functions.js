@@ -359,6 +359,39 @@ function roadPopupInit(){
 }
 /*road popup end*/
 
+/*phones popup*/
+function phonesPopupInit(){
+	var $container = $('.cph__row');
+	if(!$container.length){return;}
+	$('.cph__number_opener').on('click', function (e) {
+		e.preventDefault();
+		var $currentOpener = $(this);
+		var $currentContainer = $currentOpener.closest('.cph__row');
+		if($currentOpener.hasClass('active')){
+			closePopup($currentOpener,$currentContainer);
+			return;
+		}
+		closePopup($('.cph__number_opener'),$container);
+		$currentOpener.addClass('active');
+		$currentContainer.addClass('opened');
+		e.stopPropagation();
+	});
+
+	$('.cph__numbers').on('click', function (e) {
+		e.stopPropagation();
+	});
+
+	$(document).on('click', function () {
+		closePopup($('.cph__number_opener'), $container);
+	});
+
+	function closePopup(opener, container){
+		opener.removeClass('active');
+		container.removeClass('opened');
+	}
+}
+/*phones popup end*/
+
 /*card switch*/
 function cardSwitch(){
 	var $caseList = $('.case__list');
@@ -781,10 +814,151 @@ function tabsInit() {
 		e.preventDefault();
 	});
 }
+
+(function ($) {
+	var SimpleTabs = function (settings) {
+		var options = $.extend({
+			tabContainer: '.tabs-wrap',
+			tabControls: '.tab-controls-list',
+			tabControlsItem: 'a',
+			tabControlsAnchor: 'a',
+			tabs: '.tabs',
+			tab: '.tab',
+			activeTabIndex: '0',
+			animateSpeed: 300
+		}, settings || {});
+
+		this.options = options;
+		var container = $(options.tabContainer);
+		this.$tabContainer = container;
+		this.$tabControls = $(options.tabControls, container);
+		this.$tabControlsItem = $(options.tabControlsItem, container);
+		this.$tabControlsAnchor = $(options.tabControlsAnchor, container);
+		this.$tabs = options.tabs;
+		this.$tab = options.tab;
+		//this.$tab = $(options.tab, container);
+		this._activeTabIndex = options.activeTabIndex;
+		this._animateSpeed = options.animateSpeed;
+
+		this.modifiers = {
+			active: 'tab-active',
+			opened: 'tab-opened',
+			current: 'tab-current'
+		};
+
+		this.bindEvents();
+		this.beforeStart();
+	};
+
+	SimpleTabs.prototype.beforeStart = function () {
+		var self = this;
+		var _activeTabIndex = self._activeTabIndex;
+		var _modifiersActive = self.modifiers.active;
+
+		$(document).ready(function () {
+			self.$tabControlsItem.eq(_activeTabIndex).addClass(_modifiersActive);
+
+			var $tab, i;
+			for (i = 0; i < self.$tabs.length; i++) {
+				var $tabs = $(self.$tabs[i]);
+				$tabs.css({
+					'height': $(self.$tab[i]).eq(_activeTabIndex).outerHeight(),
+					'position': 'relative'
+				});
+
+				$tab = $(self.$tab[i]);
+				var maxHeight = Math.max.apply(Math,$tab.map(function(){return $(this).outerHeight();}).get());
+				console.log(maxHeight);
+				$tab.css({
+					'position': 'absolute',
+					'width': '100%',
+					'left': 0,
+					'top': 0,
+					'opacity': 0,
+					'z-index': 998,
+					'transform': 'translateZ(0px)'
+				});
+
+				$tab.eq(_activeTabIndex).css({
+					'opacity': 1,
+					'z-index': 999
+				}).addClass(_modifiersActive);
+			}
+		});
+	};
+
+	SimpleTabs.prototype.bindEvents = function () {
+		var self = this,
+				_modifiersActive = this.modifiers.active;
+
+		self.$tabControlsAnchor.on('click', function (e) {
+			e.preventDefault();
+			var currentTabControlsItem = $(this).closest(self.$tabControlsItem);
+			var index = currentTabControlsItem.index();
+			if (currentTabControlsItem.hasClass(_modifiersActive)) {
+				e.preventDefault();
+				return;
+			}
+
+			self.$tabControlsItem.removeClass(_modifiersActive);
+			currentTabControlsItem.addClass(_modifiersActive);
+
+			var _currentTabItem = currentTabControlsItem.index();
+
+			var $tabs, $tab, i;
+			for (i = 0; i < self.$tabs.length; i++) {
+				$tabs = $(self.$tabs[i]);
+				$tab = $(self.$tab[i]);
+				console.log($tab);
+
+				$tab.removeClass(_modifiersActive);
+				$tab.eq(_currentTabItem).addClass(_modifiersActive);
+				$tabs.animate({
+					'height': $tab.eq(_currentTabItem).outerHeight()
+				}, self._animateSpeed, function () {
+					console.log(index);
+					console.log($(self.$tab[index]));
+					for (var i = 0; i < self.$tab.length; i++) {
+						var $tab = $(self.$tab);
+
+						$tab.css({
+							'z-index': 998, 'opacity': 0
+						});
+						$tab.eq(_currentTabItem).css({
+							'z-index': 999, 'opacity': 1
+						})
+					}
+				});
+			}
+		})
+	};
+
+	window.SimpleTabs = SimpleTabs;
+}(jQuery));
+
+function simpleTabInit() {
+	if($('.contacts').length){
+		new SimpleTabs({
+			tabContainer: '.contacts',
+			tabControlsItem: '.contacts__biz li',
+			tabs: [
+				'.contacts__address',
+				'.contacts-share-container',
+				'.contacts-phones-container'
+			],
+			tab: [
+				'.contacts-adr',
+				'.contacts-share',
+				'.contacts-phones'
+			],
+			animateSpeed: 300
+		});
+	}
+}
 /*simple tabs end*/
 
 /*simple accordion*/
-(function () {
+(function ($) {
 	var SimpleAccordion = function (settings) {
 		var options = $.extend({
 			accordionHeader: 'h3',
@@ -839,7 +1013,7 @@ function tabsInit() {
 	};
 
 	window.SimpleAccordion = SimpleAccordion;
-}());
+}(jQuery));
 
 function accordionInit() {
 	if($('.faq-list').length){
@@ -877,11 +1051,13 @@ $(document).ready(function(){
 	footerDropInit();
 	//siteMapInit();
 	//roadPopupInit();
+	phonesPopupInit();
 	cardSwitch();
 	contactsSwitcher();
 	slickSlidersInit();
 	mapMainInit();
 	tabsInit();
+	simpleTabInit();
 	accordionInit();
 });
 

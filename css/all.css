@@ -2609,9 +2609,9 @@ li.has-drop.current>.nav-sub-drop:after,
 	border-bottom-color: #fff;
 	margin-left: -8px;
 }
-.contacts__biz li.active:after,
-.user-content .contacts__biz li.active:before,
-.user-content .contacts__biz li.active:first-child:before{
+.contacts__biz li.tab-active:after,
+.user-content .contacts__biz li.tab-active:before,
+.user-content .contacts__biz li.tab-active:first-child:before{
 	opacity: 1;
 	-webkit-transform: translateY(0);
 	-ms-transform: translateY(0);
@@ -2625,11 +2625,14 @@ li.has-drop.current>.nav-sub-drop:after,
 	-webkit-transition: color 0.2s, border 0.2s;
 	transition: color 0.2s, border 0.2s;
 }
+.contacts__biz .tab-active a{
+	cursor: default;
+}
 .contacts__biz a:hover{
 	color: #008acf;
 	border-bottom-color: #008acf;
 }
-.contacts__biz li.active a{
+.contacts__biz li.tab-active a{
 	color: #008acf;
 	border-color: transparent;
 }
@@ -2643,6 +2646,10 @@ li.has-drop.current>.nav-sub-drop:after,
 	padding: 56px 0 0;
 	font-size: 0;
 	letter-spacing: -4px;
+	background: #fff;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 }
 .contacts-adr__item{
 	display: inline-block;
@@ -2658,11 +2665,13 @@ li.has-drop.current>.nav-sub-drop:after,
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
-	-webkit-transition: opacity 0.4s 0.1s;
-	transition: opacity 0.4s 0.1s;
+	-webkit-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
 }
 .tab-active .contacts-adr__item{
 	opacity: 1;
+	-webkit-transition-delay: 0.3s;
+	transition-delay: 0.3s;
 }
 .contacts-adr__item:before{
 	content: '';
@@ -2787,43 +2796,100 @@ li.has-drop.current>.nav-sub-drop:after,
 .contacts-share a.contacts-share__twitter:hover>i{ background-position: 0 -377px; }
 /*contacts share end*/
 
-/*contacts phones*/
+/*contacts phones container*/
 .contacts-phones-container{
 	background: #f2f2f2;
-	padding: 42px 30px 20px;
+	padding: 31px 30px;
 }
 .contacts-phones{
 	margin: 0 auto;
 	max-width: 820px;
 }
-.contacts-phones__row{
+.cph__row{
 	display: table;
 	width: 100%;
 }
-.contacts-phones__dt,
-.contacts-phones__dd{
+.cph__dt,
+.cph__dd{
 	display: table-cell;
 	vertical-align: middle;
 	text-align: left;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
-	padding: 0 0 22px;
+	padding: 11px 0;
 }
-.contacts-phones__dt{
+.cph__dt{
 	width: 308px;
 	font-size: 24px;
 	line-height: 36px;
+	height: 58px;
 	font-weight: bold;
 	color: #333;
 	position: relative;
 	padding-right: 10px;
 }
-.has-drop .contacts-phones__number{
+.cph__numbers{
+	position: absolute;
+	left: 0;
+	top: 11px;
+	max-height: 40px;
+	overflow: hidden;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.opened .cph__numbers{
+	z-index: 1;
+}
+.opened .cph__numbers{
+	overflow: visible;
+	max-height: none;
+}
+.cph__numbers:before{
+	content: '';
+	position: absolute;
+	left: -5%;
+	top: 36px;
+	height: 0;
+	width: 110%;
+	background: #fff;
+	box-shadow: 0 4px 18px rgba(0, 0, 0, 0.0);
+	opacity: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	z-index: -1;
+}
+.opened .cph__numbers:before{
+	top: -5%;
+	height: 110%;
+	opacity: 1;
+	box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+	-webkit-transition: all 0.3s;
+	transition: all 0.3s;
+}
+.cph__number{
+	-webkit-transition: border 0.2s;
+	transition: border 0.2s;
+}
+.cph__number:first-child ~ .cph__number{
+	padding-top: 15px;
+	opacity: 0;
+}
+.opened .cph__number:first-child ~ .cph__number{
+	opacity: 1;
+	-webkit-transition: opacity 0.3s 0.15s;
+	transition: opacity 0.3s 0.15s;
+}
+.cph__number_opener >span{
 	border-bottom: 1px dotted #333;
 	cursor: pointer;
 }
-.has-drop .contacts-phones__number:after{
+.opened .cph__number_opener >span{
+	border-color: transparent;
+}
+.cph__number_opener:after{
 	position: relative;
 	display: inline-block;
 	border: solid transparent;
@@ -2836,24 +2902,17 @@ li.has-drop.current>.nav-sub-drop:after,
 	border-width: 5px;
 	margin: 0 0 2px 5px;
 }
-.contacts-phones__code{
+.opened .cph__number_opener:after{
+	border: solid transparent;
+	border-bottom-color: #008acf;
+	border-width: 5px;
+	top: -5px;
+}
+.cph__number >span>em{
 	color: #bfbfbf;
 	font-style: normal;
 }
-.contacts-phones__drop{
-	position: absolute;
-	left: 0;
-	width: 100%;
-	background: #fff;
-	box-shadow: 0 4px 22px rgba(0, 0, 0, 0.15);
-	z-index: 1;
-	display: none;
-}
-.contacts-phones__drop-row>em{
-	color: #bfbfbf;
-	font-style: normal;
-}
-/*contacts phones end*/
+/*contacts phones container end*/
 
 /*callback container*/
 .callback-container{
@@ -2890,6 +2949,9 @@ li.has-drop.current>.nav-sub-drop:after,
 	color: #808080;
 	padding: 11px;
 	text-transform: uppercase;
+}
+.callback-form input[type="submit"]:hover{
+	color: #fff;
 }
 /*callback form end*/
 
@@ -3968,8 +4030,8 @@ li.has-drop.current>.nav-sub-drop:after,
 	content: '/';
 	color: #c8c8c8;
 	position: absolute;
-	left: 13px;
-	top: 2px;
+	left: 12px;
+	top: 0;
 	border-radius: 0;
 	width: auto;
 	height: auto;
@@ -4560,15 +4622,13 @@ li.has-drop.current>.nav-sub-drop:after,
 /*footer social end*/
 
 /*footer bottom*/
-.footer-bottom{
-	position: relative;
-}
 .footer-holder{
 	font-size: 0;
 	letter-spacing: -4px;
 	padding: 0 40px;
 	background: #fff;
 	color: #333;
+	position: relative;
 }
 .footer-holder:before{
 	content: '';
