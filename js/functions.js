@@ -905,6 +905,38 @@ function slickSlidersInit(){
 		});
 	}
 	/*uncos slider end*/
+
+	/*history slider*/
+	var $history = $('.history');
+	if($history.length){
+		$('.history-slider').slick({
+			slidesToShow: 10,
+			slidesToScroll: 1,
+			arrows: false,
+			centerMode: true,
+			focusOnSelect: true,
+			variableWidth: true,
+			infinite: false,
+			asNavFor: '.years-slider'
+		});
+
+		$('.years-slider').slick({
+			slidesToShow: 10,
+			slidesToScroll: 1,
+			centerMode: true,
+			focusOnSelect: true,
+			variableWidth: true,
+			infinite: false,
+			asNavFor: '.history-slider'
+		});
+
+		$('.history-slider, .years-slider').on('beforeChange', function(event, slick, currentSlide, nextSlide){
+			$(slick.$slider).find('.slick-slide').removeClass('wide-slide');
+			$(slick.$slides[nextSlide]).addClass('wide-slide');
+			console.log(slick);
+		})
+	}
+	/*history slider end*/
 }
 /*slick sliders init end*/
 
