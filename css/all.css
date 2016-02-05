@@ -1406,6 +1406,8 @@ li.has-drop.current>.nav-sub-drop:after,
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
+	-webkit-transition: background 0.85s;
+	transition: background 0.2s;
 }
 .questions__item{
 	float: left;
@@ -1415,6 +1417,9 @@ li.has-drop.current>.nav-sub-drop:after,
 .questions__item:nth-child(4n+2) a{ background: #009eed; }
 .questions__item:nth-child(4n+3) a{ background: #00aaff; }
 .questions__item:nth-child(4n+4) a{ background: #00bfff; }
+.questions__item>a:hover{
+	background: #0080bf;
+}
 .questions__icon{
 	min-height: 70px;
 	margin: 0 0 13px;
@@ -1698,11 +1703,14 @@ li.has-drop.current>.nav-sub-drop:after,
 	color: #fff;
 	background: #008acf;
 	overflow: hidden;
+	-webkit-transition: background 0.2s;
+	transition: background 0.2s;
 }
 .category-links li:nth-child(4n+1) a{ background: #008acf; }
 .category-links li:nth-child(4n+2) a{ background: #009eed; }
 .category-links li:nth-child(4n+3) a{ background: #00aaff; }
 .category-links li:nth-child(4n+4) a{ background: #00bfff; }
+.category-links li a:hover{ background: #0080bf; }
 .category-links a:before{
 	content: '';
 	display: inline-block;
@@ -3758,18 +3766,19 @@ li.has-drop.current>.nav-sub-drop:after,
 	position: relative;
 	right: auto;
 	top: 10px;
-	margin-top: 0;
-	margin-left: 5px;
 	pointer-events: none;
 	background: none;
-	width: 10px;
 	height: 10px;
+	width: 10px;
+	left: 15px;
+	margin: 0 0 0 -10px;
+	padding: 0;
 	-webkit-transition: none;
 	transition: none;
 }
 .main-page .nav__list [class*="depict-icons-angle-"]:before{
 	top: 0;
-	left: 50%;
+	left: 0;
 	content: " ";
 	height: 0;
 	width: 0;
@@ -3777,7 +3786,7 @@ li.has-drop.current>.nav-sub-drop:after,
 	pointer-events: none;
 	border: 5px solid rgba(128, 128, 128, 0);
 	border-top-color: #808080;
-	margin-left: -5px;
+	margin-left: 0;
 }
 .main-page .nav__list li.active>a>[class*="depict-icons-angle-"],
 .main-page .nav__list li.current>a>[class*="depict-icons-angle-"]{
@@ -3790,7 +3799,7 @@ li.has-drop.current>.nav-sub-drop:after,
 .main-page .nav__list li.current>a>[class*="depict-icons-angle-"]:before{
 	border: 5px solid rgba(128, 128, 128, 0);
 	border-bottom-color: #808080;
-	margin-left: -5px;
+	margin-left: 0;
 }
 
 .main-page .nav-drop,
@@ -3803,6 +3812,7 @@ li.has-drop.current>.nav-sub-drop:after,
 	z-index: 6;
 	background: #f2f2f2;
 	margin-top: -50px;
+	box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.15);
 }
 .main-page .nav-drop:after,
 .main-page .nav-sub-drop:after,
@@ -3857,6 +3867,8 @@ li.has-drop.current>.nav-sub-drop:after,
 	display: table-cell;
 	vertical-align: middle;
 	height: 140px;
+	padding-left: 5px;
+	padding-right: 5px;
 }
 .main-page .nav__list >li>a{
 	text-transform: none;
@@ -3878,22 +3890,35 @@ li.has-drop.current>.nav-sub-drop:after,
 	position: relative;
 }
 .main-page .nav-drop__list>li>a{
-	padding: 6px 10px;
+	padding: 10px 15px;
 	font-size: 14px;
-	text-transform: uppercase;
+	text-transform: none;
 	background: none;
 	background: #0077b3;
 	color: #83cff0;
 	white-space: nowrap;
 }
 .main-page .nav-drop__list>li.has-drop>a{
-	padding-right: 10px;
+	padding-right: 30px;
 }
 .main-page .nav-drop__list>li>a:hover,
 .main-page .nav-drop__list>li.active>a,
 .main-page .nav-drop__list>li.current>a{
 	color: #fff;
 	background: #069;
+}
+.main-page .nav-drop__list [class*="depict-icons-angle-"],
+.main-page .nav-drop__list li.active>a>[class*="depict-icons-angle-"],
+.main-page .nav-drop__list li.current>a>[class*="depict-icons-angle-"]{
+	left: 20px;
+	top: 6px;
+}
+.main-page .nav-drop__list [class*="depict-icons-angle-"]:before,
+.main-page .nav-drop__list li.active>a>[class*="depict-icons-angle-"]:before,
+.main-page .nav-drop__list li.current>a>[class*="depict-icons-angle-"]:before{
+	pointer-events: none;
+	border: 5px solid rgba(128, 128, 128, 0);
+	border-left-color: #fff;
 }
 /*styles to menu level 2 end*/
 
@@ -3911,14 +3936,14 @@ li.has-drop.current>.nav-sub-drop:after,
 	position: relative;
 }
 .main-page .nav-sub-drop__list>li>a{
-	padding: 10px 6px;
+	padding: 10px 16px;
 	font-size: 14px;
 	color: #83cff0;
 	background: #069;
 	white-space: nowrap;
 }
 .main-page .nav-sub-drop__list>li.has-drop>a{
-	padding-right: 10px;
+	padding-right: 30px;
 }
 .main-page .nav-sub-drop__list>li>a:hover,
 .main-page .nav-sub-drop__list>li.active>a,

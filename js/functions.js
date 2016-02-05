@@ -216,6 +216,278 @@ function multiAccordionInit() {
 }
 /*multi accordion end*/
 
+/*main navigation*/
+(function ($) {
+	var MainNavigation = function (settings) {
+		var options = $.extend({
+			navMenuItem: 'li',
+			overlayClass: '.overlay-page',
+			overlayBoolean: false,
+			animationSpeed: 300
+		},settings || {});
+
+		this.options = options;
+		var container = $(options.navContainer);
+		this.$navContainer = container;
+		this.$buttonMenu = $(options.btnMenu);                     // Кнопка открытия/закрытия меню для моб. верси.
+		this.$navMenu = $(options.navMenu, container);             // Список с пунктами навигации.
+		this.$navMenuItem = $(options.navMenuItem, this.$navMenu); // Пункты навигации.
+		this.$navDropMenu = $(options.navDropMenu);                // Дроп-меню всех уровней. Перечислять через запятую.
+		this._animateSpeed = options.animationSpeed;
+
+		this._overlayClass = options.overlayClass;                // Класс оверлея.
+		this._overlayBoolean = options.overlayBoolean;            // Добавить оверлей (по-умолчанию == false). Если не true, то не будет работать по клику вне навигации.
+
+		this.$getCustomScroll = $(options.getCustomScroll);
+
+		this.modifiers = {
+			active: 'active',
+			opened: 'nav-opened',
+			current: 'made-current'
+		};
+
+		this.addOverlayPage();
+		this.dropNavigation();
+		this.mainNavigationCustomScrollBehavior();
+		this.mainNavigation();
+
+		// очистка классов-модификаторов при ресайзе
+		var self = this;
+		$(window).on('debouncedresize', function () {
+			self.clearDropNavigation();
+		});
+	};
+
+	//добавить <div class="overlay-page"></div>
+	MainNavigation.prototype.addOverlayPage = function () {
+		var self = this,
+				_overlayClass = self._overlayClass;
+
+		if (self._overlayBoolean) {
+			var overlayClassSubstring = _overlayClass.substring(1);
+			$('.header').after('<div class="' + overlayClassSubstring + '"></div>');
+		}
+	};
+
+	MainNavigation.prototype.dropNavigation = function () {
+		var self = this,
+				$buttonMenu = self.$buttonMenu,
+				modifiers = self.modifiers,
+				_active = modifiers.active,
+				_opened = modifiers.opened;
+
+		var $body = $('body');
+
+		$buttonMenu.on('click', function (e) {
+			// Если открыта форма поиска, закрываем ее
+			var $searchForm = $('.search-form');
+			if($searchForm.is(':visible')){
+				$searchForm.find('.btn-search-close').trigger('click');
+			}
+
+			var currentBtnMenu = $(this);
+
+			// Очищаем аттрибут "style" у всех развернутых дропов.
+			// Нельзя использовать .hide или подобные методы,
+			// т.к. необходимо, чтоб не было записи инлайновой style="display: none;"
+			if (!currentBtnMenu.hasClass(_active)) {
+				self.$navDropMenu.attr('style','');
+			}
+
+			// Удаляем с пунктов меню всех уровней активный класс
+			self.$navMenuItem.removeClass(_active);
+
+			// Переключаем на боди класс открывающий меню. Открытие через CSS3 translate
+			$body.toggleClass(_opened);
+
+			// Переключаем на кнопке меню активный класс
+			currentBtnMenu.toggleClass(_active);
+
+			e.preventDefault();
+		});
+
+		// По клику на область вне меню, закрываем меню
+		// .overlay-page
+		$body.on('click', self._overlayClass, function () {
+			$body.toggleClass(_opened);
+			$buttonMenu.toggleClass(_active);
+		});
+	};
+
+	$.fn.closest_child = function(filter) {
+		var $found = $(),
+				$currentSet = this; // Current place
+		while ($currentSet.length) {
+			$found = $currentSet.filter(filter);
+			if ($found.length) break;  // At least one match: break loop
+			// Get all children of the current set
+			$currentSet = $currentSet.children();
+		}
+		return $found.first(); // Return first match of the collection
+	};
+
+	MainNavigation.prototype.mainNavigationCustomScroll = function() {
+		this.$getCustomScroll.mCustomScrollbar({
+			theme:"minimal-dark",
+			scrollbarPosition: "inside",
+			autoExpandScrollbar:true,
+			scrollInertia: 20
+		});
+	};
+
+	MainNavigation.prototype.mainNavigationCustomScrollBehavior = function() {
+		var self = this,
+				$buttonMenu = self.$buttonMenu;
+
+		var $body = $('body'),
+				_classInit = 'nav-custom-scroll-initialized',
+				_classDestroy = 'nav-custom-scroll-destroy';
+
+		if($buttonMenu.is(':hidden')){
+			self.mainNavigationCustomScroll();
+
+			$body.addClass(_classInit);
+		} else {
+			$body.addClass(_classDestroy);
+		}
+
+		if(md.mobile()){
+			self.$getCustomScroll.mCustomScrollbar("destroy");
+		}
+
+		$(window).on('debouncedresize', function () {
+			if($buttonMenu.is(':hidden') && $body.hasClass(_classDestroy)){
+				$body.removeClass(_classDestroy);
+				$body.addClass(_classInit);
+
+				self.mainNavigationCustomScroll();
+				return;
+			}
+
+			if($buttonMenu.is(':visible') && $body.hasClass(_classInit)){
+				$body.removeClass(_classInit);
+				$body.addClass(_classDestroy);
+
+				self.$getCustomScroll.mCustomScrollbar("destroy");
+			}
+		});
+	};
+
+	MainNavigation.prototype.mainNavigation = function() {
+		var self = this,
+				$btnMenu = self.$buttonMenu,
+				$navigationList = self.$navMenu,
+				dropDownMenu = self.$navDropMenu,
+				modifiers = self.modifiers,
+				_active = modifiers.active,
+				_current = modifiers.current,
+				dur = self._animateSpeed;
+
+		// открываем дроп текущего пункта
+		// не цсс, а скриптом, чтобы можно было плавно закрыть дроп
+		$('.made-current>.nav-sub-drop').slideDown(0);
+
+		$($navigationList).on('click', 'a', function (e) {
+			var $currentLink = $(this);
+			var $currentItem = $currentLink.closest(self.$navMenuItem);
+
+			if($btnMenu.is(':visible') && $currentItem.has('ul').length){
+				e.preventDefault();
+				$currentItem.addClass(_active);
+
+				//добавить кноку "< назад"
+				var _templateBackTo = '<div class="nav-back"><i class="depict-angle fa fa-chevron-left"></i><span>Назад</span></div>';
+				if($btnMenu.is(':visible')){
+					if(!$currentLink.siblings('div').has('.nav-back').length){
+						$currentLink.siblings('div').closest_child('ul').before(_templateBackTo);
+					}
+				}
+				return;
+			}
+
+			if(!$currentItem.has('ul').length || $currentItem.has('.drop-side').length) { return; }
+
+			var $siblingDrop = $currentItem.siblings('li:not(.has-drop-side)').find(dropDownMenu);
+			var $currentItemDrop = $currentItem.find(dropDownMenu);
+
+			e.preventDefault();
+
+			if($currentItem.hasClass(_active) || $currentItem.hasClass(_current)){
+				closeDrops($siblingDrop);
+				closeDrops($currentItemDrop);
+				return;
+			}
+			closeDrops($siblingDrop);
+			closeDrops($currentItemDrop);
+
+			$currentItem.toggleClass(_active);
+
+			$currentItem.children(dropDownMenu).stop().slideDown(dur);
+		});
+
+		$($navigationList).on('click', '.nav-back', function () {
+			$(this).closest('li').removeClass(_active);
+		});
+
+		/*close all drops*/
+		function closeDrops(drop) {
+			drop.closest('li').removeClass(_active);
+			drop.closest('li').removeClass(_current);
+			if ($btnMenu.is(':hidden')) {
+				drop.slideUp(dur);
+			}
+		}
+	};
+
+	MainNavigation.prototype.clearDropNavigation = function() {
+		var self = this,
+				$buttonMenu = self.$buttonMenu,
+				$navMenuItem = self.$navMenuItem,
+				modifiers = self.modifiers,
+				_active = modifiers.active,
+				_opened = modifiers.opened;
+
+		var $body = $('body');
+
+		if ($buttonMenu.is(':hidden') && $buttonMenu.hasClass(_active)) {
+			$body.removeClass(_opened);
+			$buttonMenu.removeClass(_active);
+			$navMenuItem.removeClass(_active);
+		}
+
+		var currentNavSubDrop = $('.made-current>.nav-sub-drop');
+		if ($buttonMenu.is(':hidden') && currentNavSubDrop.is(':hidden')) {
+			currentNavSubDrop.slideDown(300);
+		}
+
+		if (!md.mobile() && $buttonMenu.is(':visible') && $buttonMenu.hasClass(_active)) {
+			$body.removeClass(_opened);
+			$buttonMenu.removeClass(_active);
+			$navMenuItem.removeClass(_active);
+		}
+	};
+
+	window.MainNavigation = MainNavigation;
+
+}(jQuery));
+
+function mainNavigationInit(){
+	var navigationContainer = $('.nav');
+	if(!navigationContainer.length){ return; }
+	new MainNavigation({
+		navContainer: navigationContainer,
+		btnMenu: '.btn-menu',
+		navMenu: '.nav-list',
+		navMenuItem: 'li',
+		navDropMenu: '.nav-drop, .nav-sub-drop',
+		getCustomScroll: '.panel-frame, .drop-side__holder',
+		animationSpeed: 300,
+
+		overlayBoolean: true
+	});
+}
+/*main navigation end*/
+
 /*site map*/
 (function ($) {
 	var Disperse = function (settings) {
