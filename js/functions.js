@@ -1326,11 +1326,12 @@ function footerBottom(){
 
 			asNavFor: null,
 
-			padding: 40,
+			padding: 80,
 			normWidth: 80,
 			zoomWidth: 250,
 			activeSlide: 0,
-			animateSpeed: 200
+			animateSpeed: 200,
+			slideIndexing: false
 		}, settings || {});
 
 		var _ = this;
@@ -1356,10 +1357,13 @@ function footerBottom(){
 		_._zoomWidth = options.zoomWidth;
 		_._activeSlide = options.activeSlide;
 		_._animateSpeed = options.animateSpeed;
+		_._slideIndexing = options.slideIndexing;
 
 		_.slideClases = {
 			slideClass: 'history-slide',
-			track: 'slider-track'
+			track: 'slider-track',
+			beforePosition: 'before-position',
+			afterPosition: 'after-position'
 		};
 
 		_.modifiers = {
@@ -1553,24 +1557,49 @@ function footerBottom(){
 	};
 
 	HistorySlider.prototype.indexSlide = function (currentSlide) {
-		var self = this;
-		var $slide = self.$slide;
+		var self = this,
+			$slide = self.$slide,
+			_beforePosition = self.slideClases.beforePosition,
+			_afterPosition = self.slideClases.afterPosition;
 
-		$slide.removeClass('after-position').css({
-			'z-index':0,
-			'opacity':1
-		});
-
-		var lastCount = 0;
-		for(var i = currentSlide.index()+1; i < $slide.length; i++){
-			lastCount = $slide.length - currentSlide.index();
-
+		if(self._slideIndexing){
+			$slide.removeClass(_beforePosition);
+			$slide.removeClass(_afterPosition);
+			$slide.css({
+				'z-index':0,
+				'opacity':1
+			});
 			currentSlide.css('z-index', $slide.length);
-			$slide.eq(i).addClass('after-position').css('z-index', $slide.length - i);
 
-			var opacityStep = 1/lastCount;
-			console.log(opacityStep);
-			$slide.eq(i).css('opacity',opacityStep - i * opacityStep);
+			var indexCurrentSlide = currentSlide.index();
+			var maxOpacity = 0.8,
+				minOpacity = 0.2,
+				opacityValue = maxOpacity - minOpacity,
+				opacityStepBefore = opacityValue/(indexCurrentSlide - 1),
+				opacityStepAfter = opacityValue/($slide.length - indexCurrentSlide - 2);
+
+			for(var i = 0; i < $slide.length; i++){
+				var lastCount = $slide.length - indexCurrentSlide - 1;
+
+				var zIndex;
+				if(i < indexCurrentSlide){
+					zIndex = i;
+					$slide.eq(i).addClass(_beforePosition).css({
+						'z-index': zIndex,
+						'opacity': minOpacity + zIndex * opacityStepBefore
+					});
+					$slide.eq(indexCurrentSlide - 1).css('opacity',maxOpacity);
+					$slide.eq(indexCurrentSlide + 1).css('opacity',maxOpacity);
+				}
+				if(i > indexCurrentSlide){
+					zIndex = $slide.length - 1 - i;
+					$slide.eq(i).addClass(_afterPosition).css({
+						'z-index': zIndex,
+						'opacity': minOpacity + zIndex * opacityStepAfter
+					});
+				}
+			}
+			console.log('lastCount ', lastCount);
 		}
 	};
 
@@ -1629,7 +1658,7 @@ function historySliderInit() {
 			sliderContainer: '.history-slider',
 			info: '.history-sldr__info',
 			asNavFor: '.years-slider',
-			activeSlide: 5
+			slideIndexing: true
 		});
 		new HistorySlider({
 			sliderContainer: '.years-slider',
