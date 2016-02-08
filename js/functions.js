@@ -1314,74 +1314,92 @@ function footerBottom(){
 (function ($) {
 	var HistorySlider = function (settings) {
 		var options = $.extend({
+			mainWrapper: '.history',
 			sliderContainer: '.history-slider',
 			sliderInner: '.history-sldr__holder',
 			slide: '.history-sldr__item',
+			info: null,
+			infoBox: '.history-info',
+
 			arrowPrev: '.history-sldr__prev-btn',
 			arrowNext: '.history-sldr__next-btn',
+
+			asNavFor: null,
+
 			padding: 40,
-			largeWidth: 250,
-			activeSlide: 5,
-			animateSpeed: 300
+			normWidth: 80,
+			zoomWidth: 250,
+			activeSlide: 0,
+			animateSpeed: 200
 		}, settings || {});
 
-		this.options = options;
-		var container = $(options.sliderContainer);
-		this.$sliderContainer = container;
-		this.$sliderInner = $(options.sliderInner, container);
-		this.$slide = $(options.slide, container);
-		this.$arrowPrev = $(options.arrowPrev, container);
-		this.$arrowNext = $(options.arrowNext, container);
-		//console.log(this.$slide);
-		this._padding = options.padding;
-		this._largeWidth = options.largeWidth;
-		this._activeSlide = options.activeSlide;
-		this._animateSpeed = options.animateSpeed;
+		var _ = this;
 
-		this.modifiers = {
+		_.options = options;
+		var mainWrapper = $(options.mainWrapper)
+		_.$mainWrapper = mainWrapper;
+		var container = $(options.sliderContainer);
+		_.$sliderContainer = container;
+		_.$sliderInner = $(options.sliderInner, container);
+		_.$slide = $(options.slide, container);
+		_.$info = $(options.info, container);
+		_.$infoBox = $(options.infoBox, mainWrapper);
+
+		_.$arrowPrev = $(options.arrowPrev, container);
+		_.$arrowNext = $(options.arrowNext, container);
+
+		_.$asNavFor = $(options.asNavFor);
+
+		//console.log(this.$asNavFor);
+		_._padding = options.padding;
+		_._normWidth = options.normWidth;
+		_._zoomWidth = options.zoomWidth;
+		_._activeSlide = options.activeSlide;
+		_._animateSpeed = options.animateSpeed;
+
+		_.slideClases = {
+			slideClass: 'history-slide',
+			track: 'slider-track'
+		};
+
+		_.modifiers = {
 			current: 'slide-current',
-			track: 'slider-track',
 			btnHidden: 'btn-hidden'
 		};
 
-		this.beforeStart();
-		this.disabledArrows(this.$slide.eq(this._activeSlide));
-		this.bindEvents();
+		_.beforeStart();
+		_.disabledArrows(_.$slide.eq(_._activeSlide));
+		_.bindEvents();
 
 		$('body').prepend('<div id="console"></div>');
 	};
 
-	HistorySlider.prototype.getLog = function (_class,log,color) {
-		var tpl = '<div />';
-		var $console = $('#console');
-		var tplLog = '<b>' + _class + ': ' + '</b>' + log;
-		if($console.has('.'+_class).length){
-			$console.find('.'+_class).html(tplLog).css('color',color);
-			return;
-		}
-		$(tpl).appendTo('#console').addClass(_class).html(tplLog).css('color',color);
-	};
-
 	HistorySlider.prototype.beforeStart = function () {
 		var self = this,
-			modifiers =self.modifiers;
+			$slide = self.$slide;
 
-		self.$slide.eq(self._activeSlide).css('width',250);
+		$slide.addClass(self.slideClases.slideClass);
+
+		var $activeSlide = $slide.eq(self._activeSlide);
+
+		$activeSlide.css('width',self._zoomWidth);
 
 		var sumWidth = 0;
-		for(var i = 0; i < self.$slide.length; i++){
-			sumWidth += self.$slide.eq(i).outerWidth();
+		for(var i = 0; i < $slide.length; i++){
+			sumWidth += $slide.eq(i).outerWidth();
 		}
-		self.$sliderInner.addClass(modifiers.track).css({
+		self.$sliderInner.addClass(self.slideClases.track).css({
 			'width': sumWidth
 		});
 
-		self.$slide.eq(self._activeSlide).addClass(modifiers.current);
+		$activeSlide.addClass(self.modifiers.current);
+		self.indexSlide($activeSlide);
+		self.setInfo($activeSlide);
 	};
 
 	HistorySlider.prototype.disabledArrows = function (slide) {
 		var self = this;
-		if(self.$sliderInner.outerWidth() < self.$sliderContainer.outerWidth()){
+		if(self.$sliderInner.outerWidth() <= self.$sliderContainer.outerWidth()){
 			var modifiersBtnHidden = self.modifiers.btnHidden;
 			self.$arrowPrev.addClass(modifiersBtnHidden);
 			self.$arrowNext.addClass(modifiersBtnHidden);
@@ -1407,18 +1425,21 @@ function footerBottom(){
 		if($currentSlide.hasClass(_modifiersCurrent)){ return; }
 
 		self.$slide.removeClass(_modifiersCurrent).css({
-			'width': 80, 'height': 210, 'margin-top': 0, 'margin-bottom': 0
+			'width': self._normWidth
 		});
 
 		$currentSlide.addClass(_modifiersCurrent).css({
-			'width': 250, 'height': 250, 'margin-top': -20, 'margin-bottom': -20
+			'width': self._zoomWidth
 		});
 
 		self.scrollToCurrentSlide($currentSlide.index());
-		self.disabledArrows($currentSlide)
+		self.disabledArrows($currentSlide);
+
+		self.indexSlide($currentSlide);
+		self.setInfo($currentSlide);
+		self.asNavForSlide($currentSlide);
 	};
 
-	var scrollOffset = 0;
 	HistorySlider.prototype.scrollToCurrentSlide = function (index) {
 		var self = this;
 		var slideWidth = self.$slide.eq(index).outerWidth(),
@@ -1436,73 +1457,72 @@ function footerBottom(){
 			innerWidth = self.$sliderInner.outerWidth(),
 			innerLeftOffset = self.$sliderInner.offset().left,
 			innerLeftPosition = innerLeftOffset - containerLeftOffset,
-		//innerLeftPositionModule = Math.sqrt(Math.pow(innerLeftPosition, 2)),
-			innerMaxLeftOffset = innerWidth - containerWidth;
+			innerLeftModule = Math.sqrt(Math.pow(innerLeftPosition,2)),
+			innerMaxLeftOffset = innerWidth - containerWidth,
+			scrollOffset = 0;
 
 
-		self.getLog('scrollOffset',scrollOffset);
-		self.getLog('--slide','***');
-		self.getLog('index',index);
-		self.getLog('slideWidth',slideWidth);
-		self.getLog('slideLeftOffset',slideLeftOffset);
-		self.getLog('slideLeftPosition',slideLeftPosition);
-		self.getLog('slideNextWidth',slideNextWidth,'#808080');
-		self.getLog('slidePrevWidth',slidePrevWidth,'#808080');
-		self.getLog('--container','***');
-		self.getLog('containerWidth',containerWidth);
-		self.getLog('containerLeftOffset',containerLeftOffset);
-		self.getLog('a','------');
-		self.getLog('rightEdge',rightEdge,'#333');
-		self.getLog('innerWidth',innerWidth,'#333');
-		self.getLog('innerLeftOffset',innerLeftOffset,'#333');
-		self.getLog('innerLeftPosition',innerLeftPosition,'#333');
-		//self.getLog('innerLeftPositionModule',innerLeftPositionModule,'#333');
-		self.getLog('innerMaxLeftOffset',innerMaxLeftOffset,'#333');
-		self.getLog('b','------');
-		self.getLog('minPaddingLeft',minPaddingLeft);
-		self.getLog('minPaddingRight',minPaddingRight);
-		self.getLog('c','------');
+		//self.getLog('scrollOffset',scrollOffset);
+		//self.getLog('--slide','***');
+		//self.getLog('index',index);
+		//self.getLog('slideWidth',slideWidth);
+		//self.getLog('slideLeftOffset',slideLeftOffset);
+		//self.getLog('slideLeftPosition',slideLeftPosition);
+		//self.getLog('slideNextWidth',slideNextWidth,'#808080');
+		//self.getLog('slidePrevWidth',slidePrevWidth,'#808080');
+		//self.getLog('--container','***');
+		//self.getLog('containerWidth',containerWidth);
+		//self.getLog('containerLeftOffset',containerLeftOffset);
+		//self.getLog('a','------');
+		//self.getLog('rightEdge',rightEdge,'#333');
+		//self.getLog('innerWidth',innerWidth,'#333');
+		//self.getLog('innerLeftOffset',innerLeftOffset,'#333');
+		//self.getLog('innerLeftPosition',innerLeftPosition,'#333');
+		//self.getLog('innerLeftModule',innerLeftModule,'#333');
+		//self.getLog('innerMaxLeftOffset',innerMaxLeftOffset,'#333');
+		//self.getLog('b','------');
+		//self.getLog('minPaddingLeft',minPaddingLeft);
+		//self.getLog('minPaddingRight',minPaddingRight);
+		//self.getLog('c','------');
 
-
-
-
-		if(slideLeftPosition < minPaddingLeft && scrollOffset !== 0){
-
+		if(slideLeftPosition < minPaddingLeft && innerLeftModule !== 0){
+			//console.log(0);
 			slidePrevWidth = slidePrevWidth == null ? 0 : slidePrevWidth;
-			if(scrollOffset > slidePrevWidth){
-				console.log(2);
-				scrollOffset -= slidePrevWidth;
+			if(innerLeftModule > slidePrevWidth && slidePrevWidth > 0){
+				//console.log(2);
+				scrollOffset = innerLeftModule - slidePrevWidth;
 			} else {
-				console.log(3);
+				//console.log(3);
 				scrollOffset = 0;
 			}
 
-			self.getLog('scrollOffset',scrollOffset, 'lightblue');
+			//self.getLog('scrollOffset',scrollOffset, 'lightblue');
 			self.$sliderInner.css('left', -scrollOffset);
 			return;
 		}
 
-		if(slideLeftPosition < rightEdge || scrollOffset == innerMaxLeftOffset){
-			console.log(1);
-			self.getLog('scrollOffset',scrollOffset, 'green');
+		if(slideLeftPosition < rightEdge || innerLeftModule == innerMaxLeftOffset){
+			//console.log(1);
+			//self.getLog('scrollOffset',scrollOffset, 'green');
 
 			return;
 		}
 
 		slideNextWidth = slideNextWidth == null ? 0 : slideNextWidth;
-		if(slideNextWidth < innerMaxLeftOffset - scrollOffset){
-			console.log(4);
-			scrollOffset += slideNextWidth;
-
-			self.getLog('scrollOffset',scrollOffset,'pink');
-
-		} else {
-			console.log(5);
+		if(
+				slideNextWidth > innerMaxLeftOffset - innerLeftModule
+				|| slideNextWidth == 0
+		){
+			//console.log(4);
 			scrollOffset = innerMaxLeftOffset;
 
-			self.getLog('scrollOffset',scrollOffset,'red');
-		}
+			//self.getLog('scrollOffset',scrollOffset,'lightred');
+		} else {
+			//console.log(5);
+			scrollOffset = innerLeftModule + slideNextWidth;
 
+			//self.getLog('scrollOffset',scrollOffset,'red');
+		}
 
 		self.$sliderInner.css('left', -scrollOffset);
 	};
@@ -1516,21 +1536,89 @@ function footerBottom(){
 		});
 
 		self.$arrowPrev.on('click', function(){
-			var current = self.$sliderContainer.find('.'+_modifiersCurrent+'').prev();
+			var currentSlide = self.$sliderContainer.find('.'+_modifiersCurrent+'').prev();
 
-			if(!current.length){ return; }
+			if(!currentSlide.length){ return; }
 
-			self.currentSlide(current);
+			self.currentSlide(currentSlide);
 		});
 
 		self.$arrowNext.on('click', function(){
-			var current = self.$sliderContainer.find('.'+_modifiersCurrent+'').next();
+			var currentSlide = self.$sliderContainer.find('.'+_modifiersCurrent+'').next();
 
-			if(!current.length){ return; }
+			if(!currentSlide.length){ return; }
 
-			self.currentSlide(current);
+			self.currentSlide(currentSlide);
 		})
 	};
+
+	HistorySlider.prototype.indexSlide = function (currentSlide) {
+		var self = this;
+		var $slide = self.$slide;
+
+		$slide.removeClass('after-position').css({
+			'z-index':0,
+			'opacity':1
+		});
+
+		var lastCount = 0;
+		for(var i = currentSlide.index()+1; i < $slide.length; i++){
+			lastCount = $slide.length - currentSlide.index();
+
+			currentSlide.css('z-index', $slide.length);
+			$slide.eq(i).addClass('after-position').css('z-index', $slide.length - i);
+
+			var opacityStep = 1/lastCount;
+			console.log(opacityStep);
+			$slide.eq(i).css('opacity',opacityStep - i * opacityStep);
+		}
+	};
+
+	HistorySlider.prototype.asNavForSlide = function (currentSlide) {
+		var self = this;
+		if (self.$asNavFor.length) {
+			var triggerSlide = self.$asNavFor.find('.' + self.slideClases.slideClass + '').eq(currentSlide.index());
+
+			if (triggerSlide.hasClass(self.modifiers.current)) {
+				return;
+			}
+
+			triggerSlide.trigger('click');
+		}
+	};
+
+	HistorySlider.prototype.setInfo = function (currentSlide) {
+		var self = this;
+		if (self.$info.length){
+			var cloneInfo = currentSlide.find(self.$info).contents().clone();
+
+			self.$infoBox.find('.info-new:not(.info-old)').addClass('info-old');
+			self.$infoBox.children().append('<div class="info-new"></div>');
+			cloneInfo.appendTo(self.$infoBox.find('.info-new:not(.info-old)')).parent().css('opacity',0);
+
+			setTimeout(function () {
+				cloneInfo.parent().animate({'opacity':1});
+				self.$infoBox.children().animate({'height': self.$infoBox.find('.info-new:not(.info-old)').outerHeight()});
+			}, self._animateSpeed);
+
+			self.$infoBox.find('.info-old').animate({'opacity':0}, 200, function () {
+				$(this).remove();
+			});
+		}
+	};
+
+	/*for view date log*/
+	HistorySlider.prototype.getLog = function (_class,log,color) {
+		var tpl = '<div />';
+		var $console = $('#console');
+		var tplLog = '<b>' + _class + ': ' + '</b>' + log;
+		if($console.has('.'+_class).length){
+			$console.find('.'+_class).html(tplLog).css('color',color);
+			return;
+		}
+		$(tpl).appendTo('#console').addClass(_class).html(tplLog).css('color',color);
+	};
+	/*for view date log end*/
 
 	window.HistorySlider = HistorySlider;
 }(jQuery));
@@ -1539,7 +1627,15 @@ function historySliderInit() {
 	if($('.history-slider').length){
 		new HistorySlider({
 			sliderContainer: '.history-slider',
-			slide: '.history-sldr__item',
+			info: '.history-sldr__info',
+			asNavFor: '.years-slider',
+			activeSlide: 5
+		});
+		new HistorySlider({
+			sliderContainer: '.years-slider',
+			sliderInner: '.years-sldr__holder',
+			slide: '.years-sldr__item',
+			asNavFor: '.history-slider'
 		});
 	}
 }

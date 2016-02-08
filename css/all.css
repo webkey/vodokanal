@@ -3095,22 +3095,31 @@ li.has-drop.current>.nav-sub-drop:after,
 
 /*history*/
 .history{
-	display: block;
-	padding: 0 0 50px;
+	position: relative;
 }
 
 /*years slider*/
 .years-slider{
-	margin: 0 0 51px;
 	border-top: 1px solid #dcdcdc;
 	border-bottom: 1px solid #dcdcdc;
 }
-.years-slider .slick-list{
-	overflow: visible;
+.years-sldr__holder{
+	font-size: 0;
+	letter-spacing: -4px;
+	white-space: nowrap;
+	position: relative;
+	z-index: 0;
 }
+.years-sldr__holder:before,
+.years-sldr__holder:after { content: ""; display: table; }
+.years-sldr__holder:after { clear: both; }
 .years-sldr__item{
+	display: inline-block;
+	vertical-align: top;
 	font-size: 18px;
 	line-height: 48px;
+	letter-spacing: normal;
+	white-space: normal;
 	font-weight: bold;
 	color: #ccc;
 	text-align: center;
@@ -3120,8 +3129,16 @@ li.has-drop.current>.nav-sub-drop:after,
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
-	/*-webkit-transition: width 0.2s;*/
-	/*transition: width 0.2s;*/
+}
+.years-sldr__holder.slider-track{
+	left: 0;
+	-webkit-transition: all 0.2s linear;
+	transition: all 0.2s linear;
+}
+.years-sldr__holder.slider-track .years-sldr__item{
+	float: left;
+	-webkit-transition: all 0.2s linear;
+	transition: all 0.2s linear;
 }
 .years-sldr__item:first-child{
 	border-left: 1px solid #dcdcdc;
@@ -3130,13 +3147,19 @@ li.has-drop.current>.nav-sub-drop:after,
 	display: block;
 	height: 100%;
 	cursor: pointer;
+	-webkit-transition-property: color, box-shadow, font-size;
+	transition-property: color, box-shadow, font-size;
+	-webkit-transition-duration: 0.2s;
+	transition-duration: 0.2s;
+	-webkit-transition-timing-function: linear;
+	transition-timing-function: linear;
 }
 .years-sldr__item>span:hover,
-.years-sldr__item.slick-current>span{
+.years-sldr__item.slide-current>span{
 	box-shadow: inset 0 0 0 1px #008acf, 0 0 0 1px #008acf;
 	color: #333;
 }
-.years-sldr__item.slick-current>span{
+.years-sldr__item.slide-current>span{
 	color: #2b2a29;
 	font-size: 24px;
 }
@@ -3146,8 +3169,8 @@ li.has-drop.current>.nav-sub-drop:after,
 .history-slider{
 	margin: 0;
 	position: relative;
-	background: lightblue;
-	background: rgba(144, 238, 144, 0.53);
+	padding: 51px 0;
+	overflow: hidden;
 }
 .history-sldr__holder{
 	font-size: 0;
@@ -3161,34 +3184,44 @@ li.has-drop.current>.nav-sub-drop:after,
 .history-sldr__holder:after { clear: both; }
 .history-sldr__item{
 	display: inline-block;
-	vertical-align: top;;
+	vertical-align: top;
 	position: relative;
 	font-size: 14px;
 	letter-spacing: normal;
 	white-space: normal;
 	width: 80px;
 	height: 210px;
+	margin-top: 0;
+	margin-bottom: 0;
 	cursor: pointer;
-	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+	overflow: hidden;
+	/*box-shadow: -7px 0 15px rgba(0, 0, 0, 0.15);*/
+	box-shadow: -7px 0 15px rgba(0, 0, 0, 0.85);
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
+}
+.history-sldr__item.after-position{
+	box-shadow: 7px 0 15px rgba(0, 0, 0, 0.85);
 }
 .history-sldr__item.slide-current{
 	width: 250px;
 	height: 250px;
 	margin-top: -20px;
 	margin-bottom: -20px;
+	/*box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);*/
+	box-shadow: 0 8px 20px rgba(255, 0, 0, 0.75);
+	z-index: 99;
 }
 .history-sldr__holder.slider-track{
 	left: 0;
-	-webkit-transition: all 0.3s;
-	transition: all 0.3s;
+	-webkit-transition: all 0.2s linear;
+	transition: all 0.2s linear;
 }
 .history-sldr__holder.slider-track .history-sldr__item{
 	float: left;
-	-webkit-transition: all 0.3s;
-	transition: all 0.3s;
+	-webkit-transition: all 0.2s linear;
+	transition: all 0.2s linear;
 }
 /*mask under slide prevented click*/
 .history-sldr__item:after{
@@ -3204,34 +3237,8 @@ li.has-drop.current>.nav-sub-drop:after,
 	content: none;
 }
 /*mask under slide prevented click end*/
-
-.history-sldr__item a{
-	display: block;
-	height: 100%;
-	position: relative;
-	overflow: hidden;
-}
-
-/*overlay under image*/
-.history-sldr__item a:before{
-	content: '';
-	position: absolute;
-	left: 0;
-	top: 0;
-	height: 100%;
-	width: 100%;
-	background: rgba(255, 255, 255, 0.51);
-	-webkit-transition: opacity 0.2s;
-	transition: opacity 0.2s;
-	z-index: 1;
-}
-.history-sldr__item:hover a:before,
-.history-sldr__item.slide-current a:before{
-	opacity: 0;
-}
 /*overlay under image end*/
-
-.history-sldr__item a img{
+.history-sldr__item img{
 	position: absolute;
 	top: 0;
 	bottom: 0;
@@ -3243,14 +3250,17 @@ li.has-drop.current>.nav-sub-drop:after,
 	-ms-transform: translate(-50%, 0);
 	transform: translate(-50%, 0);
 }
-.history-sldr__item.slick-current a img{
+.history-sldr__item.slide-current img{
 	-webkit-filter: none;
 	filter: none;
 	-webkit-transform: translate(-50%, 0);
 	-ms-transform: translate(-50%, 0);
 	transform: translate(-50%, 0);
 }
-.history-sldr__item a img{}
+
+.history-sldr__info{
+	display: none;
+}
 
 .history-sldr__prev-btn,
 .history-sldr__next-btn{
@@ -3260,14 +3270,24 @@ li.has-drop.current>.nav-sub-drop:after,
 	-webkit-transform: translate(0, -50%);
 	-ms-transform: translate(0, -50%);
 	transform: translate(0, -50%);
-	background: lightsalmon;
 	z-index: 9;
 }
+.history-sldr__prev-btn>i,
+.history-sldr__next-btn>i{
+	display: block;
+	text-indent: -9999px;
+	overflow: hidden;
+	position: relative;
+}
+.history-sldr__prev-btn:active>i{ left: -1px; }
+.history-sldr__next-btn:active>i{ left: 1px; }
+.left-stop .history-sldr__prev-btn:active>i,
+.right-stop .history-sldr__next-btn:active>i{ left: 0; }
 .history-sldr__prev-btn{
-	left: 10px;
+	left: 20px;
 }
 .history-sldr__next-btn{
-	right: 10px;
+	right: 20px;
 }
 .left-stop .history-sldr__prev-btn,
 .right-stop .history-sldr__next-btn{
@@ -3279,6 +3299,33 @@ li.has-drop.current>.nav-sub-drop:after,
 	display: none;
 }
 /*history slider end*/
+/*history info*/
+.history-info {
+	width: 74.9%;
+	margin-left: auto;
+	padding: 0 30px 0 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.history-info__holder{
+	max-width: 530px;
+	position: relative;
+}
+.info-new{
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	background: #fff;
+}
+.history-info p{
+	padding: 24px 0 0;
+}
+.history-info p:first-child{
+	padding: 0;
+}
+/*history info end*/
 /*history end*/
 
 #console{
