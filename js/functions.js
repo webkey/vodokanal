@@ -67,44 +67,6 @@ function showFormSearch(){
 }
 /*show form search end*/
 
-/*phones drop*/
-function phonesDrop(){
-	var $phonesContainer = $('.phones');
-	if(!$phonesContainer.length){return;}
-
-	var animateSpeed = 200;
-	$phonesContainer.on('click', '.phones__opener', function (e) {
-		e.preventDefault();
-
-		var $phonesOpener = $(this),
-			$phonesDrop = $phonesOpener.closest($phonesContainer).find('.phones-drop');
-
-		if($phonesContainer.hasClass('show-drop')){
-			closeDropPhones();
-			return;
-		}
-		$phonesContainer.addClass('show-drop');
-		$phonesDrop.css('width',$phonesContainer.outerWidth()/3)
-			.fadeIn(animateSpeed);
-
-		e.stopPropagation();
-	});
-
-	$('.phones-drop').on('click', function (e) {
-		e.stopPropagation();
-	});
-
-	$(document).on('click', function () {
-		closeDropPhones();
-	});
-
-	function closeDropPhones(){
-		$phonesContainer.removeClass('show-drop');
-		$('.phones-drop').fadeOut(animateSpeed);
-	}
-}
-/*phones drop end*/
-
 /*multi accordion*/
 (function ($) {
 	var MultiAccordion = function (settings) {
@@ -631,8 +593,46 @@ function roadPopupInit(){
 }
 /*road popup end*/
 
+/*phones drop*/
+function phonesDrop(){
+	var $phonesContainer = $('.phones');
+	if(!$phonesContainer.length){return;}
+
+	var animateSpeed = 200;
+	$phonesContainer.on('click', '.phones__opener', function (e) {
+		e.preventDefault();
+
+		var $phonesOpener = $(this),
+				$phonesDrop = $phonesOpener.closest($phonesContainer).find('.phones-drop');
+
+		if($phonesContainer.hasClass('show-drop')){
+			closeDropPhones();
+			return;
+		}
+		$phonesContainer.addClass('show-drop');
+		$phonesDrop.css('width',$phonesContainer.outerWidth()/3)
+				.fadeIn(animateSpeed);
+
+		e.stopPropagation();
+	});
+
+	$('.phones-drop').on('click', function (e) {
+		e.stopPropagation();
+	});
+
+	$(document).on('click', function () {
+		closeDropPhones();
+	});
+
+	function closeDropPhones(){
+		$phonesContainer.removeClass('show-drop');
+		$('.phones-drop').fadeOut(animateSpeed);
+	}
+}
+/*phones drop end*/
+
 /*phones popup*/
-function phonesPopupInit(){
+function phonesPopupInit2(){
 	var $container = $('.cph__row');
 	if(!$container.length){return;}
 	$('.cph__number_opener').on('click', function (e) {
@@ -660,6 +660,99 @@ function phonesPopupInit(){
 	function closePopup(opener, container){
 		opener.removeClass('active');
 		container.removeClass('opened');
+	}
+}
+
+(function ($) {
+	var PhonesPopup = function (setting){
+		var options = $.extend({
+			container: 'body',
+			opener: null,
+			row: null,
+			box: null
+		}, setting || {});
+
+		this.options = options;
+		var container = options.container;
+		this.$opener = $(options.opener, container);
+		this.$row = $(options.row, container);
+		this.$box = $(options.box, container);
+
+		console.log(this.$row);
+
+		this.modifiers = {
+			active: 'active',
+			opened: 'opened'
+		};
+
+		this.bindEvents();
+	};
+
+	PhonesPopup.prototype.bindEvents = function () {
+		var self = this,
+			modifiers = self.modifiers;
+
+		$(self.$opener).on('click', function (e) {
+			e.preventDefault();
+
+
+			var $currentOpener = $(this),
+				$currentContainer = $currentOpener.closest(self.$row);
+
+			if($currentOpener.hasClass(modifiers.active)){
+				self.closePopup();
+				return;
+			}
+
+			self.closePopup();
+			$currentOpener.addClass(modifiers.active);
+			$currentContainer.addClass(modifiers.opened);
+
+			e.stopPropagation();
+		});
+
+		self.$box.on('click', function (e) {
+			e.stopPropagation();
+		});
+
+		$(document).on('click', function () {
+			self.closePopup();
+		});
+
+	};
+
+	PhonesPopup.prototype.closePopup = function(){
+		var self = this,
+			modifiers = self.modifiers;
+
+		self.$opener.removeClass(modifiers.active);
+		self.$row.removeClass(modifiers.opened);
+	};
+
+	window.PhonesPopup = PhonesPopup;
+}(jQuery));
+
+function phonesPopupInit(){
+	/** contacts phones*/
+	var $contactsPhones = $('.contacts-phones');
+	if($contactsPhones.length){
+		new PhonesPopup({
+			container: $contactsPhones,
+			opener: '.cph__number_opener',
+			row: '.cph__row',
+			box: '.cph__numbers'
+		})
+	}
+
+	/** contacts panel phones*/
+	var $container = $('.contacts-panel__phones');
+	if($container.length){
+		new PhonesPopup({
+			container: $container,
+			opener: '.tel-more',
+			row: '>li',
+			box: '.cont-numbers'
+		})
 	}
 }
 /*phones popup end*/
@@ -1337,7 +1430,7 @@ function footerBottom(){
 		var _ = this;
 
 		_.options = options;
-		var mainWrapper = $(options.mainWrapper)
+		var mainWrapper = $(options.mainWrapper);
 		_.$mainWrapper = mainWrapper;
 		var container = $(options.sliderContainer);
 		_.$sliderContainer = container;
@@ -1599,7 +1692,6 @@ function footerBottom(){
 					});
 				}
 			}
-			console.log('lastCount ', lastCount);
 		}
 	};
 
@@ -1677,11 +1769,11 @@ $(document).ready(function(){
 	placeholderInit();
 	dropLanguageInit();
 	showFormSearch();
-	phonesDrop();
 	multiAccordionInit();
 	footerDropInit();
 	//siteMapInit();
 	//roadPopupInit();
+	phonesDrop();
 	phonesPopupInit();
 	cardSwitch();
 	contactsSwitcher();
