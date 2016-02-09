@@ -632,37 +632,6 @@ function phonesDrop(){
 /*phones drop end*/
 
 /*phones popup*/
-function phonesPopupInit2(){
-	var $container = $('.cph__row');
-	if(!$container.length){return;}
-	$('.cph__number_opener').on('click', function (e) {
-		e.preventDefault();
-		var $currentOpener = $(this);
-		var $currentContainer = $currentOpener.closest('.cph__row');
-		if($currentOpener.hasClass('active')){
-			closePopup($currentOpener,$currentContainer);
-			return;
-		}
-		closePopup($('.cph__number_opener'),$container);
-		$currentOpener.addClass('active');
-		$currentContainer.addClass('opened');
-		e.stopPropagation();
-	});
-
-	$('.cph__numbers').on('click', function (e) {
-		e.stopPropagation();
-	});
-
-	$(document).on('click', function () {
-		closePopup($('.cph__number_opener'), $container);
-	});
-
-	function closePopup(opener, container){
-		opener.removeClass('active');
-		container.removeClass('opened');
-	}
-}
-
 (function ($) {
 	var PhonesPopup = function (setting){
 		var options = $.extend({
@@ -677,8 +646,6 @@ function phonesPopupInit2(){
 		this.$opener = $(options.opener, container);
 		this.$row = $(options.row, container);
 		this.$box = $(options.box, container);
-
-		console.log(this.$row);
 
 		this.modifiers = {
 			active: 'active',
@@ -1765,7 +1732,7 @@ function historySliderInit() {
  * ready/load/resize document
  */
 
-$(document).ready(function(){
+function loadByReady(){
 	placeholderInit();
 	dropLanguageInit();
 	showFormSearch();
@@ -1783,6 +1750,31 @@ $(document).ready(function(){
 	simpleTabInit();
 	accordionInit();
 	historySliderInit();
+}
+
+/*added game-checker in sidebar*/
+$(document).ready(function () {
+	var getLocation = function(href) {
+		var path = document.createElement("a");
+		path.href = href;
+		return path;
+	};
+	var pathname = getLocation(document.location.href).pathname;
+	console.log(pathname);
+
+	if ($('body').find('footer.footer').length) {
+		$('footer.footer').load('_footer.html #footer-tpl .max-wrap', function () {
+			if(pathname != '/vodokanal/about.html'){
+				$('footer.footer').find('.main-contacts').hide(0, function () {
+					loadByReady();
+				});
+				return;
+			}
+			loadByReady();
+		});
+	} else {
+		loadByReady();
+	}
 });
 
 $(window).load(function () {

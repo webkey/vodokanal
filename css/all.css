@@ -207,8 +207,6 @@ button:hover{
 /*content img*/
 .img{
 	border: 10px solid #fff;
-	display: inline-block;
-	vertical-align: top;
 	box-shadow: 0 3px 7px rgba(0, 0, 0, 0.35);
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -229,6 +227,87 @@ button:hover{
 	margin: 0 0 0 30px;
 }
 /*content img end*/
+
+/*images group*/
+.img-group{
+	font-size: 0;
+	letter-spacing: -4px;
+	border-top: 1px solid #e6e6e6;
+	border-bottom: 1px solid #e6e6e6;
+	margin: 0 0 30px;
+	padding: 30px 0 0;
+}
+.img-group__holder{
+	margin: 0 -10px;
+}
+.img-group__item{
+	display: inline-block;
+	vertical-align: top;
+	width: 24.98%;
+	font-size: 14px;
+	letter-spacing: normal;
+	padding: 0 10px 30px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.img-group__item img{
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
+	backface-visibility: hidden;
+	-webkit-transform: translateZ(0);
+	transform: translateZ(0);
+}
+.img-group__item .img{
+	display: block;
+	overflow: hidden;
+	position: relative;
+}
+.img-group__item a.img:hover img{
+	-webkit-transform: scale(1.6, 1.6) translateZ(0);
+	-ms-transform: scale(1.6, 1.6) translateZ(0);
+	transform: scale(1.6, 1.6) translateZ(0);
+	-webkit-transition: 8.2s;
+	transition: 8.2s;
+}
+.img-group__item.video-preview a.img:before,
+.img-group__item.video-preview a.img:after{
+	content: '';
+	position: absolute;
+	left: 50%;
+	top: 50%;
+}
+.img-group__item.video-preview a.img:before{
+	height: 45px;
+	width: 45px;
+	border-radius: 50%;
+	margin: -22px 0 0 -22px;
+	-webkit-transition: 0.2s;
+	transition: 0.2s;
+	background: #f00;
+	backface-visibility: hidden;
+	-webkit-transform: translateZ(0);
+	transform: translateZ(0);
+	z-index: 1;
+}
+.img-group__item.video-preview a.img:after{
+	background: url(../img/depict-play.png) no-repeat;
+	width: 9px;
+	height: 10px;
+	margin: -5px 0 0 -3px;
+	z-index: 2;
+}
+.img-group__item.video-preview a.img:hover:before{
+	-webkit-transform: scale(1.1, 1.1);
+	-ms-transform: scale(1.1, 1.1);
+	transform: scale(1.1, 1.1);
+}
+.img-group__item.video-preview a.img:hover img{
+	-webkit-transform: none;
+	-ms-transform: none;
+	transform: none;
+}
+/*images group end*/
 
 /*unordered list (UL)*/
 .user-content ul{
@@ -2391,7 +2470,7 @@ li.has-drop.current>.nav-sub-drop:after,
 	top: 0;
 	height: 100%;
 	width: 100%;
-	background: rgba(255, 255, 255, 0.51);
+	background: rgba(255, 255, 255, 0.21);
 	-webkit-transition: background 0.2s;
 	transition: background 0.2s;
 }
