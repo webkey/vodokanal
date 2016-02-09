@@ -1763,7 +1763,7 @@ $(document).ready(function () {
 	console.log(pathname);
 
 	if ($('body').find('footer.footer').length) {
-		$('footer.footer').load('_footer.html #footer-tpl .max-wrap', function () {
+		$('footer.footer').load('tpl-footer.html #footer-tpl .max-wrap', function () {
 			if(pathname != '/vodokanal/about.html'){
 				$('footer.footer').find('.main-contacts').hide(0, function () {
 					loadByReady();
