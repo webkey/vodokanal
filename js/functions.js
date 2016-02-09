@@ -1886,8 +1886,8 @@ $(document).ready(function () {
 			loadByReady();
 		}
 	}
-	//loadFooter();
-	loadByReady();
+	loadFooter();
+	//loadByReady();
 });
 
 $(window).load(function () {
