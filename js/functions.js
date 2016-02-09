@@ -1728,6 +1728,113 @@ function historySliderInit() {
 	}
 }
 
+/*nav position*/
+function navPosition(){
+	var $body,
+		$window,
+		$sidebar,
+		adminbarOffset,
+		top = false,
+		bottom = false,
+		windowWidth,
+		windowHeight,
+		lastWindowPos = 0,
+		topOffset = 0,
+		bodyHeight,
+		sidebarHeight,
+		resizeTimer;
+
+	$body = $(document.body);
+	$window = $(window);
+	$sidebar = $('.nav__holder');
+	adminbarOffset = $body.is('.admin-bar') ? $('#wpadminbar').height() : 0;
+
+	if (!$sidebar.length) {
+		return;
+	}
+
+	$window.on('scroll', scroll)
+		.on('resize', function () {
+		clearTimeout(resizeTimer);
+		resizeTimer = setTimeout(resizeAndScroll, 500);
+	});
+
+	resizeAndScroll();
+
+	function resizeAndScroll() {
+		resize();
+		scroll();
+	}
+
+	function scroll() {
+		var windowPos = $window.scrollTop();
+		if (1500 > windowWidth) {
+			return;
+		}
+
+		sidebarHeight = $sidebar.outerHeight();
+		windowHeight = $window.height();
+		bodyHeight = $body.height();
+
+		if (sidebarHeight + adminbarOffset > windowHeight) {
+			if (windowPos > lastWindowPos) {
+				if (top) {
+					top = false;
+					topOffset = ($sidebar.offset().top > 0) ? $sidebar.offset().top - adminbarOffset : 0;
+					$sidebar.attr('style', 'position: relative; top: ' + topOffset + 'px;');
+				} else if (!bottom && windowPos + windowHeight > sidebarHeight + $sidebar.offset().top && sidebarHeight + adminbarOffset < bodyHeight) {
+					bottom = true;
+					$sidebar.attr('style', 'position: fixed; bottom: 0;');
+				}
+			} else if (windowPos < lastWindowPos) {
+				if (bottom) {
+					bottom = false;
+					topOffset = ($sidebar.offset().top > 0) ? $sidebar.offset().top - adminbarOffset : 0;
+					$sidebar.attr('style', 'position: relative; top: ' + topOffset + 'px;');
+				} else if (!top && windowPos + adminbarOffset < $sidebar.offset().top) {
+					top = true;
+					$sidebar.attr('style', 'position: fixed;');
+				}
+			} else {
+				top = bottom = false;
+				topOffset = ($sidebar.offset().top > 0) ? $sidebar.offset().top - adminbarOffset : 0;
+				$sidebar.attr('style', 'position: relative; top: ' + topOffset + 'px;');
+			}
+		} else if (!top) {
+			top = true;
+			$sidebar.attr('style', 'position: fixed;');
+		}
+		lastWindowPos = windowPos;
+	}
+
+	function resize() {
+		windowWidth = $window.width();
+		$sidebar.removeAttr('style');
+		if (1500 > windowWidth) {
+			top = bottom = false;
+		}
+	}
+}
+/*nav position end*/
+
+/*header fixed*/
+function headerFixed(){
+	var currentScrollTop = 0,
+		page = $('.inner-page'),
+		menu = $('.inner-page .header'),
+		minScrollTop = menu.outerHeight() + 10;
+	$(window).scroll(function () {
+		var newScrollTop = $(window).scrollTop();
+		if (newScrollTop < minScrollTop || currentScrollTop - newScrollTop > 5) {
+			page.addClass('header-show');
+		} else if (newScrollTop > currentScrollTop) {
+			page.removeClass('header-show');
+		}
+		currentScrollTop = newScrollTop;
+	});
+}
+/*header fixed end*/
+
 /**!
  * ready/load/resize document
  */
@@ -1750,6 +1857,8 @@ function loadByReady(){
 	simpleTabInit();
 	accordionInit();
 	historySliderInit();
+	//navPosition();
+	headerFixed();
 }
 
 /*added game-checker in sidebar*/
@@ -1762,19 +1871,23 @@ $(document).ready(function () {
 	var pathname = getLocation(document.location.href).pathname;
 	console.log(pathname);
 
-	if ($('body').find('footer.footer').length) {
-		$('footer.footer').load('tpl-footer.html #footer-tpl .max-wrap', function () {
-			if(pathname != '/vodokanal/about.html'){
-				$('footer.footer').find('.main-contacts').hide(0, function () {
-					loadByReady();
-				});
-				return;
-			}
+	function loadFooter(){
+		if ($('body').find('footer.footer').length) {
+			$('footer.footer').load('tpl-footer.html #footer-tpl .max-wrap', function () {
+				if(pathname != '/vodokanal/about.html'){
+					$('footer.footer').find('.main-contacts').hide(0, function () {
+						loadByReady();
+					});
+					return;
+				}
+				loadByReady();
+			});
+		} else {
 			loadByReady();
-		});
-	} else {
-		loadByReady();
+		}
 	}
+	//loadFooter();
+	loadByReady();
 });
 
 $(window).load(function () {
