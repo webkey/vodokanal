@@ -1131,7 +1131,7 @@ function mapMainInit(){
 
 /*ui tabs initial*/
 function uiTabsInit(){
-	var $tabs = $('.tabs-js');
+	var $tabs = $('.tabs-js')
 	if($tabs.length){
 		$tabs.tabs({
 			//animate: 'easeInOutQuint',
