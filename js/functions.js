@@ -4,6 +4,15 @@ function placeholderInit(){
 }
 /* placeholder end */
 
+/*preloader*/
+function preloader(){
+	var $preloader = $('#preloader'),
+			$spinner = $preloader.find('.loader__icon');
+	$spinner.fadeOut();
+	$preloader.delay(350).fadeOut('slow');
+}
+/*preloader */
+
 /*drop language*/
 var closeDropLong = function () {
 	$('.lang').removeClass('lang-opened');
@@ -1908,6 +1917,7 @@ $(document).ready(function () {
 });
 
 $(window).load(function () {
+	preloader();
 	equalHeightInit();
 	equelHeightInTabs();
 	footerBottom();
