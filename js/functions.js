@@ -1828,8 +1828,10 @@ function navPosition(){
 
 /*header fixed*/
 function headerFixed(){
+	var page = $('.inner-page');
+	if(!page.length){return;}
+
 	var currentScrollTop = window.pageYOffset || document.documentElement.scrollTop,
-		page = $('.inner-page'),
 		//menu = $('.inner-page .header'),
 		//minScrollTop = menu.outerHeight() + 10;
 		minScrollTop = 140;
@@ -1887,7 +1889,7 @@ function loadByReady(){
 	headerFixed();
 }
 
-/*added game-checker in sidebar*/
+/*added footer*/
 $(document).ready(function () {
 	var getLocation = function(href) {
 		var path = document.createElement("a");
