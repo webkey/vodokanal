@@ -828,6 +828,27 @@ label{
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
 	z-index: 1;
 }
+/*.nav{
+	position: relative;
+	!* padding: 200px 0 0; *!
+	width: 320px;
+	min-height: 50px;
+	height: 100%;
+	background: #f7f7f7;
+	float: left;
+	margin: 140px -320px 0 0;
+	-webkit-transition: margin 0.3s;
+	transition: margin 0.3s;
+	-webkit-transform: translateZ(0);
+	transform: translateZ(0);
+}
+
+.nav__holder{
+	position: fixed;
+	top: 0;
+	width: 320px;
+}*/
+
 .nav{
 	position: relative;
 	/* padding: 200px 0 0; */
@@ -842,7 +863,16 @@ label{
 	position: fixed;
 	top: 200px;
 	width: 320px;
+	-webkit-transition: top 0.3s;
+	transition: top 0.3s;
 }
+.logo-reduce .nav__holder{
+	top: 0;
+}
+.logo-reduce.header-show .nav__holder{
+	top: 60px;
+}
+
 .footer{
 	position: relative;
 	z-index: 3;
@@ -868,7 +898,7 @@ label{
 .inner-page .header-holder{
 	height: 60px;
 }
-.header.show .header-holder{
+.logo-reduce .header-holder{
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
 }
 .header-holder:before,
@@ -1143,6 +1173,9 @@ label{
 	letter-spacing: -4px;
 	background: #0af;
 }
+.phones__container{
+	padding-left: 24px;
+}
 .phones__container:before{
 	content: '';
 	display: inline-block;
@@ -1158,7 +1191,7 @@ label{
 	letter-spacing: normal;
 	color: #fff;
 	width: 24.99%;
-	padding-left: 34px;
+	padding-left: 14px;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -1194,6 +1227,7 @@ label{
 	position: absolute;
 	top: 100%;
 	background: #0af;
+	padding-left: 24px;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -1221,11 +1255,51 @@ label{
 	text-indent: -9999px;
 	overflow: hidden;
 	margin-left: -320px;
+	background: #008acf;
+	-webkit-transition: height 0.3s;
+	transition: height 0.3s;
+}
+.logo-reduce .logo{
+	height: 60px;
 }
 .logo a{
-	background: #008acf url(../img/logo.png) no-repeat 50% 50%;
 	display: block;
 	height: 100%;
+	position: relative;
+}
+.logo a:before,
+.logo a:after{
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	background: #008acf no-repeat 50% 50%;
+	-webkit-transition: opacity 0.6s;
+	transition: opacity 0.6s;
+}
+.logo a:before{
+	background-image: url(../img/logo.png);
+	opacity: 1;
+	-ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+}
+.logo a:after{
+	background-image: url(../img/logo-sm.png);
+	opacity: 0;
+	-ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+}
+.logo-reduce .logo a:before{
+	opacity: 0;
+	-ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+}
+.logo-reduce .logo a:after{
+	opacity: 1;
+	-ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
 }
 .logo-print{
 	display: none;

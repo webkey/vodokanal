@@ -610,7 +610,7 @@ function phonesDrop(){
 			return;
 		}
 		$phonesContainer.addClass('show-drop');
-		$phonesDrop.css('width',$phonesContainer.outerWidth()/3)
+		$phonesDrop.css('width',$phonesContainer.outerWidth()/4)
 				.fadeIn(animateSpeed);
 
 		e.stopPropagation();
@@ -1435,7 +1435,7 @@ function footerBottom(){
 		_.disabledArrows(_.$slide.eq(_._activeSlide));
 		_.bindEvents();
 
-		$('body').prepend('<div id="console"></div>');
+		//$('body').prepend('<div id="console"></div>');
 	};
 
 	HistorySlider.prototype.beforeStart = function () {
@@ -1819,12 +1819,29 @@ function navPosition(){
 
 /*header fixed*/
 function headerFixed(){
-	var currentScrollTop = 0,
+	var currentScrollTop = window.pageYOffset || document.documentElement.scrollTop,
 		page = $('.inner-page'),
-		menu = $('.inner-page .header'),
-		minScrollTop = menu.outerHeight() + 10;
+		//menu = $('.inner-page .header'),
+		//minScrollTop = menu.outerHeight() + 10;
+		minScrollTop = 140;
+
+	console.log( "Текущая прокрутка: ", +  currentScrollTop);
+
+	function logoScale(scrollTop){
+		if(scrollTop > minScrollTop){
+			page.addClass('logo-reduce');
+		} else {
+			page.removeClass('logo-reduce');
+		}
+	}
+	logoScale(currentScrollTop);
+
 	$(window).scroll(function () {
 		var newScrollTop = $(window).scrollTop();
+		console.log("Новая прокрутка: ", newScrollTop);
+
+		logoScale(newScrollTop);
+
 		if (newScrollTop < minScrollTop || currentScrollTop - newScrollTop > 5) {
 			page.addClass('header-show');
 		} else if (newScrollTop > currentScrollTop) {
