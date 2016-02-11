@@ -1843,7 +1843,7 @@ function headerFixed(){
 		//minScrollTop = menu.outerHeight() + 10;
 		minScrollTop = 140;
 
-	console.log( "Текущая прокрутка: ", +  currentScrollTop);
+	//console.log( "Текущая прокрутка: ", +  currentScrollTop);
 
 	function logoScale(scrollTop){
 		if(scrollTop > minScrollTop){
@@ -1856,7 +1856,7 @@ function headerFixed(){
 
 	$(window).scroll(function () {
 		var newScrollTop = $(window).scrollTop();
-		console.log("Новая прокрутка: ", newScrollTop);
+		//console.log("Новая прокрутка: ", newScrollTop);
 
 		logoScale(newScrollTop);
 
@@ -1898,7 +1898,9 @@ function loadByReady(){
 
 /*added footer*/
 $(document).ready(function () {
-	var getLocation = function(href) {
+	/**!!! REMOVE THIS CODE BEFORE START PROGRAMMING !!!*/
+	/**THIS SCRIPT ADDEDS REPEATING ELEMENTS TO HTML-PAGES. E.T.: HEADER, FOOTER !!!*/
+	var getLocation = function (href) {
 		var path = document.createElement("a");
 		path.href = href;
 		return path;
@@ -1906,22 +1908,39 @@ $(document).ready(function () {
 	var pathname = getLocation(document.location.href).pathname;
 	console.log(pathname);
 
-	function loadFooter(){
-		if ($('body').find('footer.footer').length) {
-			$('footer.footer').load('tpl-footer.html #footer-tpl .max-wrap', function () {
-				if(pathname != '/vodokanal/about.html'){
-					$('footer.footer').find('.main-contacts').hide(0, function () {
-						loadByReady();
+	var $body = $('body');
+	var $footer = $body.find('footer.footer');
+	var $header = $body.find('header.header');
+
+	function loadElements() {
+		if ($footer.length) {
+			$footer.load('tpl-footer.html #footer-tpl .max-wrap', function () {
+				if (pathname != '/vodokanal/about.html') {
+					console.log(4);
+					$footer.find('.main-contacts').hide(0, function () {
+						loadHeader();
 					});
 					return;
 				}
-				loadByReady();
+				loadHeader();
 			});
 		} else {
 			loadByReady();
 		}
 	}
-	loadFooter();
+
+	function loadHeader() {
+		if (pathname == '/vodokanal/index.html' || pathname == '/vodokanal/') {
+			loadByReady();
+			return;
+		}
+		$header.load('tpl-header.html #header-tpl>.max-wrap', function () {
+			loadByReady();
+		});
+	}
+	/**!!! REMOVE THIS CODE BEFORE START PROGRAMMING END !!!*/
+
+	loadElements();
 	//loadByReady();
 });
 
