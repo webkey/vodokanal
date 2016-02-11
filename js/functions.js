@@ -465,6 +465,7 @@ function mainNavigationInit(){
 		var options = $.extend({
 			wrapperContainer: 'body',
 			footer: '.footer',
+			scrollTo: null,
 			animateSpeed: 300
 		}, settings || {});
 
@@ -475,6 +476,7 @@ function mainNavigationInit(){
 		this.$footer = $(options.footer);
 		this.$disperseWrapper = $(options.disperseWrapper, container);
 		this.$disperseDrop = $(options.disperseDrop, container);
+		this.$scrollTo = $(options.scrollTo, container);
 		this._disperseHeight = this.$disperseDrop.outerHeight();
 
 		this._animateSpeed = options.animateSpeed;
@@ -512,7 +514,12 @@ function mainNavigationInit(){
 			self.footerAtBottom(_height);
 
 			$switcher.addClass(_modifiersActive);
-			$('html, body').animate({ scrollTop: $disperseWrapper.offset().top }, _animateSpeed);
+
+			var $scrollTo = $disperseWrapper;
+			if(self.$scrollTo.length){
+				$scrollTo = self.$scrollTo;
+			}
+			$('html, body').animate({ scrollTop: $scrollTo.offset().top }, _animateSpeed);
 		})
 	};
 
@@ -538,6 +545,7 @@ function footerDropInit() {
 			wrapperContainer: '.footer',
 			disperseWrapper: '.footer-site-map',
 			disperseDrop: '.site-map',
+			scrollTo: '.footer-top',
 			animateSpeed: 400
 		});
 	}
@@ -608,7 +616,7 @@ function phonesDrop(){
 	if(!$phonesContainer.length){return;}
 
 	var animateSpeed = 200;
-	$phonesContainer.on('click', '.phones__opener', function (e) {
+	$phonesContainer.on('click', '.phs__item_opener', function (e) {
 		e.preventDefault();
 
 		var $phonesOpener = $(this),
@@ -619,13 +627,12 @@ function phonesDrop(){
 			return;
 		}
 		$phonesContainer.addClass('show-drop');
-		$phonesDrop.css('width',$phonesContainer.outerWidth()/4)
-				.fadeIn(animateSpeed);
+		$phonesDrop.fadeIn(animateSpeed);
 
 		e.stopPropagation();
 	});
 
-	$('.phones-drop').on('click', function (e) {
+	$('.phones-drop>div').on('click', function (e) {
 		e.stopPropagation();
 	});
 
@@ -1854,9 +1861,9 @@ function headerFixed(){
 		logoScale(newScrollTop);
 
 		if (newScrollTop < minScrollTop || currentScrollTop - newScrollTop > 5) {
-			page.addClass('header-show');
+			page.addClass('top-panel-show');
 		} else if (newScrollTop > currentScrollTop) {
-			page.removeClass('header-show');
+			page.removeClass('top-panel-show');
 		}
 		currentScrollTop = newScrollTop;
 	});
