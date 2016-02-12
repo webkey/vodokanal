@@ -950,7 +950,7 @@ function slickSlidersInit(){
 			dots: true,
 			arrows: true,
 			responsive: [{
-				breakpoint: 960,
+				breakpoint: 1280,
 				settings: {
 					slidesToShow: 2,
 					slidesToScroll: 1
@@ -1748,10 +1748,10 @@ function historySliderInit() {
 function navPosition(){
 	var $body,
 		$window,
-		$nav,
+		$navHolder,
 		$footer,
 		$logo,
-		navBoxTop,
+		navContainerTop,
 		top = false,
 		bottom = false,
 		windowWidth,
@@ -1766,16 +1766,19 @@ function navPosition(){
 
 	$body = $(document.body);
 	$window = $(window);
-	$nav = $('.nav-inner-page__holder');
+	$navHolder = $('.nav-inner-page__holder');
 	$footer = $('footer.footer');
 	$logo = $('.logo');
 	footerHeight = $footer.height();
 	logoHeight = $logo.height();
-	//navBoxTop = $body.is('.admin-bar') ? $('#wpadminbar').height() : 0;
+	console.log('logoHeight: ', logoHeight);
+	//navContainerTop = $body.is('.admin-bar') ? $('#wpadminbar').height() : 0;
 	topOffset = $logo.length ? logoHeight : 0;
-	navBoxTop = $('nav.nav').offset().top;
+	navContainerTop = $('nav.nav').offset().top;
+	var navOffsetTop = $navHolder.offset().top;
+	console.log('navOffsetTop1: ', navOffsetTop);
 
-	if (!$nav.length) {
+	if (!$navHolder.length) {
 		return;
 	}
 
@@ -1797,72 +1800,106 @@ function navPosition(){
 		//	return;
 		//}
 
-		navHeight = $nav.outerHeight();
+		navHeight = $navHolder.outerHeight();
 		windowHeight = $window.height();
 		bodyHeight = $body.height();
+		var logoHeightNew = $logo.height();
 
 		console.log('navHeight: ', navHeight);
 		console.log('windowHeight: ', windowHeight);
 		//console.log('bodyHeight: ', bodyHeight);
 		console.log('footerHeight: ', footerHeight);
-		console.log('logoHeight: ', logoHeight);
-		console.log('navBoxTop: ', navBoxTop);
+		console.log('logoHeightNew: ', logoHeightNew);
+		console.log('navContainerTop: ', navContainerTop);
 
 		console.log('windowPos: ', windowPos);
 		console.log('lastWindowPos: ', lastWindowPos);
 
-		if (navHeight + logoHeight > windowHeight) {
+		console.log('navHeight + navOffsetTop > windowHeight: ', navHeight + navOffsetTop + ' > '+ windowHeight);
+		if (navHeight + navOffsetTop > windowHeight) {
 			console.log('1 start');
-			var navOffsetTop = $nav.offset().top;
-			console.log('navOffsetTop: ', navOffsetTop);
+			navOffsetTop = $navHolder.offset().top;
+			console.log('navOffsetTop2: ', navOffsetTop);
+			console.log('bottom_1: ', bottom);
 
 			if (windowPos > lastWindowPos) {
-				console.log('!bottom: ', !bottom);
-				console.log('windowPos + windowHeight: ', windowPos + windowHeight);
-				console.log('> navHeight + navOffsetTop: ', navHeight + navOffsetTop);
-				console.log('navHeight + topOffset ', navHeight + topOffset);
-				console.log('< bodyHeight: ', bodyHeight);
+				console.log('scroll ▼');
+				console.log('!bottom && navOffsetTop > logoHeightNew (c.2.2): --> ', !bottom + ' && ' + navOffsetTop + ' > ' + logoHeightNew);
+				console.log('!bottom && windowPos + windowHeight > navHeight + navOffsetTop && navHeight + logoHeightNew > windowHeight (c.2): --> ', !bottom + ' && ' + (windowPos + windowHeight) + ' > ' + (navHeight + navOffsetTop) + ' && ' + (navHeight + logoHeightNew) + ' > ' + windowHeight);
+
 				if (top) {
 					console.log(1);
+
 					top = false;
-					topOffset = (navOffsetTop > 0) ? navOffsetTop - navOffsetTop : 0;
-					$nav.attr('style', 'position: relative; top: ' + topOffset + 'px;');
-				//} else if (!bottom && windowPos + windowHeight > navHeight + navOffsetTop && navHeight + topOffset < bodyHeight) {
-				} else if (!bottom && windowPos + windowHeight > navHeight + navOffsetTop && navHeight) {
+					topOffset = (navOffsetTop > 0) ? navOffsetTop - navContainerTop : 0;
+					console.log('topOffset_1: ', topOffset);
+
+					$navHolder.attr('style', 'position: relative; top: ' + topOffset + 'px;');
+
+				} else if (!bottom && windowPos + windowHeight > navHeight + navOffsetTop && navHeight + logoHeightNew > windowHeight) {
 					console.log(2);
+
 					bottom = true;
-					$nav.attr('style', 'position: fixed; bottom: 0; top: auto;');
+					$navHolder.attr('style', 'position: fixed; bottom: 0; top: auto;');
+					//$navHolder.attr('style', 'position: fixed; top: '+ -windowPos +'px;');
+
 				}
+				/*else if (!bottom && navOffsetTop > logoHeightNew) {
+					console.log(2.2);
+
+					topOffset = navOffsetTop - logoHeight - logoHeightNew;
+					console.log('topOffset_1.2 (navOffsetTop - logoHeight - logoHeightNew): ', navOffsetTop + ' - ' + logoHeight + ' - ' + logoHeightNew +' = '+ topOffset);
+
+					$navHolder.attr('style', 'position: relative; top: '+topOffset+';');
+				}*/
+
 				console.log('2 return');
 			} else if (windowPos < lastWindowPos) {
+				console.log('scroll ▲');
+				console.log('bottom_2 --> c.3: ', bottom);
+				console.log('!top && windowPos + logoHeightNew < navOffsetTop: --> c.4 ', !top + ' && ' + (windowPos + logoHeightNew) + ' < ' + navOffsetTop);
+
 				if (bottom) {
 					console.log(3);
+
 					bottom = false;
-					topOffset = (navOffsetTop > 0) ? navOffsetTop - navBoxTop : 0;
-					$nav.attr('style', 'position: relative; top: ' + topOffset + 'px;');
-				} else if (!top && windowPos + navBoxTop < navOffsetTop) {
+					topOffset = (navOffsetTop > 0) ? navOffsetTop - navContainerTop : 0;
+					console.log('topOffset_2: ', topOffset);
+
+					$navHolder.attr('style', 'position: relative; top: ' + topOffset + 'px;');
+				} else if (!top && windowPos + logoHeightNew < navOffsetTop) {
 					console.log(4);
+
 					top = true;
-					$nav.attr('style', 'position: fixed;');
+					$navHolder.attr('style', 'position: fixed;');
 				}
 			} else {
+				console.log('scroll ▲▼');
 				console.log(5);
+
 				top = bottom = false;
-				topOffset = (navOffsetTop > 0) ? navOffsetTop - navBoxTop : 0;
-				$nav.attr('style', 'position: relative; top: ' + topOffset + 'px;');
+				topOffset = (navOffsetTop > 0) ? navOffsetTop - navOffsetTop : 0;
+				//topOffset = $logo.length ? logoHeightNew : 0;
+				console.log('topOffset_3: ', topOffset);
+				$navHolder.attr('style', 'position: relative; top: '+ topOffset +';');
+				//$navHolder.attr('style', 'position: fixed; top: '+ topOffset +';');
 			}
+			console.log('1 stop');
 		} else if (!top) {
 			console.log(6);
+
 			top = true;
-			$nav.attr('style', 'position: fixed;');
+			$navHolder.attr('style', 'position: fixed;');
 		}
 		console.log(7);
+		console.log('******************************************************************************************************');
+
 		lastWindowPos = windowPos;
 	}
 
 	function resize() {
 		windowWidth = $window.width();
-		$nav.removeAttr('style');
+		$navHolder.removeAttr('style');
 		if (1500 > windowWidth) {
 			top = bottom = false;
 		}
@@ -1929,8 +1966,8 @@ function loadByReady(){
 	simpleTabInit();
 	accordionInit();
 	historySliderInit();
-	navPosition();
 	headerFixed();
+	navPosition();
 }
 
 /*added footer*/

@@ -824,7 +824,7 @@ label{
 	width: 320px;
 	min-height: 50px;
 	height: 100%;
-	background: #f7f7f7;
+	background: #fff000;
 	float: left;
 	margin: 140px -320px 0 0;
 }
@@ -832,8 +832,12 @@ label{
 	position: fixed;
 	top: 200px;
 	width: 320px;
-	-webkit-transition: top 0.3s;
-	transition: top 0.3s;
+	/*-webkit-transition: top 0.3s;*/
+	/*transition: top 0.3s;*/
+}
+.nav__holder[style*="relative"]{
+	-webkit-transition: none;
+	transition: none;
 }
 .logo-reduce .nav__holder{
 	top: 60px;
@@ -1275,8 +1279,9 @@ label{
 	text-indent: -9999px;
 	overflow: hidden;
 	background: #008acf;
-	-webkit-transition: all 0.3s;
-	transition: all 0.3s;
+	/*margin: 0 0 0 -170px;*/
+	/*-webkit-transition: all 0.3s;*/
+	/*transition: all 0.3s;*/
 	z-index: 1;
 }
 .logo-reduce .logo{
@@ -2618,10 +2623,17 @@ li.has-drop.current>.nav-sub-drop:after,
 	-webkit-transition: border 0.2s, color 0.2s;
 	transition: border 0.2s, color 0.2s;
 }
-.faq-list h3:hover>span,
+.faq-list h3:hover>span{
+	/*color: #008acf;*/
+	/*border-color: #008acf;*/
+	border-color: transparent;
+}
 .faq-list h3.active>span{
 	color: #008acf;
 	border-color: #008acf;
+}
+.faq-list h3.active:hover>span{
+	border-color: transparent;
 }
 .faq-list h3>i{
 	position: absolute;
@@ -2802,7 +2814,8 @@ li.has-drop.current>.nav-sub-drop:after,
 }
 .works__tabs-control a:hover{
 	color: #008acf;
-	border-color: #008acf;
+	/*border-color: #008acf;*/
+	border-color: transparent;
 }
 .works__tabs-control .active a{
 	font-weight: bold;
