@@ -1748,29 +1748,38 @@ function historySliderInit() {
 function navPosition(){
 	var $body,
 		$window,
-		$sidebar,
-		adminbarOffset,
+		$nav,
+		$footer,
+		$logo,
+		navBoxTop,
 		top = false,
 		bottom = false,
 		windowWidth,
 		windowHeight,
 		lastWindowPos = 0,
-		topOffset = 0,
+		topOffset,
 		bodyHeight,
-		sidebarHeight,
+		navHeight,
+		footerHeight,
+		logoHeight,
 		resizeTimer;
 
 	$body = $(document.body);
 	$window = $(window);
-	$sidebar = $('.nav__holder');
-	adminbarOffset = $body.is('.admin-bar') ? $('#wpadminbar').height() : 0;
+	$nav = $('.nav-inner-page__holder');
+	$footer = $('footer.footer');
+	$logo = $('.logo');
+	footerHeight = $footer.height();
+	logoHeight = $logo.height();
+	//navBoxTop = $body.is('.admin-bar') ? $('#wpadminbar').height() : 0;
+	topOffset = $logo.length ? logoHeight : 0;
+	navBoxTop = $('nav.nav').offset().top;
 
-	if (!$sidebar.length) {
+	if (!$nav.length) {
 		return;
 	}
 
-	$window.on('scroll', scroll)
-		.on('resize', function () {
+	$window.on('scroll', scroll).on('resize', function () {
 		clearTimeout(resizeTimer);
 		resizeTimer = setTimeout(resizeAndScroll, 500);
 	});
@@ -1784,48 +1793,76 @@ function navPosition(){
 
 	function scroll() {
 		var windowPos = $window.scrollTop();
-		if (1500 > windowWidth) {
-			return;
-		}
+		//if (1500 > windowWidth) {
+		//	return;
+		//}
 
-		sidebarHeight = $sidebar.outerHeight();
+		navHeight = $nav.outerHeight();
 		windowHeight = $window.height();
 		bodyHeight = $body.height();
 
-		if (sidebarHeight + adminbarOffset > windowHeight) {
+		console.log('navHeight: ', navHeight);
+		console.log('windowHeight: ', windowHeight);
+		//console.log('bodyHeight: ', bodyHeight);
+		console.log('footerHeight: ', footerHeight);
+		console.log('logoHeight: ', logoHeight);
+		console.log('navBoxTop: ', navBoxTop);
+
+		console.log('windowPos: ', windowPos);
+		console.log('lastWindowPos: ', lastWindowPos);
+
+		if (navHeight + logoHeight > windowHeight) {
+			console.log('1 start');
+			var navOffsetTop = $nav.offset().top;
+			console.log('navOffsetTop: ', navOffsetTop);
+
 			if (windowPos > lastWindowPos) {
+				console.log('!bottom: ', !bottom);
+				console.log('windowPos + windowHeight: ', windowPos + windowHeight);
+				console.log('> navHeight + navOffsetTop: ', navHeight + navOffsetTop);
+				console.log('navHeight + topOffset ', navHeight + topOffset);
+				console.log('< bodyHeight: ', bodyHeight);
 				if (top) {
+					console.log(1);
 					top = false;
-					topOffset = ($sidebar.offset().top > 0) ? $sidebar.offset().top - adminbarOffset : 0;
-					$sidebar.attr('style', 'position: relative; top: ' + topOffset + 'px;');
-				} else if (!bottom && windowPos + windowHeight > sidebarHeight + $sidebar.offset().top && sidebarHeight + adminbarOffset < bodyHeight) {
+					topOffset = (navOffsetTop > 0) ? navOffsetTop - navOffsetTop : 0;
+					$nav.attr('style', 'position: relative; top: ' + topOffset + 'px;');
+				//} else if (!bottom && windowPos + windowHeight > navHeight + navOffsetTop && navHeight + topOffset < bodyHeight) {
+				} else if (!bottom && windowPos + windowHeight > navHeight + navOffsetTop && navHeight) {
+					console.log(2);
 					bottom = true;
-					$sidebar.attr('style', 'position: fixed; bottom: 0;');
+					$nav.attr('style', 'position: fixed; bottom: 0; top: auto;');
 				}
+				console.log('2 return');
 			} else if (windowPos < lastWindowPos) {
 				if (bottom) {
+					console.log(3);
 					bottom = false;
-					topOffset = ($sidebar.offset().top > 0) ? $sidebar.offset().top - adminbarOffset : 0;
-					$sidebar.attr('style', 'position: relative; top: ' + topOffset + 'px;');
-				} else if (!top && windowPos + adminbarOffset < $sidebar.offset().top) {
+					topOffset = (navOffsetTop > 0) ? navOffsetTop - navBoxTop : 0;
+					$nav.attr('style', 'position: relative; top: ' + topOffset + 'px;');
+				} else if (!top && windowPos + navBoxTop < navOffsetTop) {
+					console.log(4);
 					top = true;
-					$sidebar.attr('style', 'position: fixed;');
+					$nav.attr('style', 'position: fixed;');
 				}
 			} else {
+				console.log(5);
 				top = bottom = false;
-				topOffset = ($sidebar.offset().top > 0) ? $sidebar.offset().top - adminbarOffset : 0;
-				$sidebar.attr('style', 'position: relative; top: ' + topOffset + 'px;');
+				topOffset = (navOffsetTop > 0) ? navOffsetTop - navBoxTop : 0;
+				$nav.attr('style', 'position: relative; top: ' + topOffset + 'px;');
 			}
 		} else if (!top) {
+			console.log(6);
 			top = true;
-			$sidebar.attr('style', 'position: fixed;');
+			$nav.attr('style', 'position: fixed;');
 		}
+		console.log(7);
 		lastWindowPos = windowPos;
 	}
 
 	function resize() {
 		windowWidth = $window.width();
-		$sidebar.removeAttr('style');
+		$nav.removeAttr('style');
 		if (1500 > windowWidth) {
 			top = bottom = false;
 		}
@@ -1892,7 +1929,7 @@ function loadByReady(){
 	simpleTabInit();
 	accordionInit();
 	historySliderInit();
-	//navPosition();
+	navPosition();
 	headerFixed();
 }
 
