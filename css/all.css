@@ -1279,7 +1279,7 @@ label{
 	text-indent: -9999px;
 	overflow: hidden;
 	background: #008acf;
-	/*margin: 0 0 0 -170px;*/
+	margin: 0 0 0 -170px;
 	/*-webkit-transition: all 0.3s;*/
 	/*transition: all 0.3s;*/
 	z-index: 1;
@@ -2624,8 +2624,6 @@ li.has-drop.current>.nav-sub-drop:after,
 	transition: border 0.2s, color 0.2s;
 }
 .faq-list h3:hover>span{
-	/*color: #008acf;*/
-	/*border-color: #008acf;*/
 	border-color: transparent;
 }
 .faq-list h3.active>span{
@@ -2814,7 +2812,6 @@ li.has-drop.current>.nav-sub-drop:after,
 }
 .works__tabs-control a:hover{
 	color: #008acf;
-	/*border-color: #008acf;*/
 	border-color: transparent;
 }
 .works__tabs-control .active a{
@@ -4632,14 +4629,14 @@ li.has-drop.current>.nav-sub-drop:after,
 	text-transform: none;
 	letter-spacing: normal;
 	color: #000;
-	padding: 0 0 50px;
+	padding: 0 0 10px;
 }
 .error-404__note{
 	font-size: 18px;
 	line-height: 24px;
 	color: #808080;
 	letter-spacing: 0.1em;
-	padding: 0 0 45px;
+	padding: 0 0 15px;
 }
 .error-404__img{
 	display:block;
@@ -4648,7 +4645,7 @@ li.has-drop.current>.nav-sub-drop:after,
 	-webkit-background-size: contain;
 	background-size: contain;
 	max-width: 570px;
-	margin: 0 auto 44px;
+	margin: 40px auto 65px;
 	text-indent: -9999px;
 	line-height: 0;
 	font-size: 0;

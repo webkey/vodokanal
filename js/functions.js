@@ -1746,6 +1746,8 @@ function historySliderInit() {
 
 /*nav position*/
 function navPosition(){
+	if(!$('.nav-inner-page__holder').length){return;}
+
 	var $body,
 		$window,
 		$navHolder,
@@ -1989,9 +1991,15 @@ $(document).ready(function () {
 	function loadElements() {
 		if ($footer.length) {
 			$footer.load('tpl-footer.html #footer-tpl .max-wrap', function () {
-				if (pathname != '/vodokanal/about.html') {
-					console.log(4);
+				if (pathname != '/vodokanal/about.html' && pathname != '/vodokanal/404.html') {
+					console.log('1: ', 1);
 					$footer.find('.main-contacts').hide(0, function () {
+						loadHeader();
+					});
+					return;
+				} else if (pathname == '/vodokanal/404.html'){
+					console.log('2: ', 2);
+					$footer.find('.main-contacts, .footer-site-map, .footer-contacts-row, .footer-top-row, .footer-social').hide(0, function () {
 						loadHeader();
 					});
 					return;
@@ -2004,7 +2012,7 @@ $(document).ready(function () {
 	}
 
 	function loadHeader() {
-		if (pathname == '/vodokanal/index.html' || pathname == '/vodokanal/') {
+		if (pathname == '/vodokanal/index.html' || pathname == '/vodokanal/' || pathname == '/vodokanal/404.html') {
 			loadByReady();
 			return;
 		}
