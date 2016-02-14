@@ -1711,7 +1711,8 @@ function footerBottom(){
 		}
 	};
 
-	/*for view date log*/
+	/*** !!!FOR VIEW DATE LOG!!! */
+	/***Delete*/
 	HistorySlider.prototype.getLog = function (_class,log,color) {
 		var tpl = '<div />';
 		var $console = $('#console');
@@ -1722,7 +1723,7 @@ function footerBottom(){
 		}
 		$(tpl).appendTo('#console').addClass(_class).html(tplLog).css('color',color);
 	};
-	/*for view date log end*/
+	/*** !!!FOR VIEW DATE LOG end!!! */
 
 	window.HistorySlider = HistorySlider;
 }(jQuery));
@@ -1746,43 +1747,29 @@ function historySliderInit() {
 
 /*nav position*/
 function navPosition(){
-	if(!$('.nav-inner-page__holder').length){return;}
+	var $navHolder = $('.nav-inner-page__holder');
+	if(!$navHolder.length){return;}
 
-	var $body,
-		$window,
-		$navHolder,
-		$footer,
-		$logo,
-		navContainerTop,
+	var $window = $(window),
+		$logo = $('.logo'),
+		logoHeight = $logo.height(),
+		logoHeightNew,
+		$navContainer = $('nav.nav'),
+		navContainerTop = $navContainer.offset().top,
+		navHolderOffsetTop = $navHolder.offset().top,
+		navHolderHeight,
+		$footer = $('footer.footer'),
+		footerOffsetTop = $footer.offset().top,
+		windowWidth,
+		windowHeight = $window.height(),
+		windowScrollTop,
+		contentHeight,
+		lastWindowPos = 0,
+		topOffset = 0,
 		top = false,
 		bottom = false,
-		windowWidth,
-		windowHeight,
-		lastWindowPos = 0,
-		topOffset,
-		bodyHeight,
-		navHeight,
-		footerHeight,
-		logoHeight,
+		footerVisible = false,
 		resizeTimer;
-
-	$body = $(document.body);
-	$window = $(window);
-	$navHolder = $('.nav-inner-page__holder');
-	$footer = $('footer.footer');
-	$logo = $('.logo');
-	footerHeight = $footer.height();
-	logoHeight = $logo.height();
-	console.log('logoHeight: ', logoHeight);
-	//navContainerTop = $body.is('.admin-bar') ? $('#wpadminbar').height() : 0;
-	topOffset = $logo.length ? logoHeight : 0;
-	navContainerTop = $('nav.nav').offset().top;
-	var navOffsetTop = $navHolder.offset().top;
-	console.log('navOffsetTop1: ', navOffsetTop);
-
-	if (!$navHolder.length) {
-		return;
-	}
 
 	$window.on('scroll', scroll).on('resize', function () {
 		clearTimeout(resizeTimer);
@@ -1797,106 +1784,118 @@ function navPosition(){
 	}
 
 	function scroll() {
-		var windowPos = $window.scrollTop();
 		//if (1500 > windowWidth) {
 		//	return;
 		//}
 
-		navHeight = $navHolder.outerHeight();
-		windowHeight = $window.height();
-		bodyHeight = $body.height();
-		var logoHeightNew = $logo.height();
+		navHolderHeight = $navHolder.outerHeight();
+		navHolderOffsetTop = $navHolder.offset().top;
+		navContainerTop = $navContainer.offset().top;
+		footerOffsetTop = $footer.offset().top;     console.log('AFTER SCROLL: navHolderHeight = ' + navHolderHeight + ', navHolderOffsetTop = ' + navHolderOffsetTop +', navContainerTop = ' + navContainerTop + ', footerOffsetTop = ' + footerOffsetTop);
 
-		console.log('navHeight: ', navHeight);
-		console.log('windowHeight: ', windowHeight);
-		//console.log('bodyHeight: ', bodyHeight);
-		console.log('footerHeight: ', footerHeight);
-		console.log('logoHeightNew: ', logoHeightNew);
-		console.log('navContainerTop: ', navContainerTop);
+		logoHeightNew = $logo.height();     console.log('logoHeightNew = ', logoHeightNew);
 
-		console.log('windowPos: ', windowPos);
-		console.log('lastWindowPos: ', lastWindowPos);
+		windowScrollTop = $window.scrollTop();
+		var windowsHeightNew = footerOffsetTop - windowScrollTop; console.log('windowHeight = ' + windowHeight + ', windowScrollTop = ' + windowScrollTop + ', windowsHeightNew = ' + windowsHeightNew);
 
-		console.log('navHeight + navOffsetTop > windowHeight: ', navHeight + navOffsetTop + ' > '+ windowHeight);
-		if (navHeight + navOffsetTop > windowHeight) {
-			console.log('1 start');
-			navOffsetTop = $navHolder.offset().top;
-			console.log('navOffsetTop2: ', navOffsetTop);
-			console.log('bottom_1: ', bottom);
+		var topOffset = windowScrollTop < navHolderOffsetTop ? navHolderOffsetTop - windowScrollTop : 0;
+		console.log('Ω topOffset before: ', topOffset);
 
-			if (windowPos > lastWindowPos) {
-				console.log('scroll ▼');
-				console.log('!bottom && navOffsetTop > logoHeightNew (c.2.2): --> ', !bottom + ' && ' + navOffsetTop + ' > ' + logoHeightNew);
-				console.log('!bottom && windowPos + windowHeight > navHeight + navOffsetTop && navHeight + logoHeightNew > windowHeight (c.2): --> ', !bottom + ' && ' + (windowPos + windowHeight) + ' > ' + (navHeight + navOffsetTop) + ' && ' + (navHeight + logoHeightNew) + ' > ' + windowHeight);
+		//if (windowHeight < windowsHeightNew) { // Футер находится вне окна
+		//if (windowHeight < windowsHeightNew || footerOffsetTop > navHolderOffsetTop + navHolderHeight) { // Пока футер находится вне окна, но не соприкасается с навигацией
+		if (windowHeight < windowsHeightNew || navHolderHeight + topOffset < windowsHeightNew || navHolderHeight + logoHeightNew < windowsHeightNew) { // Пока футер находится вне окна, но не соприкасается с навигацией
+			console.log('•footer HIDDEN•');
 
-				if (top) {
-					console.log(1);
+			if (topOffset + navHolderHeight > windowHeight) { // Условие 1. Если общая высота занимаемая навигацией больше высоты окна.
+				console.log('•1•');
 
-					top = false;
-					topOffset = (navOffsetTop > 0) ? navOffsetTop - navContainerTop : 0;
-					console.log('topOffset_1: ', topOffset);
+				if (windowScrollTop > lastWindowPos) { // Условие 1.1. Скроллим вниз
+					console.log('scroll ▼ •1.1•');
 
-					$navHolder.attr('style', 'position: relative; top: ' + topOffset + 'px;');
+					if (top && windowHeight + windowScrollTop > navHolderHeight + navHolderOffsetTop) { // Условие 1.1.1. Навигация зафиксированна вверху
+						//                И общая высота видимой части окна с проскролленой
+						//                Больше, чем общая высота навигации и ее позиция
+						topOffset = navHolderOffsetTop - navContainerTop;
+						console.log('•1.1.1• ⇒ position: relative; top: ' + topOffset + 'px;');
 
-				} else if (!bottom && windowPos + windowHeight > navHeight + navOffsetTop && navHeight + logoHeightNew > windowHeight) {
-					console.log(2);
+						top = false;
 
-					bottom = true;
-					$navHolder.attr('style', 'position: fixed; bottom: 0; top: auto;');
-					//$navHolder.attr('style', 'position: fixed; top: '+ -windowPos +'px;');
+						$navHolder.attr('style', 'position: relative; top: ' + topOffset + 'px;');
 
+					} else if (!bottom && windowScrollTop + windowHeight > navHolderHeight + navHolderOffsetTop) { // Условие 1.1.2. Зафиксированна внизу
+						//                И общая высота видимой части окна с проскролленой
+						//                Больше, чем общая высота навигации и ее позиция
+						console.log('•1.1.2• ⇒ position: fixed; bottom: 0; top: auto;');
+
+						bottom = true;
+						$navHolder.attr('style', 'position: fixed; bottom: 0; top: auto;');
+					} else if (top && windowHeight + windowScrollTop < navHolderHeight + navHolderOffsetTop) {// Условие 1.1.2. Зафиксированна внизу
+						//                И общая высота видимой части окна с проскролленой
+						//                Меньше, чем общая высота навигации и ее позиция
+						topOffset = navHolderOffsetTop - navContainerTop;
+						console.log('•1.1.3• ⇒ position: relative; top: ' + topOffset + 'px;');
+						top = bottom = false;
+
+						$navHolder.attr('style', 'position: relative; top: ' + topOffset + 'px;');
+					}
+				} else if (windowScrollTop < lastWindowPos) { // Условие 1.2. Скроллим вверх
+					console.log('scroll ▲ •1.2•');
+
+					if (bottom) { // Условие 1.2.1. Навигация зафиксированна внизу
+						console.log('Ω lastWindowPos - windowScrollTop: ', lastWindowPos - windowScrollTop);
+						topOffset = navHolderOffsetTop - navContainerTop + lastWindowPos - windowScrollTop;
+						console.log('Ω topOffset: ', topOffset);
+						console.log('•1.2.1• ⇒ position: relative; top: ' + topOffset + 'px;');
+
+						bottom = false;
+
+						$navHolder.attr('style', 'position: relative; top: ' + topOffset + 'px;');
+					} else if (!top && navHolderOffsetTop - windowScrollTop > logoHeightNew) { // Условие 1.2.2. Навигация не зафиксированна вверх
+						//               Не зафиксированна внизу
+						console.log('•1.2.2• ⇒ position: fixed;');
+
+						top = true;
+						$navHolder.attr('style', 'position: fixed;');
+					} else if (navHolderOffsetTop == navContainerTop) { // Условие 1.2.3.
+						console.log('•1.2.3• ⇒ position: relative; top: 0');
+
+						top = false;
+						$navHolder.attr('style', 'position: relative; top: 0');
+					}
+				} else { // Условие 1.3. При загрузке страницы, до начала скролла
+					topOffset = navHolderOffsetTop - navContainerTop;
+					console.log('scroll ▲▼ •1.3• ⇒ position: relative; top: ' + topOffset + 'px;');
+
+					top = bottom = false;
+					$navHolder.attr('style', 'position: relative; top: '+ topOffset +'px;');
 				}
-				/*else if (!bottom && navOffsetTop > logoHeightNew) {
-					console.log(2.2);
 
-					topOffset = navOffsetTop - logoHeight - logoHeightNew;
-					console.log('topOffset_1.2 (navOffsetTop - logoHeight - logoHeightNew): ', navOffsetTop + ' - ' + logoHeight + ' - ' + logoHeightNew +' = '+ topOffset);
+			} else if (!top && logoHeightNew + navHolderHeight > windowHeight) { // Условие 2. Если общая высота занимаемая навигацией меньше высоты окна, но высота навигации в сумме с лого больше высоты окна и навигация не зафиксированна вверху.
+				console.log('•2• ⇒ position: fixed; bottom: 0; top: auto;');
 
-					$navHolder.attr('style', 'position: relative; top: '+topOffset+';');
-				}*/
+				bottom = true;
+				$navHolder.attr('style', 'position: fixed; bottom: 0; top: auto;');
+			} else if (!top) { // Условие 3. Если общая высота навигации или высота навигации в сумме с лого меньше высоты окна и навигация не зафиксированна вверху.
+				console.log('•3• ⇒ position: fixed;');
 
-				console.log('2 return');
-			} else if (windowPos < lastWindowPos) {
-				console.log('scroll ▲');
-				console.log('bottom_2 --> c.3: ', bottom);
-				console.log('!top && windowPos + logoHeightNew < navOffsetTop: --> c.4 ', !top + ' && ' + (windowPos + logoHeightNew) + ' < ' + navOffsetTop);
-
-				if (bottom) {
-					console.log(3);
-
-					bottom = false;
-					topOffset = (navOffsetTop > 0) ? navOffsetTop - navContainerTop : 0;
-					console.log('topOffset_2: ', topOffset);
-
-					$navHolder.attr('style', 'position: relative; top: ' + topOffset + 'px;');
-				} else if (!top && windowPos + logoHeightNew < navOffsetTop) {
-					console.log(4);
-
-					top = true;
-					$navHolder.attr('style', 'position: fixed;');
-				}
-			} else {
-				console.log('scroll ▲▼');
-				console.log(5);
-
-				top = bottom = false;
-				topOffset = (navOffsetTop > 0) ? navOffsetTop - navOffsetTop : 0;
-				//topOffset = $logo.length ? logoHeightNew : 0;
-				console.log('topOffset_3: ', topOffset);
-				$navHolder.attr('style', 'position: relative; top: '+ topOffset +';');
-				//$navHolder.attr('style', 'position: fixed; top: '+ topOffset +';');
+				top = true;
+				bottom = false;
+				$navHolder.attr('style', 'position: fixed;');
 			}
-			console.log('1 stop');
-		} else if (!top) {
-			console.log(6);
 
-			top = true;
-			$navHolder.attr('style', 'position: fixed;');
+			footerVisible = false;
+		} else if (!footerVisible ) {
+			topOffset = footerOffsetTop - navHolderHeight - navContainerTop;
+			console.log('•footer VISIBLE• ⇒ position: relative; top: ' + topOffset + 'px;');
+
+			top = bottom = false;
+			footerVisible = true;
+			$navHolder.attr('style', 'position: relative; top: '+ topOffset +'px;');
 		}
-		console.log(7);
-		console.log('******************************************************************************************************');
 
-		lastWindowPos = windowPos;
+		console.log('**********************************');
+
+		lastWindowPos = windowScrollTop;
 	}
 
 	function resize() {
@@ -1982,7 +1981,7 @@ $(document).ready(function () {
 		return path;
 	};
 	var pathname = getLocation(document.location.href).pathname;
-	console.log(pathname);
+	//console.log(pathname);
 
 	var $body = $('body');
 	var $footer = $body.find('footer.footer');
@@ -1992,13 +1991,11 @@ $(document).ready(function () {
 		if ($footer.length) {
 			$footer.load('tpl-footer.html #footer-tpl .max-wrap', function () {
 				if (pathname != '/vodokanal/about.html' && pathname != '/vodokanal/404.html') {
-					console.log('1: ', 1);
 					$footer.find('.main-contacts').hide(0, function () {
 						loadHeader();
 					});
 					return;
 				} else if (pathname == '/vodokanal/404.html'){
-					console.log('2: ', 2);
 					$footer.find('.main-contacts, .footer-site-map, .footer-contacts-row, .footer-top-row, .footer-social').hide(0, function () {
 						loadHeader();
 					});

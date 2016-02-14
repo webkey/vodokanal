@@ -820,24 +820,20 @@ label{
 
 .nav{
 	position: relative;
-	/* padding: 200px 0 0; */
 	width: 320px;
-	min-height: 50px;
+	min-height: 200px;
 	height: 100%;
-	background: #fff000;
+	background: #008ACF;
 	float: left;
 	margin: 140px -320px 0 0;
+}
+.logo-reduce .nav{
+	margin-top: 60px;
 }
 .nav__holder{
 	position: fixed;
 	top: 200px;
 	width: 320px;
-	/*-webkit-transition: top 0.3s;*/
-	/*transition: top 0.3s;*/
-}
-.nav__holder[style*="relative"]{
-	-webkit-transition: none;
-	transition: none;
 }
 .logo-reduce .nav__holder{
 	top: 60px;
@@ -1279,9 +1275,6 @@ label{
 	text-indent: -9999px;
 	overflow: hidden;
 	background: #008acf;
-	margin: 0 0 0 -170px;
-	/*-webkit-transition: all 0.3s;*/
-	/*transition: all 0.3s;*/
 	z-index: 1;
 }
 .logo-reduce .logo{
@@ -3654,17 +3647,6 @@ li.has-drop.current>.nav-sub-drop:after,
 }
 /*history info end*/
 /*history end*/
-
-#console{
-	position: fixed;
-	top: 20px;
-	left: 2px;
-	font-size: 12px;
-	padding: 4px 8px;
-	color: #333;
-	background: rgba(224, 255, 255, 0.5);
-	z-index: 99;
-}
 
 /*case*/
 .case{
