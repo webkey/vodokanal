@@ -1,1 +1,20 @@
 @media only screen and (max-width: 639px){}
+
+/*FOOTER*/
+/*footer phones*/
+.ft-phones__dt,
+.ft-phones__dd{
+	display: block;
+	width: auto;
+}
+/*footer phones end*/
+
+/*footer contacts*/
+/*useful links*/
+.useful-links li {
+	padding-top: 6px;
+	padding-bottom: 8px;
+}
+/*useful links end*/
+/*footer contacts end*/
+/*FOOTER end*/

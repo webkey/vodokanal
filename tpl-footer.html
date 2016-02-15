@@ -3,6 +3,19 @@
 <head>
 	<meta charset="UTF-8">
 	<title>FOOTER TEMPLATE</title>
+	<!--[if IE]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<!--Mobile optimized-->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<!--Favicon-->
+	<link href="favicon.ico" rel="shortcut icon">
+	<!--Main style-->
+	<link href="css/all.css" rel="stylesheet" media="screen">
+	<!--Media queries style-->
+	<link href="css/mq-all.css" rel="stylesheet" media="screen">
+	<!--style for IE-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="css/ie8.css" media="screen, projection"><![endif]-->
 </head>
 <body>
 	<div id="footer-tpl">
@@ -79,25 +92,27 @@
 			<!--footer top-->
 			<div class="footer-top-row">
 				<div class="footer-top">
-					<div class="grid-col-3">
+					<div class="grid-col-3 logo-col">
 						<!--footer logo-->
 						<a href="index.html" class="footer-logo">Минскводоканал</a>
 						<!--footer logo end-->
 					</div>
-					<div class="grid-col-3">
+					<div class="grid-col-6 flr">
+						<!--footer phones-->
+						<div class="ft-phones">
+							<ul class="ft-phones__list">
+								<li><span class="ft-phones__dt">Аварийная:</span> <span class="ft-phones__dd">+375 17 226 19 33</span></li>
+								<li><span class="ft-phones__dt">Диспетчерская:</span> <span class="ft-phones__dd">+375 17 226 19 33</span></li>
+								<li><span class="ft-phones__dt">Справочная:</span> <span class="ft-phones__dd">+375 17 226 19 33</span></li>
+								<li><span class="ft-phones__dt">Диспетчерская:</span> <span class="ft-phones__dd">+375 17 226 19 33</span></li>
+							</ul>
+						</div>
+						<!--footer phones end-->
+					</div>
+					<div class="grid-col-3 switcher-col">
 						<!--btn map site-->
 						<div class="map-site-switcher"><span class="map-site-text">Карта сайта</span><span class="map-site-btn"><i></i></span></div>
 						<!--btn map site end-->
-					</div>
-					<div class="grid-col-6">
-						<!--footer phones-->
-						<ul class="ft-phones">
-							<li><span class="ft-phones__dt">Аварийная:</span> <span class="ft-phones__dd">+375 17 226 19 33</span></li>
-							<li><span class="ft-phones__dt">Диспетчерская:</span> <span class="ft-phones__dd">+375 17 226 19 33</span></li>
-							<li><span class="ft-phones__dt">Справочная:</span> <span class="ft-phones__dd">+375 17 226 19 33</span></li>
-							<li><span class="ft-phones__dt">Диспетчерская:</span> <span class="ft-phones__dd">+375 17 226 19 33</span></li>
-						</ul>
-						<!--footer phones end-->
 					</div>
 				</div>
 			</div>
@@ -217,27 +232,7 @@
 			<!--footer contacts-->
 			<div class="footer-contacts-row">
 				<div class="footer-contacts">
-					<div class="grid-col-3">
-						<div class="footer-contacts__title">Режим работы:</div>
-						<!--work list-->
-						<ul class="work-list">
-							<li><span>Пн-чт:</span> <strong class="work-list__dd">8<sup>00</sup> – 17<sup>00</sup></strong></li>
-							<li><span>Пт:</span> <strong class="work-list__dd">9<sup>15</sup> – 15<sup>45</sup></strong></li>
-						</ul>
-						<!--work list end-->
-					</div>
-					<div class="grid-col-3">
-						<div class="footer-contacts__title">Адрес:</div>
-						<!--address-->
-						<address class="address">
-							Минск, ул. Пулихова, 15 <br> Индекс 220088
-						</address>
-						<div class="road">
-							<span class="road-view">Как проехать</span>
-						</div>
-						<!--address end-->
-					</div>
-					<div class="grid-col-6">
+					<div class="grid-col-6 flr">
 						<div class="footer-contacts__title">полезные ресурсы:</div>
 						<!--useful links-->
 						<ul class="useful-links">
@@ -267,6 +262,26 @@
 							</li>
 						</ul>
 						<!--useful links end-->
+					</div>
+					<div class="grid-col-3">
+						<div class="footer-contacts__title">Режим работы:</div>
+						<!--work list-->
+						<ul class="work-list">
+							<li><span>Пн-чт:</span> <strong class="work-list__dd">8<sup>00</sup> – 17<sup>00</sup></strong></li>
+							<li><span>Пт:</span> <strong class="work-list__dd">9<sup>15</sup> – 15<sup>45</sup></strong></li>
+						</ul>
+						<!--work list end-->
+					</div>
+					<div class="grid-col-3">
+						<div class="footer-contacts__title">Адрес:</div>
+						<!--address-->
+						<address class="address">
+							Минск, ул. Пулихова, 15 <br> Индекс 220088
+						</address>
+						<div class="road">
+							<span class="road-view">Как проехать</span>
+						</div>
+						<!--address end-->
 					</div>
 				</div>
 			</div>

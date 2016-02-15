@@ -1,1 +1,136 @@
 @media only screen and (max-width: 979px){}
+
+
+
+/*promo*/
+.promo-btn {
+	right: 40px;
+}
+
+/*promo slider*/
+.promo-slider__content{
+	padding: 15px 20px 24px 40px;
+	width: auto;
+	max-width: none;
+	right: 40px;
+}
+
+.promo-slider .slick-prev {
+	left: 40px;
+}
+.promo-slider .slick-next {
+	left: 90px;
+}
+
+.promo-slider .slick-dots{
+	left: 35px;
+}
+/*promo slider end*/
+/*promo end*/
+
+/*FOOTER*/
+/*grid*/
+.footer-top .grid-col-3,
+.footer-top .grid-col-6{
+	width: auto;
+	float: none;
+	padding-top: 20px;
+}
+.footer-top [class*="grid-col-"]:first-child{
+	padding-top: 0;
+}
+.grid-col-3:before, .grid-col-6:before, .grid-col-3:after, .grid-col-6:after { content: ""; display: table; }
+.grid-col-3:after, .grid-col-6:after { clear: both; }
+/*grid end*/
+
+/*footer top*/
+.footer-top{ padding: 33px 20px; }
+.footer-top:after{
+	left: 20px;
+	right: 20px;
+}
+/*footer phones*/
+.ft-phones__list{
+	text-align: left;
+}
+/*footer phones end*/
+
+/*btn site map*/
+.footer-top .switcher-col{
+	padding-top: 0;
+}
+.map-site-switcher{
+	margin-left: 0;
+}
+.map-site-switcher:before{
+	content: none;
+}
+/*btn site map end*/
+/*footer top end*/
+
+/*site map*/
+.site-map{
+	padding: 30px 12px 0;
+	margin: 0 20px;
+}
+.site-map__box{
+	width: 33.28%;
+}
+/*site map end*/
+
+/*footer contacts*/
+.footer-contacts {
+	padding: 30px 20px;
+}
+
+.footer-contacts .grid-col-3{
+	width: 50.0%;
+}
+.footer-contacts .grid-col-6{
+	width: 100.0%;
+	float: left;
+	display: block;
+	clear: both;
+	padding-bottom: 30px;
+}
+/*useful links*/
+.useful-links li {
+	display: inline-block;
+	vertical-align: top;
+	width: 49.9%;
+}
+/*useful links end*/
+/*footer contacts end*/
+
+/*footer social*/
+.social-networks{
+	padding: 15px 20px 14px;
+}
+/*footer social end*/
+
+/*footer bottom*/
+.footer-bottom{
+	padding: 0 10px;
+}
+.footer-holder{
+	padding: 0;
+}
+.footer-holder:before{
+	content: none;
+}
+.footer-col{
+	width: 49.9%;
+	text-align: center;
+	padding: 20px 10px;
+}
+.footer-col_right{
+	float: none;
+	display: block;
+	width: auto;
+	clear: both;
+	padding: 20px;
+	margin: 0 -10px;
+	border-top: 1px solid #808080;
+}
+/*footer bottom end*/
+/*FOOTER end*/

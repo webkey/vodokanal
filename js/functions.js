@@ -956,10 +956,11 @@ function slickSlidersInit(){
 					slidesToScroll: 1
 				}
 			},{
-				breakpoint: 640,
+				breakpoint: 880,
 				settings: {
 					slidesToShow: 1,
-					slidesToScroll: 1
+					slidesToScroll: 1,
+					dots: false
 				}
 			}]
 		}).on('afterChange', function (event, slick, currentSlide) {

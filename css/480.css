@@ -1,0 +1,86 @@
+@media only screen and (max-width: 479px){}
+
+/*FOOTER*/
+/*grid*/
+.grid-col-3,
+.grid-col-6{
+	width: auto;
+	float: none;
+	display: block;
+}
+/*grid end*/
+
+/*footer top*/
+/*footer logo*/
+.logo-col{
+	padding: 0 0 6px;
+}
+.footer-logo{
+	float: none;
+	display: block;
+	-webkit-background-size: contain;
+	background-size: contain;
+	width: 208px;
+	height: 40px;
+	margin: 0 auto;
+}
+/*footer logo end*/
+
+/*btn map site*/
+.footer-top .switcher-col{
+	text-align: center;
+}
+/*btn map site end*/
+
+/*footer phones*/
+.ft-phones{
+	text-align: center;
+}
+.ft-phones__list{
+	padding: 0 0 10px;
+	display: inline-block;
+	text-align: left;
+}
+.ft-phones__list>li{
+	display: block;
+	padding: 0 0 15px 12px;
+	width: auto;
+}
+.ft-phones__dt, .ft-phones__dd{
+	display: inline;
+}
+/*footer phones end*/
+/*footer top end*/
+
+/*footer contacts*/
+.footer-contacts .grid-col-3,
+.footer-contacts .grid-col-6{
+	float: none;
+	display: block;
+	width: auto;
+	padding: 0;
+}
+/*useful links*/
+.useful-links li {
+	display: block;
+	width: auto;
+}
+/*useful links end*/
+/*footer contacts end*/
+
+/*footer bottom*/
+.footer-holder{
+	padding-top: 20px;
+}
+.footer-col{
+	width: auto;
+	float: none;
+	display: block;
+	text-align: center;
+	padding: 0 0 20px;
+}
+.footer-col_right{
+	padding: 20px 10px;
+}
+/*footer bottom end*/
+/*FOOTER end*/
