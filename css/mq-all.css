@@ -1,3 +1,4 @@
+@import url(640-min.css) only screen and (min-width:640px);
 @import url(1200.css) only screen and (max-width:1199px);
 @import url(980.css) only screen and (max-width:979px);
 @import url(768.css) only screen and (max-width:767px);

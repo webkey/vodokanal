@@ -1,13 +1,25 @@
 @media only screen and (max-width: 767px){}
 
-/*button menu*/
-.btn-menu{ display: block; }
-/*button menu end*/
+
+/*MAIN PAGE*/
+/*HEADER FOR MAIN page*/
+/*header options*/
+.main-page .header-options__holder{
+	margin-left: 33.3%;
+}
+/*header options end*/
+/*logo*/
+.main-page .logo{ width: 33.3%; }
+/*logo end*/
+/*HEADER FOR MAIN page end*/
+
+/*MAIN NAVIGATION for main page*/
+.nav-main-page .nav__holder{ margin: 0 0 0 33.3%; }
+/*MAIN NAVIGATION for main page end*/
+/*MAIN PAGE end*/
 
 /*FOOTER*/
 /*site map*/
-.site-map__box{
-	width: 49.98%;
-}
+.site-map__box{ width: 49.98%; }
 /*site map end*/
 /*FOOTER end*/

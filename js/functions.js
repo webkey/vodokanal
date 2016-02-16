@@ -1,3 +1,21 @@
+/**!
+ * first child method
+ */
+(function ($) {
+	$.fn.firstChildElement = function(filter) {
+		var $found = $(),
+				$currentSet = this; // Current place
+		while ($currentSet.length) {
+			$found = $currentSet.filter(filter);
+			if ($found.length) break;  // At least one match: break loop
+			// Get all children of the current set
+			$currentSet = $currentSet.children();
+		}
+		return $found.first(); // Return first match of the collection
+	};
+}(jQuery));
+/**first child method end*/
+
 /* placeholder */
 function placeholderInit(){
 	$('[placeholder]').placeholder();
@@ -80,6 +98,8 @@ function showFormSearch(){
 (function ($) {
 	var MultiAccordion = function (settings) {
 		var options = $.extend({
+			collapsibleElement: '.js-ma-panel',
+			classReturn: null,
 			collapsibleAll: false,
 			animateSpeed: 300,
 			resizeCollapsible: false
@@ -90,7 +110,7 @@ function showFormSearch(){
 		this.$accordionContainer = container; //блок с аккордеоном
 		this.$accordionItem = $(options.accordionItem, container); //непосредственный родитель сворачиваемого элемента
 		this.$accordionEvent = $(options.accordionEvent, container); //элемент, по которому производим клик
-		this.$collapsibleElement = $(options.collapsibleElement); //элемент, который сворачивается/разворачивается
+		this.$collapsibleElement = $(options.collapsibleElement, container);  //элементы, которые сворачиваются/разворачиваются
 		this._collapsibleAll = options.collapsibleAll;
 		this._animateSpeed = options.animateSpeed;
 		this.$totalCollapsible = $(options.totalCollapsible);//элемент, по клику на который сворачиваются все аккордены в наборе
@@ -100,6 +120,13 @@ function showFormSearch(){
 			active: 'active',
 			current: 'current'
 		};
+
+		// открываем астивный аккордеон
+		// не цсс, а скриптом, чтобы можно было плавно закрыть
+		var $currentElements = this.$accordionItem.filter('.'+this.modifiers.current+'');
+		$.each($currentElements, function () {
+			$(this).firstChildElement(options.collapsibleElement).slideDown(0);
+		});
 
 		this.bindEvents();
 		this.totalCollapsible();
@@ -175,52 +202,57 @@ function showFormSearch(){
 }(jQuery));
 
 function multiAccordionInit() {
-	if($('.nav__list').length){
+	var $nav = $('.nav');
+	if($nav.length){
+		//if($nav.hasClass('nav-main-page')){
+		//	return;
+		//}
 		new MultiAccordion({
-			accordionContainer: '.nav__list',
+			accordionContainer: $nav,
+			classReturn: '.nav-main-page',
 			accordionItem: 'li',
 			accordionEvent: 'a',
-			collapsibleElement: '.nav-drop, .nav-sub-drop',
+			collapsibleElement: '.js-nav-drop',
 			animateSpeed: 200
 		});
 	}
 }
 /*multi accordion end*/
 
+
+
 /*main navigation*/
 (function ($) {
 	var MainNavigation = function (settings) {
 		var options = $.extend({
-			navMenuItem: 'li',
 			overlayClass: '.overlay-page',
+			classReturn: null,
 			overlayBoolean: false,
 			animationSpeed: 300
 		},settings || {});
 
 		this.options = options;
 		var container = $(options.navContainer);
-		this.$navContainer = container;
 		this.$buttonMenu = $(options.btnMenu);                     // Кнопка открытия/закрытия меню для моб. верси.
-		this.$navMenu = $(options.navMenu, container);             // Список с пунктами навигации.
-		this.$navMenuItem = $(options.navMenuItem, this.$navMenu); // Пункты навигации.
-		this.$navDropMenu = $(options.navDropMenu);                // Дроп-меню всех уровней. Перечислять через запятую.
+		this.$navMenuItem = $(options.navMenuItem, container);     // Пункты навигации.
+		this.$navMenuAnchor = $(options.navMenuAnchor, container); // Элемент, по которому производится событие (клик).
+		this.$navDropMenu = $(options.navDropMenu, container);     // Дроп-меню всех уровней.
 		this._animateSpeed = options.animationSpeed;
 
 		this._overlayClass = options.overlayClass;                // Класс оверлея.
 		this._overlayBoolean = options.overlayBoolean;            // Добавить оверлей (по-умолчанию == false). Если не true, то не будет работать по клику вне навигации.
 
-		this.$getCustomScroll = $(options.getCustomScroll);
-
 		this.modifiers = {
 			active: 'active',
 			opened: 'nav-opened',
-			current: 'made-current'
+			current: 'current'
 		};
 
+		this.openCurrent();
 		this.addOverlayPage();
 		this.dropNavigation();
-		this.mainNavigationCustomScrollBehavior();
-		this.mainNavigation();
+		this.mainNavigationAccordion();
+		this.totalCollapsibleOnResize();
 
 		// очистка классов-модификаторов при ресайзе
 		var self = this;
@@ -240,6 +272,61 @@ function multiAccordionInit() {
 		}
 	};
 
+	MainNavigation.prototype.mainNavigationAccordion = function () {
+		var self = this,
+				modifiers = this.modifiers,
+				animateSpeed = this._animateSpeed,
+				anyAccordionItem = this.$navMenuItem,
+				collapsibleElement = this.$navDropMenu;
+
+		self.$navMenuAnchor.on('click', function (e) {
+			var current = $(this);
+			var currentAccordionItem = current.closest(anyAccordionItem);
+
+			if (!currentAccordionItem.has(collapsibleElement).length){
+				return;
+			}
+
+			e.preventDefault();
+
+			if (current.parent().prop("tagName") != currentAccordionItem.prop("tagName")) {
+				current = current.parent();
+			}
+
+			if (current.siblings(collapsibleElement).is(':visible')){
+				currentAccordionItem.removeClass(modifiers.active).find(collapsibleElement).slideUp(animateSpeed);
+				currentAccordionItem.removeClass(modifiers.current);
+				currentAccordionItem.find(anyAccordionItem).removeClass(modifiers.active).removeClass(modifiers.current);
+				return;
+			}
+
+			currentAccordionItem.siblings().removeClass(modifiers.active).find(collapsibleElement).slideUp(animateSpeed);
+			currentAccordionItem.siblings().removeClass(modifiers.current);
+			currentAccordionItem.siblings().find(anyAccordionItem).removeClass(modifiers.active).removeClass(modifiers.current);
+
+			currentAccordionItem.addClass(modifiers.active);
+			current.siblings(collapsibleElement).slideDown(animateSpeed);
+		})
+	};
+
+	MainNavigation.prototype.totalCollapsibleOnResize = function () {
+		var self = this;
+		$(window).on('resize', function () {
+			self.$navDropMenu.slideUp(self._animateSpeed);
+			self.$navMenuItem.removeClass(self.modifiers.active);
+		});
+	};
+
+	MainNavigation.prototype.openCurrent = function () {
+		// открываем астивный аккордеон
+		// не цсс, а скриптом, чтобы можно было плавно закрыть
+		var self = this;
+		var $currentElements = self.$navMenuItem.filter('.'+self.modifiers.current+'');
+		$.each($currentElements, function () {
+			$(this).firstChildElement(self.options.navDropMenu).slideDown(0);
+		});
+	};
+
 	MainNavigation.prototype.dropNavigation = function () {
 		var self = this,
 				$buttonMenu = self.$buttonMenu,
@@ -248,12 +335,13 @@ function multiAccordionInit() {
 				_opened = modifiers.opened;
 
 		var $body = $('body');
+		var $html = $('html');
 
 		$buttonMenu.on('click', function (e) {
 			// Если открыта форма поиска, закрываем ее
 			var $searchForm = $('.search-form');
 			if($searchForm.is(':visible')){
-				$searchForm.find('.btn-search-close').trigger('click');
+				$searchForm.find('.js-btn-search-close').trigger('click');
 			}
 
 			var currentBtnMenu = $(this);
@@ -269,7 +357,7 @@ function multiAccordionInit() {
 			self.$navMenuItem.removeClass(_active);
 
 			// Переключаем на боди класс открывающий меню. Открытие через CSS3 translate
-			$body.toggleClass(_opened);
+			$html.toggleClass(_opened);
 
 			// Переключаем на кнопке меню активный класс
 			currentBtnMenu.toggleClass(_active);
@@ -280,162 +368,13 @@ function multiAccordionInit() {
 		// По клику на область вне меню, закрываем меню
 		// .overlay-page
 		$body.on('click', self._overlayClass, function () {
-			$body.toggleClass(_opened);
+			$html.toggleClass(_opened);
 			$buttonMenu.toggleClass(_active);
 		});
 	};
 
-	$.fn.closest_child = function(filter) {
-		var $found = $(),
-				$currentSet = this; // Current place
-		while ($currentSet.length) {
-			$found = $currentSet.filter(filter);
-			if ($found.length) break;  // At least one match: break loop
-			// Get all children of the current set
-			$currentSet = $currentSet.children();
-		}
-		return $found.first(); // Return first match of the collection
-	};
-
-	MainNavigation.prototype.mainNavigationCustomScroll = function() {
-		this.$getCustomScroll.mCustomScrollbar({
-			theme:"minimal-dark",
-			scrollbarPosition: "inside",
-			autoExpandScrollbar:true,
-			scrollInertia: 20
-		});
-	};
-
-	MainNavigation.prototype.mainNavigationCustomScrollBehavior = function() {
-		var self = this,
-				$buttonMenu = self.$buttonMenu;
-
-		var $body = $('body'),
-				_classInit = 'nav-custom-scroll-initialized',
-				_classDestroy = 'nav-custom-scroll-destroy';
-
-		if($buttonMenu.is(':hidden')){
-			self.mainNavigationCustomScroll();
-
-			$body.addClass(_classInit);
-		} else {
-			$body.addClass(_classDestroy);
-		}
-
-		if(md.mobile()){
-			self.$getCustomScroll.mCustomScrollbar("destroy");
-		}
-
-		$(window).on('debouncedresize', function () {
-			if($buttonMenu.is(':hidden') && $body.hasClass(_classDestroy)){
-				$body.removeClass(_classDestroy);
-				$body.addClass(_classInit);
-
-				self.mainNavigationCustomScroll();
-				return;
-			}
-
-			if($buttonMenu.is(':visible') && $body.hasClass(_classInit)){
-				$body.removeClass(_classInit);
-				$body.addClass(_classDestroy);
-
-				self.$getCustomScroll.mCustomScrollbar("destroy");
-			}
-		});
-	};
-
-	MainNavigation.prototype.mainNavigation = function() {
-		var self = this,
-				$btnMenu = self.$buttonMenu,
-				$navigationList = self.$navMenu,
-				dropDownMenu = self.$navDropMenu,
-				modifiers = self.modifiers,
-				_active = modifiers.active,
-				_current = modifiers.current,
-				dur = self._animateSpeed;
-
-		// открываем дроп текущего пункта
-		// не цсс, а скриптом, чтобы можно было плавно закрыть дроп
-		$('.made-current>.nav-sub-drop').slideDown(0);
-
-		$($navigationList).on('click', 'a', function (e) {
-			var $currentLink = $(this);
-			var $currentItem = $currentLink.closest(self.$navMenuItem);
-
-			if($btnMenu.is(':visible') && $currentItem.has('ul').length){
-				e.preventDefault();
-				$currentItem.addClass(_active);
-
-				//добавить кноку "< назад"
-				var _templateBackTo = '<div class="nav-back"><i class="depict-angle fa fa-chevron-left"></i><span>Назад</span></div>';
-				if($btnMenu.is(':visible')){
-					if(!$currentLink.siblings('div').has('.nav-back').length){
-						$currentLink.siblings('div').closest_child('ul').before(_templateBackTo);
-					}
-				}
-				return;
-			}
-
-			if(!$currentItem.has('ul').length || $currentItem.has('.drop-side').length) { return; }
-
-			var $siblingDrop = $currentItem.siblings('li:not(.has-drop-side)').find(dropDownMenu);
-			var $currentItemDrop = $currentItem.find(dropDownMenu);
-
-			e.preventDefault();
-
-			if($currentItem.hasClass(_active) || $currentItem.hasClass(_current)){
-				closeDrops($siblingDrop);
-				closeDrops($currentItemDrop);
-				return;
-			}
-			closeDrops($siblingDrop);
-			closeDrops($currentItemDrop);
-
-			$currentItem.toggleClass(_active);
-
-			$currentItem.children(dropDownMenu).stop().slideDown(dur);
-		});
-
-		$($navigationList).on('click', '.nav-back', function () {
-			$(this).closest('li').removeClass(_active);
-		});
-
-		/*close all drops*/
-		function closeDrops(drop) {
-			drop.closest('li').removeClass(_active);
-			drop.closest('li').removeClass(_current);
-			if ($btnMenu.is(':hidden')) {
-				drop.slideUp(dur);
-			}
-		}
-	};
-
 	MainNavigation.prototype.clearDropNavigation = function() {
-		var self = this,
-				$buttonMenu = self.$buttonMenu,
-				$navMenuItem = self.$navMenuItem,
-				modifiers = self.modifiers,
-				_active = modifiers.active,
-				_opened = modifiers.opened;
 
-		var $body = $('body');
-
-		if ($buttonMenu.is(':hidden') && $buttonMenu.hasClass(_active)) {
-			$body.removeClass(_opened);
-			$buttonMenu.removeClass(_active);
-			$navMenuItem.removeClass(_active);
-		}
-
-		var currentNavSubDrop = $('.made-current>.nav-sub-drop');
-		if ($buttonMenu.is(':hidden') && currentNavSubDrop.is(':hidden')) {
-			currentNavSubDrop.slideDown(300);
-		}
-
-		if (!md.mobile() && $buttonMenu.is(':visible') && $buttonMenu.hasClass(_active)) {
-			$body.removeClass(_opened);
-			$buttonMenu.removeClass(_active);
-			$navMenuItem.removeClass(_active);
-		}
 	};
 
 	window.MainNavigation = MainNavigation;
@@ -443,15 +382,15 @@ function multiAccordionInit() {
 }(jQuery));
 
 function mainNavigationInit(){
-	var navigationContainer = $('.nav');
-	if(!navigationContainer.length){ return; }
+	var $nav = $('.nav');
+	if(!$nav.length){ return; }
 	new MainNavigation({
-		navContainer: navigationContainer,
+		navContainer: $nav,
+		classReturn: '.nav-main-page',
 		btnMenu: '.btn-menu',
-		navMenu: '.nav-list',
 		navMenuItem: 'li',
-		navDropMenu: '.nav-drop, .nav-sub-drop',
-		getCustomScroll: '.panel-frame, .drop-side__holder',
+		navMenuAnchor: 'a',
+		navDropMenu: '.js-nav-drop',
 		animationSpeed: 300,
 
 		overlayBoolean: true
@@ -899,7 +838,7 @@ function slickSlidersInit(){
 			dots: false,
 			arrows: true,
 			responsive: [{
-				breakpoint: 960,
+				breakpoint: 768,
 				settings: {
 					slidesToShow: 3,
 					slidesToScroll: 1
@@ -1954,7 +1893,8 @@ function loadByReady(){
 	placeholderInit();
 	dropLanguageInit();
 	showFormSearch();
-	multiAccordionInit();
+	//multiAccordionInit();
+	mainNavigationInit();
 	footerDropInit();
 	//siteMapInit();
 	//roadPopupInit();

@@ -1,5 +1,41 @@
 @media only screen and (max-width: 639px){}
 
+/*HEADER*/
+/*button menu*/
+.btn-menu{ display: block; }
+/*button menu end*/
+/*HEADER end*/
+
+/*MAIN NAVIGATION*/
+.nav-main-page{
+	height: 80px;
+	background: #fff;
+}
+.nav__holder,
+.main-page .nav__holder{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 320px;
+	height: 100%;
+	margin: 0;
+	overflow: auto;
+	z-index: 9999;
+	background: #008acf;
+	-webkit-transform: translate(-100%, 0);
+	-ms-transform: translate(-100%, 0);
+	transform: translate(-100%, 0);
+	-webkit-transition: all 0.2s;
+	transition: all 0.2s;
+}
+.nav-opened .nav__holder,
+.main-page.nav-opened .nav__holder{
+	-webkit-transform: translate(0, 0);
+	-ms-transform: translate(0, 0);
+	transform: translate(0, 0);
+}
+/*MAIN NAVIGATION end*/
+
 /*FOOTER*/
 /*footer phones*/
 .ft-phones__dt,

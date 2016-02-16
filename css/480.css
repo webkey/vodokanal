@@ -53,17 +53,34 @@
 /*footer top end*/
 
 /*footer contacts*/
+.footer-contacts{
+	text-align: center;
+	padding: 30px 20px 10px;
+}
 .footer-contacts .grid-col-3,
 .footer-contacts .grid-col-6{
 	float: none;
 	display: block;
 	width: auto;
-	padding: 0;
+	padding: 0 0 20px;
 }
 /*useful links*/
+.useful-links,
+.work-list,
+.address{
+	display: inline-block;
+	vertical-align: top;
+}
+.useful-links{
+	white-space: nowrap;
+}
 .useful-links li {
 	display: block;
 	width: auto;
+	text-align: left;
+}
+.work-list li{
+	text-align: left;
 }
 /*useful links end*/
 /*footer contacts end*/

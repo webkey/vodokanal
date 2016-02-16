@@ -818,27 +818,6 @@ label{
 	z-index: 1;
 }
 
-.nav{
-	position: relative;
-	width: 320px;
-	min-height: 200px;
-	height: 100%;
-	background: #008ACF;
-	float: left;
-	margin: 140px -320px 0 0;
-}
-.logo-reduce .nav{
-	margin-top: 60px;
-}
-.nav__holder{
-	position: fixed;
-	top: 200px;
-	width: 320px;
-}
-.logo-reduce .nav__holder{
-	top: 60px;
-}
-
 .footer{
 	position: relative;
 	z-index: 3;
@@ -1326,7 +1305,7 @@ label{
 
 /*button menu*/
 .btn-menu{
-	float: left;
+	float: right;
 	min-width: 105px;
 	height: 100%;
 	line-height: 17px;
@@ -1336,6 +1315,7 @@ label{
 	padding: 0 13px 0 13px;
 	font-size: 0;
 	letter-spacing: -4px;
+	margin: 18px 0 0;
 	-webkit-transition: background 0.2s;
 	transition: background 0.2s;
 	cursor: pointer;
@@ -1415,10 +1395,32 @@ label{
 /*HEADER end*/
 
 /*MAIN NAVIGATION*/
+.nav{
+	position: relative;
+	width: 320px;
+	min-height: 200px;
+	height: 100%;
+	background: #008ACF;
+	float: left;
+	margin: 140px -320px 0 0;
+}
+.logo-reduce .nav{
+	margin-top: 60px;
+}
+.nav__holder{
+	position: fixed;
+	top: 200px;
+	width: 320px;
+}
+.logo-reduce .nav__holder{
+	top: 60px;
+}
+
 .nav-title,
 .nav-back{
 	display: none;
 }
+
 /*general styles main navigation*/
 .nav__list,
 .nav__list ul{
@@ -1476,6 +1478,9 @@ label{
 	position: relative;
 	overflow: hidden;
 	display: none;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 }
 .nav-drop:after,
 .nav-sub-drop:after,
@@ -1536,7 +1541,6 @@ li.has-drop.current>.nav-sub-drop:after,
 /*styles to menu level 1 end*/
 
 /*styles to menu level 2*/
-.current>.nav-drop{ display: block; }
 .nav-drop__list>li{
 	border-top: 1px solid #006699;
 	position: relative;
@@ -1560,7 +1564,6 @@ li.has-drop.current>.nav-sub-drop:after,
 /*styles to menu level 2 end*/
 
 /*styles to menu level 3*/
-.current>.nav-sub-drop{ display: block; }
 .nav-sub-drop__list>li{
 	border-top: 1px solid #005580;
 	position: relative;
@@ -4325,10 +4328,17 @@ li.has-drop.current>.nav-sub-drop:after,
 
 /*MAIN PAGE*/
 /*HEADER FOR MAIN page*/
+/*header options*/
+.main-page .header-options__holder{
+	margin-left: 25.0%;
+}
+/*header options end*/
 /*logo*/
 .main-page .logo{
 	position: absolute;
 	background: #fff;
+	height: 170px;
+	width: 25.0%;
 }
 .main-page .logo a:before{
 	background: #fff url(../img/logo-main.png) no-repeat 50% 50%;
@@ -4337,291 +4347,18 @@ li.has-drop.current>.nav-sub-drop:after,
 /*HEADER FOR MAIN PAGE end*/
 
 /*MAIN NAVIGATION for main page*/
-.main-page .nav{
+.nav-main-page{
 	background: #f2f2f2;
 	float: none;
 	position: relative;
 	left: auto;
 	top: auto;
-	height: 140px;
+	height: 110px;
 	min-height: 0;
 	padding: 0;
 	width: auto;
 	margin: 0;
 }
-.main-page .nav__holder{
-	position: relative;
-	top: auto;
-	width: auto;
-	-webkit-transition: none;
-	transition: none;
-	margin: 0 0 0 320px;
-}
-/*general styles main navigation*/
-.main-page .nav__list,
-.main-page .nav__list ul{
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	position: relative;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
-.main-page .nav__list{
-	border-top: none;
-	overflow: visible;
-	display: table;
-	width: 100%;
-	table-layout: fixed;
-}
-.main-page .nav__list li{
-	position: relative;
-	z-index: 0;
-	letter-spacing: -4px;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
-.main-page .nav__list li>a{
-	display: block;
-	position: relative;
-	padding: 0;
-	font-size: 14px;
-	line-height: 20px;
-	letter-spacing: normal;
-	text-decoration: none;
-	color: #333;
-	background: none;
-	-webkit-transition: color 0.3s, background 0.3s;
-	transition: color 0.3s, background 0.3s;
-}
-.main-page .nav__list li.has-drop>a{
-	padding-right: 0;
-}
-.main-page .nav__list [class*="depict-icons-angle-"]{
-	position: relative;
-	right: auto;
-	top: 10px;
-	pointer-events: none;
-	background: none;
-	height: 10px;
-	width: 10px;
-	left: 15px;
-	margin: 0 0 0 -10px;
-	padding: 0;
-	-webkit-transition: none;
-	transition: none;
-}
-.main-page .nav__list [class*="depict-icons-angle-"]:before{
-	top: 0;
-	left: 0;
-	content: " ";
-	height: 0;
-	width: 0;
-	position: absolute;
-	pointer-events: none;
-	border: 5px solid rgba(128, 128, 128, 0);
-	border-top-color: #808080;
-	margin-left: 0;
-}
-
-.main-page .nav-drop,
-.main-page .nav-sub-drop{
-	position: absolute;
-	left: 0;
-	top: 100%;
-	min-width: 100%;
-	overflow: visible;
-	display: none;
-	z-index: 0;
-	background: #f2f2f2;
-	box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
-}
-.main-page .nav-drop:after,
-.main-page .nav-sub-drop:after,
-.main-page .nav__list>li:before,
-.main-page .nav-drop__list>li:before,
-.main-page .nav-sub-drop__list>li:before{
-	content: '';
-	position: absolute;
-	left: -6px;
-	right: -6px;
-	height: 6px;
-	pointer-events: none;
-	-webkit-transition: opacity 0.4s;
-	transition: opacity 0.4s;
-	opacity: 0;
-	z-index: 1;
-
-	content: none;
-}
-.main-page .nav__list>li.active:before,
-.main-page .nav-drop__list>li.active:before,
-.main-page .nav-sub-drop__list>li.active:before,
-.main-page .nav__list>li.has-drop.current:before,
-.main-page .nav-drop__list>li.has-drop.current:before,
-.main-page .nav-sub-drop__list>li.has-drop.current:before{
-	top: -6px;
-	box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
-
-	content: none;
-}
-.main-page .nav-drop:after,
-.main-page .nav-sub-drop:after{
-	bottom: -6px;
-	box-shadow: 0 -3px 3px rgba(0, 0, 0, 0.1);
-}
-.main-page li.active>.nav-drop:after,
-.main-page li.active>.nav-sub-drop:after,
-.main-page .nav__list>li.active:before,
-.main-page .nav-drop__list>li.active:before,
-.main-page .nav-sub-drop__list>li.active:before,
-.main-page li.has-drop.current>.nav-drop:after,
-.main-page li.has-drop.current>.nav-sub-drop:after,
-.main-page .nav__list>li.has-drop.current:before,
-.main-page .nav-drop__list>li.has-drop.current:before,
-.main-page .nav-sub-drop__list>li.has-drop.current:before{
-	opacity: 1;
-}
-/*general styles main navigation end*/
-
-/*styles to menu level 1*/
-.main-page .nav__list>li{
-	padding: 0;
-	display: table-cell;
-}
-.main-page .nav__list>li>a{
-	display: block;
-	text-transform: none;
-	text-align: center;
-	height: 140px;
-	border-bottom: none;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
-.main-page .nav__list>li>a:hover,
-.main-page .nav__list>li.active>a,
-.main-page .nav__list>li.current>a{
-	color: #008acf;
-	background: none;
-}
-.main-page .nav__list>li>a,
-.main-page .nav__list>li.has-drop>a{
-	padding: 50px 12px 0 12px;
-	background: #f2f2f2;
-	z-index: 3;
-}
-.main-page .nav__list>li:nth-child(even)>a,
-.main-page .nav__list>li.has-drop:nth-child(even)>a{
-	background: #ececec;
-}
-.main-page .nav__list>li>a>[class*="depict-icons-angle-"]{
-	position: absolute;
-	bottom: 20px;
-	top: auto;
-	left: 50%;
-	margin-left: -5px;
-}
-.main-page .nav__list>li:hover>a>[class*="depict-icons-angle-"]:before{
-	border-top-color: #008acf;
-}
-.main-page .nav__list>li.active>a>[class*="depict-icons-angle-"],
-.main-page .nav__list>li.current>a>[class*="depict-icons-angle-"]{
-	-webkit-transform: rotate(0deg);
-	-ms-transform: rotate(0deg);
-	transform: rotate(0deg);
-	bottom: 25px;
-}
-.main-page .nav__list>li.active>a>[class*="depict-icons-angle-"]:before,
-.main-page .nav__list>li.current>a>[class*="depict-icons-angle-"]:before{
-	border: 5px solid rgba(128, 128, 128, 0);
-	border-bottom-color: #008acf;
-	margin-left: 0;
-}
-/*styles to menu level 1 end*/
-
-/*styles to menu level 2*/
-.main-page .current>.nav-drop{ display: none; }
-.main-page .nav-drop__list>li{
-	display: block;
-	border-top: none;
-	position: relative;
-}
-.main-page .nav-drop__list>li>a{
-	padding: 10px 15px;
-	font-size: 14px;
-	text-transform: none;
-	background: none;
-	background: #f2f2f2;
-	color: #333;
-	white-space: nowrap;
-	position: relative;
-	z-index: 1;
-}
-.main-page .nav-drop__list>li.has-drop>a{
-	padding-right: 30px;
-}
-.main-page .nav-drop__list>li>a:hover,
-.main-page .nav-drop__list>li.active>a,
-.main-page .nav-drop__list>li.current>a{
-	color: #fff;
-	background: #069;
-}
-.main-page .nav-drop__list [class*="depict-icons-angle-"],
-.main-page .nav-drop__list li.active>a>[class*="depict-icons-angle-"],
-.main-page .nav-drop__list li.current>a>[class*="depict-icons-angle-"]{
-	left: 20px;
-	top: 6px;
-	-webkit-transform: none;
-	-ms-transform: none;
-	transform: none;
-}
-.main-page .nav-drop__list [class*="depict-icons-angle-"]:before,
-.main-page .nav-drop__list li.active>a>[class*="depict-icons-angle-"]:before,
-.main-page .nav-drop__list li.current>a>[class*="depict-icons-angle-"]:before{
-	pointer-events: none;
-	border: 5px solid rgba(128, 128, 128, 0);
-	border-left-color: #333;
-}
-.main-page .nav-drop__list li:hover>a>[class*="depict-icons-angle-"]:before,
-.main-page .nav-drop__list li.active>a>[class*="depict-icons-angle-"]:before,
-.main-page .nav-drop__list li.current>a>[class*="depict-icons-angle-"]:before{
-	border-left-color: #fff;
-}
-/*styles to menu level 2 end*/
-
-/*styles to menu level 3*/
-.main-page .nav-sub-drop{
-	top: 0;
-	left: 100%;
-	margin-top: 0;
-}
-.main-page .current>.nav-sub-drop{
-	display: none;
-}
-.main-page .nav-sub-drop__list>li{
-	border-top: none;
-	position: relative;
-}
-.main-page .nav-sub-drop__list>li>a{
-	padding: 10px 16px;
-	font-size: 14px;
-	color: #333;
-	background: #f2f2f2;
-	white-space: nowrap;
-}
-.main-page .nav-sub-drop__list>li.has-drop>a{
-	padding-right: 30px;
-}
-.main-page .nav-sub-drop__list>li>a:hover,
-.main-page .nav-sub-drop__list>li.active>a,
-.main-page .nav-sub-drop__list>li.current>a{
-	color: #fff;
-	background: #005580;
-}
-/*styles to menu level 3 end*/
 /*MAIN NAVIGATION for main page end*/
 
 /*MAIN CONTENT*/
