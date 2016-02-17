@@ -4381,6 +4381,14 @@ li.has-drop.current>.nav-sub-drop:after,
 	width: auto;
 	margin: 0;
 }
+.nav-cloned{
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 110px;
+	height: 100%;
+	display: none;
+}
 /*MAIN NAVIGATION for main page end*/
 
 /*MAIN CONTENT*/

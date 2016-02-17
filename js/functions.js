@@ -219,7 +219,129 @@ function multiAccordionInit() {
 }
 /*multi accordion end*/
 
+/*hover class*/
+(function ($) {
+	var HoverClass = function (settings) {
+		var options = $.extend({
+			container: 'ul',
+			item: 'li',
+			drop: 'li>ul'
+		},settings || {});
 
+		var self = this;
+		self.options = options;
+
+		var container = $(options.container);
+		self.$container = container;
+		self.$item = $(options.item, container);
+		self.$drop = $(options.drop, container);
+
+		self.modifiers = {
+			hover: 'hover'
+		};
+
+		self.md = new MobileDetect(window.navigator.userAgent);
+
+		self.addClassHover();
+
+		if (self.md.mobile()) {
+			$(window).on('debouncedresize', function () {
+				self.removeClassHover();
+			});
+		}
+	};
+
+	HoverClass.prototype.addClassHover = function () {
+		var self = this,
+				_hover = this.modifiers.hover,
+				$item = self.$item;
+
+		if (self.md.mobile()) {
+			$item.on('click', function (e) {
+				var currentItem = $(this);
+
+				if (!currentItem.has(self.$drop).length){ return; }
+
+				e.stopPropagation();
+
+				if (currentItem.hasClass(_hover)){
+					currentItem.removeClass(_hover);
+					return;
+				}
+
+				$item.removeClass(_hover);
+				currentItem.addClass(_hover);
+
+				e.preventDefault();
+			});
+
+			self.$drop.on('click', function (e) {
+				e.stopPropagation();
+			});
+
+			$(document).on('click', function () {
+				$item.removeClass(_hover);
+			});
+		} else {
+			$item.on('mouseover', function () {
+				var currentItem = $(this);
+
+				if (currentItem.prop('hoverTimeout')) {
+					currentItem.prop('hoverTimeout',
+							clearTimeout(currentItem.prop('hoverTimeout')
+							)
+					);
+				}
+
+				currentItem.prop('hoverIntent', setTimeout(function () {
+					currentItem.addClass(_hover);
+				}, 50));
+
+			}).on('mouseleave', function () {
+				var $this = $(this);
+
+				if ($this.prop('hoverIntent')) {
+					$this.prop('hoverIntent',
+							clearTimeout($this.prop('hoverIntent')
+							)
+					);
+				}
+
+				$this.prop('hoverTimeout', setTimeout(function () {
+					$this.removeClass(_hover);
+				}, 100));
+			});
+
+		}
+	};
+
+	HoverClass.prototype.removeClassHover = function () {
+		var self = this;
+		self.$item.removeClass(self.modifiers.hover );
+	};
+
+	window.HoverClass = HoverClass;
+
+}(jQuery));
+
+function hoverClassInit(){
+	var $navList = $('.nav__list');
+	if($navList.length){
+		new HoverClass({
+			container: $navList
+		});
+	}
+
+	var $nav = $('.nav');
+	if($nav.length){
+		new HoverClass({
+			container: $nav,
+			item: '.nav-cloned',
+			drop: '.nav-cloned__drop'
+		});
+	}
+}
+/*hover class end*/
 
 /*main navigation*/
 (function ($) {
@@ -268,13 +390,9 @@ function multiAccordionInit() {
 		self.addOverlayPage();
 		self.openCurrent();
 		self.mainNavigationAccordion();
-		self.addClassHover();
+		self.addAlignDropClass();
 		self.removeAlignDropClass();
 		self.dropSwitcher();
-		self.otherItems();
-		$(window).on('debouncedresize', function () {
-			self.otherItems();
-		});
 	};
 
 	//добавить <div class="overlay-page"></div>
@@ -315,7 +433,7 @@ function multiAccordionInit() {
 
 			e.preventDefault();
 
-			if (self.$navContainer.hasClass(noClick)){ return; }
+			if (self.$navContainer.hasClass(noClick) && self.$buttonMenu.is(':hidden')){ return; }
 
 			if (current.parent().prop("tagName") != currentAccordionItem.prop("tagName")) {
 				current = current.parent();
@@ -337,77 +455,7 @@ function multiAccordionInit() {
 		})
 	};
 
-	MainNavigation.prototype.addClassHover = function () {
-		var self = this,
-			_hover = this.modifiers.hover,
-			$navMenuItem = self.$navMenuItem;
-
-		if (self.md.mobile()) {
-			$navMenuItem.on('click', function (e) {
-				var currentItem = $(this);
-
-				e.stopPropagation();
-
-				if (currentItem.hasClass(_hover)){
-					currentItem.removeClass(_hover);
-					return;
-				}
-
-				$navMenuItem.removeClass(_hover);
-				currentItem.toggleClass(_hover);
-				var $currentDrop = currentItem.find(self.$navDropMenu);
-				if($currentDrop.length){
-					self.addAlignDropClass(currentItem, $currentDrop);
-				}
-
-				e.preventDefault();
-			});
-
-			self.navDropMenu.on('click', function (e) {
-				e.stopPropagation();
-			});
-
-			$(document).on('click', function () {
-				$navMenuItem.removeClass(_hover);
-			});
-			return;
-		}
-
-		$navMenuItem.on('mouseover', function () {
-			var currentItem = $(this);
-
-			if (currentItem.prop('hoverTimeout')) {
-				currentItem.prop('hoverTimeout',
-					clearTimeout(currentItem.prop('hoverTimeout')
-					)
-				);
-			}
-
-			currentItem.prop('hoverIntent', setTimeout(function () {
-				currentItem.addClass(_hover);
-				var $currentDrop = currentItem.find(self.$navDropMenu);
-				if($currentDrop.length){
-					self.addAlignDropClass(currentItem, $currentDrop);
-				}
-			}, 50));
-
-		}).on('mouseleave', function () {
-				var $this = $(this);
-
-				if ($this.prop('hoverIntent')) {
-					$this.prop('hoverIntent',
-						clearTimeout($this.prop('hoverIntent')
-						)
-					);
-				}
-
-				$this.prop('hoverTimeout', setTimeout(function () {
-					$this.removeClass(_hover);
-				}, 100));
-			});
-	};
-
-	MainNavigation.prototype.addAlignDropClass = function (item, drop) {
+	MainNavigation.prototype.createAlignDropClass = function (item, drop) {
 		var self = this,
 			alightRight = self.modifiers.alignRight,
 			$navContainer = self.$navContainer;
@@ -422,6 +470,38 @@ function multiAccordionInit() {
 		if(navContainerPosRight < navDropPosRight){
 			item.addClass(alightRight);
 		}
+	};
+
+	MainNavigation.prototype.addAlignDropClass = function () {
+		var self = this,
+				$navMenuItem = self.$navMenuItem;
+
+		if (self.md.mobile()) {
+			$navMenuItem.on('click', function () {
+				var currentItem = $(this);
+				var $currentDrop = currentItem.find(self.$navDropMenu);
+
+				if($currentDrop.length){
+					self.createAlignDropClass(currentItem, $currentDrop);
+				}
+			});
+			return;
+		}
+
+		$navMenuItem.on('mouseover', function () {
+			var $currentItem = $(this);
+
+			if ($currentItem.prop('hoverTimeout')) {
+				$currentItem.prop('hoverTimeout', clearTimeout($currentItem.prop('hoverTimeout')));
+			}
+
+			$currentItem.prop('hoverIntent', setTimeout(function () {
+				var $currentDrop = $currentItem.find(self.$navDropMenu);
+				if($currentDrop.length){
+					self.createAlignDropClass($currentItem, $currentDrop)
+				}
+			}, 50));
+		});
 	};
 
 	MainNavigation.prototype.removeAlignDropClass = function () {
@@ -483,25 +563,10 @@ function multiAccordionInit() {
 		}
 	};
 
-	MainNavigation.prototype.closeNav = function(conatiner,btn) {
+	MainNavigation.prototype.closeNav = function(container,btn) {
 		var self = this;
-		conatiner.removeClass(self.modifiers.opened);
+		container.removeClass(self.modifiers.opened);
 		btn.removeClass(self.modifiers.active);
-	};
-
-	MainNavigation.prototype.otherItems = function() {
-		var self = this;
-		var $navList = self.$navList;
-		var $childrenItems = $navList.children();
-		var tpl = '<li class="cloned-items has-drop"><a href="#"><span>Ещё</span><i class="depict-icons-angle-btm"></i></a><div class="nav-drop js-nav-drop"><ul class="cloned-items__drop"></ul></div></li>';
-
-		console.log('$navList.children().length: ', $childrenItems.length);
-		console.log('self.minWidthItem: ', self._minWidthItem);
-		if($navList.width() > $childrenItems.length * self._minWidthItem){
-			console.log('woo!');
-
-			$(tpl).appendTo($navList).find('.cloned-items__drop').html($childrenItems.eq(-1).clone());
-		}
 	};
 
 	window.MainNavigation = MainNavigation;
@@ -519,6 +584,59 @@ function mainNavigationInit(){
 	});
 }
 /*main navigation end*/
+
+/*clone nav items*/
+var cloneNavItem = function() {
+	var $nav = $('.nav-main-page');
+	var $navList = $('.nav-original__list', $nav);
+	var $navCloned = $('.nav-cloned', $nav);
+	var $navListItems = $navList.children('li');
+	var $navCloneListItems = $('.nav-cloned__drop .nav__list').children('li');
+	var minWidth = 130;
+
+	$($navListItems).removeClass('nc-clone');
+	$($navCloneListItems).removeClass('nc-clone');
+
+	var widthContainer = $navList.closest('.nav__holder').outerWidth();
+	//var widthContainer = $nav.hasClass('show-clone')
+	//		? $navList.closest('.nav__holder').outerWidth()
+	//		: $navList.outerWidth();
+
+	var lengthNavListItems = $navListItems.length;
+	console.log('widthContainer: ', widthContainer);
+	console.log('lengthNavListItems: ', lengthNavListItems);
+	console.log('minWidth: ', minWidth);
+	console.log('lengthNavListItems * minWidth: ', lengthNavListItems * minWidth);
+
+	var hideLength = (lengthNavListItems * minWidth - widthContainer)/minWidth;
+	console.log('hideLength: ', hideLength);
+	var hideLengthCeil = Math.ceil(hideLength);
+	console.log('hideLengthCeil: ', hideLengthCeil);
+
+	if(lengthNavListItems * minWidth <= widthContainer ){
+		console.log(1);
+		$nav.removeClass('show-clone');
+		return;
+	}
+
+	console.log(2);
+
+	$nav.addClass('show-clone');
+
+	for(var i = 0; i < hideLengthCeil + 1; i++){
+		var indexCloned = lengthNavListItems - i - 1;
+		$($navListItems[indexCloned]).addClass('nc-clone');
+		$($navCloneListItems[indexCloned]).addClass('nc-clone');
+	}
+};
+
+
+
+$(window).on('debouncedresize', function () {
+	cloneNavItem();
+});
+
+/*cloned nav items end*/
 
 /*nav position*/
 function navPosition(){
@@ -1231,10 +1349,10 @@ var localObjects = [
 		smallPinMap,
 		7,
 		{
-			title: 'Филиал "Завод горно-шахтного оборудования"',
-			address: '<b>Адрес:</b> Республика Беларусь, Метявичское шоссе 5/3, 223710 Солигорский р-н, Минская обл.',
-			phone: '<b>Главный технолог:</b> +375 174 21 20 59',
-			works: '<b>Эл. почта:</b> <a href="mailto:zgsho@niva.by">zgsho@niva.by</a>'
+			title: 'Минскводоканал 2',
+			address: '<b>Адрес:</b> 220088 Беларусь, Минск, ул. Пулихова д.15',
+			phone: '<b>Приёмная:</b> <div>+375 17 327 37 04</div> <div>+375 17 327 37 04</div>',
+			works: '<b>Эл. почта:</b> <div><span>Пн-Пт:</span> 10<sup>00</sup> – 20<sup>00</sup></div> <div><span>Сб-Вс:</span> 10<sup>00</sup> – 18<sup>00</sup></div>'
 		}
 	]
 ];
@@ -2014,8 +2132,10 @@ function loadByReady(){
 	placeholderInit();
 	dropLanguageInit();
 	showFormSearch();
+	hoverClassInit();
 	//multiAccordionInit();
 	mainNavigationInit();
+	cloneNavItem();
 	navPosition();
 	footerDropInit();
 	//siteMapInit();

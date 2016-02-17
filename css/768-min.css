@@ -37,7 +37,8 @@
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
-.nav-main-page .nav__list li>a{
+.nav-main-page .nav__list li>a,
+.nav-cloned{
 	display: block;
 	position: relative;
 	padding: 0;
@@ -54,7 +55,8 @@
 .nav-main-page .nav__list li.has-drop>a{
 	padding-right: 40px;
 }
-.nav-main-page .nav__list [class*="depict-icons-angle-"]{
+.nav-main-page .nav__list [class*="depict-icons-angle-"],
+.nav-cloned [class*="depict-icons-angle-"]{
 	position: relative;
 	right: auto;
 	top: 10px;
@@ -68,7 +70,8 @@
 	-webkit-transition: none;
 	transition: none;
 }
-.nav-main-page .nav__list [class*="depict-icons-angle-"]:before{
+.nav-main-page .nav__list [class*="depict-icons-angle-"]:before,
+.nav-cloned [class*="depict-icons-angle-"]:before{
 	top: 0;
 	left: 0;
 	content: " ";
@@ -86,13 +89,13 @@
 	position: absolute;
 	left: 0;
 	top: -9999px;
-	min-width: 100%;
-	padding: 10px 0;
+	padding: 0;
 	overflow: visible;
 	background: #f2f2f2;
 	box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
 	display: block;
 	opacity: 0;
+	z-index: 9;
 	-webkit-transition: opacity 0.2s;
 	transition: opacity 0.2s;
 }
@@ -137,6 +140,9 @@
 	padding: 0;
 	display: table-cell;
 }
+.nav-main-page .nav__list>li.nc-clone{
+	display: none;
+}
 .nav-main-page .nav__list>li.active{
 	z-index: 1;
 }
@@ -146,13 +152,15 @@
 	text-align: center;
 	height: 110px;
 	border-bottom: none;
+	background: #f2f2f2;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
 .nav-main-page .nav__list>li.hover>a,
 .nav-main-page .nav__list>li.active>a,
-.nav-main-page .nav__list>li.current>a{
+.nav-main-page .nav__list>li.current>a,
+.nav-cloned.hover>a{
 	color: #008acf;
 	background: #e6e6e6;
 	box-shadow: inset 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -185,6 +193,7 @@
 	margin-left: 0;
 }
 .nav-main-page .nav__list>li.align-right>.nav-drop{
+	min-width: 100%;
 	left: auto;
 	right: 0;
 }
@@ -219,7 +228,7 @@
 .nav-main-page .nav-drop__list>li.active>a,
 .nav-main-page .nav-drop__list>li.current>a{
 	color: #fff;
-	background: #069;
+	background: #008acf;
 }
 .nav-main-page .nav-drop__list [class*="depict-icons-angle-"],
 .nav-main-page .nav-drop__list li.active>a>[class*="depict-icons-angle-"],
@@ -254,7 +263,7 @@
 	right: 100%;
 }
 .nav-main-page .nav-drop__list>li.hover>.nav-sub-drop{
-	top: -10px;
+	top: 0;
 	opacity: 1;
 }
 /*styles to menu level 2 end*/
@@ -283,3 +292,97 @@
 }
 /*styles to menu level 3 end*/
 /*MAIN NAVIGATION for main page end*/
+
+/*MAIN NAVIGATION show cloned items*/
+.nav-main-page.show-clone .nav__holder{
+	padding-right: 110px;
+}
+.nav-main-page.show-clone .nav-cloned{
+	display: block;
+	position: absolute;
+}
+.nav-cloned>a{
+	display: block;
+	height: 100%;
+	font-size: 14px;
+	line-height: 17px;
+	color: #333;
+	text-decoration: none;
+	padding: 38px 12px 0 12px;
+	text-align: center;
+	position: relative;
+	background: #f2f2f2;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-transition: color 0.2s, background 0.2s, box-shadow 0.2s;
+	transition: color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+.nav-cloned>a>[class*="depict-icons-angle-"] {
+	position: absolute;
+	bottom: 20px;
+	top: auto;
+	left: 50%;
+	margin-left: -5px;
+}
+.nav-cloned.hover>a>[class*="depict-icons-angle-"]:before{
+	border-top-color: #008acf;
+}
+.nav-cloned__drop{
+	position: absolute;
+	right: 0;
+	top: -9999px;
+	box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+	display: block;
+	opacity: 0;
+	z-index: 9;
+	-webkit-transition: opacity 0.2s;
+	transition: opacity 0.2s;
+}
+.nav-cloned.hover .nav-cloned__drop{
+	top: 100%;
+	opacity: 1;
+}
+.nav-cloned .nav__list{
+	display: block;
+}
+.nav-cloned .nav__list>li{
+	width: auto;
+	max-width: 200px;
+	display: none;
+}
+.nav-cloned .nav__list>li.nc-clone{
+	display: block;
+}
+.nav-cloned .nav__list>li>.nav-drop,
+.nav-cloned .nav__list>li.align-right>.nav-drop{
+	left: auto;
+	right: 100%;
+}
+.nav-cloned .nav__list>li.hover>.nav-drop{
+	top: 0;
+	opacity: 1;
+}
+.nav-cloned .nav__list>li>a,
+.nav-cloned .nav__list>li.has-drop>a{
+	height: auto;
+	padding: 15px 24px;
+	white-space: nowrap;
+}
+.nav-cloned .nav__list br,
+.nav-cloned .nav__list wbr{
+	display: none;
+}
+.nav-cloned .nav__list>li>a>[class*="depict-icons-angle-"] {
+	position: absolute;
+	bottom: auto;
+	top: 50%;
+	left: auto;
+	right: 5px;
+	margin: -5px 0 0;
+	-webkit-transform: rotate(-90deg);
+	-ms-transform: rotate(-90deg);
+	transform: rotate(-90deg);
+}
+
+/*MAIN NAVIGATION show cloned items end*/
