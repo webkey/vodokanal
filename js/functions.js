@@ -225,39 +225,55 @@ function multiAccordionInit() {
 (function ($) {
 	var MainNavigation = function (settings) {
 		var options = $.extend({
-			overlayClass: '.overlay-page',
+			navList: '.nav__list',
+			btnMenu: '.btn-menu',
+			navMenuItem: 'li',
+			navMenuAnchor: 'a',
+			navDropMenu: '.js-nav-drop',
+			overlayClass: '.nav-overlay-page',
+			classNoClick: '.no-click', // Класс, при наличии которого дроп не буте открываться по клику
 			classReturn: null,
 			overlayBoolean: false,
-			animationSpeed: 300
+			animationSpeed: 300,
+			minWidthItem: 100
 		},settings || {});
 
-		this.options = options;
+		var self = this;
+		self.options = options;
+
 		var container = $(options.navContainer);
-		this.$buttonMenu = $(options.btnMenu);                     // Кнопка открытия/закрытия меню для моб. верси.
-		this.$navMenuItem = $(options.navMenuItem, container);     // Пункты навигации.
-		this.$navMenuAnchor = $(options.navMenuAnchor, container); // Элемент, по которому производится событие (клик).
-		this.$navDropMenu = $(options.navDropMenu, container);     // Дроп-меню всех уровней.
-		this._animateSpeed = options.animationSpeed;
+		self.$navContainer = container;
+		self.$navList = $(options.navList);
+		self.$buttonMenu = $(options.btnMenu);                     // Кнопка открытия/закрытия меню для моб. верси.
+		self.$navMenuItem = $(options.navMenuItem, container);     // Пункты навигации.
+		self.$navMenuAnchor = $(options.navMenuAnchor, container); // Элемент, по которому производится событие (клик).
+		self.$navDropMenu = $(options.navDropMenu, container);     // Дроп-меню всех уровней.
+		self._animateSpeed = options.animationSpeed;
+		self._classNoClick = options.classNoClick;
 
-		this._overlayClass = options.overlayClass;                // Класс оверлея.
-		this._overlayBoolean = options.overlayBoolean;            // Добавить оверлей (по-умолчанию == false). Если не true, то не будет работать по клику вне навигации.
+		self._overlayClass = options.overlayClass;                // Класс оверлея.
+		self._overlayBoolean = options.overlayBoolean;            // Добавить оверлей (по-умолчанию == false). Если не true, то не будет работать по клику вне навигации.
+		self._minWidthItem = options.minWidthItem;
 
-		this.modifiers = {
+		self.modifiers = {
 			active: 'active',
+			hover: 'hover',
 			opened: 'nav-opened',
-			current: 'current'
+			current: 'current',
+			alignRight: 'align-right'
 		};
 
-		this.openCurrent();
-		this.addOverlayPage();
-		this.dropNavigation();
-		this.mainNavigationAccordion();
-		this.totalCollapsibleOnResize();
+		self.md = new MobileDetect(window.navigator.userAgent);
 
-		// очистка классов-модификаторов при ресайзе
-		var self = this;
+		self.addOverlayPage();
+		self.openCurrent();
+		self.mainNavigationAccordion();
+		self.addClassHover();
+		self.removeAlignDropClass();
+		self.dropSwitcher();
+		self.otherItems();
 		$(window).on('debouncedresize', function () {
-			self.clearDropNavigation();
+			self.otherItems();
 		});
 	};
 
@@ -268,26 +284,38 @@ function multiAccordionInit() {
 
 		if (self._overlayBoolean) {
 			var overlayClassSubstring = _overlayClass.substring(1);
-			$('.header').after('<div class="' + overlayClassSubstring + '"></div>');
+			self.$navContainer.prepend('<div class="' + overlayClassSubstring + '"></div>');
 		}
 	};
 
+	MainNavigation.prototype.openCurrent = function () {
+		// открываем активный аккордеон
+		// не цсс, а скриптом, чтобы можно было плавно закрыть
+		var self = this;
+		var $currentElements = self.$navMenuItem.filter('.'+self.modifiers.current+'');
+		$.each($currentElements, function () {
+			$(this).firstChildElement(self.options.navDropMenu).slideDown(0);
+		});
+	};
+	
 	MainNavigation.prototype.mainNavigationAccordion = function () {
-		var self = this,
-				modifiers = this.modifiers,
-				animateSpeed = this._animateSpeed,
-				anyAccordionItem = this.$navMenuItem,
-				collapsibleElement = this.$navDropMenu;
 
+		var self = this,
+			modifiers = this.modifiers,
+			animateSpeed = this._animateSpeed,
+			anyAccordionItem = this.$navMenuItem,
+			collapsibleElement = this.$navDropMenu,
+			noClick = self._classNoClick.substring(1);
+		
 		self.$navMenuAnchor.on('click', function (e) {
 			var current = $(this);
 			var currentAccordionItem = current.closest(anyAccordionItem);
 
-			if (!currentAccordionItem.has(collapsibleElement).length){
-				return;
-			}
+			if (!currentAccordionItem.has(collapsibleElement).length){ return; }
 
 			e.preventDefault();
+
+			if (self.$navContainer.hasClass(noClick)){ return; }
 
 			if (current.parent().prop("tagName") != currentAccordionItem.prop("tagName")) {
 				current = current.parent();
@@ -309,32 +337,108 @@ function multiAccordionInit() {
 		})
 	};
 
-	MainNavigation.prototype.totalCollapsibleOnResize = function () {
+	MainNavigation.prototype.addClassHover = function () {
+		var self = this,
+			_hover = this.modifiers.hover,
+			$navMenuItem = self.$navMenuItem;
+
+		if (self.md.mobile()) {
+			$navMenuItem.on('click', function (e) {
+				var currentItem = $(this);
+
+				e.stopPropagation();
+
+				if (currentItem.hasClass(_hover)){
+					currentItem.removeClass(_hover);
+					return;
+				}
+
+				$navMenuItem.removeClass(_hover);
+				currentItem.toggleClass(_hover);
+				var $currentDrop = currentItem.find(self.$navDropMenu);
+				if($currentDrop.length){
+					self.addAlignDropClass(currentItem, $currentDrop);
+				}
+
+				e.preventDefault();
+			});
+
+			self.navDropMenu.on('click', function (e) {
+				e.stopPropagation();
+			});
+
+			$(document).on('click', function () {
+				$navMenuItem.removeClass(_hover);
+			});
+			return;
+		}
+
+		$navMenuItem.on('mouseover', function () {
+			var currentItem = $(this);
+
+			if (currentItem.prop('hoverTimeout')) {
+				currentItem.prop('hoverTimeout',
+					clearTimeout(currentItem.prop('hoverTimeout')
+					)
+				);
+			}
+
+			currentItem.prop('hoverIntent', setTimeout(function () {
+				currentItem.addClass(_hover);
+				var $currentDrop = currentItem.find(self.$navDropMenu);
+				if($currentDrop.length){
+					self.addAlignDropClass(currentItem, $currentDrop);
+				}
+			}, 50));
+
+		}).on('mouseleave', function () {
+				var $this = $(this);
+
+				if ($this.prop('hoverIntent')) {
+					$this.prop('hoverIntent',
+						clearTimeout($this.prop('hoverIntent')
+						)
+					);
+				}
+
+				$this.prop('hoverTimeout', setTimeout(function () {
+					$this.removeClass(_hover);
+				}, 100));
+			});
+	};
+
+	MainNavigation.prototype.addAlignDropClass = function (item, drop) {
+		var self = this,
+			alightRight = self.modifiers.alignRight,
+			$navContainer = self.$navContainer;
+
+		var navContainerPosRight = $navContainer.offset().left + $navContainer.outerWidth();
+		var navDropPosRight = drop.offset().left + drop.outerWidth();
+
+		if(item.hasClass(alightRight)){
+			return;
+		}
+
+		if(navContainerPosRight < navDropPosRight){
+			item.addClass(alightRight);
+		}
+	};
+
+	MainNavigation.prototype.removeAlignDropClass = function () {
 		var self = this;
-		$(window).on('resize', function () {
-			self.$navDropMenu.slideUp(self._animateSpeed);
-			self.$navMenuItem.removeClass(self.modifiers.active);
+		$(window).on('debouncedresize', function () {
+			self.$navMenuItem.removeClass(self.modifiers.alignRight );
 		});
 	};
 
-	MainNavigation.prototype.openCurrent = function () {
-		// открываем астивный аккордеон
-		// не цсс, а скриптом, чтобы можно было плавно закрыть
-		var self = this;
-		var $currentElements = self.$navMenuItem.filter('.'+self.modifiers.current+'');
-		$.each($currentElements, function () {
-			$(this).firstChildElement(self.options.navDropMenu).slideDown(0);
-		});
-	};
-
-	MainNavigation.prototype.dropNavigation = function () {
+	MainNavigation.prototype.dropSwitcher = function () {
 		var self = this,
 				$buttonMenu = self.$buttonMenu,
 				modifiers = self.modifiers,
 				_active = modifiers.active,
+				_current = modifiers.current,
 				_opened = modifiers.opened;
 
-		var $body = $('body');
 		var $html = $('html');
 
 		$buttonMenu.on('click', function (e) {
@@ -353,10 +457,11 @@ function multiAccordionInit() {
 				self.$navDropMenu.attr('style','');
 			}
 
-			// Удаляем с пунктов меню всех уровней активный класс
+			// Удаляем с пунктов меню всех уровней активный и текущий классы
 			self.$navMenuItem.removeClass(_active);
+			self.$navMenuItem.removeClass(_current);
 
-			// Переключаем на боди класс открывающий меню. Открытие через CSS3 translate
+			// Переключаем класс открывающий меню. Открытие через CSS3 translate
 			$html.toggleClass(_opened);
 
 			// Переключаем на кнопке меню активный класс
@@ -366,15 +471,37 @@ function multiAccordionInit() {
 		});
 
 		// По клику на область вне меню, закрываем меню
-		// .overlay-page
-		$body.on('click', self._overlayClass, function () {
-			$html.toggleClass(_opened);
-			$buttonMenu.toggleClass(_active);
+		$(document).on('click', self._overlayClass, function () {
+			self.closeNav($html,$buttonMenu);
 		});
+
+		// скрываем меню при ресайзе на десктопе
+		if(!self.md.mobile()){
+			$(window).on('debouncedresize', function () {
+				self.closeNav($html,$buttonMenu);
+			});
+		}
 	};
 
-	MainNavigation.prototype.clearDropNavigation = function() {
+	MainNavigation.prototype.closeNav = function(conatiner,btn) {
+		var self = this;
+		conatiner.removeClass(self.modifiers.opened);
+		btn.removeClass(self.modifiers.active);
+	};
 
+	MainNavigation.prototype.otherItems = function() {
+		var self = this;
+		var $navList = self.$navList;
+		var $childrenItems = $navList.children();
+		var tpl = '<li class="cloned-items has-drop"><a href="#"><span>Ещё</span><i class="depict-icons-angle-btm"></i></a><div class="nav-drop js-nav-drop"><ul class="cloned-items__drop"></ul></div></li>';
+
+		console.log('$navList.children().length: ', $childrenItems.length);
+		console.log('self.minWidthItem: ', self._minWidthItem);
+		if($navList.width() > $childrenItems.length * self._minWidthItem){
+			console.log('woo!');
+
+			$(tpl).appendTo($navList).find('.cloned-items__drop').html($childrenItems.eq(-1).clone());
+		}
 	};
 
 	window.MainNavigation = MainNavigation;
@@ -386,17 +513,175 @@ function mainNavigationInit(){
 	if(!$nav.length){ return; }
 	new MainNavigation({
 		navContainer: $nav,
-		classReturn: '.nav-main-page',
-		btnMenu: '.btn-menu',
-		navMenuItem: 'li',
-		navMenuAnchor: 'a',
-		navDropMenu: '.js-nav-drop',
+		classNoClick: '.nav-main-page',
 		animationSpeed: 300,
-
 		overlayBoolean: true
 	});
 }
 /*main navigation end*/
+
+/*nav position*/
+function navPosition(){
+	var $navHolder = $('.nav-inner-page__holder');
+	if(!$navHolder.length || $('.btn-menu').is(':visible')){return;}
+
+	var $window = $(window),
+		$logo = $('.logo'),
+		logoHeight = $logo.height(),
+		logoHeightNew,
+		$navContainer = $('nav.nav'),
+		navContainerTop = $navContainer.offset().top,
+		navHolderOffsetTop = $navHolder.offset().top,
+		navHolderHeight,
+		$footer = $('footer.footer'),
+		footerOffsetTop = $footer.offset().top,
+		windowWidth,
+		windowHeight = $window.height(),
+		windowScrollTop,
+		contentHeight,
+		lastWindowPos = 0,
+		topOffset = 0,
+		top = false,
+		bottom = false,
+		footerVisible = false,
+		resizeTimer;
+
+	$window.on('scroll', scroll).on('resize', function () {
+		clearTimeout(resizeTimer);
+		resizeTimer = setTimeout(resizeAndScroll, 500);
+	});
+
+	resizeAndScroll();
+
+	function resizeAndScroll() {
+		resize();
+		scroll();
+	}
+
+	function scroll() {
+		//if (1500 > windowWidth) {
+		//	return;
+		//}
+
+		navHolderHeight = $navHolder.outerHeight();
+		navHolderOffsetTop = $navHolder.offset().top;
+		navContainerTop = $navContainer.offset().top;
+		footerOffsetTop = $footer.offset().top;     console.log('AFTER SCROLL: navHolderHeight = ' + navHolderHeight + ', navHolderOffsetTop = ' + navHolderOffsetTop +', navContainerTop = ' + navContainerTop + ', footerOffsetTop = ' + footerOffsetTop);
+
+		logoHeightNew = $logo.height();     console.log('logoHeightNew = ', logoHeightNew);
+
+		windowScrollTop = $window.scrollTop();
+		var windowsHeightNew = footerOffsetTop - windowScrollTop; console.log('windowHeight = ' + windowHeight + ', windowScrollTop = ' + windowScrollTop + ', windowsHeightNew = ' + windowsHeightNew);
+
+		var topOffset = windowScrollTop < navHolderOffsetTop ? navHolderOffsetTop - windowScrollTop : 0;
+		console.log('Ω topOffset before: ', topOffset);
+
+		//if (windowHeight < windowsHeightNew) { // Футер находится вне окна
+		//if (windowHeight < windowsHeightNew || footerOffsetTop > navHolderOffsetTop + navHolderHeight) { // Пока футер находится вне окна, но не соприкасается с навигацией
+		if (windowHeight < windowsHeightNew || navHolderHeight + topOffset < windowsHeightNew || navHolderHeight + logoHeightNew < windowsHeightNew) { // Пока футер находится вне окна, но не соприкасается с навигацией
+			console.log('•footer HIDDEN•');
+
+			if (topOffset + navHolderHeight > windowHeight) { // Условие 1. Если общая высота занимаемая навигацией больше высоты окна.
+				console.log('•1•');
+
+				if (windowScrollTop > lastWindowPos) { // Условие 1.1. Скроллим вниз
+					console.log('scroll ▼ •1.1•');
+
+					if (top && windowHeight + windowScrollTop > navHolderHeight + navHolderOffsetTop) { // Условие 1.1.1. Навигация зафиксированна вверху
+						//                И общая высота видимой части окна с проскролленой
+						//                Больше, чем общая высота навигации и ее позиция
+						topOffset = navHolderOffsetTop - navContainerTop;
+						console.log('•1.1.1• ⇒ position: relative; top: ' + topOffset + 'px;');
+
+						top = false;
+
+						$navHolder.attr('style', 'position: relative; top: ' + topOffset + 'px;');
+
+					} else if (!bottom && windowScrollTop + windowHeight > navHolderHeight + navHolderOffsetTop) { // Условие 1.1.2. Зафиксированна внизу
+						//                И общая высота видимой части окна с проскролленой
+						//                Больше, чем общая высота навигации и ее позиция
+						console.log('•1.1.2• ⇒ position: fixed; bottom: 0; top: auto;');
+
+						bottom = true;
+						$navHolder.attr('style', 'position: fixed; bottom: 0; top: auto;');
+					} else if (top && windowHeight + windowScrollTop < navHolderHeight + navHolderOffsetTop) {// Условие 1.1.2. Зафиксированна внизу
+						//                И общая высота видимой части окна с проскролленой
+						//                Меньше, чем общая высота навигации и ее позиция
+						topOffset = navHolderOffsetTop - navContainerTop;
+						console.log('•1.1.3• ⇒ position: relative; top: ' + topOffset + 'px;');
+						top = bottom = false;
+
+						$navHolder.attr('style', 'position: relative; top: ' + topOffset + 'px;');
+					}
+				} else if (windowScrollTop < lastWindowPos) { // Условие 1.2. Скроллим вверх
+					console.log('scroll ▲ •1.2•');
+
+					if (bottom) { // Условие 1.2.1. Навигация зафиксированна внизу
+						console.log('Ω lastWindowPos - windowScrollTop: ', lastWindowPos - windowScrollTop);
+						topOffset = navHolderOffsetTop - navContainerTop + lastWindowPos - windowScrollTop;
+						console.log('Ω topOffset: ', topOffset);
+						console.log('•1.2.1• ⇒ position: relative; top: ' + topOffset + 'px;');
+
+						bottom = false;
+
+						$navHolder.attr('style', 'position: relative; top: ' + topOffset + 'px;');
+					} else if (!top && navHolderOffsetTop - windowScrollTop > logoHeightNew) { // Условие 1.2.2. Навигация не зафиксированна вверх
+						//               Не зафиксированна внизу
+						console.log('•1.2.2• ⇒ position: fixed;');
+
+						top = true;
+						$navHolder.attr('style', 'position: fixed;');
+					} else if (navHolderOffsetTop == navContainerTop) { // Условие 1.2.3.
+						console.log('•1.2.3• ⇒ position: relative; top: 0');
+
+						top = false;
+						$navHolder.attr('style', 'position: relative; top: 0');
+					}
+				} else { // Условие 1.3. При загрузке страницы, до начала скролла
+					topOffset = navHolderOffsetTop - navContainerTop;
+					console.log('scroll ▲▼ •1.3• ⇒ position: relative; top: ' + topOffset + 'px;');
+
+					top = bottom = false;
+					$navHolder.attr('style', 'position: relative; top: '+ topOffset +'px;');
+				}
+
+			} else if (!top && logoHeightNew + navHolderHeight > windowHeight) { // Условие 2. Если общая высота занимаемая навигацией меньше высоты окна, но высота навигации в сумме с лого больше высоты окна и навигация не зафиксированна вверху.
+				console.log('•2• ⇒ position: fixed; bottom: 0; top: auto;');
+
+				bottom = true;
+				$navHolder.attr('style', 'position: fixed; bottom: 0; top: auto;');
+			} else if (!top) { // Условие 3. Если общая высота навигации или высота навигации в сумме с лого меньше высоты окна и навигация не зафиксированна вверху.
+				console.log('•3• ⇒ position: fixed;');
+
+				top = true;
+				bottom = false;
+				$navHolder.attr('style', 'position: fixed;');
+			}
+
+			footerVisible = false;
+		} else if (!footerVisible ) {
+			topOffset = footerOffsetTop - navHolderHeight - navContainerTop;
+			console.log('•footer VISIBLE• ⇒ position: relative; top: ' + topOffset + 'px;');
+
+			top = bottom = false;
+			footerVisible = true;
+			$navHolder.attr('style', 'position: relative; top: '+ topOffset +'px;');
+		}
+
+		console.log('**********************************');
+
+		lastWindowPos = windowScrollTop;
+	}
+
+	function resize() {
+		windowWidth = $window.width();
+		$navHolder.removeAttr('style');
+		if (1500 > windowWidth) {
+			top = bottom = false;
+		}
+	}
+}
+/*nav position end*/
 
 /*site map*/
 (function ($) {
@@ -1367,7 +1652,6 @@ function footerBottom(){
 
 		_.$asNavFor = $(options.asNavFor);
 
-		//console.log(this.$asNavFor);
 		_._padding = options.padding;
 		_._normWidth = options.normWidth;
 		_._zoomWidth = options.zoomWidth;
@@ -1685,169 +1969,6 @@ function historySliderInit() {
 	}
 }
 
-/*nav position*/
-function navPosition(){
-	var $navHolder = $('.nav-inner-page__holder');
-	if(!$navHolder.length){return;}
-
-	var $window = $(window),
-		$logo = $('.logo'),
-		logoHeight = $logo.height(),
-		logoHeightNew,
-		$navContainer = $('nav.nav'),
-		navContainerTop = $navContainer.offset().top,
-		navHolderOffsetTop = $navHolder.offset().top,
-		navHolderHeight,
-		$footer = $('footer.footer'),
-		footerOffsetTop = $footer.offset().top,
-		windowWidth,
-		windowHeight = $window.height(),
-		windowScrollTop,
-		contentHeight,
-		lastWindowPos = 0,
-		topOffset = 0,
-		top = false,
-		bottom = false,
-		footerVisible = false,
-		resizeTimer;
-
-	$window.on('scroll', scroll).on('resize', function () {
-		clearTimeout(resizeTimer);
-		resizeTimer = setTimeout(resizeAndScroll, 500);
-	});
-
-	resizeAndScroll();
-
-	function resizeAndScroll() {
-		resize();
-		scroll();
-	}
-
-	function scroll() {
-		//if (1500 > windowWidth) {
-		//	return;
-		//}
-
-		navHolderHeight = $navHolder.outerHeight();
-		navHolderOffsetTop = $navHolder.offset().top;
-		navContainerTop = $navContainer.offset().top;
-		footerOffsetTop = $footer.offset().top;     console.log('AFTER SCROLL: navHolderHeight = ' + navHolderHeight + ', navHolderOffsetTop = ' + navHolderOffsetTop +', navContainerTop = ' + navContainerTop + ', footerOffsetTop = ' + footerOffsetTop);
-
-		logoHeightNew = $logo.height();     console.log('logoHeightNew = ', logoHeightNew);
-
-		windowScrollTop = $window.scrollTop();
-		var windowsHeightNew = footerOffsetTop - windowScrollTop; console.log('windowHeight = ' + windowHeight + ', windowScrollTop = ' + windowScrollTop + ', windowsHeightNew = ' + windowsHeightNew);
-
-		var topOffset = windowScrollTop < navHolderOffsetTop ? navHolderOffsetTop - windowScrollTop : 0;
-		console.log('Ω topOffset before: ', topOffset);
-
-		//if (windowHeight < windowsHeightNew) { // Футер находится вне окна
-		//if (windowHeight < windowsHeightNew || footerOffsetTop > navHolderOffsetTop + navHolderHeight) { // Пока футер находится вне окна, но не соприкасается с навигацией
-		if (windowHeight < windowsHeightNew || navHolderHeight + topOffset < windowsHeightNew || navHolderHeight + logoHeightNew < windowsHeightNew) { // Пока футер находится вне окна, но не соприкасается с навигацией
-			console.log('•footer HIDDEN•');
-
-			if (topOffset + navHolderHeight > windowHeight) { // Условие 1. Если общая высота занимаемая навигацией больше высоты окна.
-				console.log('•1•');
-
-				if (windowScrollTop > lastWindowPos) { // Условие 1.1. Скроллим вниз
-					console.log('scroll ▼ •1.1•');
-
-					if (top && windowHeight + windowScrollTop > navHolderHeight + navHolderOffsetTop) { // Условие 1.1.1. Навигация зафиксированна вверху
-						//                И общая высота видимой части окна с проскролленой
-						//                Больше, чем общая высота навигации и ее позиция
-						topOffset = navHolderOffsetTop - navContainerTop;
-						console.log('•1.1.1• ⇒ position: relative; top: ' + topOffset + 'px;');
-
-						top = false;
-
-						$navHolder.attr('style', 'position: relative; top: ' + topOffset + 'px;');
-
-					} else if (!bottom && windowScrollTop + windowHeight > navHolderHeight + navHolderOffsetTop) { // Условие 1.1.2. Зафиксированна внизу
-						//                И общая высота видимой части окна с проскролленой
-						//                Больше, чем общая высота навигации и ее позиция
-						console.log('•1.1.2• ⇒ position: fixed; bottom: 0; top: auto;');
-
-						bottom = true;
-						$navHolder.attr('style', 'position: fixed; bottom: 0; top: auto;');
-					} else if (top && windowHeight + windowScrollTop < navHolderHeight + navHolderOffsetTop) {// Условие 1.1.2. Зафиксированна внизу
-						//                И общая высота видимой части окна с проскролленой
-						//                Меньше, чем общая высота навигации и ее позиция
-						topOffset = navHolderOffsetTop - navContainerTop;
-						console.log('•1.1.3• ⇒ position: relative; top: ' + topOffset + 'px;');
-						top = bottom = false;
-
-						$navHolder.attr('style', 'position: relative; top: ' + topOffset + 'px;');
-					}
-				} else if (windowScrollTop < lastWindowPos) { // Условие 1.2. Скроллим вверх
-					console.log('scroll ▲ •1.2•');
-
-					if (bottom) { // Условие 1.2.1. Навигация зафиксированна внизу
-						console.log('Ω lastWindowPos - windowScrollTop: ', lastWindowPos - windowScrollTop);
-						topOffset = navHolderOffsetTop - navContainerTop + lastWindowPos - windowScrollTop;
-						console.log('Ω topOffset: ', topOffset);
-						console.log('•1.2.1• ⇒ position: relative; top: ' + topOffset + 'px;');
-
-						bottom = false;
-
-						$navHolder.attr('style', 'position: relative; top: ' + topOffset + 'px;');
-					} else if (!top && navHolderOffsetTop - windowScrollTop > logoHeightNew) { // Условие 1.2.2. Навигация не зафиксированна вверх
-						//               Не зафиксированна внизу
-						console.log('•1.2.2• ⇒ position: fixed;');
-
-						top = true;
-						$navHolder.attr('style', 'position: fixed;');
-					} else if (navHolderOffsetTop == navContainerTop) { // Условие 1.2.3.
-						console.log('•1.2.3• ⇒ position: relative; top: 0');
-
-						top = false;
-						$navHolder.attr('style', 'position: relative; top: 0');
-					}
-				} else { // Условие 1.3. При загрузке страницы, до начала скролла
-					topOffset = navHolderOffsetTop - navContainerTop;
-					console.log('scroll ▲▼ •1.3• ⇒ position: relative; top: ' + topOffset + 'px;');
-
-					top = bottom = false;
-					$navHolder.attr('style', 'position: relative; top: '+ topOffset +'px;');
-				}
-
-			} else if (!top && logoHeightNew + navHolderHeight > windowHeight) { // Условие 2. Если общая высота занимаемая навигацией меньше высоты окна, но высота навигации в сумме с лого больше высоты окна и навигация не зафиксированна вверху.
-				console.log('•2• ⇒ position: fixed; bottom: 0; top: auto;');
-
-				bottom = true;
-				$navHolder.attr('style', 'position: fixed; bottom: 0; top: auto;');
-			} else if (!top) { // Условие 3. Если общая высота навигации или высота навигации в сумме с лого меньше высоты окна и навигация не зафиксированна вверху.
-				console.log('•3• ⇒ position: fixed;');
-
-				top = true;
-				bottom = false;
-				$navHolder.attr('style', 'position: fixed;');
-			}
-
-			footerVisible = false;
-		} else if (!footerVisible ) {
-			topOffset = footerOffsetTop - navHolderHeight - navContainerTop;
-			console.log('•footer VISIBLE• ⇒ position: relative; top: ' + topOffset + 'px;');
-
-			top = bottom = false;
-			footerVisible = true;
-			$navHolder.attr('style', 'position: relative; top: '+ topOffset +'px;');
-		}
-
-		console.log('**********************************');
-
-		lastWindowPos = windowScrollTop;
-	}
-
-	function resize() {
-		windowWidth = $window.width();
-		$navHolder.removeAttr('style');
-		if (1500 > windowWidth) {
-			top = bottom = false;
-		}
-	}
-}
-/*nav position end*/
-
 /*header fixed*/
 function headerFixed(){
 	var page = $('.inner-page');
@@ -1895,6 +2016,7 @@ function loadByReady(){
 	showFormSearch();
 	//multiAccordionInit();
 	mainNavigationInit();
+	navPosition();
 	footerDropInit();
 	//siteMapInit();
 	//roadPopupInit();
@@ -1909,7 +2031,6 @@ function loadByReady(){
 	accordionInit();
 	historySliderInit();
 	headerFixed();
-	navPosition();
 }
 
 /*added footer*/
@@ -1965,6 +2086,11 @@ $(document).ready(function () {
 });
 
 $(window).load(function () {
+	// Если девайс, то при загрузке добавляем класс. Важно!
+	var md = new MobileDetect(window.navigator.userAgent);
+	if(md.mobile()){
+		$('body').addClass('mobile-device');
+	}
 	preloader();
 	equalHeightInit();
 	equelHeightInTabs();

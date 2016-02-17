@@ -85,13 +85,16 @@
 .nav-main-page .nav-sub-drop{
 	position: absolute;
 	left: 0;
-	top: 100%;
+	top: -9999px;
 	min-width: 100%;
 	padding: 10px 0;
 	overflow: visible;
 	background: #f2f2f2;
 	box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
-	display: none;
+	display: block;
+	opacity: 0;
+	-webkit-transition: opacity 0.2s;
+	transition: opacity 0.2s;
 }
 .nav-main-page .nav-drop:after,
 .nav-main-page .nav-sub-drop:after,
@@ -108,7 +111,6 @@
 .nav-main-page .nav-sub-drop__list>li.has-drop.current:before{
 	top: -6px;
 	box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
-
 	content: none;
 }
 .nav-main-page .nav-drop:after,
@@ -148,7 +150,7 @@
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
-.nav-main-page .nav__list>li>a:hover,
+.nav-main-page .nav__list>li.hover>a,
 .nav-main-page .nav__list>li.active>a,
 .nav-main-page .nav__list>li.current>a{
 	color: #008acf;
@@ -166,7 +168,7 @@
 	left: 50%;
 	margin-left: -5px;
 }
-.nav-main-page .nav__list>li:hover>a>[class*="depict-icons-angle-"]:before{
+.nav-main-page .nav__list>li.hover>a>[class*="depict-icons-angle-"]:before{
 	border-top-color: #008acf;
 }
 .nav-main-page .nav__list>li.active>a>[class*="depict-icons-angle-"],
@@ -182,10 +184,17 @@
 	border-bottom-color: #008acf;
 	margin-left: 0;
 }
+.nav-main-page .nav__list>li.align-right>.nav-drop{
+	left: auto;
+	right: 0;
+}
+.nav-main-page .nav__list>li.hover>.nav-drop{
+	top: 100%;
+	opacity: 1;
+}
 /*styles to menu level 1 end*/
 
 /*styles to menu level 2*/
-.nav-main-page .current>.nav-drop{ display: none; }
 .nav-main-page .nav-drop__list>li{
 	display: block;
 	border-top: none;
@@ -206,7 +215,7 @@
 .nav-main-page .nav-drop__list>li.has-drop>a{
 	padding-right: 35px;
 }
-.nav-main-page .nav-drop__list>li>a:hover,
+.nav-main-page .nav-drop__list>li.hover>a,
 .nav-main-page .nav-drop__list>li.active>a,
 .nav-main-page .nav-drop__list>li.current>a{
 	color: #fff;
@@ -230,22 +239,27 @@
 	border: 5px solid rgba(128, 128, 128, 0);
 	border-left-color: #333;
 }
-.nav-main-page .nav-drop__list li:hover>a>[class*="depict-icons-angle-"]:before,
+.nav-main-page .nav-drop__list li.hover>a>[class*="depict-icons-angle-"]:before,
 .nav-main-page .nav-drop__list li.active>a>[class*="depict-icons-angle-"]:before,
 .nav-main-page .nav-drop__list li.current>a>[class*="depict-icons-angle-"]:before{
 	border-left-color: #fff;
 }
+.nav-main-page .nav-sub-drop{
+	left: 100%;
+	margin-top: 0;
+	z-index: 1;
+}
+.nav-main-page .nav-drop__list>li.align-right>.nav-sub-drop{
+	left: auto;
+	right: 100%;
+}
+.nav-main-page .nav-drop__list>li.hover>.nav-sub-drop{
+	top: -10px;
+	opacity: 1;
+}
 /*styles to menu level 2 end*/
 
 /*styles to menu level 3*/
-.nav-main-page .nav-sub-drop{
-	top: 0;
-	left: 100%;
-	margin-top: 0;
-}
-.nav-main-page .current>.nav-sub-drop{
-	display: none;
-}
 .nav-main-page .nav-sub-drop__list>li{
 	border-top: none;
 	position: relative;
@@ -253,6 +267,7 @@
 .nav-main-page .nav-sub-drop__list>li>a{
 	padding: 10px 30px;
 	font-size: 14px;
+	text-transform: uppercase;
 	color: #333;
 	background: #f2f2f2;
 	white-space: nowrap;
@@ -260,7 +275,7 @@
 .nav-main-page .nav-sub-drop__list>li.has-drop>a{
 	padding-right: 35px;
 }
-.nav-main-page .nav-sub-drop__list>li>a:hover,
+.nav-main-page .nav-sub-drop__list>li.hover>a,
 .nav-main-page .nav-sub-drop__list>li.active>a,
 .nav-main-page .nav-sub-drop__list>li.current>a{
 	color: #fff;
