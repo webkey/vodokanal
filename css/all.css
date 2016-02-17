@@ -41,7 +41,7 @@ body:before{
 	-webkit-transform: translate(-50%, 0);
 	-ms-transform: translate(-50%, 0);
 	transform: translate(-50%, 0);
-	box-shadow: 0 0 50px rgba(0, 0, 0, 0.15);
+	box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
 }
 h1, h2, h3, h4, h5, h6{
 	font-weight: 700;
@@ -4394,6 +4394,17 @@ li.has-drop.current>.nav-sub-drop:after,
 /*MAIN CONTENT*/
 .main-page .content-wrap{
 	float: none;
+	-webkit-filter: blur(0);
+	filter: blur(0);
+	-webkit-transition: 1s -webkit-filter linear;
+	transition: 0.3s all linear;
+}
+.nav-opened .content-wrap {
+	display: block;
+	-webkit-filter: blur(3px);
+	filter: blur(3px);
+	-webkit-transition: 1s -webkit-filter linear;
+	transition: 0.3s all linear;
 }
 .main-page .content-wrap .content{
 	margin: 0;

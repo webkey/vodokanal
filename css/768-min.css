@@ -297,9 +297,12 @@
 .nav-main-page.show-clone .nav__holder{
 	padding-right: 110px;
 }
+.nav-main-page .nav-cloned{
+	position: absolute;
+	display: none;
+}
 .nav-main-page.show-clone .nav-cloned{
 	display: block;
-	position: absolute;
 }
 .nav-cloned>a{
 	display: block;
