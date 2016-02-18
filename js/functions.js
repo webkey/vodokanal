@@ -402,7 +402,7 @@ function hoverClassInit(){
 
 		if (self._overlayBoolean) {
 			var overlayClassSubstring = _overlayClass.substring(1);
-			self.$navContainer.prepend('<div class="' + overlayClassSubstring + '"></div>');
+			self.$navContainer.before('<div class="' + overlayClassSubstring + '"></div>');
 		}
 	};
 
@@ -954,7 +954,7 @@ function roadPopupInit(){
 
 /*phones drop*/
 function phonesDrop(){
-	var $phonesContainer = $('.phones');
+	var $phonesContainer = $('.phs__item');
 	if(!$phonesContainer.length){return;}
 
 	var animateSpeed = 200;
@@ -962,14 +962,15 @@ function phonesDrop(){
 		e.preventDefault();
 
 		var $phonesOpener = $(this),
-				$phonesDrop = $phonesOpener.closest($phonesContainer).find('.phones-drop');
+			$currentContainer = $phonesOpener.closest($phonesContainer),
+			$phonesDrop = $currentContainer.find('.phones-drop');
 
-		if($phonesContainer.hasClass('show-drop')){
+		if($currentContainer.hasClass('show-drop')){
 			closeDropPhones();
 			return;
 		}
-		$phonesContainer.addClass('show-drop');
-		$phonesDrop.fadeIn(animateSpeed);
+		closeDropPhones();
+		$currentContainer.addClass('show-drop');
 
 		e.stopPropagation();
 	});
@@ -984,7 +985,6 @@ function phonesDrop(){
 
 	function closeDropPhones(){
 		$phonesContainer.removeClass('show-drop');
-		$('.phones-drop').fadeOut(animateSpeed);
 	}
 }
 /*phones drop end*/

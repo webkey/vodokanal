@@ -42,7 +42,7 @@ html.nav-opened body.mobile-device{
 }
 .nav-opened .nav__holder,
 .nav-opened .main-page .nav__holder{
-	box-shadow: 0 0 7px rgba(0, 0, 0, 0.5);
+	box-shadow: 0 0 22px rgba(0, 0, 0, 0.5);
 	-webkit-transform: translate(0, 0);
 	-ms-transform: translate(0, 0);
 	transform: translate(0, 0);
