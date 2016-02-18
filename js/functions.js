@@ -283,7 +283,7 @@ function multiAccordionInit() {
 				$item.removeClass(_hover);
 			});
 		} else {
-			$item.on('mouseover', function () {
+			$item.on('mouseenter', function () {
 				var currentItem = $(this);
 
 				if (currentItem.prop('hoverTimeout')) {
@@ -587,31 +587,20 @@ function mainNavigationInit(){
 
 /*clone nav items*/
 var cloneNavItem = function() {
-	var $nav = $('.nav-main-page');
-	var $navList = $('.nav-original__list', $nav);
-	var $navCloned = $('.nav-cloned', $nav);
-	var $navListItems = $navList.children('li');
-	var $navCloneListItems = $('.nav-cloned__drop .nav__list').children('li');
-	var minWidth = 130;
+	var $nav = $('.nav-main-page'),
+			$navList = $('.nav-original__list', $nav),
+			$navCloned = $('.nav-cloned__drop', $nav),
+			$navListItems = $navList.children('li'),
+			$navCloneListItems = $('.nav__list', $navCloned).children('li'),
+			minWidth = 130;
 
 	$($navListItems).removeClass('nc-clone');
 	$($navCloneListItems).removeClass('nc-clone');
 
-	var widthContainer = $navList.closest('.nav__holder').outerWidth();
-	//var widthContainer = $nav.hasClass('show-clone')
-	//		? $navList.closest('.nav__holder').outerWidth()
-	//		: $navList.outerWidth();
-
-	var lengthNavListItems = $navListItems.length;
-	console.log('widthContainer: ', widthContainer);
-	console.log('lengthNavListItems: ', lengthNavListItems);
-	console.log('minWidth: ', minWidth);
-	console.log('lengthNavListItems * minWidth: ', lengthNavListItems * minWidth);
-
-	var hideLength = (lengthNavListItems * minWidth - widthContainer)/minWidth;
-	console.log('hideLength: ', hideLength);
-	var hideLengthCeil = Math.ceil(hideLength);
-	console.log('hideLengthCeil: ', hideLengthCeil);
+	var widthContainer = $navList.closest('.nav__holder').outerWidth(),
+			lengthNavListItems = $navListItems.length,
+			hideLength = (lengthNavListItems * minWidth - widthContainer)/minWidth,
+			hideLengthCeil = Math.ceil(hideLength);
 
 	if(lengthNavListItems * minWidth <= widthContainer ){
 		console.log(1);
@@ -630,11 +619,10 @@ var cloneNavItem = function() {
 	}
 };
 
-
-
 $(window).on('debouncedresize', function () {
 	cloneNavItem();
 });
+/*clone nav items*/
 
 /*cloned nav items end*/
 
@@ -954,23 +942,21 @@ function roadPopupInit(){
 
 /*phones drop*/
 function phonesDrop(){
-	var $phonesContainer = $('.phs__item');
-	if(!$phonesContainer.length){return;}
+	var $phonesItem = $('.phs__item, .phones-clone');
+	if(!$phonesItem.length){return;}
 
-	var animateSpeed = 200;
-	$phonesContainer.on('click', '.phs__item_opener', function (e) {
+	$phonesItem.on('click', '.phs__item_opener', function (e) {
 		e.preventDefault();
 
 		var $phonesOpener = $(this),
-			$currentContainer = $phonesOpener.closest($phonesContainer),
-			$phonesDrop = $currentContainer.find('.phones-drop');
+			$currentItem = $phonesOpener.closest($phonesItem);
 
-		if($currentContainer.hasClass('show-drop')){
+		if($currentItem.hasClass('show-drop')){
 			closeDropPhones();
 			return;
 		}
 		closeDropPhones();
-		$currentContainer.addClass('show-drop');
+		$currentItem.addClass('show-drop');
 
 		e.stopPropagation();
 	});
@@ -984,10 +970,60 @@ function phonesDrop(){
 	});
 
 	function closeDropPhones(){
-		$phonesContainer.removeClass('show-drop');
+		$phonesItem.removeClass('show-drop');
 	}
 }
 /*phones drop end*/
+
+/*clone phones*/
+var clonePhones = function() {
+	var $container = $('.phones');
+	var $phonesList = $('.phs__container', $container);
+	var $phonesItem = $phonesList.children('.phs__item');
+	var $phonesCloneContainer = $('.phones-clone', $container);
+	var $phonesCloneList = $('.phones-clone-drop', $phonesCloneContainer);
+	var $phonesCloneItems = $phonesCloneList.children('.phs__item');
+	var minWidthItem = 210;
+
+	$($phonesItem).removeClass('ph-cloned');
+	$($phonesCloneItems).removeClass('ph-cloned');
+
+	var phonesListWidth = $phonesList.outerWidth();
+
+	var lengthPhonesListItems = $phonesItem.length;
+	console.log('phonesListWidth: ', phonesListWidth);
+	console.log('lengthPhonesListItems: ', lengthPhonesListItems);
+	console.log('minWidthItem: ', minWidthItem);
+	console.log('lengthPhonesListItems * minWidthItem: ', lengthPhonesListItems * minWidthItem);
+
+	var cloneLength = Math.ceil((lengthPhonesListItems * minWidthItem - phonesListWidth)/minWidthItem);
+	console.log('cloneLength: ', cloneLength);
+
+	var newWidthItem = (1/(lengthPhonesListItems - cloneLength)*100)+'%';
+	$phonesItem.css('width', newWidthItem);
+	$phonesCloneContainer.css('width', newWidthItem);
+
+	if(lengthPhonesListItems * minWidthItem <= phonesListWidth ){
+		console.log(1);
+		$container.removeClass('show-clone');
+		return;
+	}
+
+	console.log(2);
+
+	$container.addClass('show-clone');
+
+	for(var i = 0; i <= cloneLength; i++){
+		var indexCloned = lengthPhonesListItems - i - 1;
+		$($phonesItem[indexCloned]).addClass('ph-cloned');
+		$($phonesCloneItems[indexCloned]).addClass('ph-cloned');
+	}
+};
+
+$(window).on('debouncedresize', function () {
+	clonePhones();
+});
+/*clone phones*/
 
 /*phones popup*/
 (function ($) {
@@ -2141,6 +2177,7 @@ function loadByReady(){
 	//siteMapInit();
 	//roadPopupInit();
 	phonesDrop();
+	clonePhones();
 	phonesPopupInit();
 	cardSwitch();
 	contactsSwitcher();
