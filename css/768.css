@@ -13,9 +13,34 @@ html.nav-opened body.mobile-device{
 }
 
 /*HEADER*/
+/*header options*/
+.header-options{
+	z-index: 2;
+}
+.header-options__holder,
+.main-page .header-options__holder{
+	margin-left: 0;
+}
+/*header options end*/
+
 /*button menu*/
 .btn-menu{ display: block; }
 /*button menu end*/
+
+/*lang*/
+.logo{
+	width: 200px;
+	height: 80px;
+	position: relative;
+	top: auto;
+}
+.logo>a:before,
+.logo>span:before{
+	background-image: url(../img/logo-sm.png);
+	-webkit-background-size: 160px;
+	background-size: 160px;
+}
+/*lang end*/
 /*HEADER end*/
 
 /*MAIN NAVIGATION*/
@@ -62,15 +87,38 @@ html.nav-opened body.mobile-device{
 }
 /*MAIN NAVIGATION end*/
 
+/*MAIN CONTENT*/
+/*promo*/
+.promo-holder {
+	margin-right: 0;
+	height: auto;
+}
+/*promo end*/
+
+/*window*/
+.promo .window{
+	width: 320px;
+	position: relative;
+	right: auto;
+	top: auto;
+	margin-left: auto;
+}
+/*window end*/
+/*MAIN CONTENT end*/
+
 /*MAIN PAGE*/
 /*HEADER FOR MAIN page*/
-/*header options*/
-.main-page .header-options__holder{
-	margin-left: 33.3%;
-}
-/*header options end*/
 /*logo*/
-.main-page .logo{ width: 33.3%; }
+.main-page .logo{
+	width: 200px;
+	height: 80px;
+}
+.main-page .logo>a:before,
+.main-page .logo>span:before{
+	background-image: url(../img/logo-main-alt.png);
+	-webkit-background-size: 160px;
+	background-size: 160px;
+}
 /*logo end*/
 /*HEADER FOR MAIN page end*/
 

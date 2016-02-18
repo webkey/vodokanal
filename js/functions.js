@@ -254,10 +254,12 @@ function multiAccordionInit() {
 	HoverClass.prototype.addClassHover = function () {
 		var self = this,
 				_hover = this.modifiers.hover,
-				$item = self.$item;
+				$item = self.$item,
+				item = self.options.item,
+				$container = self.$container;
 
 		if (self.md.mobile()) {
-			$item.on('click', function (e) {
+			$container.on('click', ''+item+'', function (e) {
 				var currentItem = $(this);
 
 				if (!currentItem.has(self.$drop).length){ return; }
@@ -275,7 +277,7 @@ function multiAccordionInit() {
 				e.preventDefault();
 			});
 
-			self.$drop.on('click', function (e) {
+			$container.on('click', ''+self.$drop+'', function (e) {
 				e.stopPropagation();
 			});
 
@@ -283,7 +285,7 @@ function multiAccordionInit() {
 				$item.removeClass(_hover);
 			});
 		} else {
-			$item.on('mouseenter', function () {
+			$container.on('mouseenter', ''+item+'', function () {
 				var currentItem = $(this);
 
 				if (currentItem.prop('hoverTimeout')) {
@@ -297,18 +299,19 @@ function multiAccordionInit() {
 					currentItem.addClass(_hover);
 				}, 50));
 
-			}).on('mouseleave', function () {
-				var $this = $(this);
+			});
+			$container.on('mouseleave', ''+ item+'', function () {
+				var currentItem = $(this);
 
-				if ($this.prop('hoverIntent')) {
-					$this.prop('hoverIntent',
-							clearTimeout($this.prop('hoverIntent')
+				if (currentItem.prop('hoverIntent')) {
+					currentItem.prop('hoverIntent',
+							clearTimeout(currentItem.prop('hoverIntent')
 							)
 					);
 				}
 
-				$this.prop('hoverTimeout', setTimeout(function () {
-					$this.removeClass(_hover);
+				currentItem.prop('hoverTimeout', setTimeout(function () {
+					currentItem.removeClass(_hover);
 				}, 100));
 			});
 
@@ -325,7 +328,7 @@ function multiAccordionInit() {
 }(jQuery));
 
 function hoverClassInit(){
-	var $navList = $('.nav__list');
+	var $navList = $('.nav');
 	if($navList.length){
 		new HoverClass({
 			container: $navList
@@ -425,7 +428,7 @@ function hoverClassInit(){
 			collapsibleElement = this.$navDropMenu,
 			noClick = self._classNoClick.substring(1);
 		
-		self.$navMenuAnchor.on('click', function (e) {
+		self.$navContainer.on('click', ''+self.options.navMenuAnchor+'', function (e) {
 			var current = $(this);
 			var currentAccordionItem = current.closest(anyAccordionItem);
 
@@ -460,6 +463,10 @@ function hoverClassInit(){
 			alightRight = self.modifiers.alignRight,
 			$navContainer = self.$navContainer;
 
+		if(!drop.length){
+			return;
+		}
+
 		var navContainerPosRight = $navContainer.offset().left + $navContainer.outerWidth();
 		var navDropPosRight = drop.offset().left + drop.outerWidth();
 
@@ -474,33 +481,25 @@ function hoverClassInit(){
 
 	MainNavigation.prototype.addAlignDropClass = function () {
 		var self = this,
-				$navMenuItem = self.$navMenuItem;
+				$navContainer = self.$navContainer,
+				navMenuItem = self.options.navMenuItem;
 
 		if (self.md.mobile()) {
-			$navMenuItem.on('click', function () {
+			$navContainer.on('click', ''+navMenuItem+'', function () {
 				var currentItem = $(this);
 				var $currentDrop = currentItem.find(self.$navDropMenu);
 
-				if($currentDrop.length){
-					self.createAlignDropClass(currentItem, $currentDrop);
-				}
+				self.createAlignDropClass(currentItem, $currentDrop);
 			});
 			return;
 		}
 
-		$navMenuItem.on('mouseover', function () {
+		$navContainer.on('mouseenter', ''+ navMenuItem+'', function () {
 			var $currentItem = $(this);
 
-			if ($currentItem.prop('hoverTimeout')) {
-				$currentItem.prop('hoverTimeout', clearTimeout($currentItem.prop('hoverTimeout')));
-			}
+			var $currentDrop = $currentItem.find(self.$navDropMenu);
 
-			$currentItem.prop('hoverIntent', setTimeout(function () {
-				var $currentDrop = $currentItem.find(self.$navDropMenu);
-				if($currentDrop.length){
-					self.createAlignDropClass($currentItem, $currentDrop)
-				}
-			}, 50));
+			self.createAlignDropClass($currentItem, $currentDrop)
 		});
 	};
 
@@ -586,31 +585,40 @@ function mainNavigationInit(){
 /*main navigation end*/
 
 /*clone nav items*/
+$(window).load(function () {
+	if($('.nav-main-page').length){
+		$('.nav__list').clone().appendTo('#nav-list-clone');
+	}
+	cloneNavItem();
+});
+
+$(window).on('debouncedresize', function () {
+	cloneNavItem();
+});
+
 var cloneNavItem = function() {
-	var $nav = $('.nav-main-page'),
-			$navList = $('.nav-original__list', $nav),
-			$navCloned = $('.nav-cloned__drop', $nav),
-			$navListItems = $navList.children('li'),
-			$navCloneListItems = $('.nav__list', $navCloned).children('li'),
+	var $navContainer = $('.nav-main-page');
+	if(!$navContainer.length){return;}
+
+	var $nav = $('.nav__holder', $navContainer),
+			$navListItems = $nav.children('.nav__list').children('li'),
+			$navCloneListItems = $('.nav-cloned__drop').children('.nav__list').children('li'),
 			minWidth = 130;
 
 	$($navListItems).removeClass('nc-clone');
 	$($navCloneListItems).removeClass('nc-clone');
 
-	var widthContainer = $navList.closest('.nav__holder').outerWidth(),
+	var widthContainer = $nav.outerWidth(),
 			lengthNavListItems = $navListItems.length,
 			hideLength = (lengthNavListItems * minWidth - widthContainer)/minWidth,
 			hideLengthCeil = Math.ceil(hideLength);
 
 	if(lengthNavListItems * minWidth <= widthContainer ){
-		console.log(1);
-		$nav.removeClass('show-clone');
+		$navContainer.removeClass('show-clone');
 		return;
 	}
 
-	console.log(2);
-
-	$nav.addClass('show-clone');
+	$navContainer.addClass('show-clone');
 
 	for(var i = 0; i < hideLengthCeil + 1; i++){
 		var indexCloned = lengthNavListItems - i - 1;
@@ -618,12 +626,6 @@ var cloneNavItem = function() {
 		$($navCloneListItems[indexCloned]).addClass('nc-clone');
 	}
 };
-
-$(window).on('debouncedresize', function () {
-	cloneNavItem();
-});
-/*clone nav items*/
-
 /*cloned nav items end*/
 
 /*nav position*/
@@ -945,6 +947,10 @@ function phonesDrop(){
 	var $phonesItem = $('.phs__item, .phones-clone');
 	if(!$phonesItem.length){return;}
 
+	$('.phones-drop').on('click', '.phs__item_opener', function (e) {
+		e.stopPropagation();
+	});
+
 	$phonesItem.on('click', '.phs__item_opener', function (e) {
 		e.preventDefault();
 
@@ -961,7 +967,7 @@ function phonesDrop(){
 		e.stopPropagation();
 	});
 
-	$('.phones-drop>div').on('click', function (e) {
+	$('.phones-drop').on('click', function (e) {
 		e.stopPropagation();
 	});
 
@@ -976,40 +982,43 @@ function phonesDrop(){
 /*phones drop end*/
 
 /*clone phones*/
+$(window).load(function () {
+	$('.phs__list').clone().appendTo('#phones-list-clone');
+	clonePhones();
+});
+
 var clonePhones = function() {
-	var $container = $('.phones');
-	var $phonesList = $('.phs__container', $container);
-	var $phonesItem = $phonesList.children('.phs__item');
-	var $phonesCloneContainer = $('.phones-clone', $container);
-	var $phonesCloneList = $('.phones-clone-drop', $phonesCloneContainer);
-	var $phonesCloneItems = $phonesCloneList.children('.phs__item');
-	var minWidthItem = 210;
+	var $container = $('.phones'),
+			$phonesList = $('.phs__container', $container),
+			$phonesItem = $phonesList.children('.phs__list').children('.phs__item'),
+			$phonesCloneContainer = $('.phones-clone', $container),
+			$phonesCloneList = $('.phones-clone-drop', $phonesCloneContainer),
+			$phonesCloneItems = $phonesCloneList.children('.phs__list').children('.phs__item'),
+			minWidthItem = 200;
 
 	$($phonesItem).removeClass('ph-cloned');
 	$($phonesCloneItems).removeClass('ph-cloned');
 
-	var phonesListWidth = $phonesList.outerWidth();
-
-	var lengthPhonesListItems = $phonesItem.length;
-	console.log('phonesListWidth: ', phonesListWidth);
-	console.log('lengthPhonesListItems: ', lengthPhonesListItems);
-	console.log('minWidthItem: ', minWidthItem);
-	console.log('lengthPhonesListItems * minWidthItem: ', lengthPhonesListItems * minWidthItem);
-
-	var cloneLength = Math.ceil((lengthPhonesListItems * minWidthItem - phonesListWidth)/minWidthItem);
-	console.log('cloneLength: ', cloneLength);
+	var phonesListWidth = $phonesList.outerWidth(),
+			lengthPhonesListItems = $phonesItem.length,
+			cloneLength = Math.ceil((lengthPhonesListItems * minWidthItem - phonesListWidth)/minWidthItem);
 
 	var newWidthItem = (1/(lengthPhonesListItems - cloneLength)*100)+'%';
 	$phonesItem.css('width', newWidthItem);
 	$phonesCloneContainer.css('width', newWidthItem);
 
-	if(lengthPhonesListItems * minWidthItem <= phonesListWidth ){
-		console.log(1);
+	var $label = $phonesCloneContainer.find('.phs-clone__btn .phs__label');
+	var $labelText = $label.find('.txt-inner');
+	if(lengthPhonesListItems == cloneLength + 1){
+		$labelText.text($label.data('text2'));
+	} else {
+		$labelText.text($label.data('text1'));
+	}
+
+	if(lengthPhonesListItems * minWidthItem <= phonesListWidth){
 		$container.removeClass('show-clone');
 		return;
 	}
-
-	console.log(2);
 
 	$container.addClass('show-clone');
 
@@ -1279,14 +1288,17 @@ function slickSlidersInit(){
 			responsive: [{
 				breakpoint: 768,
 				settings: {
-					slidesToShow: 3,
-					slidesToScroll: 1
+					slidesToShow: 3
 				}
 			},{
 				breakpoint: 640,
 				settings: {
-					slidesToShow: 2,
-					slidesToScroll: 1
+					slidesToShow: 2
+				}
+			},{
+				breakpoint: 480,
+				settings: {
+					slidesToShow: 1
 				}
 			}]
 		});
@@ -2170,14 +2182,10 @@ function loadByReady(){
 	showFormSearch();
 	hoverClassInit();
 	//multiAccordionInit();
-	mainNavigationInit();
-	cloneNavItem();
-	navPosition();
 	footerDropInit();
 	//siteMapInit();
 	//roadPopupInit();
 	phonesDrop();
-	clonePhones();
 	phonesPopupInit();
 	cardSwitch();
 	contactsSwitcher();
@@ -2248,11 +2256,13 @@ $(window).load(function () {
 	if(md.mobile()){
 		$('body').addClass('mobile-device');
 	}
-	preloader();
 	equalHeightInit();
 	equelHeightInTabs();
 	footerBottom();
 	uiTabsInit();
+	mainNavigationInit();
+	navPosition();
+	preloader();
 });
 
 $(window).resize(function(){
