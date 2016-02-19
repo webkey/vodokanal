@@ -61,20 +61,28 @@
 
 /*footer phones*/
 .ft-phones{
-	text-align: center;
+	margin: 0;
+	padding: 0 0 10px;
+	overflow: hidden;
 }
 .ft-phones__list{
-	padding: 0 0 10px;
-	display: inline-block;
+	float: left;
+	padding: 0;
 	text-align: left;
+	margin: 0;
+	position: relative;
+	left: 50%;
+	-webkit-transform: translate(-50%, 0);
+	-ms-transform: translate(-50%, 0);
+	transform: translate(-50%, 0);
 }
 .ft-phones__list>li{
 	display: block;
-	padding: 0 0 15px 12px;
+	padding: 0 0 15px;
 	width: auto;
 }
 .ft-phones__dt, .ft-phones__dd{
-	display: inline;
+	float: left;
 }
 /*footer phones end*/
 /*footer top end*/
@@ -101,8 +109,13 @@
 .useful-links,
 .work-list,
 .address{
-	display: inline-block;
+	position: relative;
+	float: left;
+	left: 50%;
 	vertical-align: top;
+	-webkit-transform: translate(-50%, 0);
+	-ms-transform: translate(-50%, 0);
+	transform: translate(-50%, 0);
 }
 .useful-links{
 	white-space: nowrap;
@@ -114,6 +127,15 @@
 }
 .work-list li{
 	text-align: left;
+}
+.work-list li>strong{
+	float: left;
+	overflow: visible;
+}
+.road{
+	width: 100%;
+	float: left;
+	clear: both;
 }
 /*useful links end*/
 /*footer contacts end*/
