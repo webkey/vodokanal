@@ -264,8 +264,6 @@ function multiAccordionInit() {
 
 		if (self.md.mobile()) {
 			$container.on('click', ''+item+'', function (e) {
-
-				alert('mdclick!');
 				var currentItem = $(this);
 
 				if (!currentItem.has(self.$drop).length){ return; }
@@ -2253,7 +2251,7 @@ function loadByReady(){
 	placeholderInit();
 	dropLanguageInit();
 	showFormSearch();
-	hoverClassInit();
+	//hoverClassInit();
 	//multiAccordionInit();
 	footerDropInit();
 	//siteMapInit();
