@@ -1408,18 +1408,24 @@ function slickSlidersInit(){
 				$(this).css({'visibility':'visible'});
 			}
 			changeCounter(slick.$slides[slick.currentSlide]);
+			changeUnit(slick.$slides[slick.currentSlide]);
 		});
 		$meterSlider.slick({
 			fade: true,
 			slidesToShow: 1,
 			slidesToScroll: 1,
+			autoplay: true,
+			autoplaySpeed: 6000,
 			infinite: true,
-			speed: 300,
+			speed: 500,
 			dots: true,
-			arrows: true
-		}).on('afterChange', function (event, slick, currentSlide) {
-			changeCounter(slick.$slides[currentSlide]);
-		});
+			arrows: true,
+			swipe: false
+		}).on('beforeChange', function (event, slick, currentSlide, nextSlider) {
+			changeCounter(slick.$slides[nextSlider]);
+			changeUnit(slick.$slides[nextSlider]);
+		})
+		;
 	}
 
 	function changeCounter(currentSlider){
@@ -1430,6 +1436,13 @@ function slickSlidersInit(){
 		for(var i = 0; i < String(dataCount).length; i++){
 			meterImg.eq(i).attr('src','img/jodometer-numbers-color.png');
 		}
+	}
+
+	function changeUnit(currentSlider){
+		var dataUnit = $(currentSlider).data('unit');
+		$('.meter-unit__text').stop().fadeOut('200', function () {
+			$(this).text(dataUnit);
+		}).delay(100).fadeIn('200');
 	}
 	/*meter end*/
 }

@@ -1419,7 +1419,10 @@ label{
 	cursor: pointer;
 	display: none;
 }
-.btn-menu.active{ z-index: 9998; }
+.btn-menu.active{
+	z-index: 9998;
+	color: #fff;
+}
 .btn-lines{
 	position: absolute;
 	left: 0;
@@ -1444,6 +1447,9 @@ label{
 	transition: all 0.4s;
 	-webkit-transform: translateZ(0);
 	transform: translateZ(0);
+}
+.btn-menu.active .btn-lines > span{
+	background: #fff;
 }
 /*for all line menu end*/
 /*first line menu*/
@@ -1567,6 +1573,7 @@ label{
 	height: 100%;
 	display: none;
 	z-index: 9997;
+	background: rgba(0, 0, 0, 0.40);
 }
 .nav-opened .nav-overlay-page {
 	display: block;
@@ -2175,7 +2182,6 @@ li.has-drop.current>.nav-sub-drop:after,
 .category-links li:nth-child(4n+2) a{ background: #009eed; }
 .category-links li:nth-child(4n+3) a{ background: #00aaff; }
 .category-links li:nth-child(4n+4) a{ background: #00bfff; }
-.category-links li a:hover{ background: #0080bf; }
 .category-links a:before{
 	content: '';
 	display: inline-block;
@@ -2219,6 +2225,7 @@ li.has-drop.current>.nav-sub-drop:after,
 	font-weight: normal;
 	margin: 0 0 49px;
 	height: 87px;
+	overflow: hidden;
 }
 .window__btns{
 	padding: 0 0 10px;
@@ -2492,11 +2499,19 @@ li.has-drop.current>.nav-sub-drop:after,
 
 /*meter*/
 .meter{
-	background: #00527b url(../img/bg-meter.png) no-repeat;
+	background: #00527b url(../img/bg-meter.jpg) no-repeat 50% 0;
 	height: 430px;
 	width: 320px;
 	float: right;
 	position: relative;
+}
+.meter__holder{
+	position: absolute;
+	top: 0;
+	left: 50%;
+	height: 430px;
+	width: 320px;
+	margin-left: -160px;
 }
 .meter-slider{
 	visibility: hidden;
@@ -2648,14 +2663,37 @@ li.has-drop.current>.nav-sub-drop:after,
 	content: none;
 }
 
-.meter-counter{
-	width:129px;
-	height:27px;
-	overflow:hidden;
+.meter-counter-box{
 	position: absolute;
+	width: 132px;
+	height: 31px;
+	padding: 1px;
 	left: 50%;
-	bottom: 125px;
-	margin-left: -63px;
+	bottom: 123px;
+	margin-left: -66px;
+	background: url(../img/jodometer-bg.png) no-repeat 50% 50%;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.meter-counter{
+	overflow:hidden;
+	width:130px;
+	height:27px;
+	position: absolute;
+	left: 2px;
+	top: 2px;
+}
+
+.meter-unit{
+	position: absolute;
+	top: 312px;
+	left: 0;
+	width: 100%;
+	font-size: 18px;
+	line-height: 22px;
+	text-align: center;
+	color: #333;
 }
 /*meter end*/
 /*wit end*/

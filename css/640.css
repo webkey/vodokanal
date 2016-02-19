@@ -1,1 +1,35 @@
 @media only screen and (max-width: 639px){}
+
+/*promo*/
+/*category links*/
+.category-links li,
+.user-content .category-links li{
+	float: none;
+	width: auto;
+}
+/*category links end*/
+/*promo end*/
+
+/*wit*/
+.wit-holder{ margin-right: 0; }
+
+/*uncos slider*/
+.uncos-slider{
+	height: auto;
+}
+.uncos-slider .slick-next {
+	left: auto;
+	right: 38px;
+}
+.uncos-footer{
+	text-align: center;
+}
+/*uncos slider end*/
+
+/*meter*/
+.meter{
+	width: 100%;
+	float: none;
+}
+/*meter end*/
+/*wit end*/

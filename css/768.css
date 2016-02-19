@@ -27,10 +27,6 @@ html.nav-opened body.mobile-device{
 .btn-menu{ display: block; }
 /*button menu end*/
 
-/*button menu close*/
-.btn-nav-close{ display: block; }
-/*button menu close end*/
-
 /*lang*/
 .logo{
 	width: 200px;
@@ -118,13 +114,30 @@ html.nav-opened body.mobile-device{
 
 /*window*/
 .promo .window{
-	width: 320px;
+	width: auto;
+	height: auto;
 	position: relative;
 	right: auto;
 	top: auto;
-	margin-left: auto;
+	margin: 0 auto;
+}
+.window__title {
+	margin: 0 0 10px;
+	height: 58px;
 }
 /*window end*/
+
+/*wit*/
+.wit-holder{
+	margin-right: 42.7%;
+}
+
+/*meter*/
+.meter{
+	width: 42.7%;
+}
+/*meter end*/
+/*wit end*/
 /*MAIN CONTENT end*/
 
 /*MAIN PAGE*/
