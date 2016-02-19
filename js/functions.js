@@ -374,8 +374,8 @@ function hoverClassInit(){
 		var container = $(options.navContainer);
 		self.$navContainer = container;
 		self.$navList = $(options.navList);
-		self.$btnMenu = $(options.btnMenu);                     // Кнопка открытия/закрытия меню для моб. верси.
-		self.$btnClose = $(options.btnClose);                     // Кнопка закрытия меню для моб. верси.
+		self.$btnMenu = $(options.btnMenu);                        // Кнопка открытия/закрытия меню для моб. верси.
+		self.$btnClose = $(options.btnClose);                      // Кнопка закрытия меню для моб. верси.
 		self.$navMenuItem = $(options.navMenuItem, container);     // Пункты навигации.
 		self.$navMenuAnchor = $(options.navMenuAnchor, container); // Элемент, по которому производится событие (клик).
 		self.$navDropMenu = $(options.navDropMenu, container);     // Дроп-меню всех уровней.
@@ -434,9 +434,9 @@ function hoverClassInit(){
 			collapsibleElement = this.$navDropMenu,
 			noClick = self._classNoClick.substring(1);
 		
-		self.$navContainer.on('click', ''+self.options.navMenuAnchor+'', function (e) {
-			var current = $(this);
+		self.$navContainer.on('click', 'a', function (e) {
 			alert('click!');
+			var current = $(this);
 			var currentAccordionItem = current.closest(anyAccordionItem);
 
 			if (!currentAccordionItem.has(collapsibleElement).length){ return; }
