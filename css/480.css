@@ -1,5 +1,31 @@
 @media only screen and (max-width: 479px){}
 
+/*HEADER*/
+/*button menu*/
+.btn-menu.active{
+	-webkit-transform: translate(50px, 0);
+	-ms-transform: translate(50px, 0);
+	transform: translate(50px, 0);
+}
+.btn-menu.active>span{ opacity: 0; }
+/*button menu end*/
+/*HEADER end*/
+
+/*MAIN NAVIGATION*/
+.nav-overlay-page{ background: rgba(0, 0, 0, 0.6); }
+
+.nav-opened .nav__holder,
+.nav-opened .main-page .nav__holder{ width: 260px; }
+.nav__list >li>a{
+	padding-left: 20px;
+	padding-right: 20px;
+	font-size: 16px;
+}
+.nav__list [class*="depict-icons-angle-"]{ right: 20px; }
+.nav-drop__list>li>a{ padding-left: 40px; }
+.nav-sub-drop__list>li>a{ padding-left: 60px; }
+/*MAIN NAVIGATION end*/
+
 /*FOOTER*/
 /*grid*/
 .grid-col-3,
@@ -12,9 +38,7 @@
 
 /*footer top*/
 /*footer logo*/
-.logo-col{
-	padding: 0 0 6px;
-}
+.logo-col{ padding: 0 0 6px; }
 .footer-logo{
 	float: none;
 	display: block;
@@ -51,6 +75,12 @@
 }
 /*footer phones end*/
 /*footer top end*/
+
+/*site map*/
+.site-map__box{
+	width: 100%;
+}
+/*site map end*/
 
 /*footer contacts*/
 .footer-contacts{
