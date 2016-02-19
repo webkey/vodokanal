@@ -417,7 +417,10 @@ function hoverClassInit(){
 
 		if (self._overlayBoolean) {
 			var overlayClassSubstring = _overlayClass.substring(1);
-			self.$navContainer.before('<div class="' + overlayClassSubstring + '"></div>');
+			var tplNavOverlay = '<div class="' + overlayClassSubstring + '"></div>';
+			self.$navContainer.after(tplNavOverlay);
+			$('.header-holder').append(tplNavOverlay);
+			$('.content-wrap').append(tplNavOverlay);
 		}
 	};
 

@@ -11,25 +11,66 @@ html.nav-opened body{
 html.nav-opened body.mobile-device{
 	padding-right: 0;
 }
+.inner-page .wrapper {
+	padding: 0;
+}
+.content-wrap .content{
+	margin-left: 0;
+}
 
 /*HEADER*/
-/*header options*/
-.header-options{
-	z-index: 2;
+.inner-page .header{
 	position: relative;
+	text-align: left;
+	-webkit-transition: all 0.3s linear;
+	transition: all 0.3s linear;
+}
+.nav-opened .inner-page .header{
+	-webkit-transform: translate(320px, 0);
+	-ms-transform: translate(320px, 0);
+	transform: translate(320px, 0);
+}
+.inner-page .header-holder{
+	height: auto;
+	min-height: 140px;
+	padding-top: 60px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+/*header options*/
+.inner-page .header-options{
+	z-index: 2;
+	width: auto;
+	left: 0;
+	right: 0;
+	-webkit-transition-property: transform, right;
+	transition-property: transform, right;
+	-webkit-transition-duration: 0.6s, 0s;
+	transition-duration: 0.6s, 0s;
+}
+.nav-opened .inner-page .header-options{
+	right: 17px;
 }
 .header-options__holder,
 .main-page .header-options__holder{
 	margin-left: 0;
 }
+.top-panel-show .phones{
+	box-shadow: none;
+}
 /*header options end*/
 
 /*button menu*/
-.btn-menu{ display: block; }
+.btn-menu{
+	display: block;
+}
 /*button menu end*/
 
 /*lang*/
-.logo{
+.logo,
+.main-page .logo{
+	float: left;
 	width: 200px;
 	height: 80px;
 	position: relative;
@@ -41,10 +82,19 @@ html.nav-opened body.mobile-device{
 	-webkit-background-size: 160px;
 	background-size: 160px;
 }
-/*lang end*/
+.main-page .logo>a:before,
+.main-page .logo>span:before{
+	background-image: url(../img/logo-main-alt.png);
+	-webkit-background-size: 160px;
+	background-size: 160px;
+}
+/*logo end*/
 /*HEADER end*/
 
 /*MAIN NAVIGATION*/
+.nav-inner-page{
+	width: 0;
+}
 .nav-main-page{
 	height: 80px;
 	background: #fff;
@@ -64,8 +114,8 @@ html.nav-opened body.mobile-device{
 	-webkit-transform: translate(-100%, 0);
 	-ms-transform: translate(-100%, 0);
 	transform: translate(-100%, 0);
-	-webkit-transition: all 0.3s;
-	transition: all 0.3s;
+	-webkit-transition: all 0.3s linear;
+	transition: all 0.3s linear;
 }
 .nav-opened .nav__holder,
 .nav-opened .main-page .nav__holder{
@@ -106,6 +156,8 @@ html.nav-opened body.mobile-device{
 /*MAIN NAVIGATION end*/
 
 /*MAIN CONTENT*/
+
+
 /*promo*/
 .promo-holder {
 	margin-right: 0;
@@ -143,18 +195,6 @@ html.nav-opened body.mobile-device{
 
 /*MAIN PAGE*/
 /*HEADER FOR MAIN page*/
-/*logo*/
-.main-page .logo{
-	width: 200px;
-	height: 80px;
-}
-.main-page .logo>a:before,
-.main-page .logo>span:before{
-	background-image: url(../img/logo-main-alt.png);
-	-webkit-background-size: 160px;
-	background-size: 160px;
-}
-/*logo end*/
 /*HEADER FOR MAIN page end*/
 
 /*MAIN NAVIGATION for main page*/

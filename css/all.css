@@ -801,6 +801,7 @@ label{
 	float: left;
 	width: 100%;
 	background: #fff;
+	position: relative;
 }
 .content-wrap .content{
 	margin: 0 0 0 320px;
@@ -1339,6 +1340,7 @@ label{
 
 /*logo*/
 .logo{
+	display: block;
 	position: absolute;
 	top: 0;
 	width: 320px;
@@ -1595,6 +1597,18 @@ label{
 	background: rgba(0, 0, 0, 0.40);
 }
 .nav-opened .nav-overlay-page {
+	display: block;
+}
+.nav + .nav-overlay-page{
+	z-index: 9997;
+}
+.nav-opened .nav-inner-page + .nav-overlay-page{
+	display: none;
+}
+.nav-opened .main-page .nav-overlay-page{
+	display: none;
+}
+.nav-opened .nav-main-page + .nav-overlay-page {
 	display: block;
 }
 
