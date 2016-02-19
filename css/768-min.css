@@ -187,13 +187,6 @@
 .nav-main-page .nav__list>li.hover>a>[class*="depict-icons-angle-"]:before{
 	border-top-color: #008acf;
 }
-.nav-main-page .nav__list>li.active>a>[class*="depict-icons-angle-"],
-.nav-main-page .nav__list>li.current>a>[class*="depict-icons-angle-"]{
-	-webkit-transform: rotate(0deg);
-	-ms-transform: rotate(0deg);
-	transform: rotate(0deg);
-	bottom: 25px;
-}
 .nav-main-page .nav__list>li.active>a>[class*="depict-icons-angle-"]:before,
 .nav-main-page .nav__list>li.current>a>[class*="depict-icons-angle-"]:before{
 	border: 5px solid rgba(128, 128, 128, 0);
@@ -205,7 +198,8 @@
 	left: auto;
 	right: 0;
 }
-.nav-main-page .nav__list>li.hover>.nav-drop{
+.nav-main-page .nav__list>li.hover>.nav-drop,
+.nav-main-page .nav__list>li.active>.nav-drop{
 	top: 100%;
 	opacity: 1;
 }
@@ -270,7 +264,8 @@
 	left: auto;
 	right: 100%;
 }
-.nav-main-page .nav-drop__list>li.hover>.nav-sub-drop{
+.nav-main-page .nav-drop__list>li.hover>.nav-sub-drop,
+.nav-main-page .nav-drop__list>li.active>.nav-sub-drop{
 	top: 0;
 	opacity: 1;
 }

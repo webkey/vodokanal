@@ -229,7 +229,7 @@ function multiAccordionInit() {
 		var options = $.extend({
 			container: 'ul',
 			item: 'li',
-			drop: 'li>ul'
+			drop: 'ul'
 		},settings || {});
 
 		var self = this;
@@ -262,26 +262,31 @@ function multiAccordionInit() {
 				item = self.options.item,
 				$container = self.$container;
 
-		if (self.md.mobile()) {
+		if (self.md.mobile() && $('.btn-menu').is(':hidden') && $('body').hasClass('main-page')) {
 			$container.on('click', ''+item+'', function (e) {
-				var currentItem = $(this);
+				var $currentAnchor = $(this);
+				var currentItem = $currentAnchor.closest($item);
 
 				if (!currentItem.has(self.$drop).length){ return; }
+
 
 				e.stopPropagation();
 
 				if (currentItem.hasClass(_hover)){
-					currentItem.removeClass(_hover);
+					currentItem.removeClass(_hover).find('.'+_hover+'').removeClass(_hover);
 					return;
 				}
 
-				$item.removeClass(_hover);
+				$('.'+_hover+'').not($currentAnchor.parents('.'+_hover+''))
+						.removeClass(_hover)
+						.find('.'+_hover+'')
+						.removeClass(_hover);
 				currentItem.addClass(_hover);
 
 				e.preventDefault();
 			});
 
-			$container.on('click', ''+self.$drop+'', function (e) {
+			$container.on('click', ''+self.options.drop+'', function (e) {
 				e.stopPropagation();
 			});
 
@@ -335,7 +340,8 @@ function hoverClassInit(){
 	var $navList = $('.nav');
 	if($navList.length){
 		new HoverClass({
-			container: $navList
+			container: $navList,
+			drop: '.js-nav-drop'
 		});
 	}
 
@@ -2251,7 +2257,6 @@ function loadByReady(){
 	placeholderInit();
 	dropLanguageInit();
 	showFormSearch();
-	//hoverClassInit();
 	//multiAccordionInit();
 	footerDropInit();
 	//siteMapInit();
@@ -2331,6 +2336,7 @@ $(window).load(function () {
 	equelHeightInTabs();
 	footerBottom();
 	uiTabsInit();
+	hoverClassInit();
 	mainNavigationInit();
 	navPosition();
 	preloader();
