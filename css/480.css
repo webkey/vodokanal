@@ -8,6 +8,9 @@
 	transform: translate(50px, 0);
 }
 .btn-menu.active>span{ opacity: 0; }
+.btn-menu.active .btn-lines:before{
+	opacity: 1;
+}
 /*button menu end*/
 /*HEADER end*/
 

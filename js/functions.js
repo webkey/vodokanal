@@ -642,7 +642,7 @@ var cloneNavItem = function() {
 /*nav position*/
 function navPosition(){
 	var $navHolder = $('.nav-inner-page__holder');
-	if(!$navHolder.length || $('.btn-menu').is(':visible')){return;}
+	if(!$navHolder.length){return;}
 
 	var $window = $(window),
 		$logo = $('.logo'),
@@ -678,6 +678,7 @@ function navPosition(){
 	}
 
 	function scroll() {
+		if($('.btn-menu').is(':visible')){return;}
 		//if (1500 > windowWidth) {
 		//	return;
 		//}
@@ -2214,28 +2215,25 @@ function headerFixed(){
 	if(!page.length){return;}
 
 	var currentScrollTop = window.pageYOffset || document.documentElement.scrollTop,
-		//menu = $('.inner-page .header'),
-		//minScrollTop = menu.outerHeight() + 10;
 		minScrollTop = 140;
 
-	//console.log( "Текущая прокрутка: ", +  currentScrollTop);
-
 	function logoScale(scrollTop){
+		if($('.btn-menu').is(':visible')){return;}
 		if(scrollTop > minScrollTop){
 			page.addClass('logo-reduce');
 		} else {
 			page.removeClass('logo-reduce');
 		}
 	}
+
 	logoScale(currentScrollTop);
 
 	$(window).scroll(function () {
 		var newScrollTop = $(window).scrollTop();
-		//console.log("Новая прокрутка: ", newScrollTop);
 
 		logoScale(newScrollTop);
 
-		if (newScrollTop < minScrollTop || currentScrollTop - newScrollTop > 5) {
+		if (newScrollTop < minScrollTop || currentScrollTop - newScrollTop > 10) {
 			page.addClass('top-panel-show');
 		} else if (newScrollTop > currentScrollTop) {
 			page.removeClass('top-panel-show');
@@ -2319,8 +2317,8 @@ $(document).ready(function () {
 	}
 	/**!!! REMOVE THIS CODE BEFORE START PROGRAMMING END !!!*/
 
-	loadElements();
-	//loadByReady();
+	//loadElements();
+	loadByReady();
 });
 
 $(window).load(function () {

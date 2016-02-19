@@ -16,6 +16,7 @@ html.nav-opened body.mobile-device{
 /*header options*/
 .header-options{
 	z-index: 2;
+	position: relative;
 }
 .header-options__holder,
 .main-page .header-options__holder{
