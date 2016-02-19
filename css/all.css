@@ -2068,8 +2068,8 @@ li.has-drop.current>.nav-sub-drop:after,
 	right: auto;
 	left: 140px;
 }
-.promo-slider .slick-prev:hover,
-.promo-slider .slick-next:hover{
+body:not(.mobile-device) .promo-slider .slick-prev:hover,
+body:not(.mobile-device) .promo-slider .slick-next:hover{
 	background: #fff;
 }
 .promo-slider .slick-prev:before,
@@ -2104,12 +2104,12 @@ li.has-drop.current>.nav-sub-drop:after,
 	background-position: 0 -76px;
 	opacity: 0;
 }
-.promo-slider .slick-prev:hover:before,
-.promo-slider .slick-next:hover:before{
+body:not(.mobile-device) .promo-slider .slick-prev:hover:before,
+body:not(.mobile-device) .promo-slider .slick-next:hover:before{
 	opacity: 0;
 }
-.promo-slider .slick-prev:hover:after,
-.promo-slider .slick-next:hover:after{
+body:not(.mobile-device) .promo-slider .slick-prev:hover:after,
+body:not(.mobile-device) .promo-slider .slick-next:hover:after{
 	opacity: 1;
 }
 
