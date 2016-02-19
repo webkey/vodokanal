@@ -264,6 +264,8 @@ function multiAccordionInit() {
 
 		if (self.md.mobile()) {
 			$container.on('click', ''+item+'', function (e) {
+
+				alert('mdclick!');
 				var currentItem = $(this);
 
 				if (!currentItem.has(self.$drop).length){ return; }
@@ -434,8 +436,7 @@ function hoverClassInit(){
 			collapsibleElement = this.$navDropMenu,
 			noClick = self._classNoClick.substring(1);
 		
-		self.$navContainer.on('click', 'a', function (e) {
-			alert('click!');
+		self.$navContainer.on('click', ''+self.options.navMenuAnchor+'', function (e) {
 			var current = $(this);
 			var currentAccordionItem = current.closest(anyAccordionItem);
 
