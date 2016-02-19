@@ -51,6 +51,10 @@ function dropLanguageInit() {
 
 	$(document).on('click', function () {
 		closeDropLong();
+	});
+
+	$('.phs__item_opener').on('click', function () {
+		closeDropLong();
 	})
 }
 /*drop language end*/
@@ -352,6 +356,7 @@ function hoverClassInit(){
 		var options = $.extend({
 			navList: '.nav__list',
 			btnMenu: '.btn-menu',
+			btnClose: '.btn-nav-close',
 			navMenuItem: 'li',
 			navMenuAnchor: 'a',
 			navDropMenu: '.js-nav-drop',
@@ -369,7 +374,8 @@ function hoverClassInit(){
 		var container = $(options.navContainer);
 		self.$navContainer = container;
 		self.$navList = $(options.navList);
-		self.$buttonMenu = $(options.btnMenu);                     // Кнопка открытия/закрытия меню для моб. верси.
+		self.$btnMenu = $(options.btnMenu);                     // Кнопка открытия/закрытия меню для моб. верси.
+		self.$btnClose = $(options.btnClose);                     // Кнопка закрытия меню для моб. верси.
 		self.$navMenuItem = $(options.navMenuItem, container);     // Пункты навигации.
 		self.$navMenuAnchor = $(options.navMenuAnchor, container); // Элемент, по которому производится событие (клик).
 		self.$navDropMenu = $(options.navDropMenu, container);     // Дроп-меню всех уровней.
@@ -436,7 +442,7 @@ function hoverClassInit(){
 
 			e.preventDefault();
 
-			if (self.$navContainer.hasClass(noClick) && self.$buttonMenu.is(':hidden')){ return; }
+			if (self.$navContainer.hasClass(noClick) && self.$btnMenu.is(':hidden')){ return; }
 
 			if (current.parent().prop("tagName") != currentAccordionItem.prop("tagName")) {
 				current = current.parent();
@@ -512,7 +518,7 @@ function hoverClassInit(){
 
 	MainNavigation.prototype.dropSwitcher = function () {
 		var self = this,
-				$buttonMenu = self.$buttonMenu,
+				$buttonMenu = self.$btnMenu,
 				modifiers = self.modifiers,
 				_active = modifiers.active,
 				_current = modifiers.current,
@@ -560,6 +566,11 @@ function hoverClassInit(){
 				self.closeNav($html,$buttonMenu);
 			});
 		}
+
+		//Скрываем меню по клику на кнопку закрытия
+		self.$btnClose.on('click', function () {
+			self.closeNav($html,$buttonMenu);
+		})
 	};
 
 	MainNavigation.prototype.closeNav = function(container,btn) {
@@ -971,6 +982,10 @@ function phonesDrop(){
 		e.stopPropagation();
 	});
 
+	$('.lang-active').on('click', function (e) {
+		closeDropPhones();
+	});
+
 	$(document).on('click', function () {
 		closeDropPhones();
 	});
@@ -1372,6 +1387,51 @@ function slickSlidersInit(){
 		});
 	}
 	/*uncos slider end*/
+
+	/*meter*/
+	var meterCounter = $('.meter-counter').jOdometer({
+		increment: 1,
+		counterStart: '000000',
+		speed:1000,
+		numbersImage: 'img/jodometer-numbers.png',
+		heightNumber: 27,
+		widthNumber: 20,
+		formatNumber: true,
+		spaceNumbers: 1,
+		widthDot: 3
+	});
+
+	var $meterSlider = $('.meter-slider');
+	if($meterSlider.length){
+		$meterSlider.on('init', function (event, slick) {
+			if (slick.currentSlide == 0) {
+				$(this).css({'visibility':'visible'});
+			}
+			changeCounter(slick.$slides[slick.currentSlide]);
+		});
+		$meterSlider.slick({
+			fade: true,
+			slidesToShow: 1,
+			slidesToScroll: 1,
+			infinite: true,
+			speed: 300,
+			dots: true,
+			arrows: true
+		}).on('afterChange', function (event, slick, currentSlide) {
+			changeCounter(slick.$slides[currentSlide]);
+		});
+	}
+
+	function changeCounter(currentSlider){
+		var dataCount = $(currentSlider).data('count');
+		meterCounter.goToNumber(dataCount);
+		var meterImg = $('.meter-counter img');
+		meterImg.attr('src','img/jodometer-numbers.png');
+		for(var i = 0; i < String(dataCount).length; i++){
+			meterImg.eq(i).attr('src','img/jodometer-numbers-color.png');
+		}
+	}
+	/*meter end*/
 }
 /*slick sliders init end*/
 

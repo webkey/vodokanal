@@ -27,6 +27,10 @@ html.nav-opened body.mobile-device{
 .btn-menu{ display: block; }
 /*button menu end*/
 
+/*button menu close*/
+.btn-nav-close{ display: block; }
+/*button menu close end*/
+
 /*lang*/
 .logo{
 	width: 200px;
@@ -59,19 +63,22 @@ html.nav-opened body.mobile-device{
 	z-index: 9999;
 	background: #008acf;
 	box-shadow: 0 0 7px transparent;
+	visibility: hidden;
 	-webkit-transform: translate(-100%, 0);
 	-ms-transform: translate(-100%, 0);
 	transform: translate(-100%, 0);
-	-webkit-transition: all 0.2s;
-	transition: all 0.2s;
+	-webkit-transition: all 0.3s;
+	transition: all 0.3s;
 }
 .nav-opened .nav__holder,
 .nav-opened .main-page .nav__holder{
+	visibility: visible;
 	box-shadow: 0 0 22px rgba(0, 0, 0, 0.5);
 	-webkit-transform: translate(0, 0);
 	-ms-transform: translate(0, 0);
 	transform: translate(0, 0);
 }
+/*navigation scrollbar*/
 .nav__holder::-webkit-scrollbar {
 	width: 3px;
 }
@@ -81,9 +88,23 @@ html.nav-opened body.mobile-device{
 .nav__holder::-webkit-scrollbar-thumb {
 	background: #005a8f;
 }
+/*navigation scrollbar end*/
 .nav__holder br,
 .main-page .nav__holder br{
 	display: none;
+}
+.nav__list>li>a>span{
+	display: inline-block;
+	-webkit-transform: translate(-6em, 0);
+	-ms-transform: translate(-6em, 0);
+	transform: translate(-6em, 0);
+	-webkit-transition: all 0.6s;
+	transition: all 0.6s;
+}
+.nav-opened .nav__list>li>a>span{
+	-webkit-transform: translate(0, 0);
+	-ms-transform: translate(0, 0);
+	transform: translate(0, 0);
 }
 /*MAIN NAVIGATION end*/
 

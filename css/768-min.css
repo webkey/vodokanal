@@ -1,5 +1,11 @@
 @media only screen and (min-width: 640px){}
 
+/*questions*/
+.questions__item>a:hover{
+	background: #0080bf;
+}
+/*questions end*/
+
 /*MAIN NAVIGATION for main page*/
 .nav-main-page .nav__holder{
 	position: relative;
@@ -388,5 +394,4 @@
 	-ms-transform: rotate(-90deg);
 	transform: rotate(-90deg);
 }
-
 /*MAIN NAVIGATION show cloned items end*/
