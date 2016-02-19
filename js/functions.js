@@ -436,6 +436,7 @@ function hoverClassInit(){
 		
 		self.$navContainer.on('click', ''+self.options.navMenuAnchor+'', function (e) {
 			var current = $(this);
+			alert('click!');
 			var currentAccordionItem = current.closest(anyAccordionItem);
 
 			if (!currentAccordionItem.has(collapsibleElement).length){ return; }
