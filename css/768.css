@@ -22,13 +22,9 @@ html.nav-opened body.mobile-device{
 .inner-page .header{
 	position: relative;
 	text-align: left;
-	-webkit-transition: all 0.3s linear;
-	transition: all 0.3s linear;
 }
-.nav-opened .inner-page .header{
-	-webkit-transform: translate(320px, 0);
-	-ms-transform: translate(320px, 0);
-	transform: translate(320px, 0);
+.position .inner-page .header{
+	z-index: 0;
 }
 .inner-page .header-holder{
 	height: auto;
@@ -140,23 +136,9 @@ html.nav-opened body.mobile-device{
 .main-page .nav__holder br{
 	display: none;
 }
-.nav__list>li>a>span{
-	display: inline-block;
-	-webkit-transform: translate(-6em, 0);
-	-ms-transform: translate(-6em, 0);
-	transform: translate(-6em, 0);
-	-webkit-transition: all 0.6s;
-	transition: all 0.6s;
-}
-.nav-opened .nav__list>li>a>span{
-	-webkit-transform: translate(0, 0);
-	-ms-transform: translate(0, 0);
-	transform: translate(0, 0);
-}
 /*MAIN NAVIGATION end*/
 
 /*MAIN CONTENT*/
-
 
 /*promo*/
 .promo-holder {

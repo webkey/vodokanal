@@ -39,8 +39,14 @@ function dropLanguageInit() {
 	var $langList = $('.lang-list');
 	if(!$langList.length){return;}
 
+	var $html = $('html');
 	$('.lang-active').on('click', function (e) {
 		e.preventDefault();
+		// Удалить класс позицирования хедера относительно контента
+		// Добавляется в функции mainNavigation
+		if($html.hasClass('position')){
+			$html.removeClass('position');
+		}
 		$(this).closest('.lang').toggleClass('lang-opened');
 		e.stopPropagation();
 	});
@@ -396,6 +402,7 @@ function hoverClassInit(){
 			active: 'active',
 			hover: 'hover',
 			opened: 'nav-opened',
+			position: 'position',
 			current: 'current',
 			alignRight: 'align-right'
 		};
@@ -403,11 +410,11 @@ function hoverClassInit(){
 		self.md = new MobileDetect(window.navigator.userAgent);
 
 		self.addOverlayPage();
-		self.openCurrent();
+		self.openCurrentNavItem();
 		self.mainNavigationAccordion();
 		self.addAlignDropClass();
 		self.removeAlignDropClass();
-		self.dropSwitcher();
+		self.navSwitcher();
 	};
 
 	//добавить <div class="overlay-page"></div>
@@ -424,9 +431,9 @@ function hoverClassInit(){
 		}
 	};
 
-	MainNavigation.prototype.openCurrent = function () {
-		// открываем активный аккордеон
-		// не цсс, а скриптом, чтобы можно было плавно закрыть
+	MainNavigation.prototype.openCurrentNavItem = function () {
+		// Открываем активный аккордеон
+		// Скриптом. Чтобы можно было плавно закрыть
 		var self = this;
 		var $currentElements = self.$navMenuItem.filter('.'+self.modifiers.current+'');
 		$.each($currentElements, function () {
@@ -525,41 +532,39 @@ function hoverClassInit(){
 		});
 	};
 
-	MainNavigation.prototype.dropSwitcher = function () {
+	MainNavigation.prototype.navSwitcher = function () {
 		var self = this,
-				$buttonMenu = self.$btnMenu,
-				modifiers = self.modifiers,
-				_active = modifiers.active,
-				_current = modifiers.current,
-				_opened = modifiers.opened;
-
-		var $html = $('html');
+			$html = $('html'),
+			$buttonMenu = self.$btnMenu,
+			modifiers = self.modifiers,
+			_activeClass = modifiers.active,
+			_positionClass = modifiers.position;
 
 		$buttonMenu.on('click', function (e) {
-			// Если открыта форма поиска, закрываем ее
+			// Закрываем форму поиска, если открытас
 			var $searchForm = $('.search-form');
 			if($searchForm.is(':visible')){
 				$searchForm.find('.js-btn-search-close').trigger('click');
 			}
 
-			var currentBtnMenu = $(this);
+			var thisBtnMenu = $(this);
 
-			// Очищаем аттрибут "style" у всех развернутых дропов.
-			// Нельзя использовать .hide или подобные методы,
-			// т.к. необходимо, чтоб не было записи инлайновой style="display: none;"
-			if (!currentBtnMenu.hasClass(_active)) {
-				self.$navDropMenu.attr('style','');
+			if (!thisBtnMenu.hasClass(_activeClass)) {
+				self.closeNav($html,$buttonMenu);
 			}
 
 			// Удаляем с пунктов меню всех уровней активный и текущий классы
-			self.$navMenuItem.removeClass(_active);
-			self.$navMenuItem.removeClass(_current);
+			//self.$navMenuItem.removeClass(_activeClass);
+			//self.$navMenuItem.removeClass(_current);
 
 			// Переключаем класс открывающий меню. Открытие через CSS3 translate
-			$html.toggleClass(_opened);
+			$html.toggleClass(modifiers.opened);
+
+			// Добавляем класс меняющий относительное позиционирование хедера
+			$html.addClass(_positionClass);
 
 			// Переключаем на кнопке меню активный класс
-			currentBtnMenu.toggleClass(_active);
+			thisBtnMenu.toggleClass(_activeClass);
 
 			e.preventDefault();
 		});
@@ -579,7 +584,14 @@ function hoverClassInit(){
 		//Скрываем меню по клику на кнопку закрытия
 		self.$btnClose.on('click', function () {
 			self.closeNav($html,$buttonMenu);
-		})
+		});
+
+		// Удаляем класс позиционирования хедера при скролле
+		$(window).scroll(function () {
+			if($html.hasClass(_positionClass) && !$buttonMenu.hasClass(_activeClass)) {
+				$html.removeClass(_positionClass);
+			}
+		});
 	};
 
 	MainNavigation.prototype.closeNav = function(container,btn) {
@@ -898,7 +910,7 @@ function footerDropInit() {
 			wrapperContainer: '.footer',
 			disperseWrapper: '.footer-site-map',
 			disperseDrop: '.site-map',
-			scrollTo: '.footer-top',
+			scrollTo: '.map-site-switcher',
 			animateSpeed: 400
 		});
 	}
@@ -968,12 +980,21 @@ function phonesDrop(){
 	var $phonesItem = $('.phs__item, .phones-clone');
 	if(!$phonesItem.length){return;}
 
-	$('.phones-drop').on('click', '.phs__item_opener', function (e) {
+	var $html = $('html'),
+		$phonesDrop = $('.phones-drop');
+
+	$phonesDrop.on('click', '.phs__item_opener', function (e) {
 		e.stopPropagation();
 	});
 
 	$phonesItem.on('click', '.phs__item_opener', function (e) {
 		e.preventDefault();
+
+		// Удалить класс позицирования хедера относительно контента
+		// Добавляется в функции mainNavigation
+		if($html.hasClass('position')){
+			$html.removeClass('position');
+		}
 
 		var $phonesOpener = $(this),
 			$currentItem = $phonesOpener.closest($phonesItem);
@@ -988,7 +1009,7 @@ function phonesDrop(){
 		e.stopPropagation();
 	});
 
-	$('.phones-drop').on('click', function (e) {
+	$phonesDrop.on('click', function (e) {
 		e.stopPropagation();
 	});
 

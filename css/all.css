@@ -801,7 +801,6 @@ label{
 	float: left;
 	width: 100%;
 	background: #fff;
-	position: relative;
 }
 .content-wrap .content{
 	margin: 0 0 0 320px;
@@ -1587,7 +1586,7 @@ label{
 }
 
 .nav-overlay-page {
-	position: fixed;
+	position: absolute;
 	left: 0;
 	top: 0;
 	width: 100%;
@@ -4821,13 +4820,6 @@ body:not(.mobile-device) .promo-slider .slick-next:hover:after{
 	/*filter: blur(0);*/
 	/*-webkit-filter: blur(0);*/
 	/*filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius='0');*/
-	/*-webkit-transition: 1s -webkit-filter linear;*/
-	/*transition: 0.3s all linear;*/
-}
-.nav-opened .content-wrap {
-	/*filter: blur(10px);*/
-	/*-webkit-filter: blur(10px);*/
-	/*filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius='10');*/
 	/*-webkit-transition: 1s -webkit-filter linear;*/
 	/*transition: 0.3s all linear;*/
 }
