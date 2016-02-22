@@ -1261,16 +1261,14 @@ function equalHeightInit(){
 /*equal height initial*/
 function equelHeightInTabs(){
 	/*previews list*/
-	var previewsList = $('.previews__list');
+	var previewsList = $('.press-adt__list');
 	if(previewsList.length){
-		previewsList.find('.previews__title').equalHeight({
-			//amount: 12,
+		previewsList.find('.press-adt__title').equalHeight({
 			useParent: true,
 			parent: previewsList,
 			resize: true
 		});
-		previewsList.find('.previews__text').equalHeight({
-			//amount: 12,
+		previewsList.find('.press-adt__text').equalHeight({
 			useParent: true,
 			parent: previewsList,
 			resize: true
@@ -1355,6 +1353,8 @@ function slickSlidersInit(){
 			fade: true,
 			slidesToShow: 1,
 			slidesToScroll: 1,
+			autoplay: true,
+			autoplaySpeed: 3000,
 			speed: 500,
 			infinite: true,
 			dots: true,
@@ -2416,7 +2416,7 @@ function fancyboxInit(){
  * ready/load/resize document
  */
 
-function loadByReady(){
+$(document).ready(function () {
 	placeholderInit();
 	dropLanguageInit();
 	showFormSearch();
@@ -2436,58 +2436,6 @@ function loadByReady(){
 	historySliderInit();
 	headerFixed();
 	fancyboxInit();
-}
-
-/*added footer*/
-$(document).ready(function () {
-	/**!!! REMOVE THIS CODE BEFORE START PROGRAMMING !!!*/
-	/**THIS SCRIPT ADDEDS REPEATING ELEMENTS TO HTML-PAGES. E.T.: HEADER, FOOTER !!!*/
-	var getLocation = function (href) {
-		var path = document.createElement("a");
-		path.href = href;
-		return path;
-	};
-	var pathname = getLocation(document.location.href).pathname;
-	//console.log(pathname);
-
-	var $body = $('body');
-	var $footer = $body.find('footer.footer');
-	var $header = $body.find('header.header');
-
-	function loadElements() {
-		if ($footer.length) {
-			$footer.load('tpl-footer.html #footer-tpl .max-wrap', function () {
-				if (pathname != '/vodokanal/about.html' && pathname != '/vodokanal/404.html') {
-					$footer.find('.main-contacts').hide(0, function () {
-						loadHeader();
-					});
-					return;
-				} else if (pathname == '/vodokanal/404.html'){
-					$footer.find('.main-contacts, .footer-site-map, .footer-contacts-row, .footer-top-row, .footer-social').hide(0, function () {
-						loadHeader();
-					});
-					return;
-				}
-				loadHeader();
-			});
-		} else {
-			loadByReady();
-		}
-	}
-
-	function loadHeader() {
-		if (pathname == '/vodokanal/index.html' || pathname == '/vodokanal/' || pathname == '/vodokanal/404.html') {
-			loadByReady();
-			return;
-		}
-		$header.load('tpl-header.html #header-tpl>.max-wrap', function () {
-			loadByReady();
-		});
-	}
-	/**!!! REMOVE THIS CODE BEFORE START PROGRAMMING END !!!*/
-
-	//loadElements();
-	loadByReady();
 });
 
 $(window).load(function () {
@@ -2499,7 +2447,7 @@ $(window).load(function () {
 	equalHeightInit();
 	equelHeightInTabs();
 	footerBottom();
-	uiTabsInit();
+	//uiTabsInit();
 	hoverClassInit();
 	mainNavigationInit();
 	navPosition();

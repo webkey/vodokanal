@@ -1,13 +1,3 @@
-﻿
-
-/*.contacts__biz li:after,*/
-/*.user-content .contacts__biz li:before,*/
-/*.user-content .contacts__biz li:first-child:before {*/
-	/*display: none;*/
-/*}*/
-
-/*.contacts__biz li.active:after,*/
-/*.user-content .contacts__biz li.active:before,*/
-/*.user-content .contacts__biz li.active:first-child:before{*/
-	/*display: block;*/
-/*}*/
+﻿body {
+	min-width: 1280px;
+}
