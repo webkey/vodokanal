@@ -502,7 +502,7 @@ body:not(.mobile-device) .fancybox-custom-next span:hover:after{
 
 
 /*fancybox gallery popup close*/
-.fancybox-close-gallery{
+.fancybox-close-custom{
 	position: fixed;
 	width: 30px;
 	height: 30px;
@@ -515,14 +515,14 @@ body:not(.mobile-device) .fancybox-custom-next span:hover:after{
 	-webkit-transition: 0.2s cubic-bezier(0, 0, 0, 1);
 	transition: 0.2s cubic-bezier(0, 0, 0, 1);
 }
-.fancybox-close-gallery:hover{
+.fancybox-close-custom:hover{
 	background: none;
 	-webkit-transform: scale(1.2, 1.2);
 	-ms-transform: scale(1.2, 1.2);
 	transform: scale(1.2, 1.2);
 }
-.fancybox-close-gallery:before,
-.fancybox-close-gallery:after{
+.fancybox-close-custom:before,
+.fancybox-close-custom:after{
 	content: '';
 	position: absolute;
 	left: 3px;
@@ -532,12 +532,12 @@ body:not(.mobile-device) .fancybox-custom-next span:hover:after{
 	border-right: 2px;
 	background: #fff;
 }
-.fancybox-close-gallery:before{
+.fancybox-close-custom:before{
 	-webkit-transform: rotate(45deg);
 	-ms-transform: rotate(45deg);
 	transform: rotate(45deg);
 }
-.fancybox-close-gallery:after{
+.fancybox-close-custom:after{
 	-webkit-transform: rotate(-45deg);
 	-ms-transform: rotate(-45deg);
 	transform: rotate(-45deg);

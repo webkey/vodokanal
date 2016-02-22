@@ -1217,34 +1217,28 @@ function equalHeightInit(){
 	/*case list*/
 	var caseList = $('.case__list');
 	if(caseList.length){
-		/*caseList.find('.case__item').equalHeight({
-			amount: 4,
-			//useParent: true,
-			//parent: caseList,
-			resize: true
-		});
-		caseList.find('.case__photo-card, .case__contacts-card').equalHeight({
-			amount: 8,
-			//useParent: true,
-			//parent: caseList,
-			resize: true
-		});*/
 		caseList.find('.photo-card__img, .contacts-card__caption').equalHeight({
-			amount: 8,
-			//useParent: true,
-			//parent: caseList,
+			//amount: 8,
+			ratio: 2,
+			item: $('.case__item'),
+			useParent: true,
+			parent: caseList,
 			resize: true
 		});
 		caseList.find('.photo-card__name, .contacts-card__share, .contacts-card__name').equalHeight({
-			amount: 12,
-			//useParent: true,
-			//parent: caseList,
+			//amount: 12,
+			ratio: 3,
+			item: $('.case__item'),
+			useParent: true,
+			parent: caseList,
 			resize: true
 		});
 		caseList.find('.photo-card__post, .contacts-card__post, .contacts-card__works').equalHeight({
-			amount: 12,
-			//useParent: true,
-			//parent: caseList,
+			//amount: 12,
+			ratio: 3,
+			item: $('.case__item'),
+			useParent: true,
+			parent: caseList,
 			resize: true
 		});
 	}
@@ -2364,15 +2358,15 @@ function fancyboxInit(){
 				$('<div class="fancybox-custom-btn fancybox-custom-next"><span></span></div>').appendTo('body').on('click', function(){
 					$.fancybox.next();
 				});
-				$('<div class="fancybox-close-gallery"></div>').appendTo('body').on('click', function(){
+				$('<div class="fancybox-close-custom"></div>').appendTo('body').on('click', function(){
 					$.fancybox.close();
 				});
-				$('.fancybox-custom-btn, .fancybox-close-gallery').show(0);
+				$('.fancybox-custom-btn, .fancybox-close-custom').show(0);
 				$(this.locked).find('.fancybox-counter').remove();
 				$(this.locked).prepend('<div class="fancybox-counter"><i class="depict-icons-view"></i><span class="fancybox-counter-text">'+(this.index + 1) + ' / ' + this.group.length +'</span></div>');
 			},
 			beforeClose: function(){
-				$('.fancybox-custom-btn, .fancybox-close-gallery').hide(0);
+				$('.fancybox-custom-btn, .fancybox-close-custom').hide(0);
 			},
 			afterShow: function() {
 				$('.fancybox-wrap').swipe({
@@ -2384,9 +2378,35 @@ function fancyboxInit(){
 						}
 					}
 				});
-
 			},
 			afterLoad : function() {}
+		});
+	}
+
+	/*fancybox photos*/
+	var $case = $('.case');
+	if ($case.length) {
+		$('.photo-card__img a').fancybox({
+			wrapCSS: 'fancybox-photo-popup',
+			openEffect: 'none',
+			closeEffect: 'none',
+			padding: 0,
+			margin: 20,
+			closeBtn  : false,
+			helpers: {
+				title: {
+					type: 'outside'
+				}
+			},
+			beforeShow: function(){
+				$('<div class="fancybox-close-custom"></div>').appendTo('body').on('click', function(){
+					$.fancybox.close();
+				});
+				$('.fancybox-close-custom').show(0);
+			},
+			beforeClose: function(){
+				$('.fancybox-close-custom').hide(0);
+			}
 		});
 	}
 }
