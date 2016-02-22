@@ -31,6 +31,7 @@
 .depict-icons-arrow-more-n{ background-position: 0 -867px; width: 8px; height: 14px; }
 .depict-icons-arrow-more-h{ background-position: 0 -901px; width: 8px; height: 14px; }
 .depict-icons-clock-lg{ background-position: 0 -935px; width: 44px; height: 44px; }
+.depict-icons-view{ background-position: 0 -999px; width: 36px; height: 30px; }
 /*icons end*/
 
 /*social icons*/
@@ -53,40 +54,3 @@
 .depict-soc-facebook-lg-n{ background-position: 0 -540px; width: 15px; height: 30px; }
 .depict-soc-facebook-lg-h{ background-position: 0 -590px; width: 15px; height: 30px; }
 /*social icons end*/
-
-/*arrows*/
-[class|="arrow"],
-[class*=" arrow-"] {
-	background:url(../img/sprite-arrows.png) 0 0 no-repeat;
-	display: inline-block;
-	vertical-align: top;
-}
-/*arrows end*/
-
-/*form icons*/
-[class|="icon-form"],
-[class*=" icon-form-"] {
-	background:url(../img/sprite-forms.png) 0 0 no-repeat;
-	display: inline-block;
-	vertical-align: top;
-}
-/*form icons end*/
-
-/*stars*/
-[class|="icon-star"],
-.icon-star,
-[class*=" icon-star-"]{
-	background:url(../img/sprite-rating.png) 0 0 no-repeat;
-	display: inline-block;
-	vertical-align: top;
-}
-/*stars end*/
-
-/*corners*/
-[class|="corner"],
-[class*=" corner-"] {
-	background:url(../img/sprite-corners.png) 0 0 no-repeat;
-	display: inline-block;
-	vertical-align: top;
-}
-/*corners end*/
