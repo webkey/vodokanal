@@ -1234,17 +1234,31 @@ function slickSlidersInit(){
 	if(sliderPromo.length){
 		sliderPromo.on('init', function () {
 			$(this).css({'visibility':'visible'});
+
+			console.log('slides: ', this);
+			$(this).find('.promo-slider__item').eq(0).addClass('animate-start');
+			//for(var i = 0; i < slick.slideCount; i++){
+			//
+			//	$(slick.$slides[i]).removeClass('animate-start');
+			//}
+			//$(slick.$slides[currentSlide]).addClass('animate-start');
 		});
 		sliderPromo.slick({
 			fade: true,
 			slidesToShow: 1,
 			slidesToScroll: 1,
 			autoplay: true,
-			autoplaySpeed: 3000,
-			speed: 500,
+			autoplaySpeed: 5000,
+			speed: 700,
 			infinite: true,
 			dots: true,
 			arrows: true
+		}).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+				for(var i = 0; i < slick.slideCount; i++){
+					$(slick.$slides[i]).removeClass('animate-end animate-start');
+				}
+				$(slick.$slides[currentSlide]).addClass('animate-end');
+				$(slick.$slides[nextSlide]).addClass('animate-start');
 		});
 	}
 	/*promo slider end*/

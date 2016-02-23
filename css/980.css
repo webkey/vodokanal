@@ -260,11 +260,6 @@ html.nav-opened body.inner-page.mobile-device{ padding-right: 0; }
 /*local map end*/
 
 /*footer top*/
-.footer-top{ padding: 33px 20px; }
-.footer-top:after{
-	left: 20px;
-	right: 20px;
-}
 /*footer phones*/
 .ft-phones__list{
 	text-align: left;
@@ -287,7 +282,6 @@ html.nav-opened body.inner-page.mobile-device{ padding-right: 0; }
 /*site map*/
 .site-map{
 	padding: 30px 12px 0;
-	margin: 0 20px;
 }
 .site-map__box{
 	width: 33.28%;
@@ -295,10 +289,12 @@ html.nav-opened body.inner-page.mobile-device{ padding-right: 0; }
 /*site map end*/
 
 /*footer contacts*/
-.footer-contacts {
-	padding: 30px 20px;
+.footer-top {
+	padding: 33px 40px;
 }
-
+.footer-contacts {
+	padding: 30px 40px;
+}
 .footer-contacts .grid-col-3{
 	width: 50.0%;
 }
