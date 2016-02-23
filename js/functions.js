@@ -1614,6 +1614,7 @@ function tabsInit() {
 
 		this.bindEvents();
 		this.beforeStart();
+		this.onResize()
 	};
 
 	SimpleTabs.prototype.beforeStart = function () {
@@ -1655,6 +1656,21 @@ function tabsInit() {
 		});
 	};
 
+	SimpleTabs.prototype.onResize = function () {
+		var self = this;
+		var _activeTabIndex = self._activeTabIndex;
+
+		$(window).resize(function () {
+			for (var i = 0; i < self.$tabs.length; i++) {
+				var $tabs = $(self.$tabs[i]);
+				console.log($('.'+self.modifiers.active+''));
+				$tabs.find('.tab-item-wrap').css({
+					'height': $tabs.find('.'+self.modifiers.active+'').outerHeight()
+				});
+			}
+		});
+	};
+
 	SimpleTabs.prototype.bindEvents = function () {
 		var self = this,
 				_modifiersActive = this.modifiers.active;
@@ -1692,7 +1708,8 @@ function tabsInit() {
 					'height': $tab.eq(_currentTabItem).outerHeight()
 				}, self._animateSpeed);
 			}
-		})
+		});
+
 	};
 
 	window.SimpleTabs = SimpleTabs;

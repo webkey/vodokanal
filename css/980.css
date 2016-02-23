@@ -60,7 +60,9 @@ html.nav-opened body.inner-page.mobile-device{ padding-right: 0; }
 	top: auto;
 }
 .inner-page .logo>a:before,
-.inner-page .logo>span:before{
+.inner-page .logo>span:before,
+.logo-reduce .logo>a:after,
+.logo-reduce .logo>span:after{
 	background-image: url(../img/logo-sm.png);
 	-webkit-background-size: 160px;
 	background-size: 160px;
@@ -149,6 +151,67 @@ html.nav-opened body.inner-page.mobile-device{ padding-right: 0; }
 }
 /*previews end*/
 /*press end*/
+
+/*contacts*/
+.contacts {
+	margin: -30px -40px 0;
+}
+/*contacts biz*/
+.contacts__biz,
+.user-content .contacts__biz{
+	float: left;
+	padding: 30px 0 2000px 30px;
+	margin-bottom: -1970px;
+}
+.contacts__biz:before{
+	left: 100%;
+	top: -10%;
+	height: 120%;
+	width: 4px;
+}
+.contacts__biz li,
+.user-content .contacts__biz li,
+.user-content .contacts__biz li:first-child{
+	display: block;
+	padding: 0 30px 15px 0;
+}
+.contacts__biz li:after,
+.user-content .contacts__biz li:before,
+.user-content .contacts__biz li:first-child:before{
+	content: none;
+}
+/*contacts biz end*/
+
+/*contacts address*/
+.contacts__address{
+	margin-bottom: -2000px;
+	padding: 30px 0 2000px;
+}
+.contacts-adr{
+	padding: 0;
+}
+.contacts-adr__item{
+	display: block;
+	width: auto;
+	padding: 0 30px 30px 0;
+}
+.contacts-adr__item i{
+	margin: 15px 0 0;
+}
+.contacts-adr__item:before{
+	content: none;
+}
+.contacts-adr__icon{
+	float: left;
+	width: 90px;
+	text-align: center;
+}
+.contacts-adr__content{
+	max-width: none;
+	overflow: hidden;
+}
+/*contacts address end*/
+/*contacts end*/
 /*MAIN CONTENT end*/
 
 /*FOOTER*/
@@ -174,6 +237,12 @@ html.nav-opened body.inner-page.mobile-device{ padding-right: 0; }
 .main-map-frame,
 .contacts-panel_opened .main-map-frame{
 	position: relative;
+	-webkit-transform: translate(0, 0);
+	-ms-transform: translate(0, 0);
+	transform: translate(0, 0);
+}
+.contacts-panel_opened .contacts-panel,
+.contacts-panel{
 	-webkit-transform: translate(0, 0);
 	-ms-transform: translate(0, 0);
 	transform: translate(0, 0);

@@ -254,3 +254,137 @@
 	padding: 0 0 15px;
 }
 /*contacts panel end*/
+
+/*contacts*/
+.contacts{
+	margin-top: -30px;
+}
+/*contacts biz*/
+.contacts__biz,
+.user-content .contacts__biz{
+	float: none;
+	padding: 30px 0 20px 30px;
+	margin-bottom: 0;
+}
+.contacts__biz:before{
+	left: -10%;
+	top: 100%;
+	height: 4px;
+	width: 120%;
+}
+/*contacts biz end*/
+
+/*contacts address*/
+.contacts__address{
+	margin-bottom: 0;
+	padding: 30px 0 0;
+}
+.contacts-adr__item{
+	display: block;
+	width: auto;
+	padding: 0 30px 20px 0;
+}
+/*contacts address end*/
+
+/*contacts phones container*/
+.contacts-phones-container {
+	padding: 31px 30px 26px;
+}
+.cph__row{
+	display: block;
+	padding: 0 0 10px;
+}
+.cph__dt, .cph__dd{
+	display: block;
+	padding: 0;
+}
+.cph__dd{
+	padding-left: 20px;
+}
+.cph__dt{
+	width: 100%;
+	margin: 0 0 -10px;
+}
+/*contacts phones container end*/
+
+/*callback container*/
+.callback-container {
+	padding: 45px 30px 30px;
+}
+.callback-container h2{
+	font-size: 16px;
+	line-height: 20px;
+	padding: 0 0 15px;
+}
+.note{
+	padding: 0 0 25px;
+}
+/*callback form*/
+.callback-form .form-row .input-wrap{
+	width: 100%;
+	padding-top: 20px;
+}
+.callback-form .form-row .input-wrap:first-child{
+	padding-top: 0;
+}
+.callback-form input[type*=submit]{
+	display: inline-block;
+	width: auto;
+}
+.callback-form .form-buttons{
+	text-align: center;
+}
+/*callback form end*/
+/*callback container end*/
+
+/*parents container*/
+.parents-container h2{
+	font-size: 16px;
+	line-height: 20px;
+	padding: 0 30px 35px;
+}
+.parents{
+	display: block;
+	border-top: none;
+}
+.parents__item{
+	display: block;
+	overflow: hidden;
+	border-top: 1px solid #e6e6e6;
+}
+.parents__item>a{
+	display: block;
+	overflow: hidden;
+	padding: 21px 30px 18px 100px;
+}
+.parents__item>a:hover {
+	box-shadow: none;
+}
+.parents__item>a:before{
+	content: '';
+	display: inline-block;
+	height: 60px;
+	vertical-align: middle;
+}
+.parents__icon{
+	position: absolute;
+	left: 0;
+	top: 50%;
+	height: 60px;
+	width: 100px;
+	text-align: center;
+	margin: -30px 0 0;
+}
+.parents__icon img{
+	max-height: none;
+	height: 100%;
+}
+.parents__title{
+	max-width: none;
+	text-align: left;
+	display: inline-block;
+	vertical-align: middle;
+	width: 97%;
+}
+/*parents container end*/
+/*contacts end*/
