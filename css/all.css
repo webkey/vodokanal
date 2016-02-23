@@ -2885,9 +2885,12 @@ body:not(.mobile-device) .promo-slider .slick-next:hover:after{
 	padding: 6px 12px;
 	position: relative;
 	border-radius: 3px;
-	cursor: pointer;
 	-webkit-transition: background 0.2s;
 	transition: background 0.2s;
+	cursor: default;
+}
+.years__list a:link{
+	cursor: pointer;
 }
 .years__list a>span{
 	border-bottom: 1px solid #808080;
