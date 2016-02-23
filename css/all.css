@@ -341,7 +341,7 @@ img.img{
 	top: 8px;
 }
 .user-content ul ul{
-	padding: 0 0 0 25px;
+	padding: 0;
 }
 .user-content ul ul li:before,
 .user-content ul ul li:first-child:before{
@@ -408,7 +408,7 @@ table caption{
 	font-size: 12px;
 	line-height: 16px;
 	letter-spacing: 0.1em;
-	padding-top: 16px;
+	padding: 16px 0;
 }
 .user-content .tbl td,
 .user-content .tbl th{
@@ -2950,7 +2950,7 @@ body:not(.mobile-device) .promo-slider .slick-next:hover:after{
 	-webkit-transition: all 0.4s;
 	transition: all 0.4s;
 }
-.press-adt__list .press-adt__item:hover{
+body:not(.mobile-device) .press-adt__list .press-adt__item:hover{
 	border-color: #008acf;
 	box-shadow: inset 0 0 0 1px #008acf,
 					  0 1px 0 #008acf,
@@ -2967,12 +2967,12 @@ body:not(.mobile-device) .promo-slider .slick-next:hover:after{
 	-webkit-transition: all 0.4s;
 	transition: all 0.4s;
 }
-.press-adt__item:hover .press-adt__content{
+body:not(.mobile-device) .press-adt__item:hover .press-adt__content{
 	-webkit-transform: translate(0, 121px);
 	-ms-transform: translate(0, 121px);
 	transform: translate(0, 121px);
 }
-.press-adt__item.no-img:hover .press-adt__content{
+body:not(.mobile-device) .press-adt__item.no-img:hover .press-adt__content{
 	-webkit-transform: translate(0, 0);
 	-ms-transform: translate(0, 0);
 	transform: translate(0, 0);
@@ -2984,6 +2984,7 @@ body:not(.mobile-device) .promo-slider .slick-next:hover:after{
 	right: 1px;
 	overflow: hidden;
 	height: 121px;
+	background: #008acf;
 	z-index: 1;
 	opacity: 0;
 	-webkit-transform: translate(0, -100%);
@@ -2995,12 +2996,14 @@ body:not(.mobile-device) .promo-slider .slick-next:hover:after{
 .press-adt__visual img{
 	position: relative;
 	max-width: none;
+	min-width: 100%;
 	left: 50%;
-	-webkit-transform: translateX(-50%);
-	-ms-transform: translateX(-50%);
-	transform: translateX(-50%);
+	top: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
 }
-.press-adt__item:hover .press-adt__visual{
+body:not(.mobile-device) .press-adt__item:hover .press-adt__visual{
 	opacity: 1;
 	-webkit-transform: translate(0, 0);
 	-ms-transform: translate(0, 0);
@@ -3060,10 +3063,10 @@ body:not(.mobile-device) .promo-slider .slick-next:hover:after{
 	-webkit-transition: opacity 0.4s;
 	transition: opacity 0.4s;
 }
-.press-adt__item:hover .press-adt__text{
+body:not(.mobile-device) .press-adt__item:hover .press-adt__text{
 	opacity: 0;
 }
-.press-adt__item.no-img:hover .press-adt__text{
+body:not(.mobile-device) .press-adt__item.no-img:hover .press-adt__text{
 	opacity: 1;
 }
 /*previews end*/
@@ -5553,7 +5556,7 @@ body:not(.mobile-device) .gallery__previews .slick-next:hover:after{
 	position: absolute;
 	right: 0;
 	top: 50%;
-	margin-top: -8px;
+	margin-top: -10px;
 }
 .road-popup{
 	position: absolute;
