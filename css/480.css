@@ -1,5 +1,21 @@
 @media only screen and (max-width: 479px){}
 
+.img{
+	border-width: 7px;
+}
+.user-content blockquote {
+	padding: 18px 20px 28px 20px;
+}
+/*images group*/
+.img-group__holder {
+	margin: 0 -6px;
+}
+.img-group__item{
+	width: 49.98%;
+	padding: 0 6px 30px;
+}
+/*images group end*/
+
 /*HEADER*/
 /*button menu*/
 .btn-menu.active{
@@ -52,6 +68,15 @@
 	box-shadow: none;
 }
 /*case end*/
+
+/*press*/
+/*previews*/
+.press-adt__item{
+	display: block;
+	width: auto;
+}
+/*previews end*/
+/*press end*/
 /*MAIN CONTENT end*/
 
 /*MAIN NAVIGATION*/

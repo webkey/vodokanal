@@ -58,12 +58,14 @@ html.nav-opened body.inner-page.mobile-device{ padding-right: 0; }
 	height: 80px;
 	position: relative;
 	top: auto;
+	background: #fff;
 }
 .inner-page .logo>a:before,
 .inner-page .logo>span:before,
 .logo-reduce .logo>a:after,
 .logo-reduce .logo>span:after{
-	background-image: url(../img/logo-sm.png);
+	background-color: #fff;
+	background-image: url(../img/logo-main-alt.png);
 	-webkit-background-size: 160px;
 	background-size: 160px;
 }
@@ -147,7 +149,7 @@ html.nav-opened body.inner-page.mobile-device{ padding-right: 0; }
 /*press*/
 /*previews*/
 .press-adt__item{
-	width: 49.9%;
+	width: 33.32%;
 }
 /*previews end*/
 /*press end*/

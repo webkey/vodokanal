@@ -727,6 +727,7 @@ function navPosition(){
 		};
 
 		this.bindAnimate();
+		//this.onResize();
 	};
 
 	Disperse.prototype.bindAnimate = function () {
@@ -760,6 +761,28 @@ function navPosition(){
 				$scrollTo = self.$scrollTo;
 			}
 			$('html, body').animate({ scrollTop: $scrollTo.offset().top }, _animateSpeed);
+		})
+	};
+
+	Disperse.prototype.onResize = function () {
+		var self = this,
+				_modifiersActive = this.modifiers.active,
+				_animateSpeed = this._animateSpeed,
+				$disperseWrapper = self.$disperseWrapper,
+				_footerHeight,
+				_footerHeightNew;
+
+		_footerHeight = $disperseWrapper.find(self.$disperseDrop).outerHeight();
+		console.log('_footerHeight: ', _footerHeight);
+		$(window).resize(function () {
+			_footerHeightNew = $disperseWrapper.find(self.$disperseDrop).outerHeight();
+			if($disperseWrapper.hasClass(_modifiersActive)){
+				var _height = _footerHeightNew - _footerHeight;
+				console.log('_footerHeightNew: ', _footerHeightNew);
+				console.log('_height: ', _height);
+				$disperseWrapper.animate({'height':_footerHeightNew},_animateSpeed);
+				self.footerAtBottom(_height);
+			}
 		})
 	};
 
@@ -1658,12 +1681,10 @@ function tabsInit() {
 
 	SimpleTabs.prototype.onResize = function () {
 		var self = this;
-		var _activeTabIndex = self._activeTabIndex;
 
 		$(window).resize(function () {
 			for (var i = 0; i < self.$tabs.length; i++) {
 				var $tabs = $(self.$tabs[i]);
-				console.log($('.'+self.modifiers.active+''));
 				$tabs.find('.tab-item-wrap').css({
 					'height': $tabs.find('.'+self.modifiers.active+'').outerHeight()
 				});

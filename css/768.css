@@ -5,6 +5,12 @@ html.nav-opened .main-page .wrapper{ overflow-x: hidden; }
 html.nav-opened body.main-page.mobile-device{ padding-right: 0; }
 .main-page .content-wrap .content{ margin-left: 0; }
 
+/*images group*/
+.img-group__item{
+	width: 33.28%;
+}
+/*images group end*/
+
 /*HEADER*/
 /*header options*/
 .main-page .header-options__holder{
@@ -125,6 +131,14 @@ html.nav-opened body.main-page.mobile-device{ padding-right: 0; }
 	width: calc(33.29% + 1px);
 }
 /*case end*/
+
+/*press*/
+/*previews*/
+.press-adt__item{
+	width: 49.98%;
+}
+/*previews end*/
+/*press end*/
 /*MAIN CONTENT end*/
 
 /*MAIN PAGE*/
