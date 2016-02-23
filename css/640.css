@@ -406,3 +406,10 @@
 }
 /*parents container end*/
 /*contacts end*/
+
+/*works*/
+.works__list .works__item {
+	display: block;
+	width: auto;
+}
+/*works end*/

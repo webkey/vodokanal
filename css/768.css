@@ -139,6 +139,11 @@ html.nav-opened body.main-page.mobile-device{ padding-right: 0; }
 }
 /*previews end*/
 /*press end*/
+
+/*works*/
+.works__list, .user-content .works__list{ margin: 0 -10px; }
+.works__list .works__item { padding: 0 10px 40px; }
+/*works end*/
 /*MAIN CONTENT end*/
 
 /*MAIN PAGE*/
