@@ -690,11 +690,13 @@ function navPosition(){
 	}
 
 	function resize() {
-		windowWidth = $window.width();
-		$navHolder.removeAttr('style');
-		if (1500 > windowWidth) {
-			top = bottom = false;
+		//windowWidth = $window.width();
+		if($('.btn-menu').is(':visible')){
+			$navHolder.removeAttr('style');
 		}
+		//if (1500 > windowWidth) {
+		//	top = bottom = false;
+		//}
 	}
 }
 /*nav position end*/
@@ -1235,13 +1237,7 @@ function slickSlidersInit(){
 		sliderPromo.on('init', function () {
 			$(this).css({'visibility':'visible'});
 
-			console.log('slides: ', this);
 			$(this).find('.promo-slider__item').eq(0).addClass('animate-start');
-			//for(var i = 0; i < slick.slideCount; i++){
-			//
-			//	$(slick.$slides[i]).removeClass('animate-start');
-			//}
-			//$(slick.$slides[currentSlide]).addClass('animate-start');
 		});
 		sliderPromo.slick({
 			fade: true,
