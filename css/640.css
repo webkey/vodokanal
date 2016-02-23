@@ -1,5 +1,30 @@
 @media only screen and (max-width: 639px){}
 
+.content-wrap .content{
+	padding: 0 30px;
+}
+.full-width {
+	margin: 0 -30px;
+}
+.page-heading{
+	padding-left: 30px;
+	padding-right: 30px;
+	margin-left: -30px;
+	margin-right: -30px;
+	height: auto;
+	min-height: 140px;
+}
+
+/*breadcrumbs*/
+.breadcrumbs li,
+.user-content .breadcrumbs li{
+	padding: 0 10px 10px 15px;
+}
+.breadcrumbs li:first-child {
+	padding-left: 0;
+}
+/*breadcrumbs end*/
+
 /*promo*/
 .promo-btn {
 	right: 75px;
@@ -101,3 +126,131 @@
 }
 /*meter end*/
 /*wit end*/
+
+/*content box*/
+.content-box__head,
+.content-box{
+	padding-bottom: 55px;
+}
+.content-box__caption{
+	width: auto;
+	margin-left: 30px;
+}
+.columns-box{
+	padding: 0 30px;
+}
+.columns-box__column{
+	width: auto;
+	border-left-color: transparent;
+	padding: 0 0 0 28px;
+	position: relative;
+}
+.columns-box__column:before{
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 7px;
+	height: 9px;
+	width: 9px;
+	background: #83cff0;
+	border-radius: 9px;
+}
+.content-box__description{
+	width: auto;
+	margin-left: 30px;
+}
+/*content box end*/
+
+/*case*/
+.case__item{
+	position: relative;
+	float: left;
+	width: 49.98%;
+	width: calc(49.98% + 1px);
+}
+/*case end*/
+
+/*history info*/
+.history-info {
+	width: auto;
+	padding: 0 30px;
+}
+/*history info end*/
+
+/*glance*/
+.glance__slider{
+	padding: 0 0 67px;
+}
+.glance__spacer{
+	display: none;
+}
+.glance__box-center{
+	width: auto;
+	height: auto;
+	position: relative;
+	left: auto;
+	top: auto;
+	margin: 0;
+	overflow: hidden;
+	padding: 10px 20px 10px 30px;
+}
+.glance__caption{
+	float: left;
+	min-width: 90px;
+	margin-right: 15px;
+}
+.glance__count{
+	font: 40px/42px 'Times New Roman', Times, serif;
+	font-weight: bold;
+	text-align: left;
+	margin: 0;
+}
+.glance__unit{
+	text-align: left;
+	font-size: 12px;
+	line-height: 16px;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	margin: 0 0 -2px;
+}
+.glance__unit:after{
+	content: none;
+	margin: 0;
+	padding: 0;
+}
+.glance__text{
+	text-align: left;
+	max-height: none;
+}
+
+.glance__slider .slick-prev,
+.glance__slider .slick-next {
+	top: auto;
+	bottom: 15px;
+}
+.glance__slider .slick-prev:before{
+	background-position: 0 0;
+}
+.glance__slider .slick-next:before{
+	background-position: 0 -76px;
+}
+/*glance end*/
+
+/*contacts panel*/
+.contacts-panel{
+	padding: 40px 30px 40px;
+}
+.cont-dt,
+.cont-dd{
+	display: block;
+	width: auto;
+	text-align: left;
+}
+.cont-numbers{
+	right: auto;
+	left: 0;
+}
+.contacts-panel__phones li{
+	padding: 0 0 15px;
+}
+/*contacts panel end*/

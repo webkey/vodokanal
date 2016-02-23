@@ -10,6 +10,15 @@
 }
 /*category links end*/
 
+/*case*/
+.case__item{
+	position: relative;
+	float: left;
+	width: 33.29%;
+	width: calc(33.29% + 1px);
+}
+/*case end*/
+
 /*FOOTER*/
 /*grid*/
 .grid-col-3{

@@ -14,6 +14,46 @@
 /*button menu end*/
 /*HEADER end*/
 
+/*MAIN CONTENT*/
+/*case*/
+.case{
+	padding: 0 30px;
+}
+.case__list{
+	padding: 0;
+	margin: 0;
+}
+.case__list .slick-list{
+	border: 1px solid #ccc;
+	box-shadow: 0 0 0 1px transparent;
+	box-shadow: 0 0 0 1px rgba(0,0,0,0);
+	-webkit-transition: box-shadow 0.3s, border 0.3s;
+	transition: box-shadow 0.3s, border 0.3s;
+}
+.case__list .slick-list:hover{
+	border-color: #008acf;
+	box-shadow: 0 0 0 1px #008acf;
+}
+.case__item{
+	position: relative;
+	float: left;
+	width: 100%;
+	margin: 0;
+}
+.photo-card__img img{
+	margin: 0 auto;
+}
+.case__photo-card,
+.case__contacts-card{
+	border: none;
+}
+.case__photo-card:hover,
+.case__contacts-card:hover{
+	box-shadow: none;
+}
+/*case end*/
+/*MAIN CONTENT end*/
+
 /*MAIN NAVIGATION*/
 .nav-overlay-page{ background: rgba(0, 0, 0, 0.6); }
 

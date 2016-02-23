@@ -104,131 +104,6 @@ function showFormSearch(){
 }
 /*show form search end*/
 
-/*multi accordion*/
-(function ($) {
-	var MultiAccordion = function (settings) {
-		var options = $.extend({
-			collapsibleElement: '.js-ma-panel',
-			classReturn: null,
-			collapsibleAll: false,
-			animateSpeed: 300,
-			resizeCollapsible: false
-		}, settings || {});
-
-		this.options = options;
-		var container = $(options.accordionContainer);
-		this.$accordionContainer = container; //блок с аккордеоном
-		this.$accordionItem = $(options.accordionItem, container); //непосредственный родитель сворачиваемого элемента
-		this.$accordionEvent = $(options.accordionEvent, container); //элемент, по которому производим клик
-		this.$collapsibleElement = $(options.collapsibleElement, container);  //элементы, которые сворачиваются/разворачиваются
-		this._collapsibleAll = options.collapsibleAll;
-		this._animateSpeed = options.animateSpeed;
-		this.$totalCollapsible = $(options.totalCollapsible);//элемент, по клику на который сворачиваются все аккордены в наборе
-		this._resizeCollapsible = options.resizeCollapsible;//флаг, сворачивание всех открытых аккордеонов при ресайзе
-
-		this.modifiers = {
-			active: 'active',
-			current: 'current'
-		};
-
-		// открываем астивный аккордеон
-		// не цсс, а скриптом, чтобы можно было плавно закрыть
-		var $currentElements = this.$accordionItem.filter('.'+this.modifiers.current+'');
-		$.each($currentElements, function () {
-			$(this).firstChildElement(options.collapsibleElement).slideDown(0);
-		});
-
-		this.bindEvents();
-		this.totalCollapsible();
-		this.totalCollapsibleOnResize();
-
-	};
-
-	MultiAccordion.prototype.totalCollapsible = function () {
-		var self = this;
-		self.$totalCollapsible.on('click', function () {
-			self.$collapsibleElement.slideUp(self._animateSpeed);
-			self.$accordionItem.removeClass(self.modifiers.active);
-			self.$accordionItem.removeClass(self.modifiers.current);
-		})
-	};
-
-	MultiAccordion.prototype.totalCollapsibleOnResize = function () {
-		var self = this;
-		$(window).on('resize', function () {
-			if(self._resizeCollapsible){
-				self.$collapsibleElement.slideUp(self._animateSpeed);
-				self.$accordionItem.removeClass(self.modifiers.active);
-			}
-		});
-	};
-
-	MultiAccordion.prototype.bindEvents = function () {
-		var self = this,
-				modifiers = this.modifiers,
-				animateSpeed = this._animateSpeed,
-				accordionContainer = this.$accordionContainer,
-				anyAccordionItem = this.$accordionItem,
-				collapsibleElement = this.$collapsibleElement;
-
-		self.$accordionEvent.on('click', function (e) {
-			var current = $(this);
-			var currentAccordionItem = current.closest(anyAccordionItem);
-
-			if (!currentAccordionItem.has(collapsibleElement).length){
-				return;
-			}
-
-			e.preventDefault();
-
-			if (current.parent().prop("tagName") != currentAccordionItem.prop("tagName")) {
-				current = current.parent();
-			}
-
-			if (current.siblings(collapsibleElement).is(':visible')){
-				currentAccordionItem.removeClass(modifiers.active).find(collapsibleElement).slideUp(animateSpeed);
-				currentAccordionItem.removeClass(modifiers.current);
-				currentAccordionItem.find(anyAccordionItem).removeClass(modifiers.active).removeClass(modifiers.current);
-				return;
-			}
-
-
-			if (self._collapsibleAll){
-				var siblingContainers = $(accordionContainer).not(current.closest(accordionContainer));
-				siblingContainers.find(collapsibleElement).slideUp(animateSpeed);
-				siblingContainers.find(anyAccordionItem).removeClass(modifiers.active).removeClass(modifiers.current);
-			}
-
-			currentAccordionItem.siblings().removeClass(modifiers.active).find(collapsibleElement).slideUp(animateSpeed);
-			currentAccordionItem.siblings().removeClass(modifiers.current);
-			currentAccordionItem.siblings().find(anyAccordionItem).removeClass(modifiers.active).removeClass(modifiers.current);
-
-			currentAccordionItem.addClass(modifiers.active);
-			current.siblings(collapsibleElement).slideDown(animateSpeed);
-		})
-	};
-
-	window.MultiAccordion = MultiAccordion;
-}(jQuery));
-
-function multiAccordionInit() {
-	var $nav = $('.nav');
-	if($nav.length){
-		//if($nav.hasClass('nav-main-page')){
-		//	return;
-		//}
-		new MultiAccordion({
-			accordionContainer: $nav,
-			classReturn: '.nav-main-page',
-			accordionItem: 'li',
-			accordionEvent: 'a',
-			collapsibleElement: '.js-nav-drop',
-			animateSpeed: 200
-		});
-	}
-}
-/*multi accordion end*/
-
 /*hover class*/
 (function ($) {
 	var HoverClass = function (settings) {
@@ -924,56 +799,7 @@ function footerDropInit() {
 		});
 	}
 }
-
-function siteMapInit(){
-	var siteMap = $('.site-map');
-	if (!siteMap.length){ return; }
-	$('.map-site-switcher').on('click', function () {
-		var switcher = $(this);
-		var siteMapCurrent = switcher.closest('.footer').find('.site-map');
-		if(siteMapCurrent.is(':visible')){
-			siteMapCurrent.slideUp(400, function () {
-				footerBottom();
-			}).removeClass('active');
-			switcher.removeClass('active');
-			return;
-		}
-		siteMapCurrent.slideDown(400, function () {
-			footerBottom();
-		}).addClass('active');
-		switcher.addClass('active');
-	})
-}
 /*site map end*/
-
-/*road popup*/
-function roadPopupInit(){
-	var $roadBox = $('.road');
-	if(!$roadBox.length){return;}
-	$('.road-view').on('click', function (e) {
-		e.preventDefault();
-		var $roadBoxCurrent = $(this).closest('.road');
-		if($roadBoxCurrent.find('.road-popup').is(':visible')){
-			closeRoadPopup($roadBoxCurrent);
-			return;
-		}
-		$roadBoxCurrent.addClass('show-popup');
-		e.stopPropagation();
-	});
-
-	$('.road-popup').on('click', function (e) {
-		e.stopPropagation();
-	});
-
-	$(document).on('click', function () {
-		closeRoadPopup($roadBox);
-	});
-
-	function closeRoadPopup(wrapper){
-		wrapper.removeClass('show-popup');
-	}
-}
-/*road popup end*/
 
 /*phones drop*/
 function phonesDrop(){
@@ -1213,53 +1039,65 @@ function contactsSwitcher(){
 /*contacts switcher end*/
 
 /*equal height initial*/
-function equalHeightInit(){
-	/*case list*/
+/*case list*/
+function caseEqualHeight(){
 	var caseList = $('.case__list');
 	if(caseList.length){
+		var $caseItem = $('.case__item');
 		caseList.find('.photo-card__img, .contacts-card__caption').equalHeight({
 			//amount: 8,
 			ratio: 2,
-			item: $('.case__item'),
+			item: $caseItem,
 			useParent: true,
 			parent: caseList,
 			resize: true
 		});
-		caseList.find('.photo-card__name, .contacts-card__share, .contacts-card__name').equalHeight({
+		caseList.find('.photo-card__name, .contacts-card__share').equalHeight({
 			//amount: 12,
-			ratio: 3,
-			item: $('.case__item'),
+			ratio: 2,
+			item: $caseItem,
 			useParent: true,
 			parent: caseList,
 			resize: true
 		});
-		caseList.find('.photo-card__post, .contacts-card__post, .contacts-card__works').equalHeight({
+		caseList.find('.photo-card__post, .contacts-card__works').equalHeight({
 			//amount: 12,
-			ratio: 3,
-			item: $('.case__item'),
+			ratio: 2,
+			item: $caseItem,
+			useParent: true,
+			parent: caseList,
+			resize: true
+		});
+		caseList.find('.contacts-card__post').equalHeight({
+			ratio: 1,
+			item: $caseItem,
+			useParent: true,
+			parent: caseList,
+			resize: true
+		});
+		caseList.find('.contacts-card__name').equalHeight({
+			ratio: 1,
+			item: $caseItem,
 			useParent: true,
 			parent: caseList,
 			resize: true
 		});
 	}
-	/*case list end*/
+}
+/*case list end*/
 
+function equalHeightInit(){
 	/*parents*/
 	var parents = $('.parents');
 	if(parents.length){
 		parents.find('.parents__item a').equalHeight({
-			//amount: 12,
 			useParent: true,
 			parent: parents,
 			resize: true
 		});
 	}
 	/*parents end*/
-}
-/*equal height initial end*/
 
-/*equal height initial*/
-function equelHeightInTabs(){
 	/*previews list*/
 	var previewsList = $('.press-adt__list');
 	if(previewsList.length){
@@ -1271,6 +1109,17 @@ function equelHeightInTabs(){
 		previewsList.find('.press-adt__text').equalHeight({
 			useParent: true,
 			parent: previewsList,
+			resize: true
+		});
+	}
+	/*previews list end*/
+
+	/*previews list*/
+	var columnsBox = $('.columns-box');
+	if(columnsBox.length){
+		columnsBox.find('.columns-box__column').equalHeight({
+			useParent: true,
+			//parent: columnsBox,
 			resize: true
 		});
 	}
@@ -1296,14 +1145,28 @@ function slickSlidersInit(){
 			responsive: [{
 				breakpoint: 1279,
 				settings: {
-					slidesToShow: 3,
-					slidesToScroll: 1
+					slidesToShow: 3
 				}
 			},{
 				breakpoint: 1039,
 				settings: {
-					slidesToShow: 2,
-					slidesToScroll: 1
+					slidesToShow: 2
+				}
+			},{
+				breakpoint: 980,
+				settings: {
+					slidesToShow: 3
+				}
+			},{
+				breakpoint: 768,
+				settings: {
+					slidesToShow: 2
+				}
+			},{
+				breakpoint: 640,
+				settings: {
+					slidesToShow: 1,
+					dots: true
 				}
 			}]
 		});
@@ -1486,35 +1349,67 @@ function slickSlidersInit(){
 			responsive: [{
 				breakpoint: 1102,
 				settings: {
-					slidesToShow: 4,
-					slidesToScroll: 1
+					slidesToShow: 4
 				}
 			},{
-				breakpoint: 924,
+				breakpoint: 980,
 				settings: {
-					slidesToShow: 3,
-					slidesToScroll: 1
+					slidesToShow: 5
 				}
 			},{
 				breakpoint: 768,
 				settings: {
-					slidesToShow: 4,
-					slidesToScroll: 1
+					slidesToShow: 4
 				}
 			},{
 				breakpoint: 640,
 				settings: {
-					slidesToShow: 3,
-					slidesToScroll: 1
+					slidesToShow: 3
 				}
 			},{
 				breakpoint: 440,
 				settings: {
-					slidesToShow: 2,
-					slidesToScroll: 1
+					slidesToShow: 2
 				}
 			}]
 		});
+	}
+	/*gallery slider end*/
+
+	/*gallery slider*/
+	var caseSlider = $('.case__list');
+	if(caseSlider.length){
+		caseSlideBehavior();
+		$(window).resize(function () {
+			caseSlideBehavior();
+		});
+	}
+
+	function caseSlideBehavior(){
+		var md = new MobileDetect(window.navigator.userAgent);
+		if(md.mobile()){
+			$('body').addClass('mobile-device');
+		}
+		var minWidth = md.mobile() ? 480 : 463;
+		if($(window).width() < minWidth){
+			if(!caseSlider.hasClass('slick-slider')){
+				caseSlider.on('init', function () {
+					caseEqualHeight();
+				});
+				caseSlider.slick({
+					slidesToShow: 1,
+					slidesToScroll: 1,
+					infinite: false,
+					dots: false,
+					arrows: true
+				});
+			}
+		} else {
+			if(caseSlider.hasClass('slick-slider')){
+				caseEqualHeight();
+				caseSlider.slick('unslick');
+			}
+		}
 	}
 	/*gallery slider end*/
 }
@@ -1647,24 +1542,6 @@ function mapMainInit(){
 	}
 }
 /*map init end*/
-
-/*ui tabs initial*/
-function uiTabsInit(){
-	var $tabs = $('.tabs-js')
-	if($tabs.length){
-		$tabs.tabs({
-			//animate: 'easeInOutQuint',
-			activate: function() {
-				/*previews list*/
-				if($('.previews__list').length){
-					equelHeightInTabs();
-				}
-				/*previews list end*/
-			}
-		});
-	}
-}
-/*ui tabs initial end*/
 
 /*simple tabs*/
 function tabsInit() {
@@ -2237,7 +2114,7 @@ function footerBottom(){
 
 			setTimeout(function () {
 				cloneInfo.parent().animate({'opacity':1});
-				self.$infoBox.children().animate({'height': self.$infoBox.find('.info-new:not(.info-old)').outerHeight()});
+				self.$infoBox.children().stop().animate({'height': self.$infoBox.find('.info-new:not(.info-old)').outerHeight()});
 			}, self._animateSpeed);
 
 			self.$infoBox.find('.info-old').animate({'opacity':0}, 200, function () {
@@ -2327,11 +2204,33 @@ function fancyboxInit(){
 		});
 	}
 
+	/*fancybox media*/
+	var $fancyboxMedia = $('.fancybox-media');
+	if ($fancyboxMedia.length) {
+		$fancyboxMedia.fancybox({
+			openEffect  : 'none',
+			closeEffect : 'none',
+			closeBtn  : false,
+			helpers : {
+				media : {}
+			},
+			beforeShow: function(){
+				$('<div class="fancybox-close-custom"></div>').appendTo('body').on('click', function(){
+					$.fancybox.close();
+				});
+				$('.fancybox-close-custom').show(0);
+			},
+			beforeClose: function(){
+				$('.fancybox-close-custom').hide(0);
+			}
+		});
+	}
+
 	/*fancybox gallery*/
 	var $fancyboxGallery = $('.fancybox-gallery');
 	if ($fancyboxGallery.length) {
 		$fancyboxGallery.fancybox({
-			wrapCSS: 'fancybox-gallery-popup',
+			wrapCSS: 'fancybox-custom',
 			openEffect: 'none',
 			closeEffect: 'none',
 			padding: 0,
@@ -2381,6 +2280,10 @@ function fancyboxInit(){
 			},
 			afterLoad : function() {}
 		});
+		$('.gallery__title a').on('click', function (e) {
+			e.preventDefault();
+			$(this).closest('.gallery').find('.gallery__img').eq(0).find('a').trigger('click');
+		})
 	}
 
 	/*fancybox photos*/
@@ -2420,10 +2323,7 @@ $(document).ready(function () {
 	placeholderInit();
 	dropLanguageInit();
 	showFormSearch();
-	//multiAccordionInit();
 	footerDropInit();
-	//siteMapInit();
-	//roadPopupInit();
 	phonesDrop();
 	phonesPopupInit();
 	cardSwitch();
@@ -2444,13 +2344,12 @@ $(window).load(function () {
 	if(md.mobile()){
 		$('body').addClass('mobile-device');
 	}
-	equalHeightInit();
-	equelHeightInTabs();
 	footerBottom();
-	//uiTabsInit();
 	hoverClassInit();
 	mainNavigationInit();
 	navPosition();
+	equalHeightInit();
+	caseEqualHeight();
 	preloader();
 });
 

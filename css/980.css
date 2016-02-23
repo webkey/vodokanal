@@ -126,6 +126,22 @@ html.nav-opened body.inner-page.mobile-device{ padding-right: 0; }
 /*promo slider end*/
 /*promo end*/
 
+/*content box*/
+.columns-box__column{
+	width: 24.95%;
+}
+.columns-box__column:nth-child(3n){
+	border-left-color: #ccc;
+}
+/*content box end*/
+
+/*case*/
+.case__item{
+	width: 24.99%;
+	width: calc(24.99% + 1px);
+}
+/*case end*/
+
 /*press*/
 /*previews*/
 .press-adt__item{
@@ -136,6 +152,7 @@ html.nav-opened body.inner-page.mobile-device{ padding-right: 0; }
 /*MAIN CONTENT end*/
 
 /*FOOTER*/
+
 /*grid*/
 .footer-top .grid-col-3,
 .footer-top .grid-col-6{
@@ -149,6 +166,28 @@ html.nav-opened body.inner-page.mobile-device{ padding-right: 0; }
 .grid-col-3:before, .grid-col-6:before, .grid-col-3:after, .grid-col-6:after { content: ""; display: table; }
 .grid-col-3:after, .grid-col-6:after { clear: both; }
 /*grid end*/
+
+/*local map*/
+.main-contacts{
+	height: auto;
+}
+.main-map-frame,
+.contacts-panel_opened .main-map-frame{
+	position: relative;
+	-webkit-transform: translate(0, 0);
+	-ms-transform: translate(0, 0);
+	transform: translate(0, 0);
+}
+.contacts-panel{
+	position: relative;
+	right: auto;
+	top: auto;
+	width: auto;
+}
+.contacts-panel__switcher{
+	display: none;
+}
+/*local map end*/
 
 /*footer top*/
 .footer-top{ padding: 33px 20px; }
@@ -251,10 +290,6 @@ html.nav-opened body.inner-page.mobile-device{ padding-right: 0; }
 
 /*widget.css*/
 /*fancybox*/
-.fancybox-lock body{
-	overflow: hidden;
-	position:fixed;
-}
 .fancybox-modal{
 	width: auto !important;
 	left: 20px !important;
@@ -262,7 +297,6 @@ html.nav-opened body.inner-page.mobile-device{ padding-right: 0; }
 }
 .fancybox-inner {
 	width: auto !important;
-	/*padding: 0 52px;*/
 }
 .fancybox-close:before,
 .fancybox-close:after{

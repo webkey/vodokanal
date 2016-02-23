@@ -338,33 +338,26 @@
 }
 .fancybox-close{
 	position: absolute;
-	width: 46px;
-	height: 46px;
+	width: 20px;
+	height: 20px;
 	right: 10px;
 	top: 10px;
-	background: #4c4c4c;
-	background: rgba(0, 0, 0, 0.7);
+	background: none;
 	cursor: pointer;
 	z-index: 8040;
-	-webkit-transition: all 0.25s;
-	transition: all 0.25s;
-}
-.fancybox-close:hover{
-	background: #333;
-	background: rgba(0, 0, 0, 0.8);
 }
 .fancybox-close:before,
 .fancybox-close:after{
 	content: '';
 	position: absolute;
-	left: 12px;
-	top: 22px;
+	left: -1px;
+	top: 9px;
 	height: 2px;
 	width: 22px;
 	border-right: 1px;
-	background: #fff;
-	-webkit-transition: all 0.2s;
-	transition: all 0.2s;
+	background: #808080;
+	-webkit-transition: background 0.2s;
+	transition: background 0.2s;
 }
 .fancybox-close:before{
 	-webkit-transform: rotate(45deg);
@@ -375,6 +368,10 @@
 	-webkit-transform: rotate(-45deg);
 	-ms-transform: rotate(-45deg);
 	transform: rotate(-45deg);
+}
+.fancybox-close:before,
+.fancybox-close:after{
+	background: #333;
 }
 
 .fancybox-nav{
