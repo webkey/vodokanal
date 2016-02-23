@@ -413,3 +413,13 @@
 	width: auto;
 }
 /*works end*/
+
+/*faq*/
+.faq-list h3{
+	font-size: 18px;
+	line-height: 26px;
+}
+.faq-list h3+div{
+	padding: 0 20px 15px;
+}
+/*faq end*/
