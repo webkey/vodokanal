@@ -1470,9 +1470,42 @@ var localObjects = [
 		smallPinMap,
 		7,
 		{
-			title: 'Минскводоканал 2',
+			title: 'Минскводопровод',
 			address: '<b>Адрес:</b> 220088 Беларусь, Минск, ул. Пулихова д.15',
-			phone: '<b>Приёмная:</b> <div>+375 17 327 37 04</div> <div>+375 17 327 37 04</div>',
+			phone: '<b>Приёмная:</b> <div>+375 17 327 37 03</div> <div>+375 17 327 37 03</div>',
+			works: '<b>Эл. почта:</b> <div><span>Пн-Пт:</span> 10<sup>00</sup> – 20<sup>00</sup></div> <div><span>Сб-Вс:</span> 10<sup>00</sup> – 18<sup>00</sup></div>'
+		}
+	],[
+		{lat: 52.799394, lng: 27.558581},
+		{latBias: 0.1, lngBias: -2.5},
+		smallPinMap,
+		7,
+		{
+			title: 'Водосбыт',
+			address: '<b>Адрес:</b> 220088 Беларусь, Минск, ул. Пулихова д.15',
+			phone: '<b>Приёмная:</b> <div>+375 17 327 37 02</div> <div>+375 17 327 37 02</div>',
+			works: '<b>Эл. почта:</b> <div><span>Пн-Пт:</span> 10<sup>00</sup> – 20<sup>00</sup></div> <div><span>Сб-Вс:</span> 10<sup>00</sup> – 18<sup>00</sup></div>'
+		}
+	],[
+		{lat: 52.799394, lng: 27.558581},
+		{latBias: 0.1, lngBias: -2.5},
+		smallPinMap,
+		7,
+		{
+			title: 'Минскочиствод',
+			address: '<b>Адрес:</b> 220088 Беларусь, Минск, ул. Пулихова д.15',
+			phone: '<b>Приёмная:</b> <div>+375 17 327 37 01</div> <div>+375 17 327 37 01</div>',
+			works: '<b>Эл. почта:</b> <div><span>Пн-Пт:</span> 10<sup>00</sup> – 20<sup>00</sup></div> <div><span>Сб-Вс:</span> 10<sup>00</sup> – 18<sup>00</sup></div>'
+		}
+	],[
+		{lat: 52.799394, lng: 27.558581},
+		{latBias: 0.1, lngBias: -2.5},
+		smallPinMap,
+		7,
+		{
+			title: 'Автобаза',
+			address: '<b>Адрес:</b> 220088 Беларусь, Минск, ул. Пулихова д.15',
+			phone: '<b>Приёмная:</b> <div>+375 17 327 37 05</div> <div>+375 17 327 37 05</div>',
 			works: '<b>Эл. почта:</b> <div><span>Пн-Пт:</span> 10<sup>00</sup> – 20<sup>00</sup></div> <div><span>Сб-Вс:</span> 10<sup>00</sup> – 18<sup>00</sup></div>'
 		}
 	]
