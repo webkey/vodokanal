@@ -1457,55 +1457,55 @@ var localObjects = [
 		{lat: 53.8984, lng: 27.5788}, //coordinates of marker
 		{latBias: 0.0020, lngBias: 0}, //bias coordinates for center map
 		largePinMap, //image pin
-		7,
+		15,
 		{
 			title: 'Минскводоканал',
 			address: '<b>Адрес:</b> 220088 Беларусь, Минск, ул. Пулихова д.15',
-			phone: '<b>Приёмная:</b> <div>+375 17 327 37 04</div> <div>+375 17 327 37 04</div>',
+			phone: '<b>Приёмная:</b> <div>+375 17 327 13 23</div>',
 			works: '<b>Эл. почта:</b> <div><span>Пн-Пт:</span> 10<sup>00</sup> – 20<sup>00</sup></div> <div><span>Сб-Вс:</span> 10<sup>00</sup> – 18<sup>00</sup></div>'
 		}
 	],[
-		{lat: 52.799394, lng: 27.558581},
-		{latBias: 0.1, lngBias: -2.5},
+		{lat: 53.8984, lng: 27.5788},
+		{latBias: 0.0015, lngBias: 0},
 		smallPinMap,
-		7,
+		15,
 		{
 			title: 'Минскводопровод',
 			address: '<b>Адрес:</b> 220088 Беларусь, Минск, ул. Пулихова д.15',
-			phone: '<b>Приёмная:</b> <div>+375 17 327 37 03</div> <div>+375 17 327 37 03</div>',
+			phone: '<b>Приёмная:</b> <div>+375 17 233 91 36</div>',
 			works: '<b>Эл. почта:</b> <div><span>Пн-Пт:</span> 10<sup>00</sup> – 20<sup>00</sup></div> <div><span>Сб-Вс:</span> 10<sup>00</sup> – 18<sup>00</sup></div>'
 		}
 	],[
-		{lat: 52.799394, lng: 27.558581},
-		{latBias: 0.1, lngBias: -2.5},
+		{lat: 53.8984, lng: 27.5788},
+		{latBias: 0.0015, lngBias: 0},
 		smallPinMap,
-		7,
+		15,
 		{
 			title: 'Водосбыт',
 			address: '<b>Адрес:</b> 220088 Беларусь, Минск, ул. Пулихова д.15',
-			phone: '<b>Приёмная:</b> <div>+375 17 327 37 02</div> <div>+375 17 327 37 02</div>',
+			phone: '<b>Приёмная:</b> <div>+375 17 294 06 96</div>',
 			works: '<b>Эл. почта:</b> <div><span>Пн-Пт:</span> 10<sup>00</sup> – 20<sup>00</sup></div> <div><span>Сб-Вс:</span> 10<sup>00</sup> – 18<sup>00</sup></div>'
 		}
 	],[
-		{lat: 52.799394, lng: 27.558581},
-		{latBias: 0.1, lngBias: -2.5},
+		{lat: 53.8984, lng: 27.5788},
+		{latBias: 0.0015, lngBias: 0},
 		smallPinMap,
-		7,
+		15,
 		{
 			title: 'Минскочиствод',
 			address: '<b>Адрес:</b> 220088 Беларусь, Минск, ул. Пулихова д.15',
-			phone: '<b>Приёмная:</b> <div>+375 17 327 37 01</div> <div>+375 17 327 37 01</div>',
+			phone: '<b>Приёмная:</b> <div>+375 17 226 19 33</div>',
 			works: '<b>Эл. почта:</b> <div><span>Пн-Пт:</span> 10<sup>00</sup> – 20<sup>00</sup></div> <div><span>Сб-Вс:</span> 10<sup>00</sup> – 18<sup>00</sup></div>'
 		}
 	],[
-		{lat: 52.799394, lng: 27.558581},
-		{latBias: 0.1, lngBias: -2.5},
+		{lat: 53.8782, lng: 27.5897},
+		{latBias: 0.0015, lngBias: 0},
 		smallPinMap,
-		7,
+		15,
 		{
 			title: 'Автобаза',
-			address: '<b>Адрес:</b> 220088 Беларусь, Минск, ул. Пулихова д.15',
-			phone: '<b>Приёмная:</b> <div>+375 17 327 37 05</div> <div>+375 17 327 37 05</div>',
+			address: '<b>Адрес:</b> 220033 Беларусь , Минск, ул. Тростенецкая, 22',
+			phone: '<b>Отдел снабжения:</b> <div>+375 17 247 95 69</div>',
 			works: '<b>Эл. почта:</b> <div><span>Пн-Пт:</span> 10<sup>00</sup> – 20<sup>00</sup></div> <div><span>Сб-Вс:</span> 10<sup>00</sup> – 18<sup>00</sup></div>'
 		}
 	]
@@ -1553,14 +1553,16 @@ function mapMainInit(){
 		addMarker(0,map3);
 	}
 
-	$('.location-link>a').click( function(e) {
+	/*change location*/
+	$('.contacts__biz a').on('click', function(e) {
 		var index = $(this).data('location');
 		deleteMarkers();
-		moveToLocation(index,map);
-		addMarker(index);
+		moveToLocation(index,map3);
+		addMarker(index,map3);
 		e.preventDefault();
 	});
 
+	/*move to location*/
 	function moveToLocation(index, map){
 		var object = localObjects[index];
 		var center = new google.maps.LatLng(mapCenter(index));

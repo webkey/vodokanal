@@ -465,6 +465,10 @@
 		float: left;
 		padding: 30px 0 2000px 30px;
 		margin-bottom: -1970px;
+		width: 220px;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
 	}
 	.contacts__biz:before{
 		left: 100%;
@@ -476,7 +480,7 @@
 	.user-content .contacts__biz li,
 	.user-content .contacts__biz li:first-child{
 		display: block;
-		padding: 0 30px 15px 0;
+		padding: 0 8px 15px 0;
 	}
 
 	.contacts__biz li:after,
@@ -682,10 +686,10 @@
 	.contacts-adr__item {
 		display: inline-block;
 		width: 49.98%;
-		padding: 0 10px 30px 0;
+		padding: 0 0 30px 0;
 	}
 	.contacts-adr__icon {
-		width: 70px;
+		width: 74px;
 	}
 	.contacts-adr__icon i {
 		margin: 11px 0 0;
@@ -1301,6 +1305,7 @@
 		float: none;
 		padding: 30px 0 20px 30px;
 		margin-bottom: 0;
+		width: auto;
 	}
 	.contacts__biz:before{
 		left: -10%;
