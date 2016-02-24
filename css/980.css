@@ -227,8 +227,12 @@ html.nav-opened body.inner-page.mobile-device{ padding-right: 0; }
 .footer-top [class*="grid-col-"]:first-child{
 	padding-top: 0;
 }
-.grid-col-3:before, .grid-col-6:before, .grid-col-3:after, .grid-col-6:after { content: ""; display: table; }
-.grid-col-3:after, .grid-col-6:after { clear: both; }
+.grid-col-3:before,
+.grid-col-6:before,
+.grid-col-3:after,
+.grid-col-6:after { content: ""; display: table; }
+.grid-col-3:after,
+.grid-col-6:after { clear: both; }
 /*grid end*/
 
 /*local map*/
@@ -353,10 +357,17 @@ html.nav-opened body.inner-page.mobile-device{ padding-right: 0; }
 	border-top: none;
 	position: relative;
 }
+.error-404__list,
+.user-content .error-404__list{
+	width: 170px;
+	max-width: 100%;
+	margin: 0 auto;
+}
 .error-404__list li,
 .user-content .error-404__list li {
 	padding: 0 0 12px;
 	display: block;
+	text-align: left;
 }
 .error-404__list li:before,
 .user-content .error-404__list li:before{

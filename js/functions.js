@@ -1425,11 +1425,11 @@ function slickSlidersInit(){
 		}
 		var minWidth = md.mobile() ? 480 : 463;
 		if($(window).width() < minWidth){
+			caseEqualHeight();
 			if(!caseSlider.hasClass('slick-slider')){
 				caseSlider.on('init', function () {
 					caseEqualHeight();
-				});
-				caseSlider.slick({
+				}).slick({
 					slidesToShow: 1,
 					slidesToScroll: 1,
 					infinite: false,
@@ -1438,8 +1438,8 @@ function slickSlidersInit(){
 				});
 			}
 		} else {
+			caseEqualHeight();
 			if(caseSlider.hasClass('slick-slider')){
-				caseEqualHeight();
 				caseSlider.slick('unslick');
 			}
 		}

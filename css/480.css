@@ -70,16 +70,21 @@
 	width: 100%;
 	margin: 0;
 }
-.photo-card__img img{
-	margin: 0 auto;
-}
 .case__photo-card,
 .case__contacts-card{
 	border: none;
+	padding-bottom: 53px;
 }
 .case__photo-card:hover,
 .case__contacts-card:hover{
 	box-shadow: none;
+}
+.contacts-card__switcher,
+.photo-card__switcher{
+	position: absolute;
+	bottom: 29px;
+	left: 30px;
+	right: 30px;
 }
 /*case end*/
 
@@ -114,6 +119,13 @@
 	width: auto;
 	float: none;
 	display: block;
+	overflow: hidden;
+}
+.grid-col-3:before,
+.grid-col-6:before,
+.grid-col-3:after,
+.grid-col-6:after{
+	content: none;
 }
 /*grid end*/
 
@@ -135,6 +147,9 @@
 .footer-top .switcher-col{
 	text-align: center;
 }
+.footer-top:after{
+	content: none;
+}
 /*btn map site end*/
 
 /*footer phones*/
@@ -150,6 +165,8 @@
 	margin: 0;
 	position: relative;
 	left: 50%;
+	width: 265px;
+	max-width: 100%;
 	-webkit-transform: translate(-50%, 0);
 	-ms-transform: translate(-50%, 0);
 	transform: translate(-50%, 0);
@@ -166,22 +183,50 @@
 /*footer top end*/
 
 /*site map*/
-.site-map__box{
-	width: 100%;
+.footer-site-map{
+	border-top: 1px solid #56bdf0;
+	-webkit-transition: border 0.3s;
+	transition: border 0.3s;
+}
+.footer-site-map.active{ border-color: #008acf; }
+.site-map__box{ width: 100%; }
+.site-map{
+	padding: 30px 40px 0;
+	margin-left: 0;
+	margin-right: 0;
 }
 /*site map end*/
 
 /*footer contacts*/
 .footer-contacts{
 	text-align: center;
-	padding: 30px 20px 10px;
+	padding: 0;
 }
 .footer-contacts .grid-col-3,
 .footer-contacts .grid-col-6{
 	float: none;
 	display: block;
 	width: auto;
-	padding: 0 0 20px;
+	padding: 30px 40px 20px;
+	position: relative;
+}
+.footer-contacts > div:after{
+	content: '';
+	position: absolute;
+	display: block;
+	left: -999px;
+	right: -999px;
+	bottom: 0;
+	height: 0;
+	border-top: 1px solid #56bdf0;;
+}
+.footer-contacts > div:last-child:after{
+	content: none;
+}
+.footer-contacts__title{
+	margin: 0 auto;
+	width: 265px;
+	max-width: 100%;
 }
 /*useful links*/
 .useful-links,
@@ -190,11 +235,15 @@
 	position: relative;
 	float: left;
 	left: 50%;
+	width: 265px;
+	max-width: 100%;
+	text-align: left;
 	vertical-align: top;
 	-webkit-transform: translate(-50%, 0);
 	-ms-transform: translate(-50%, 0);
 	transform: translate(-50%, 0);
 }
+.address br{ display: none; }
 .useful-links{
 	white-space: nowrap;
 }

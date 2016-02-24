@@ -116,7 +116,34 @@
 .category-links li,
 .user-content .category-links li{
 	float: none;
-	width: auto;
+	width: 260px;
+	margin: 0 auto;
+}
+.category-links li a{
+	text-align: left;
+	padding: 0 9999px;
+	margin: 0 -9999px;
+	white-space: normal;
+	-ms-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+	position: relative;
+}
+.category-links__icon{
+	display: block;
+	position: absolute;
+	left: 50%;
+	margin-left: -130px;
+	margin-right: 0;
+	top: 50%;
+	-webkit-transform: translate(0, -50%);
+	-ms-transform: translate(0, -50%);
+	transform: translate(0, -50%);
+}
+.category-links__test{
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 18px;
+	letter-spacing: 0.05em;
 }
 /*category links end*/
 /*promo end*/
