@@ -2398,7 +2398,7 @@ $(window).load(function () {
 	navPosition();
 	equalHeightInit();
 	caseEqualHeight();
-	//preloader();
+	preloader();
 });
 
 $(window).resize(function(){
