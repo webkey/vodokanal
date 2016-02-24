@@ -1088,9 +1088,6 @@ body:not(.mobile-device) .slider-typography .slick-next:hover:after{ opacity: 1;
 	margin-top: -10px;
 	border-right: 1px solid #80bcda;
 }
-.btn-search-open:before{
-
-}
 .btn-search-open i{
 	position: absolute;
 	left: 50%;
