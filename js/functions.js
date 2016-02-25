@@ -997,12 +997,15 @@ var clonePhones = function() {
 	$phonesItem.css('width', newWidthItem);
 	$phonesCloneContainer.css('width', newWidthItem);
 
-	var $label = $phonesCloneContainer.find('.phs-clone__btn .phs__label');
-	var $labelText = $label.find('.txt-inner');
+	var $phsInnerMain = $phonesCloneContainer.find('.phs-clone__inner-main');
+	var $phsInnerAlt = $phonesCloneContainer.find('.phs-clone__inner-alt');
+	//var $labelText = $phsInnerMain.find('.txt-inner');
 	if(lengthPhonesListItems == cloneLength + 1){
-		$labelText.text($label.data('text2'));
+		$phsInnerAlt.attr('style','display: inline-block;');
+		$phsInnerMain.attr('style','display: none;');
 	} else {
-		$labelText.text($label.data('text1'));
+		$phsInnerAlt.attr('style','display: none;');
+		$phsInnerMain.attr('style','display: inline-block;');
 	}
 
 	if(lengthPhonesListItems * minWidthItem <= phonesListWidth){

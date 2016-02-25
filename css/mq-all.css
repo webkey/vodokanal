@@ -1552,7 +1552,11 @@
 
 	/*MAIN CONTENT*/
 	/*case*/
-	.case{ padding: 0 30px; }
+	.case{
+		padding: 0 30px;
+		margin: 0 auto;
+		max-width: 241px;
+	}
 	.case__list{
 		padding: 0;
 		margin: 0;

@@ -1369,9 +1369,15 @@ body:not(.mobile-device) .slider-typography .slick-next:hover:after{ opacity: 1;
 	vertical-align: middle;
 	width: 96%;
 }
+.phs-clone__inner-alt{
+	display: none;
+}
 .phs__label{
 	display: block;
 	margin: 0 0 -2px;
+}
+.phones-clone .phs__label{
+	height: 16px;
 }
 .phs__number{
 	font-size: 18px;
@@ -1394,6 +1400,9 @@ body:not(.mobile-device) .slider-typography .slick-next:hover:after{ opacity: 1;
 	position: relative;
 	left: 15px;
 	margin: 2px 0 -2px -10px;
+}
+.phs-clone__btn.phs__item_opener .phs__number:after {
+	margin: 4px 0 -4px -10px;
 }
 .phs__code{
 	font-size: 12px;
@@ -5266,7 +5275,6 @@ body:not(.mobile-device) .gallery__previews .slick-next:hover:after{ opacity: 1;
 	opacity: 0;
 	-webkit-transition: opacity 0.2s 0.6s;
 	transition: opacity 0.2s 0.6s;
-	display: none;
 }
 .site-map.active .site-map-close { opacity: 0.85; }
 .site-map-close>span{
