@@ -33,7 +33,7 @@ body:before{
 	-webkit-transform: translate(-50%, 0);
 	-ms-transform: translate(-50%, 0);
 	transform: translate(-50%, 0);
-	box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+	box-shadow: 0 0 40px rgba(0, 0, 0, 0.18);
 }
 h1, h2, h3, h4, h5, h6{
 	font-weight: 700;
