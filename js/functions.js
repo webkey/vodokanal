@@ -799,13 +799,13 @@ function navPosition(){
 				footerAtBottom($drop.outerHeight(true),self._animateSpeed);
 			});
 
-			var $scrollTo = self.$scrollTo.length ? self.$scrollTo : self.$switcher;
-			$('html, body').animate({ scrollTop: $scrollTo.offset().top }, _animateSpeed);
+			self.scrollPosition();
 		});
 
 		self.$btnClose.on('click', function (e) {
 			e.preventDefault();
 			self.dropClose(self.$switcher);
+			self.scrollPosition();
 		})
 	};
 
@@ -814,6 +814,11 @@ function navPosition(){
 		currentSwitcher.removeClass(self.modifiers.active);
 		self.$disperseDrop.slideUp(self._animateSpeed).removeClass(self.modifiers.active);
 		footerAtBottom(-self.$disperseDrop.outerHeight(true),self._animateSpeed);
+	};
+
+	Disperse.prototype.scrollPosition = function () {
+		var $scrollTo = this.$scrollTo.length ? this.$scrollTo : this.$switcher;
+		$('html, body').animate({ scrollTop: $scrollTo.offset().top }, this._animateSpeed);
 	};
 
 	window.Disperse = Disperse;

@@ -4444,6 +4444,7 @@ body:not(.mobile-device) .gallery__previews .slick-next:hover:after{ opacity: 1;
 	text-align: center;
 	margin: 0 0 15px;
 	color: #fff;
+	white-space: nowrap;
 }
 .glance__unit{
 	font-size: 18px;
@@ -5268,7 +5269,7 @@ body:not(.mobile-device) .gallery__previews .slick-next:hover:after{ opacity: 1;
 }
 .site-map-close {
 	position: absolute;
-	right: 12px;
+	right: 18px;
 	top: 6px;
 	font-size: 13px;
 	line-height: 17px;
