@@ -559,6 +559,9 @@
 	html.nav-opened body.inner-page.mobile-device{ padding-right: 0; }
 	.inner-page .wrapper { padding: 0; }
 	.inner-page .content-wrap .content{ margin-left: 0; }
+	.main>.max-wrap:before{
+		content: none;
+	}
 
 	/*HEADER*/
 	.inner-page .header{
@@ -648,7 +651,6 @@
 	}
 	.inner-page .nav__holder br{ display: none; }
 	/*MAIN NAVIGATION end*/
-
 
 	/*MAIN CONTENT*/
 	/*promo*/

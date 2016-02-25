@@ -1006,6 +1006,7 @@ body:not(.mobile-device) .slider-typography .slick-next:hover:after{ opacity: 1;
 	margin: 0 0 0 320px;
 	width: 100%;
 	pointer-events: none;
+	z-index: 1;
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
 	-webkit-transform: translate(-100%, 0);
 	-ms-transform: translate(-100%, 0);
