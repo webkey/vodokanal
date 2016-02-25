@@ -616,7 +616,12 @@
 	/*logo end*/
 	/*HEADER end*/
 
-	.nav-inner-page{ width: 0; }
+	.nav{
+		height: 100%;
+	}
+	.nav-inner-page{
+		width: 0;
+	}
 	.inner-page .nav__holder{
 		position: fixed;
 		top: 0;
