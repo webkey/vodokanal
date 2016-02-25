@@ -1338,26 +1338,13 @@
 	.contacts-panel__box:first-child,
 	.contacts-panel__box:first-child + .contacts-panel__box {
 		float: none;
-		width: 265px;
-		max-width: 100%;
+		width: auto;
 		margin: 0 auto;
-		padding: 25px 40px;
+		padding: 0 40px 25px;
 		position: relative;
 		-webkit-box-sizing: content-box;
 		-moz-box-sizing: content-box;
 		box-sizing: content-box;
-	}
-	.contacts-panel__box:after,
-	.contacts-panel__box:first-child:after,
-	.contacts-panel__box:first-child + .contacts-panel__box:after {
-		content: '';
-		position: absolute;
-		display: block;
-		left: -999px;
-		right: -999px;
-		top: 0;
-		height: 0;
-		border-top: 1px solid #808080;
 	}
 	.contacts-panel__list, .user-content .contacts-panel__list{
 		padding: 0;
@@ -1634,6 +1621,15 @@
 	.grid-col-3:after,
 	.grid-col-6:after{ content: none; }
 	/*grid end*/
+
+	/*contacts*/
+	.contacts-panel__box,
+	.contacts-panel__box:first-child,
+	.contacts-panel__box:first-child + .contacts-panel__box {
+		width: 265px;
+		max-width: 100%;
+	}
+	/*contacts end*/
 
 	/*footer top*/
 	/*footer logo*/
