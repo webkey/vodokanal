@@ -715,6 +715,9 @@
 	/*grid end*/
 
 	/*local map*/
+	.site-map-close{
+		display: block;
+	}
 	.main-contacts{ height: auto; }
 	.main-map-frame,
 	.contacts-panel_opened .main-map-frame{
