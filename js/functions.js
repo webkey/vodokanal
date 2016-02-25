@@ -25,9 +25,20 @@ function placeholderInit(){
 /*preloader*/
 function preloader(){
 	var $preloader = $('#preloader'),
-			$spinner = $preloader.find('.loader__icon');
+		$spinner = $preloader.find('.loader__icon'),
+			_logoPosTop = $('.logo').offset().top + $('.logo').height()/2,
+			_logoPosLeft = $('.logo').offset().left + $('.logo').width()/2;
+
+	console.log('_logoPosTop: ', _logoPosTop);
+	console.log('_logoPosLeft: ', _logoPosLeft);
+
 	$spinner.fadeOut();
-	$preloader.delay(350).fadeOut('slow');
+	$preloader.addClass('preloader-end')
+	$('#preloader-logo').css({
+		'top': _logoPosTop,
+		'left': _logoPosLeft
+	});
+	$preloader.delay(350).fadeOut(500);
 }
 /*preloader */
 
@@ -1283,6 +1294,7 @@ function slickSlidersInit(){
 			slidesToScroll: 1,
 			autoplay: true,
 			autoplaySpeed: 5000,
+			pauseOnHover: false,
 			speed: 700,
 			infinite: true,
 			dots: true,
@@ -1933,15 +1945,23 @@ function simpleTabInit() {
 			e.preventDefault();
 			var current = $(this);
 			if(current.hasClass(_modifiersActive)){
-				current.next('div').slideUp(animateSpeed).removeClass(_modifiersActive);
+				current.next('div').slideUp(animateSpeed, function () {
+					self.scrollPosition(current);
+				}).removeClass(_modifiersActive);
 				current.removeClass(_modifiersActive);
 				return;
 			}
 			accordionBody.slideUp(animateSpeed).removeClass(_modifiersActive);
 			self.$accordionHeader.removeClass(_modifiersActive);
-			current.next('div').slideDown(animateSpeed).addClass(_modifiersActive);
+			current.next('div').slideDown(animateSpeed, function () {
+				self.scrollPosition(current);
+			}).addClass(_modifiersActive);
 			current.addClass(_modifiersActive);
 		})
+	};
+
+	SimpleAccordion.prototype.scrollPosition = function (scrollElement) {
+		$('html, body').animate({ scrollTop: scrollElement.offset().top }, this._animateSpeed);
 	};
 
 	window.SimpleAccordion = SimpleAccordion;

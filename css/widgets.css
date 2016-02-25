@@ -286,7 +286,7 @@
 	border-radius: 4px;
 }
 .fancybox-opened{
-	z-index: 8030;
+	z-index: 8010;
 }
 .fancybox-opened .fancybox-skin{
 	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
