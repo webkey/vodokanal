@@ -722,6 +722,8 @@
 	/*local map*/
 	.site-map-close{
 		display: block;
+		top: auto;
+		bottom: 6px;
 	}
 	.main-contacts{ height: auto; }
 	.main-map-frame,
