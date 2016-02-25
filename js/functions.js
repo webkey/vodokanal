@@ -874,6 +874,7 @@ function navPosition(){
 			$currentSwitcher.addClass(_modifiersActive);
 			$drop.slideDown(_animateSpeed, function () {
 				$drop.addClass(_modifiersActive);
+				footerAtBottom($drop.outerHeight(true),self._animateSpeed);
 			});
 
 			var $scrollTo = self.$scrollTo.length ? self.$scrollTo : self.$switcher;
@@ -882,7 +883,7 @@ function navPosition(){
 
 		self.$btnClose.on('click', function (e) {
 			e.preventDefault();
-			self.dropClose($(this));
+			self.dropClose(self.$switcher);
 		})
 	};
 
@@ -890,6 +891,7 @@ function navPosition(){
 		var self = this;
 		currentSwitcher.removeClass(self.modifiers.active);
 		self.$disperseDrop.slideUp(self._animateSpeed).removeClass(self.modifiers.active);
+		footerAtBottom(-self.$disperseDrop.outerHeight(true),self._animateSpeed);
 	};
 
 	window.Disperse = Disperse;
@@ -1731,22 +1733,26 @@ function mapMainInit(){
 	}
 
 	/*showed footer map*/
+	var $footerMap = $('.footer-local-map'),
+		animationSpeed = 300;
+
 	$('.road-view').on('click', function () {
 		var $currentBtn = $(this);
-		var $footerMap = $('.footer-local-map');
 		var $footerMapWrap = $footerMap.closest('.footer-map-row');
 		var _activeClass = 'active';
 		if($footerMap.is(':animated')){ return; }
 
-		var animationSpeed = 300;
 		if($footerMap.is(':visible')){
-			$footerMap.stop().slideUp(animationSpeed);
+			$footerMap.stop().slideUp(animationSpeed, function () {
+				footerAtBottom (-$footerMap.outerHeight(true), animationSpeed);
+			});
 			$footerMapWrap.removeClass(_activeClass);
 			return;
 		}
 		$footerMap.stop().slideDown(animationSpeed, function () {
 			google.maps.event.trigger(map2,'resize');
 			moveToLocation(0,map2);
+			footerAtBottom ($footerMap.outerHeight(true), animationSpeed);
 			$footerMapWrap.addClass(_activeClass);
 		});
 
@@ -1754,7 +1760,9 @@ function mapMainInit(){
 	});
 
 	$('.footer-map-close').on('click', function () {
-		$('.footer-local-map').stop().slideUp(300);
+		$footerMap.stop().slideUp(animationSpeed, function () {
+			footerAtBottom (-$footerMap.outerHeight(true), animationSpeed);
+		});
 		$('.footer-map-row').removeClass('active');
 	});
 }
