@@ -1416,13 +1416,13 @@ body:not(.mobile-device) .slider-typography .slick-next:hover:after{ opacity: 1;
 	font-size: 12px;
 	font-style: normal;
 }
-.phs__item_opener .txt-inner{
+.phs__item_opener .phs__number .txt-inner{
 	border-bottom: 1px dotted #fff;
 	-webkit-transition: border 0.3s;
 	transition: border 0.3s;
 }
-.phs__item_opener:hover .txt-inner,
-.show-drop .phs__item_opener .txt-inner{ border-color: transparent; }
+.phs__item_opener:hover .phs__number .txt-inner,
+.show-drop .phs__item_opener .phs__number .txt-inner{ border-color: transparent; }
 .phones-drop{
 	position: absolute;
 	top: -9999px;
