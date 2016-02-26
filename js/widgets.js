@@ -3,6 +3,8 @@
  debouncedresize;
  mobile detect;
  placeholder v2.0.8;
+ TouchSwipe 1.6 //delete
+ Overscroll v1.7.3
  equalHeight v1.0.0;
  slick slider v1.5.9;
  jOdometer;
@@ -50,92 +52,31 @@
 /**TouchSwipe 1.6 end*/
 
 /**
+ * Overscroll v1.7.3
+ *  A jQuery Plugin that emulates the iPhone scrolling experience in a browser.
+ *  http://azoffdesign.com/overscroll
+ *
+ * Intended for use with the latest jQuery
+ *  http://code.jquery.com/jquery-latest.js
+ *
+ * Copyright 2013, Jonathan Azoff
+ * Licensed under the MIT license.
+ *  https://github.com/azoff/overscroll/blob/master/mit.license
+ *
+ * For API documentation, see the README file
+ *  http://azof.fr/pYCzuM
+ *
+ * Date: Tuesday, March 18th 2013
+ */
+!function(e,t,r,o,l,i,n,a,c){"use strict";function s(e,t){t.trigger("overscroll:"+e)}function u(){return(new Date).getTime()}function d(e,t,r){return t.x=e.pageX?e.pageX:e.originalEvent.touches[0].pageX,t.y=e.pageY?e.pageY:e.originalEvent.touches[0].pageY,t.time=u(),t.index=r,t}function h(e,t,r,o){var l,i;e&&e.added&&(e.horizontal&&(l=r*(1+t.container.width/t.container.scrollWidth),i=o+t.thumbs.horizontal.top,e.horizontal.css("margin",i+"px 0 0 "+l+"px")),e.vertical&&(l=r+t.thumbs.vertical.left,i=o*(1+t.container.height/t.container.scrollHeight),e.vertical.css("margin",i+"px 0 0 "+l+"px")))}function g(e,t,r){e&&e.added&&!t.persistThumbs&&(r?(e.vertical&&e.vertical.stop(!0,!0).fadeTo("fast",q.thumbOpacity),e.horizontal&&e.horizontal.stop(!0,!0).fadeTo("fast",q.thumbOpacity)):(e.vertical&&e.vertical.fadeTo("fast",0),e.horizontal&&e.horizontal.fadeTo("fast",0)))}function f(e){var t,r="events",o=a._data?a._data(e[0],r):e.data(r);o&&o.click&&(t=o.click.slice(),e.off("click").one("click",function(){return a.each(t,function(t,r){e.click(r)}),!1}))}function m(e){var t=e.data,r=t.thumbs,o=t.options,l="mouseenter"===e.type;g(r,o,l)}function p(e){var t=e.data;t.flags.dragged||h(t.thumbs,t.sizing,this.scrollLeft,this.scrollTop)}function v(e){e.preventDefault();var t=e.data,r=t.options,o=t.sizing,n=t.thumbs,a=t.wheel,c=t.flags,s=e.originalEvent,u=0,d=0,f=0;c.drifting=!1,s.detail?(u=-s.detail,s.detailX&&(d=-s.detailX),s.detailY&&(f=-s.detailY)):s.wheelDelta&&(u=s.wheelDelta/q.wheelTicks,s.wheelDeltaX&&(d=s.wheelDeltaX/q.wheelTicks),s.wheelDeltaY&&(f=s.wheelDeltaY/q.wheelTicks)),u*=r.wheelDelta,d*=r.wheelDelta,f*=r.wheelDelta,a||(t.target.data(H).dragging=c.dragging=!0,t.wheel=a={timeout:null},g(n,r,!0)),"vertical"===r.wheelDirection?this.scrollTop-=u:"horizontal"===r.wheelDirection?this.scrollLeft-=u:(this.scrollLeft-=d,this.scrollTop-=f||u),a.timeout&&i(a.timeout),h(n,o,this.scrollLeft,this.scrollTop),a.timeout=l(function(){t.target.data(H).dragging=c.dragging=!1,g(n,r,t.wheel=null)},q.thumbTimeout)}function b(e){e.preventDefault();var t=e.data,r=e.originalEvent.touches,o=t.options,l=t.sizing,i=t.thumbs,n=t.position,a=t.flags,c=t.target.get(0);r&&r.length&&(e=r[0]),a.dragged||g(i,o,!0),a.dragged=!0,"vertical"!==o.direction&&(c.scrollLeft-=e.pageX-n.x),"horizontal"!==t.options.direction&&(c.scrollTop-=e.pageY-n.y),d(e,t.position),--t.capture.index<=0&&(t.target.data(H).dragging=a.dragging=!0,d(e,t.capture,q.captureThreshold)),h(i,l,c.scrollLeft,c.scrollTop)}function w(e,t,r){var o,l,i,n,a=t.data,c=a.capture,d=a.options,g=a.sizing,f=a.thumbs,m=u()-c.time,p=e.scrollLeft,v=e.scrollTop,b=q.driftDecay;return m>q.driftTimeout?void r(a):(o=d.scrollDelta*(t.pageX-c.x),l=d.scrollDelta*(t.pageY-c.y),"vertical"!==d.direction&&(p-=o),"horizontal"!==d.direction&&(v-=l),i=o/q.driftSequences,n=l/q.driftSequences,s("driftstart",a.target),a.drifting=!0,void X.animate(function w(){if(a.drifting){var t=1,o=-1;a.drifting=!1,(n>t&&e.scrollTop>v||o>n&&e.scrollTop<v)&&(a.drifting=!0,e.scrollTop-=n,n/=b),(i>t&&e.scrollLeft>p||o>i&&e.scrollLeft<p)&&(a.drifting=!0,e.scrollLeft-=i,i/=b),h(f,g,e.scrollLeft,e.scrollTop),X.animate(w)}else s("driftend",a.target),r(a)}))}function T(e){var t=e.data,r=e.originalEvent.touches,o=t.target,l=t.start=a(e.target),i=t.flags;i.drifting=!1,l.size()&&!l.is(t.options.cancelOn)&&(r||e.preventDefault(),X.overflowScrolling||(o.css("cursor",X.cursor.grabbing),o.data(H).dragging=i.dragging=i.dragged=!1,t.options.dragHold?a(document).on(Y.drag,t,b):o.on(Y.drag,t,b)),t.position=d(e,{}),t.capture=d(e,{},q.captureThreshold),s("dragstart",o))}function D(e){var t=e.data,r=t.target,o=t.options,l=t.flags,i=t.thumbs,n=function(){i&&!o.hoverThumbs&&g(i,o,!1)};o.dragHold?a(document).unbind(Y.drag,b):r.unbind(Y.drag,b),t.position&&(s("dragend",r),l.dragging&&!X.overflowScrolling?w(r.get(0),e,n):n()),l.dragging&&!X.overflowScrolling&&t.start&&t.start.is(e.target)&&f(t.start),r.data(H).dragging=t.start=t.capture=t.position=l.dragged=l.dragging=!1,r.css("cursor",X.cursor.grab)}function y(e){return e=a.extend({},W,e),"multi"!==e.direction&&e.direction!==e.wheelDirection&&(e.wheelDirection=e.direction),e.scrollDelta=o.abs(parseFloat(e.scrollDelta)),e.wheelDelta=o.abs(parseFloat(e.wheelDelta)),e.scrollLeft=e.scrollLeft===c?null:o.abs(parseFloat(e.scrollLeft)),e.scrollTop=e.scrollTop===c?null:o.abs(parseFloat(e.scrollTop)),e}function z(e){var t=a(e),r=t.width(),o=t.height(),l=r>=e.scrollWidth?r:e.scrollWidth,i=o>=e.scrollHeight?o:e.scrollHeight,n=l>r||i>o;return{valid:n,container:{width:r,height:o,scrollWidth:l,scrollHeight:i},thumbs:{horizontal:{width:r*r/l,height:q.thumbThickness,corner:q.thumbThickness/2,left:0,top:o-q.thumbThickness},vertical:{width:q.thumbThickness,height:o*o/i,corner:q.thumbThickness/2,left:r-q.thumbThickness,top:0}}}}function S(e,t){var r,o=a(e),l=o.data(H)||{},i=o.attr("style"),n=t?function(){l=o.data(H),r=l.thumbs,i?o.attr("style",i):o.removeAttr("style"),r&&(r.horizontal&&r.horizontal.remove(),r.vertical&&r.vertical.remove()),o.removeData(H).off(Y.wheel,v).off(Y.start,T).off(Y.end,D).off(Y.ignored,L)}:a.noop;return a.isFunction(l.remover)?l.remover:n}function k(e,t){return{position:"absolute",opacity:t.persistThumbs?q.thumbOpacity:0,"background-color":"black",width:e.width+"px",height:e.height+"px","border-radius":e.corner+"px",margin:e.top+"px 0 0 "+e.left+"px","z-index":t.zIndex}}function x(e,t,r){var o="<div/>",l={},i=!1;return t.container.scrollWidth>0&&"vertical"!==r.direction&&(i=k(t.thumbs.horizontal,r),l.horizontal=a(o).css(i).prependTo(e)),t.container.scrollHeight>0&&"horizontal"!==r.direction&&(i=k(t.thumbs.vertical,r),l.vertical=a(o).css(i).prependTo(e)),l.added=!!i,l}function L(e){e.preventDefault()}function F(e,t){t=y(t);var r,o=z(e),l={options:t,sizing:o,flags:{dragging:!1},remover:S(e,!0)};(o.valid||t.ignoreSizing)&&(l.target=e=a(e).css({position:"relative",cursor:X.cursor.grab}).on(Y.start,l,T).on(Y.end,l,D).on(Y.ignored,l,L),t.dragHold?a(document).on(Y.end,l,D):l.target.on(Y.end,l,D),null!==t.scrollLeft&&e.scrollLeft(t.scrollLeft),null!==t.scrollTop&&e.scrollTop(t.scrollTop),X.overflowScrolling?e.css(X.overflowScrolling,"touch"):e.on(Y.scroll,l,p),t.captureWheel&&e.on(Y.wheel,l,v),t.showThumbs?X.overflowScrolling?e.css("overflow","scroll"):(e.css("overflow","hidden"),l.thumbs=r=x(e,o,t),r.added&&(h(r,o,e.scrollLeft(),e.scrollTop()),t.hoverThumbs&&e.on(Y.hover,l,m))):e.css("overflow","hidden"),e.data(H,l))}function O(e){S(e)()}function C(e){return this.removeOverscroll().each(function(){F(this,e)})}function E(){return this.each(function(){O(this)})}var H="overscroll";null===t.body&&t.documentElement.appendChild(t.createElement("body")),e.getComputedStyle||(e.getComputedStyle=function(e,t){return this.el=e,this.getPropertyValue=function(t){var r=/(\-([a-z]){1})/g;return"float"==t&&(t="styleFloat"),r.test(t)&&(t=t.replace(r,function(){return arguments[2].toUpperCase()})),e.currentStyle[t]?e.currentStyle[t]:null},this});var X={animate:function(){var t=e.requestAnimationFrame||e.webkitRequestAnimationFrame||e.mozRequestAnimationFrame||e.oRequestAnimationFrame||e.msRequestAnimationFrame||function(e){l(e,1e3/60)};return function(r){t.call(e,r)}}(),overflowScrolling:function(){var r="",o=t.createElement("div"),l=["webkit","moz","o","ms"];t.body.appendChild(o),a.each(l,function(e,t){o.style[t+"OverflowScrolling"]="touch"}),o.style.overflowScrolling="touch";var i=e.getComputedStyle(o);return i.overflowScrolling?r="overflow-scrolling":a.each(l,function(e,t){return i[t+"OverflowScrolling"]&&(r="-"+t+"-overflow-scrolling"),!r}),o.parentNode.removeChild(o),r}(),cursor:function(){var r=t.createElement("div"),o=["webkit","moz"],l="https://mail.google.com/mail/images/2/",i={grab:"url("+l+"openhand.cur), move",grabbing:"url("+l+"closedhand.cur), move"};return t.body.appendChild(r),a.each(o,function(t,o){var l,n="-"+o+"-grab";r.style.cursor=n;var a=e.getComputedStyle(r);return l=a.cursor===n,l&&(i={grab:"-"+o+"-grab",grabbing:"-"+o+"-grabbing"}),!l}),r.parentNode.removeChild(r),i}()},Y={drag:"mousemove touchmove",end:"mouseup mouseleave click touchend touchcancel",hover:"mouseenter mouseleave",ignored:"select dragstart drag",scroll:"scroll",start:"mousedown touchstart",wheel:"mousewheel DOMMouseScroll"},q={captureThreshold:3,driftDecay:1.1,driftSequences:22,driftTimeout:100,scrollDelta:15,thumbOpacity:.7,thumbThickness:6,thumbTimeout:400,wheelDelta:20,wheelTicks:120},W={cancelOn:"select,input,textarea",direction:"multi",dragHold:!1,hoverThumbs:!1,scrollDelta:q.scrollDelta,showThumbs:!0,persistThumbs:!1,captureWheel:!0,wheelDelta:q.wheelDelta,wheelDirection:"multi",zIndex:999,ignoreSizing:!1};C.settings=q,a.extend(n,{overscroll:C,removeOverscroll:E})}(window,document,navigator,Math,setTimeout,clearTimeout,jQuery.fn,jQuery);
+/**Overscroll v1.7.3 end*/
+
+/**
  * equalHeight v1.0.0
  *
  * Compressed code of equalHeight v1.0.0:
  */
-(function (e) {
- e.fn.equalHeight = function (t) {
-  var t = e.extend({
-   amount: 2,
-   useParent: false,
-   parent: null,
-   resize: false,
-   ratio: 1,
-   item: null
-  }, t);
-  var n = e(this);
-  n.removeAttr("style");
-  if (t.useParent == true) {
-   if (t.parent == null) {
-    var r = e(this).parent().outerWidth()
-   } else {
-    var r = t.parent.outerWidth()
-   }
-   var i = t.item == null ? e(this).outerWidth(true) : t.item.outerWidth(true);
-   t.amount = parseInt(r / i) * t.ratio;
-   newAmount = t.amount
-  }
-  var s = this;
-  if (t.resize == true && t.useParent == true) {
-   e(window).resize(function () {
-    n.removeAttr("style");
-    if (t.useParent == true) {
-     if (t.parent == null) {
-      var r = s.parent().outerWidth()
-     } else {
-      var r = t.parent.outerWidth()
-     }
-     var i = t.item == null ? s.outerWidth(true) : t.item.outerWidth(true);
-     //var i = s.outerWidth(true);
-     t.amount = parseInt(r / i) * t.ratio;
-    }
-    return s.each(function (r) {
-     if (r % t.amount === 0) {
-      var i = r + 1;
-      var s = e(this);
-      var o = s.index();
-      var u = [];
-      var a = [s];
-      for (var f = 1; f < t.amount; f++) {
-       var l = e(n[r + f]);
-       a.push(l)
-      }
-      for (var c = 0; c < t.amount; c++) {
-       u.push(a[c].outerHeight())
-      }
-      var h = Math.max.apply(Math, u);
-      e(a).each(function (t) {
-       var n = e(this);
-       n.css("height", h)
-      })
-     }
-    })
-   })
-  }
-  return this.each(function (r) {
-   if (r % t.amount === 0) {
-    var i = r + 1;
-    var s = e(this);
-    var o = s.index();
-    var u = [];
-    var a = [s];
-    for (var f = 1; f < t.amount; f++) {
-     var l = e(n[r + f]);
-     a.push(l)
-    }
-    for (var c = 0; c < t.amount; c++) {
-     u.push(a[c].outerHeight())
-    }
-    var h = Math.max.apply(Math, u);
-    e(a).each(function (t) {
-     var n = e(this);
-     n.css("height", h)
-    })
-   }
-  })
- }
-})(jQuery);
+!function(t){t.fn.equalHeight=function(e){var e=t.extend({amount:2,useParent:!1,parent:null,resize:!1,ratio:1,item:null},e),r=t(this);if(r.removeAttr("style"),1==e.useParent){if(null==e.parent)var a=t(this).parent().outerWidth();else var a=e.parent.outerWidth();var n=null==e.item?t(this).outerWidth(!0):e.item.outerWidth(!0);e.amount=parseInt(a/n)*e.ratio,newAmount=e.amount}var i=this;return 1==e.resize&&1==e.useParent&&t(window).resize(function(){if(r.removeAttr("style"),1==e.useParent){if(null==e.parent)var a=i.parent().outerWidth();else var a=e.parent.outerWidth();var n=null==e.item?i.outerWidth(!0):e.item.outerWidth(!0);e.amount=parseInt(a/n)*e.ratio}return i.each(function(a){if(a%e.amount===0){for(var n=t(this),i=(n.index(),[]),u=[n],o=1;o<e.amount;o++){var h=t(r[a+o]);u.push(h)}for(var s=0;s<e.amount;s++)i.push(u[s].outerHeight());var m=Math.max.apply(Math,i);t(u).each(function(e){var r=t(this);r.css("height",m)})}})}),this.each(function(a){if(a%e.amount===0){for(var n=t(this),i=(n.index(),[]),u=[n],o=1;o<e.amount;o++){var h=t(r[a+o]);u.push(h)}for(var s=0;s<e.amount;s++)i.push(u[s].outerHeight());var m=Math.max.apply(Math,i);t(u).each(function(e){var r=t(this);r.css("height",m)})}})}}(jQuery);
 /**--- equalHeight end ---*/
 
 /**

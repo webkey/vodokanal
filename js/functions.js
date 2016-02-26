@@ -29,12 +29,10 @@ function preloader(){
 			_logoPosTop = $('.logo').offset().top + $('.logo').height()/2,
 			_logoPosLeft = $('.logo').offset().left + $('.logo').width()/2;
 
-	console.log('_logoPosTop: ', _logoPosTop);
-	console.log('_logoPosLeft: ', _logoPosLeft);
-
 	$spinner.fadeOut();
-	$preloader.addClass('preloader-end')
+	$preloader.addClass('preloader-end');
 	$('#preloader-logo').css({
+		'position': 'fixed',
 		'top': _logoPosTop,
 		'left': _logoPosLeft
 	});
@@ -2086,6 +2084,7 @@ function footerAtBottom (height, speed) {
 		$activeSlide.addClass(self.modifiers.current);
 		self.indexSlide($activeSlide);
 		self.setInfo($activeSlide);
+		self.swipeSlides();
 	};
 
 	HistorySlider.prototype.disabledArrows = function (slide) {
@@ -2154,25 +2153,18 @@ function footerAtBottom (height, speed) {
 
 
 		if(slideLeftPosition < minPaddingLeft && innerLeftModule !== 0){
-			//console.log(0);
 			slidePrevWidth = slidePrevWidth == null ? 0 : slidePrevWidth;
 			if(innerLeftModule > slidePrevWidth && slidePrevWidth > 0){
-				//console.log(2);
 				scrollOffset = innerLeftModule - slidePrevWidth;
 			} else {
-				//console.log(3);
 				scrollOffset = 0;
 			}
 
-			//self.getLog('scrollOffset',scrollOffset, 'lightblue');
 			self.$sliderInner.css('left', -scrollOffset);
 			return;
 		}
 
 		if(slideLeftPosition < rightEdge || innerLeftModule == innerMaxLeftOffset){
-			//console.log(1);
-			//self.getLog('scrollOffset',scrollOffset, 'green');
-
 			return;
 		}
 
@@ -2181,15 +2173,9 @@ function footerAtBottom (height, speed) {
 				slideNextWidth > innerMaxLeftOffset - innerLeftModule
 				|| slideNextWidth == 0
 		){
-			//console.log(4);
 			scrollOffset = innerMaxLeftOffset;
-
-			//self.getLog('scrollOffset',scrollOffset,'lightred');
 		} else {
-			//console.log(5);
 			scrollOffset = innerLeftModule + slideNextWidth;
-
-			//self.getLog('scrollOffset',scrollOffset,'red');
 		}
 
 		self.$sliderInner.css('left', -scrollOffset);
@@ -2304,6 +2290,18 @@ function footerAtBottom (height, speed) {
 		$(window).on('debouncedresize', function () {
 			self.$infoBox.children().stop().animate({'height': self.$infoBox.find('.info-new:not(.info-old)').outerHeight()});
 		})
+	};
+
+	HistorySlider.prototype.swipeSlides = function () {
+		var self = this;
+
+		self.$sliderInner.overscroll({
+			scrollLeft: 0,
+			scrollTop: 0,
+			direction: "horizontal",
+			captureWheel: false,
+			scrollDelta: 5.7
+		});
 	};
 
 	window.HistorySlider = HistorySlider;
