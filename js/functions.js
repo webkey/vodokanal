@@ -2084,7 +2084,6 @@ function footerAtBottom (height, speed) {
 		$activeSlide.addClass(self.modifiers.current);
 		self.indexSlide($activeSlide);
 		self.setInfo($activeSlide);
-		self.swipeSlides();
 	};
 
 	HistorySlider.prototype.disabledArrows = function (slide) {
@@ -2229,8 +2228,6 @@ function footerAtBottom (height, speed) {
 				opacityStepAfter = opacityValue/($slide.length - indexCurrentSlide - 2);
 
 			for(var i = 0; i < $slide.length; i++){
-				var lastCount = $slide.length - indexCurrentSlide - 1;
-
 				var zIndex;
 				if(i < indexCurrentSlide){
 					zIndex = i;
@@ -2295,7 +2292,7 @@ function footerAtBottom (height, speed) {
 	HistorySlider.prototype.swipeSlides = function () {
 		var self = this;
 
-		self.$sliderInner.overscroll({
+		self.$sliderContainer.overscroll({
 			scrollLeft: 0,
 			scrollTop: 0,
 			direction: "horizontal",
