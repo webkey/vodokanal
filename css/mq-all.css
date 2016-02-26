@@ -178,7 +178,7 @@
 	.nav-main-page .nav__list>li.has-drop>a{
 		padding: 38px 12px 0 12px;
 		text-transform: uppercase;
-		font-weight: bold;
+		font-weight: normal;
 	}
 	.nav-main-page .nav__list>li>a>[class*="depict-icons-angle-"]{
 		position: absolute;
