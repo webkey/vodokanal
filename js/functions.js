@@ -855,7 +855,7 @@ function footerDropInit() {
 }
 /*footer drop end*/
 
-/*phones drop*/
+/*init js drop*/
 function initJsDrops(){
 	var jsDropWrappers = '.phs__item, .phones-clone';
 	var $jsDropWrapper = $(jsDropWrappers);
@@ -884,57 +884,7 @@ function initJsDrops(){
 		$jsDropWrapper.removeClass('show-drop');
 	})
 }
-
-function phonesDrop2(){
-	var $phonesItem = $('.phs__item, .phones-clone');
-	if(!$phonesItem.length){return;}
-
-	var $html = $('html'),
-		$phonesDrop = $('.phones-drop');
-
-	//$phonesDrop.on('click', '.phs__item_opener', function (e) {
-	//	e.stopPropagation();
-	//});
-
-	$phonesItem.on('click', '.phs__item_opener', function (e) {
-		e.preventDefault();
-
-		// Удалить класс позицирования хедера относительно контента
-		// Добавляется в функции mainNavigation
-		if($html.hasClass('position')){
-			$html.removeClass('position');
-		}
-
-		var $phonesOpener = $(this),
-			$currentItem = $phonesOpener.closest($phonesItem);
-
-		if($currentItem.hasClass('show-drop')){
-			closeDropPhones();
-			return;
-		}
-		closeDropPhones();
-		$currentItem.addClass('show-drop');
-
-		e.stopPropagation();
-	});
-
-	$phonesDrop.on('click', function (e) {
-		e.stopPropagation();
-	});
-
-	//$('.lang-active').on('click', function (e) {
-	//	closeDropPhones();
-	//});
-
-	$(document).on('click', function () {
-		closeDropPhones();
-	});
-
-	function closeDropPhones(){
-		$phonesItem.removeClass('show-drop');
-	}
-}
-/*phones drop end*/
+/*init js drop end*/
 
 /*clone phones*/
 $(window).load(function () {
@@ -2351,6 +2301,7 @@ function historySliderInit() {
 }
 
 /*header fixed*/
+
 function headerFixed(){
 	var page = $('.inner-page');
 	if (!page.length) {
@@ -2360,15 +2311,20 @@ function headerFixed(){
 	var minScrollTop = 140;
 
 	var previousScrollTop = $(window).scrollTop();
+	var md = new MobileDetect(window.navigator.userAgent);
 	$(window).on('load scroll resize', function () {
+
 		var currentScrollTop = $(window).scrollTop();
-
 		var reduceLogo = $('.btn-menu').is(':hidden') && currentScrollTop > minScrollTop;
+
 		page.toggleClass('logo-reduce', reduceLogo);
-
 		var showHeaderPanel = currentScrollTop < minScrollTop || currentScrollTop < previousScrollTop;
-		page.toggleClass('top-panel-show', showHeaderPanel);
 
+		if (md.mobile()) {
+			page.find('.header-options').toggle(showHeaderPanel);
+		} else {
+			page.toggleClass('top-panel-show', showHeaderPanel);
+		}
 		previousScrollTop = currentScrollTop;
 	});
 }
