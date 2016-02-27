@@ -856,16 +856,45 @@ function footerDropInit() {
 /*footer drop end*/
 
 /*phones drop*/
-function phonesDrop(){
+function initJsDrops(){
+	var jsDropWrappers = '.phs__item, .phones-clone';
+	var $jsDropWrapper = $(jsDropWrappers);
+
+	$jsDropWrapper.on('click', '.phs__item_opener', function () {
+		var $currentJsDropWrapper = $(this).closest(jsDropWrappers);
+		var currentWasOpened = $currentJsDropWrapper.hasClass('show-drop');
+
+		$jsDropWrapper.removeClass('show-drop');
+		if (!currentWasOpened) {
+			$currentJsDropWrapper.addClass('show-drop');
+
+			if($currentJsDropWrapper.closest('.header').length){
+				$('html').removeClass('position');
+			}
+		}
+		return false;
+	});
+
+	$jsDropWrapper.on('click', '.phones-drop', function (e) {
+		e.stopPropagation();
+		return false;
+	});
+
+	$(document).click(function () {
+		$jsDropWrapper.removeClass('show-drop');
+	})
+}
+
+function phonesDrop2(){
 	var $phonesItem = $('.phs__item, .phones-clone');
 	if(!$phonesItem.length){return;}
 
 	var $html = $('html'),
 		$phonesDrop = $('.phones-drop');
 
-	$phonesDrop.on('click', '.phs__item_opener', function (e) {
-		e.stopPropagation();
-	});
+	//$phonesDrop.on('click', '.phs__item_opener', function (e) {
+	//	e.stopPropagation();
+	//});
 
 	$phonesItem.on('click', '.phs__item_opener', function (e) {
 		e.preventDefault();
@@ -893,9 +922,9 @@ function phonesDrop(){
 		e.stopPropagation();
 	});
 
-	$('.lang-active').on('click', function (e) {
-		closeDropPhones();
-	});
+	//$('.lang-active').on('click', function (e) {
+	//	closeDropPhones();
+	//});
 
 	$(document).on('click', function () {
 		closeDropPhones();
@@ -2480,7 +2509,7 @@ $(document).ready(function () {
 	dropLanguageInit();
 	showFormSearch();
 	footerDropInit();
-	phonesDrop();
+	initJsDrops();
 	phonesPopupInit();
 	cardSwitch();
 	contactsSwitcher();
