@@ -1,3 +1,5 @@
+var resizedByWidth = true;
+
 /**!
  * first child method
  */
@@ -940,8 +942,13 @@ var clonePhones = function() {
 var prevWidth = -1;
 $(window).on('debouncedresize', function () {
 	var currentWidth = $('body').outerWidth();
-	if(currentWidth != prevWidth){
-		clonePhones();
+	//if(currentWidth != prevWidth){
+	//	clonePhones();
+	//	prevWidth = currentWidth;
+	//}
+	resizedByWidth = prevWidth != currentWidth;
+	if(resizedByWidth){
+		$(window).trigger('debouncedresizedByWidth');
 		prevWidth = currentWidth;
 	}
 });
@@ -2317,7 +2324,7 @@ function headerFixed(){
 
 	var previousScrollTop = $(window).scrollTop();
 	var md = new MobileDetect(window.navigator.userAgent);
-	$(window).on('load scroll', function () {
+	$(window).on('load scroll debouncedresizedByWidth', function () {
 
 		var currentScrollTop = $(window).scrollTop();
 		var reduceLogo = $('.btn-menu').is(':hidden') && currentScrollTop > minScrollTop;
@@ -2329,6 +2336,9 @@ function headerFixed(){
 			page.find('.header-options').toggle(showHeaderPanel);
 		} else {
 			page.toggleClass('top-panel-show', showHeaderPanel);
+		}
+		if(showHeaderPanel && resizedByWidth){
+			clonePhones();
 		}
 		previousScrollTop = currentScrollTop;
 	});
