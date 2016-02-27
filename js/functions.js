@@ -2324,36 +2324,28 @@ function historySliderInit() {
 /*header fixed*/
 function headerFixed(){
 	var page = $('.inner-page');
-	if(!page.length){return;}
-
-	var currentScrollTop = window.pageYOffset || document.documentElement.scrollTop,
-		minScrollTop = 140;
-
-	function logoScale(scrollTop){
-		if($('.btn-menu').is(':visible')){return;}
-		if(scrollTop > minScrollTop){
-			page.addClass('logo-reduce');
-		} else {
-			page.removeClass('logo-reduce');
-		}
+	if (!page.length) {
+		return;
 	}
 
-	logoScale(currentScrollTop);
+	var minScrollTop = 140;
 
-	$(window).scroll(function () {
-		var newScrollTop = $(window).scrollTop();
+	var previousScrollTop = $(window).scrollTop();
+	$(window).on('load scroll resize', function () {
+		var currentScrollTop = $(window).scrollTop();
 
-		logoScale(newScrollTop);
+		var reduceLogo = $('.btn-menu').is(':hidden') && currentScrollTop > minScrollTop;
+		page.toggleClass('logo-reduce', reduceLogo);
 
-		if (newScrollTop < minScrollTop || currentScrollTop - newScrollTop > 10) {
-			page.addClass('top-panel-show');
-		} else if (newScrollTop > currentScrollTop) {
-			page.removeClass('top-panel-show');
-		}
-		currentScrollTop = newScrollTop;
+		var showHeaderPanel = currentScrollTop < minScrollTop || currentScrollTop < previousScrollTop;
+		page.toggleClass('top-panel-show', showHeaderPanel);
+
+		previousScrollTop = currentScrollTop;
 	});
 }
 /*header fixed end*/
+
+
 
 /* fancybox initial */
 function fancyboxInit(){
@@ -2493,7 +2485,6 @@ $(document).ready(function () {
 	cardSwitch();
 	contactsSwitcher();
 	slickSlidersInit();
-	mapMainInit();
 	tabsInit();
 	simpleTabInit();
 	accordionInit();
@@ -2515,6 +2506,7 @@ $(window).load(function () {
 	equalHeightInit();
 	caseEqualHeight();
 	preloader();
+	mapMainInit();
 });
 
 $(window).resize(function(){
