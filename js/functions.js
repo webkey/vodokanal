@@ -937,8 +937,13 @@ var clonePhones = function() {
 	}
 };
 
+var prevWidth = -1;
 $(window).on('debouncedresize', function () {
-	clonePhones();
+	var currentWidth = $('body').outerWidth();
+	if(currentWidth != prevWidth){
+		clonePhones();
+		prevWidth = currentWidth;
+	}
 });
 /*clone phones*/
 
