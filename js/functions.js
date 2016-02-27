@@ -893,20 +893,20 @@ $(window).load(function () {
 });
 
 var clonePhones = function() {
-	var $container = $('.phones'),
-			$phonesList = $('.phs__container', $container),
-			$phonesItem = $phonesList.children('.phs__list').children('.phs__item'),
-			$phonesCloneContainer = $('.phones-clone', $container),
-			$phonesCloneList = $('.phones-clone-drop', $phonesCloneContainer),
-			$phonesCloneItems = $phonesCloneList.children('.phs__list').children('.phs__item'),
-			minWidthItem = 200;
+	var $container = $('.phones');
+	var $phonesList = $('.phs__container', $container);
+	var $phonesItem = $phonesList.children('.phs__list').children('.phs__item');
+	var $phonesCloneContainer = $('.phones-clone', $container);
+	var $phonesCloneList = $('.phones-clone-drop', $phonesCloneContainer);
+	var $phonesCloneItems = $phonesCloneList.children('.phs__list').children('.phs__item');
+	var minWidthItem = 200;
 
 	$($phonesItem).removeClass('ph-cloned');
 	$($phonesCloneItems).removeClass('ph-cloned');
 
-	var phonesListWidth = $phonesList.outerWidth(),
-			lengthPhonesListItems = $phonesItem.length,
-			cloneLength = Math.ceil((lengthPhonesListItems * minWidthItem - phonesListWidth)/minWidthItem);
+	var phonesListWidth = $phonesList.outerWidth();
+	var lengthPhonesListItems = $phonesItem.length;
+	var cloneLength = Math.ceil((lengthPhonesListItems * minWidthItem - phonesListWidth)/minWidthItem);
 
 	var newWidthItem = (1/(lengthPhonesListItems - cloneLength)*100)+'%';
 	$phonesItem.css('width', newWidthItem);
@@ -2312,7 +2312,7 @@ function headerFixed(){
 
 	var previousScrollTop = $(window).scrollTop();
 	var md = new MobileDetect(window.navigator.userAgent);
-	$(window).on('load scroll resize', function () {
+	$(window).on('load scroll', function () {
 
 		var currentScrollTop = $(window).scrollTop();
 		var reduceLogo = $('.btn-menu').is(':hidden') && currentScrollTop > minScrollTop;
