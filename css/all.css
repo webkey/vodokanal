@@ -1470,7 +1470,7 @@ body:not(.mobile-device) .slider-typography .slick-next:hover:after{ opacity: 1;
 	background: #00bfff;
 	display: none;
 }
-.show-clone .phones-clone{ display: block; }
+.phones-clone.show-clone{ display: block; }
 .phones-clone-drop > .phs__list > .phs__item{ display: none; }
 .phones-clone-drop > .phs__list > .phs__item.ph-cloned{ display: block; }
 .phones-clone .phs__item{

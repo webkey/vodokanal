@@ -1,4 +1,16 @@
+/*resized only width*/
 var resizedByWidth = true;
+
+var prevWidth = -1;
+$(window).resize(function () {
+	var currentWidth = $('body').outerWidth();
+	resizedByWidth = prevWidth != currentWidth;
+	if(resizedByWidth){
+		$(window).trigger('resizedByWidth');
+		prevWidth = currentWidth;
+	}
+});
+/*resized only width end*/
 
 /**!
  * first child method
@@ -888,36 +900,32 @@ function initJsDrops(){
 }
 /*init js drop end*/
 
-/*clone phones*/
-$(window).load(function () {
+/*clone and move phones*/
+function clonePhones() {
 	$('.phs__list').clone().appendTo('#phones-list-clone');
-	clonePhones();
-});
+}
 
-var clonePhones = function() {
-	var $container = $('.phones');
-	var $phonesList = $('.phs__container', $container);
-	var $phonesItem = $phonesList.children('.phs__list').children('.phs__item');
-	var $phonesCloneContainer = $('.phones-clone', $container);
-	var $phonesCloneList = $('.phones-clone-drop', $phonesCloneContainer);
-	var $phonesCloneItems = $phonesCloneList.children('.phs__list').children('.phs__item');
+function movePhones() {
+	var $phonesCloneContainer = $('.phones-clone');
 	var minWidthItem = 200;
 
-	$($phonesItem).removeClass('ph-cloned');
-	$($phonesCloneItems).removeClass('ph-cloned');
+	var $phonesList = $('.phs__container');
+	var $phonesItem = $phonesList.children('.phs__list').children('.phs__item');
 
 	var phonesListWidth = $phonesList.outerWidth();
-	var lengthPhonesListItems = $phonesItem.length;
-	var cloneLength = Math.ceil((lengthPhonesListItems * minWidthItem - phonesListWidth)/minWidthItem);
+	var lengthPhonesItems = $phonesItem.length;
+	// Количество ячеек, которые нужно "переместить" в дроп "все номера"
+	var cloneLength = Math.abs(Math.ceil((lengthPhonesItems * minWidthItem - phonesListWidth)/minWidthItem));
 
-	var newWidthItem = (1/(lengthPhonesListItems - cloneLength)*100)+'%';
+	// Изменяем ширину ячеек в зависимости от их количества
+	var newWidthItem = (1/(lengthPhonesItems - cloneLength)*100)+'%';
 	$phonesItem.css('width', newWidthItem);
 	$phonesCloneContainer.css('width', newWidthItem);
 
+	// Изменяем текст кнопки "все номера" в зависимости от того, она одна в хедере, или нет.
 	var $phsInnerMain = $phonesCloneContainer.find('.phs-clone__inner-main');
 	var $phsInnerAlt = $phonesCloneContainer.find('.phs-clone__inner-alt');
-	//var $labelText = $phsInnerMain.find('.txt-inner');
-	if(lengthPhonesListItems == cloneLength + 1){
+	if(lengthPhonesItems == cloneLength + 1){
 		$phsInnerAlt.attr('style','display: inline-block;');
 		$phsInnerMain.attr('style','display: none;');
 	} else {
@@ -925,34 +933,18 @@ var clonePhones = function() {
 		$phsInnerMain.attr('style','display: inline-block;');
 	}
 
-	if(lengthPhonesListItems * minWidthItem <= phonesListWidth){
-		$container.removeClass('show-clone');
-		return;
-	}
+	$phonesCloneContainer.toggleClass('show-clone', lengthPhonesItems * minWidthItem > phonesListWidth);
 
-	$container.addClass('show-clone');
+	$('.phs__item').removeClass('ph-cloned');
+	var $phonesCloneItems = $('.phones-clone-drop', $phonesCloneContainer).children('.phs__list').children('.phs__item');
 
-	for(var i = 0; i <= cloneLength; i++){
-		var indexCloned = lengthPhonesListItems - i - 1;
+	for(var i = 0; i < cloneLength; i++){
+		var indexCloned = lengthPhonesItems - i - 1;
 		$($phonesItem[indexCloned]).addClass('ph-cloned');
 		$($phonesCloneItems[indexCloned]).addClass('ph-cloned');
 	}
-};
-
-var prevWidth = -1;
-$(window).on('debouncedresize', function () {
-	var currentWidth = $('body').outerWidth();
-	//if(currentWidth != prevWidth){
-	//	clonePhones();
-	//	prevWidth = currentWidth;
-	//}
-	resizedByWidth = prevWidth != currentWidth;
-	if(resizedByWidth){
-		$(window).trigger('debouncedresizedByWidth');
-		prevWidth = currentWidth;
-	}
-});
-/*clone phones*/
+}
+/*clone and move phones*/
 
 /*phones popup*/
 (function ($) {
@@ -2317,6 +2309,9 @@ function historySliderInit() {
 function headerFixed(){
 	var page = $('.inner-page');
 	if (!page.length) {
+		$(window).on('load resizedByWidth', function () {
+			movePhones();
+		});
 		return;
 	}
 
@@ -2324,7 +2319,7 @@ function headerFixed(){
 
 	var previousScrollTop = $(window).scrollTop();
 	var md = new MobileDetect(window.navigator.userAgent);
-	$(window).on('load scroll debouncedresizedByWidth', function () {
+	$(window).on('load scroll resizedByWidth', function () {
 
 		var currentScrollTop = $(window).scrollTop();
 		var reduceLogo = $('.btn-menu').is(':hidden') && currentScrollTop > minScrollTop;
@@ -2338,7 +2333,7 @@ function headerFixed(){
 			page.toggleClass('top-panel-show', showHeaderPanel);
 		}
 		if(showHeaderPanel && resizedByWidth){
-			clonePhones();
+			movePhones();
 		}
 		previousScrollTop = currentScrollTop;
 	});
@@ -2489,8 +2484,9 @@ $(document).ready(function () {
 	simpleTabInit();
 	accordionInit();
 	historySliderInit();
-	headerFixed();
 	fancyboxInit();
+	clonePhones();
+	headerFixed();
 });
 
 $(window).load(function () {
