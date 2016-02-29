@@ -592,109 +592,184 @@ function navPosition(){
 		var floatingElementHeight = $floatingElement.outerHeight(true);
 		var floatingElementPosition = $floatingElement.offset().top;
 		var floatingElementBottomPosition = floatingElementHeight + floatingElementPosition;
+		console.log('floatingElementPosition: ', floatingElementPosition);
 
 		var footerPosition = $('.footer').offset().top;
 
 		var topSpace = scrollPositionCurrent > 140 ? 60 : 200;
 
-		if(floatingElementHeight < windowHeight && !footerTouch ){
+		var floatingElementRelativePosition = floatingElementPosition - topSpace;
+		console.log('floatingElementPosition - topSpace: ', floatingElementRelativePosition);
+
+		var delta = 0;
+
+		if(!footerTouch && footerPosition <= floatingElementBottomPosition ){
+			console.log(1);
+			footerTouch = true;
+		}
+
+		if(!footerTouch && floatingElementHeight < windowHeight ){ // done
+			console.log(2);
 			$floatingElement.css({
 				'position': 'fixed',
-				'top': topSpace,
-				'bottom': 'auto'
+				//'bottom': 'auto',
+				'top': topSpace
 			});
 			bottomFixed = false;
 			topFixed = true;
 		}
 
+		//if (floatingElementBottomPosition >= windowBottomPosition) {
 		if (floatingElementHeight >= windowHeight) {
+			console.log('nav > window');
 			if (scrollPositionCurrent > scrollPositionPrevious) { // Скроллим вниз
-				if (!bottomFixed && floatingElementBottomPosition < windowBottomPosition) {
+				if (!bottomFixed && floatingElementBottomPosition <= windowBottomPosition) { // done
+					console.log(3.1);
 					$floatingElement.css({
-						'position': 'fixed', 'top': 'auto', 'bottom': 0
+						'position': 'fixed',
+						//'bottom': 'auto',
+						'top': windowHeight - floatingElementHeight
 					});
 					bottomFixed = true;
 					footerTouch = false;
-				} else if (!footerTouch && topFixed && floatingElementBottomPosition > windowBottomPosition) {
+				} else if (!footerTouch && topFixed && floatingElementBottomPosition > windowBottomPosition) { //done
+					console.log(3.2);
 					$floatingElement.css({
-						'position': 'relative', 'bottom': 'auto', 'top': floatingElementPosition - topSpace
+						'position': 'relative',
+						//'bottom': 'auto',
+						'top': floatingElementRelativePosition
 					});
 					topFixed = false;
-				} else if (!footerTouch && footerPosition <= floatingElementBottomPosition) {
-					var delta = floatingElementBottomPosition - footerPosition;
+				} else if (footerPosition <= floatingElementBottomPosition) {
+					console.log(3.3);
+					delta = floatingElementBottomPosition - footerPosition;
 					$floatingElement.css({
-						'position': 'relative', 'bottom': 'auto', 'top': floatingElementPosition - topSpace - delta
+						'position': 'relative',
+						//'bottom': 'auto',
+						'top': floatingElementRelativePosition - delta
 					});
 					footerTouch = true;
 				}
 			} else if (scrollPositionCurrent < scrollPositionPrevious) { // Скроллим вверх
 				if (!footerTouch && bottomFixed) {
+					console.log(4.1);
 					$floatingElement.css({
-						'position': 'relative', 'bottom': 'auto', 'top': scrollPositionCurrent + windowHeight - floatingElementHeight - topSpace
+						'position': 'relative',
+						//'bottom': 'auto',
+						'top': scrollPositionCurrent + windowHeight - floatingElementHeight - topSpace
 					});
 					bottomFixed = false;
-				} else if (scrollPositionCurrent < floatingElementPosition - topSpace) {
+				} else if (scrollPositionCurrent < floatingElementRelativePosition) { //done
+					console.log(4.2);
 					$floatingElement.css({
-						'position': 'fixed', 'top': topSpace, 'bottom': 'auto'
+						'position': 'fixed',
+						//'bottom': 'auto',
+						'top': topSpace
 					});
 					bottomFixed = false;
 					topFixed = true;
 					footerTouch = false;
 				} else if (scrollPositionCurrent < 140) {
+					console.log(4.3);
 					$floatingElement.css({
-						'position': 'relative', 'top': 0, 'bottom': 'auto'
+						'position': 'relative',
+						//'bottom': 'auto',
+						'top': 0
 					});
 					bottomFixed = false;
 					topFixed = true;
 					footerTouch = false;
 				}
 			} else { // До начала скролла
-				if (windowBottomPosition < floatingElementHeight) {
+				if(!footerTouch && floatingElementHeight < windowHeight ){ // done
+					console.log(2);
 					$floatingElement.css({
-						'position': 'relative', 'bottom': 'auto', 'top': scrollPositionCurrent
+						'position': 'fixed',
+						//'bottom': 'auto',
+						'top': topSpace
+					});
+					bottomFixed = false;
+					topFixed = true;
+				} else
+				if (!topFixed && !bottomFixed){
+					console.log(5.1);
+					$floatingElement.css({
+						'position': 'relative',
+						//'bottom': 'auto',
+						'top': 0
+					});
+				} else if (windowBottomPosition < floatingElementHeight) {
+					console.log(5.2);
+					$floatingElement.css({
+						'position': 'relative',
+						//'bottom': 'auto',
+						'top': scrollPositionCurrent
 					});
 					topFixed = true;
-				} else {
+				} else { // done
+					console.log(5.3);
 					$floatingElement.css({
-						'position': 'fixed', 'top': 'auto', 'bottom': 0
+						'position': 'fixed',
+						//'bottom': 'auto',
+						'top': windowHeight - floatingElementHeight
 					});
-					//topFixed = false;
-					//bottomFixed = true;
+					topFixed = false;
+					bottomFixed = true;
 				}
 			}
 		} else {
+			console.log('nav < window');
 			if (scrollPositionCurrent > scrollPositionPrevious) { // Скроллим вниз
-				if (!footerTouch && footerPosition <= floatingElementBottomPosition) {
+				if (footerPosition <= floatingElementBottomPosition) {
+					console.log(6.1);
 					delta = floatingElementBottomPosition - footerPosition;
 					$floatingElement.css({
 						'position': 'relative',
-						'bottom': 'auto',
-						'top': floatingElementPosition - topSpace - delta
+						//'bottom': 'auto',
+						'top': floatingElementRelativePosition - delta
 					});
 					footerTouch = true;
 				}
 			} else if (scrollPositionCurrent < scrollPositionPrevious) { // Скроллим вверх
-				if (scrollPositionCurrent < floatingElementPosition - topSpace) {
-					$floatingElement.css({
-						'position': 'fixed', 'top': topSpace, 'bottom': 'auto'
+				console.log(7.1);
+				if (scrollPositionCurrent < floatingElementRelativePosition) {
+					$floatingElement.css({ // done
+						'position': 'fixed',
+						//'bottom': 'auto',
+						'top': topSpace
 					});
 					bottomFixed = false;
 					topFixed = true;
 					footerTouch = false;
 				} else if (scrollPositionCurrent < 140) {
+					console.log(7.2);
 					$floatingElement.css({
-						'position': 'relative', 'top': 0, 'bottom': 'auto'
+						'position': 'relative',
+						//'bottom': 'auto',
+						'top': 0
 					});
 					bottomFixed = false;
 					topFixed = true;
 					footerTouch = false;
 				}
 			} else { // До начала скролла
-				$floatingElement.css({
-					'position': 'fixed', 'top': topSpace, 'bottom': 'auto'
-				});
-				topFixed = true;
-				bottomFixed = false;
+				if (!topFixed && !bottomFixed){
+					console.log(8.1);
+					$floatingElement.css({
+						'position': 'relative',
+						//'bottom': 'auto',
+						'top': 0
+					});
+				} else {
+					console.log(8.2);
+					$floatingElement.css({ // done
+						'position': 'fixed',
+						//'bottom': 'auto',
+						'top': topSpace
+					});
+					topFixed = true;
+					bottomFixed = false;
+				}
 			}
 		}
 		scrollPositionPrevious = scrollPositionCurrent;
