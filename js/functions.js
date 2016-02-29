@@ -1,12 +1,12 @@
 /*resized only width*/
-var resizedByWidth = true;
+var resizeByWidth = true;
 
 var prevWidth = -1;
 $(window).resize(function () {
 	var currentWidth = $('body').outerWidth();
-	resizedByWidth = prevWidth != currentWidth;
-	if(resizedByWidth){
-		$(window).trigger('resizedByWidth');
+	resizeByWidth = prevWidth != currentWidth;
+	if(resizeByWidth){
+		$(window).trigger('resizeByWidth');
 		prevWidth = currentWidth;
 	}
 });
@@ -336,8 +336,7 @@ function hoverClassInit(){
 		var $currentElements = self.$navMenuItem.filter('.'+self.modifiers.current+'');
 		$.each($currentElements, function () {
 			$(this).firstChildElement(self.options.navDropMenu).slideDown(0, function () {
-				console.log('after close current item:');
-				navPosition();
+				$(window).trigger('openCurrentNavItem');
 			});
 		});
 	};
@@ -367,9 +366,7 @@ function hoverClassInit(){
 
 			if (current.siblings(collapsibleElement).is(':visible')){
 				currentAccordionItem.removeClass(modifiers.active).find(collapsibleElement).slideUp(animateSpeed, function () {
-					// Запуск внешней функции. Пересчет позиционирования навигации.
-					console.log(11111);
-					navPosition();
+					//$(window).trigger('openCurrentNavItem');
 				});
 				currentAccordionItem.removeClass(modifiers.current);
 				currentAccordionItem.find(anyAccordionItem).removeClass(modifiers.active).removeClass(modifiers.current);
@@ -382,9 +379,7 @@ function hoverClassInit(){
 
 			currentAccordionItem.addClass(modifiers.active);
 			current.siblings(collapsibleElement).slideDown(animateSpeed, function () {
-				// Запуск внешней функции. Пересчет позиционирования навигации.
-				console.log(22222);
-				navPosition();
+				//$(window).trigger('openCurrentNavItem');
 			});
 		})
 	};
@@ -525,224 +520,184 @@ function mainNavigationInit(){
 }
 /*main navigation end*/
 
-/*clone nav items*/
-$(window).load(function () {
-	if($('.nav-main-page').length){
+/*clone and collapse nav items*/
+function cloneNavItem() {
+	if ($('.nav-main-page').length) {
 		$('.nav__list').clone().appendTo('#nav-list-clone');
 	}
-	cloneNavItem();
-});
+}
 
-$(window).on('debouncedresize', function () {
-	cloneNavItem();
-});
-
-var cloneNavItem = function() {
+var collapseNavItem = function() {
 	var $navContainer = $('.nav-main-page');
 	if(!$navContainer.length){return;}
 
-	var $nav = $('.nav__holder', $navContainer),
+	$(window).on('load resizeByWidth', function () {
+		var $nav = $('.nav__holder', $navContainer),
 			$navListItems = $nav.children('.nav__list').children('li'),
 			$navCloneListItems = $('.nav-cloned__drop').children('.nav__list').children('li'),
 			minWidth = 130;
 
-	$($navListItems).removeClass('nc-clone');
-	$($navCloneListItems).removeClass('nc-clone');
+		$($navListItems).removeClass('nc-clone');
+		$($navCloneListItems).removeClass('nc-clone');
 
-	var widthContainer = $nav.outerWidth(),
+		var widthContainer = $nav.outerWidth(),
 			lengthNavListItems = $navListItems.length,
 			hideLength = (lengthNavListItems * minWidth - widthContainer)/minWidth,
 			hideLengthCeil = Math.ceil(hideLength);
 
-	if(lengthNavListItems * minWidth <= widthContainer ){
-		$navContainer.removeClass('show-clone');
-		return;
-	}
+		if(lengthNavListItems * minWidth <= widthContainer ){
+			$navContainer.removeClass('show-clone');
+			return;
+		}
 
-	$navContainer.addClass('show-clone');
+		$navContainer.addClass('show-clone');
 
-	for(var i = 0; i < hideLengthCeil + 1; i++){
-		var indexCloned = lengthNavListItems - i - 1;
-		$($navListItems[indexCloned]).addClass('nc-clone');
-		$($navCloneListItems[indexCloned]).addClass('nc-clone');
-	}
+		for(var i = 0; i < hideLengthCeil + 1; i++){
+			var indexCloned = lengthNavListItems - i - 1;
+			$($navListItems[indexCloned]).addClass('nc-clone');
+			$($navCloneListItems[indexCloned]).addClass('nc-clone');
+		}
+	})
 };
-/*cloned nav items end*/
+/*clone and collapse nav items end*/
 
 /*nav position*/
 function navPosition(){
-	var $navHolder = $('.nav-inner-page__holder');
-	if(!$navHolder.length){return;}
 
-	var $window = $(window),
-		$logo = $('.logo'),
-		logoHeight = $logo.height(),
-		logoHeightNew,
-		$navContainer = $('nav.nav'),
-		navContainerTop = $navContainer.offset().top,
-		navHolderOffsetTop = $navHolder.offset().top,
-		navHolderHeight,
-		$footer = $('footer.footer'),
-		footerOffsetTop = $footer.offset().top,
-		windowWidth,
-		windowHeight = $window.height(),
-		windowScrollTop,
-		contentHeight,
-		lastWindowPos = 0,
-		topOffset = 0,
-		top = false,
-		bottom = false,
-		footerVisible = false,
-		resizeTimer;
+	if($('.inner-page').length){
+		var topFixed = false;
+		var bottomFixed = false;
+		var footerTouch = false;
+		var scrollPositionPrevious = $(window).scrollTop();
 
-	$window.on('scroll', scroll).on('resize', function () {
-		clearTimeout(resizeTimer);
-		resizeTimer = setTimeout(resizeAndScroll, 300);
-	});
-
-	resizeAndScroll();
-
-	function resizeAndScroll() {
-		resize();
-		scroll();
+		if($('.nav-inner-page').has('.current').length){
+			$(window).on('openCurrentNavItem scroll', function () {
+				navRelativePosition();
+			})
+		} else {
+			$(window).on('load scroll', function () {
+				navRelativePosition();
+			})
+		}
 	}
 
-	function scroll() {
+	function navRelativePosition() {
 		if($('.btn-menu').is(':visible')){return;}
 
-		navHolderHeight = $navHolder.outerHeight();
-		navHolderOffsetTop = $navHolder.offset().top;
-		navContainerTop = $navContainer.offset().top;
-		footerOffsetTop = $footer.offset().top;     console.log('AFTER SCROLL: navHolderHeight = ' + navHolderHeight + ', navHolderOffsetTop = ' + navHolderOffsetTop +', navContainerTop = ' + navContainerTop + ', footerOffsetTop = ' + footerOffsetTop);
+		var windowHeight = $(window).outerHeight();
+		var scrollPositionCurrent = $(window).scrollTop();
+		var windowBottomPosition = scrollPositionCurrent + windowHeight;
 
-		logoHeightNew = $logo.height();     console.log('logoHeightNew = ', logoHeightNew);
+		var $floatingElement = $('.nav-inner-page__holder');
+		var floatingElementHeight = $floatingElement.outerHeight(true);
+		var floatingElementPosition = $floatingElement.offset().top;
+		var floatingElementBottomPosition = floatingElementHeight + floatingElementPosition;
 
-		//var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-		//console.log( "Текущая прокрутка: ", scrollTop );
-		windowScrollTop = $window.scrollTop();
-		var windowsHeightNew = footerOffsetTop - windowScrollTop; console.log('windowHeight = ' + windowHeight + ', windowScrollTop = ' + windowScrollTop + ', windowsHeightNew = ' + windowsHeightNew);
+		var footerPosition = $('.footer').offset().top;
 
-		var topOffset = windowScrollTop < navHolderOffsetTop ? navHolderOffsetTop - windowScrollTop : 0;
-		console.log('Ω topOffset before: ', topOffset);
+		var topSpace = scrollPositionCurrent > 140 ? 60 : 200;
 
-		//if (windowHeight < windowsHeightNew) { // Футер находится вне окна
-		//if (windowHeight < windowsHeightNew || footerOffsetTop > navHolderOffsetTop + navHolderHeight) { // Пока футер находится вне окна, но не соприкасается с навигацией
-		if($('.content').outerHeight(true) - 140 < navHolderHeight){
-			console.log('•0•');
-			$navHolder.attr('style', 'position: relative; top: 0;');
-			return;
+		if(floatingElementHeight < windowHeight && !footerTouch ){
+			$floatingElement.css({
+				'position': 'fixed',
+				'top': topSpace,
+				'bottom': 'auto'
+			});
+			bottomFixed = false;
+			topFixed = true;
 		}
-		if (
-			windowHeight < windowsHeightNew || // Пока футер находится вне окна или
-			navHolderHeight + topOffset < windowsHeightNew || // Футер не соприкасается с навигацией
-			navHolderHeight + logoHeightNew < windowsHeightNew // Общая высота навигации и лого меньше, чем высота контента (до футера)
-		){
-			console.log('•footer HIDDEN/DO NOT TOUCH SIDEBAR•');
 
-			if (topOffset + navHolderHeight > windowHeight) { // Условие 1. Если общая высота занимаемая навигацией больше высоты окна.
-				console.log('•1•');
-
-				if (windowScrollTop > lastWindowPos) { // Условие 1.1. Скроллим вниз
-					console.log('scroll ▼ •1.1•');
-
-					if (top && windowHeight + windowScrollTop > navHolderHeight + navHolderOffsetTop) { // Условие 1.1.1. Навигация зафиксированна вверху
-						//                И общая высота видимой части окна с проскролленой
-						//                Больше, чем общая высота навигации и ее позиция
-						topOffset = navHolderOffsetTop - navContainerTop;
-						console.log('Ω topOffset after: ', topOffset);
-						console.log('•1.1.1• ⇒ position: relative; top: ' + topOffset + 'px;');
-
-						top = false;
-
-						$navHolder.attr('style', 'position: relative; top: ' + topOffset + 'px;');
-
-					} else if (!bottom && windowScrollTop + windowHeight > navHolderHeight + navHolderOffsetTop) { // Условие 1.1.2. Зафиксированна внизу
-						//                И общая высота видимой части окна с проскролленой
-						//                Больше, чем общая высота навигации и ее позиция
-						console.log('•1.1.2• ⇒ position: fixed; bottom: 0; top: auto;');
-
-						bottom = true;
-						$navHolder.attr('style', 'position: fixed; bottom: 0; top: auto;');
-					} else if (top && windowHeight + windowScrollTop < navHolderHeight + navHolderOffsetTop) {// Условие 1.1.2. Зафиксированна внизу
-						//                И общая высота видимой части окна с проскролленой
-						//                Меньше, чем общая высота навигации и ее позиция
-						topOffset = navHolderOffsetTop - navContainerTop;
-						console.log('•1.1.3• ⇒ position: relative; top: ' + topOffset + 'px;');
-						top = bottom = false;
-
-						$navHolder.attr('style', 'position: relative; top: ' + topOffset + 'px;');
-					}
-					console.log('•1.1.4• ⇒ position: relative; top: ' + topOffset + 'px;');
-				} else if (windowScrollTop < lastWindowPos) { // Условие 1.2. Скроллим вверх
-					console.log('scroll ▲ •1.2•');
-
-					if (bottom) { // Условие 1.2.1. Навигация зафиксированна внизу
-						console.log('Ω lastWindowPos - windowScrollTop: ', lastWindowPos - windowScrollTop);
-						topOffset = navHolderOffsetTop - navContainerTop + lastWindowPos - windowScrollTop;
-						console.log('Ω topOffset: ', topOffset);
-						console.log('•1.2.1• ⇒ position: relative; top: ' + topOffset + 'px;');
-
-						bottom = false;
-
-						$navHolder.attr('style', 'position: relative; top: ' + topOffset + 'px;');
-					} else if (!top && navHolderOffsetTop - windowScrollTop > logoHeightNew) { // Условие 1.2.2. Навигация не зафиксированна вверх
-						//               Не зафиксированна внизу
-						console.log('•1.2.2• ⇒ position: fixed;');
-
-						top = true;
-						$navHolder.attr('style', 'position: fixed;');
-					} else if (navHolderOffsetTop == navContainerTop) { // Условие 1.2.3.
-						console.log('•1.2.3• ⇒ position: relative; top: 0');
-
-						top = false;
-						$navHolder.attr('style', 'position: relative; top: 0');
-					}
-				} else { // Условие 1.3. При загрузке страницы, до начала скролла
-					topOffset = navHolderOffsetTop - navContainerTop;
-					console.log('scroll ▲▼ •1.3• ⇒ position: relative; top: ' + topOffset + 'px;');
-
-					top = bottom = false;
-					$navHolder.attr('style', 'position: relative; top: '+ topOffset +'px;');
+		if (floatingElementHeight >= windowHeight) {
+			if (scrollPositionCurrent > scrollPositionPrevious) { // Скроллим вниз
+				if (!bottomFixed && floatingElementBottomPosition < windowBottomPosition) {
+					$floatingElement.css({
+						'position': 'fixed', 'top': 'auto', 'bottom': 0
+					});
+					bottomFixed = true;
+					footerTouch = false;
+				} else if (!footerTouch && topFixed && floatingElementBottomPosition > windowBottomPosition) {
+					$floatingElement.css({
+						'position': 'relative', 'bottom': 'auto', 'top': floatingElementPosition - topSpace
+					});
+					topFixed = false;
+				} else if (!footerTouch && footerPosition <= floatingElementBottomPosition) {
+					var delta = floatingElementBottomPosition - footerPosition;
+					$floatingElement.css({
+						'position': 'relative', 'bottom': 'auto', 'top': floatingElementPosition - topSpace - delta
+					});
+					footerTouch = true;
 				}
-
-			} else if ( // Условие 2.
-				!top && // Навигация не зафиксированна вверху
-				logoHeightNew + navHolderHeight > windowHeight //  и Общая высота занимаемая навигацией меньше высоты окна, но высота навигации в сумме с лого больше высоты окна
-			) {
-				console.log('•2• ⇒ position: relative; top: 0;');
-
-				bottom = true;
-				$navHolder.attr('style', 'position: relative; top: 0;');
-			//} else if (
-			//	!top // Условие 3. Если общая высота навигации или высота навигации в сумме с лого меньше высоты окна и навигация не зафиксированна вверху.
-			//) {
-			} else {
-				console.log('•3• ⇒ position: fixed;');
-
-				top = true;
-				bottom = false;
-				$navHolder.attr('style', 'position: fixed;');
+			} else if (scrollPositionCurrent < scrollPositionPrevious) { // Скроллим вверх
+				if (!footerTouch && bottomFixed) {
+					$floatingElement.css({
+						'position': 'relative', 'bottom': 'auto', 'top': scrollPositionCurrent + windowHeight - floatingElementHeight - topSpace
+					});
+					bottomFixed = false;
+				} else if (scrollPositionCurrent < floatingElementPosition - topSpace) {
+					$floatingElement.css({
+						'position': 'fixed', 'top': topSpace, 'bottom': 'auto'
+					});
+					bottomFixed = false;
+					topFixed = true;
+					footerTouch = false;
+				} else if (scrollPositionCurrent < 140) {
+					$floatingElement.css({
+						'position': 'relative', 'top': 0, 'bottom': 'auto'
+					});
+					bottomFixed = false;
+					topFixed = true;
+					footerTouch = false;
+				}
+			} else { // До начала скролла
+				if (windowBottomPosition < floatingElementHeight) {
+					$floatingElement.css({
+						'position': 'relative', 'bottom': 'auto', 'top': scrollPositionCurrent
+					});
+					topFixed = true;
+				} else {
+					$floatingElement.css({
+						'position': 'fixed', 'top': 'auto', 'bottom': 0
+					});
+					//topFixed = false;
+					//bottomFixed = true;
+				}
 			}
-
-			footerVisible = false;
-		} else if (!footerVisible ) {
-			topOffset = footerOffsetTop - navHolderHeight - navContainerTop;
-			console.log('•footer VISIBLE• ⇒ position: relative; top: ' + topOffset + 'px;');
-
-			top = bottom = false;
-			footerVisible = true;
-			$navHolder.attr('style', 'position: relative; top: '+ topOffset +'px;');
+		} else {
+			if (scrollPositionCurrent > scrollPositionPrevious) { // Скроллим вниз
+				if (!footerTouch && footerPosition <= floatingElementBottomPosition) {
+					delta = floatingElementBottomPosition - footerPosition;
+					$floatingElement.css({
+						'position': 'relative',
+						'bottom': 'auto',
+						'top': floatingElementPosition - topSpace - delta
+					});
+					footerTouch = true;
+				}
+			} else if (scrollPositionCurrent < scrollPositionPrevious) { // Скроллим вверх
+				if (scrollPositionCurrent < floatingElementPosition - topSpace) {
+					$floatingElement.css({
+						'position': 'fixed', 'top': topSpace, 'bottom': 'auto'
+					});
+					bottomFixed = false;
+					topFixed = true;
+					footerTouch = false;
+				} else if (scrollPositionCurrent < 140) {
+					$floatingElement.css({
+						'position': 'relative', 'top': 0, 'bottom': 'auto'
+					});
+					bottomFixed = false;
+					topFixed = true;
+					footerTouch = false;
+				}
+			} else { // До начала скролла
+				$floatingElement.css({
+					'position': 'fixed', 'top': topSpace, 'bottom': 'auto'
+				});
+				topFixed = true;
+				bottomFixed = false;
+			}
 		}
-
-		console.log('**********************************');
-
-		lastWindowPos = windowScrollTop;
-	}
-
-	function resize() {
-		if($('.btn-menu').is(':visible')){
-			$navHolder.removeAttr('style');
-		}
+		scrollPositionPrevious = scrollPositionCurrent;
 	}
 }
 /*nav position end*/
@@ -900,12 +855,12 @@ function initJsDrops(){
 }
 /*init js drop end*/
 
-/*clone and move phones*/
+/*clone and collapse phones*/
 function clonePhones() {
 	$('.phs__list').clone().appendTo('#phones-list-clone');
 }
 
-function movePhones() {
+function collapsePhones() {
 	var $phonesCloneContainer = $('.phones-clone');
 	var minWidthItem = 200;
 
@@ -944,7 +899,7 @@ function movePhones() {
 		$($phonesCloneItems[indexCloned]).addClass('ph-cloned');
 	}
 }
-/*clone and move phones*/
+/*clone and collapse phones*/
 
 /*phones popup*/
 (function ($) {
@@ -2004,46 +1959,44 @@ function footerAtBottom (height, speed) {
 			slideIndexing: false
 		}, settings || {});
 
-		var _ = this;
-
-		_.options = options;
+		this.options = options;
 		var mainWrapper = $(options.mainWrapper);
-		_.$mainWrapper = mainWrapper;
+		this.$mainWrapper = mainWrapper;
 		var container = $(options.sliderContainer);
-		_.$sliderContainer = container;
-		_.$sliderInner = $(options.sliderInner, container);
-		_.$slide = $(options.slide, container);
-		_.$info = $(options.info, container);
-		_.$infoBox = $(options.infoBox, mainWrapper);
+		this.$sliderContainer = container;
+		this.$sliderInner = $(options.sliderInner, container);
+		this.$slide = $(options.slide, container);
+		this.$info = $(options.info, container);
+		this.$infoBox = $(options.infoBox, mainWrapper);
 
-		_.$arrowPrev = $(options.arrowPrev, container);
-		_.$arrowNext = $(options.arrowNext, container);
+		this.$arrowPrev = $(options.arrowPrev, container);
+		this.$arrowNext = $(options.arrowNext, container);
 
-		_.$asNavFor = $(options.asNavFor);
+		this.$asNavFor = $(options.asNavFor);
 
-		_._padding = options.padding;
-		_._normWidth = options.normWidth;
-		_._zoomWidth = options.zoomWidth;
-		_._activeSlide = options.activeSlide;
-		_._animateSpeed = options.animateSpeed;
-		_._slideIndexing = options.slideIndexing;
+		this._padding = options.padding;
+		this._normWidth = options.normWidth;
+		this._zoomWidth = options.zoomWidth;
+		this._activeSlide = options.activeSlide;
+		this._animateSpeed = options.animateSpeed;
+		this._slideIndexing = options.slideIndexing;
 
-		_.slideClases = {
+		this.slideClases = {
 			slideClass: 'history-slide',
 			track: 'slider-track',
 			beforePosition: 'before-position',
 			afterPosition: 'after-position'
 		};
 
-		_.modifiers = {
+		this.modifiers = {
 			current: 'slide-current',
 			btnHidden: 'btn-hidden'
 		};
 
-		_.beforeStart();
-		_.disabledArrows(_.$slide.eq(_._activeSlide));
-		_.bindEvents();
-		_.setInfoOnResize();
+		this.beforeStart();
+		this.disabledArrows(this.$slide.eq(this._activeSlide));
+		this.bindEvents();
+		this.setInfoOnResize();
 	};
 
 	HistorySlider.prototype.beforeStart = function () {
@@ -2185,7 +2138,24 @@ function footerAtBottom (height, speed) {
 			if(!currentSlide.length){ return; }
 
 			self.currentSlide(currentSlide);
-		})
+		});
+
+		self.$sliderContainer.swipe({
+			swipeLeft: function () {
+				var currentSlide = self.$sliderContainer.find('.'+_modifiersCurrent+'').next();
+
+				if(!currentSlide.length){ return; }
+
+				self.currentSlide(currentSlide);
+			},
+			swipeRight: function () {
+				var currentSlide = self.$sliderContainer.find('.'+_modifiersCurrent+'').prev();
+
+				if(!currentSlide.length){ return; }
+
+				self.currentSlide(currentSlide);
+			}
+		});
 	};
 
 	HistorySlider.prototype.indexSlide = function (currentSlide) {
@@ -2272,18 +2242,6 @@ function footerAtBottom (height, speed) {
 		})
 	};
 
-	HistorySlider.prototype.swipeSlides = function () {
-		var self = this;
-
-		self.$sliderContainer.overscroll({
-			scrollLeft: 0,
-			scrollTop: 0,
-			direction: "horizontal",
-			captureWheel: false,
-			scrollDelta: 5.7
-		});
-	};
-
 	window.HistorySlider = HistorySlider;
 }(jQuery));
 
@@ -2307,10 +2265,12 @@ function historySliderInit() {
 /*header fixed*/
 
 function headerFixed(){
+	clonePhones();
+
 	var page = $('.inner-page');
 	if (!page.length) {
-		$(window).on('load resizedByWidth', function () {
-			movePhones();
+		$(window).on('load resizeByWidth', function () {
+			collapsePhones();
 		});
 		return;
 	}
@@ -2319,7 +2279,7 @@ function headerFixed(){
 
 	var previousScrollTop = $(window).scrollTop();
 	var md = new MobileDetect(window.navigator.userAgent);
-	$(window).on('load scroll resizedByWidth', function () {
+	$(window).on('load scroll resizeByWidth', function () {
 
 		var currentScrollTop = $(window).scrollTop();
 		var reduceLogo = $('.btn-menu').is(':hidden') && currentScrollTop > minScrollTop;
@@ -2332,8 +2292,8 @@ function headerFixed(){
 		} else {
 			page.toggleClass('top-panel-show', showHeaderPanel);
 		}
-		if(showHeaderPanel && resizedByWidth){
-			movePhones();
+		if(showHeaderPanel && resizeByWidth){
+			collapsePhones();
 		}
 		previousScrollTop = currentScrollTop;
 	});
@@ -2472,7 +2432,7 @@ function fancyboxInit(){
 
 $(document).ready(function () {
 	placeholderInit();
-	dropLanguageInit();
+	//dropLanguageInit();
 	showFormSearch();
 	footerDropInit();
 	initJsDrops();
@@ -2485,8 +2445,10 @@ $(document).ready(function () {
 	accordionInit();
 	historySliderInit();
 	fancyboxInit();
-	clonePhones();
 	headerFixed();
+	cloneNavItem();
+	collapseNavItem();
+	navPosition();
 });
 
 $(window).load(function () {
@@ -2498,13 +2460,12 @@ $(window).load(function () {
 	footerBottom();
 	hoverClassInit();
 	mainNavigationInit();
-	navPosition();
 	equalHeightInit();
 	caseEqualHeight();
 	preloader();
 	mapMainInit();
 });
 
-$(window).resize(function(){
+$(window).on('resizeByWidth', function () {
 	footerBottom();
 });
