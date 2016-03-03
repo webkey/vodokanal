@@ -1,8 +1,6 @@
 @import url(normalize.css);
 @import url(widgets.css);
 
-
-
 /*------ TYPOGRAPHIC STYLES ------*/
 html{
 	height: 100%;
@@ -153,6 +151,38 @@ table th{
 .depict-icons-tel-md{ background-position: 0 -1139px; width: 31px; height: 31px; }
 .depict-icons-clock-md{ background-position: 0 -1190px; width: 30px; height: 30px; }
 /*icons end*/
+
+/*svg icons*/
+@font-face {
+	font-family: 'icomoon';
+	src:    url('../fonts/icomoon/icomoon.eot?gch5z9');
+	src:    url('../fonts/icomoon/icomoon.eot?gch5z9#iefix') format('embedded-opentype'),
+	url('../fonts/icomoon/icomoon.ttf?gch5z9') format('truetype'),
+	url('../fonts/icomoon/icomoon.woff?gch5z9') format('woff'),
+	url('../fonts/icomoon/icomoon.svg?gch5z9#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="iconsvg-"], [class*=" iconsvg-"] {
+	/* use !important to prevent issues with browser extensions that change fonts */
+	font-family: 'icomoon' !important;
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.iconsvg-printer:before {
+	content: "\e900";
+}
+/*svg icons end*/
 
 /*social icons*/
 [class|="depict-soc"],
@@ -1917,6 +1947,27 @@ li.has-drop.current>.nav-sub-drop:after,
 .page-heading h1{
 	text-align: center;
 	padding: 0;
+}
+.to-print{
+	position: absolute;
+	bottom: 10px;
+	right: 20px;
+	font-size: 12px;
+	line-height: 18px;
+	letter-spacing: 0.05em;
+	text-decoration: none;
+	color: #333;
+}
+.to-print>span{
+	padding-right: 5px;
+	vertical-align: top;
+}
+.to-print>i{
+	font-size: 18px;
+	vertical-align: top;
+}
+.to-print:hover>span{
+	text-decoration: underline;
 }
 /*page heading end*/
 
@@ -4077,6 +4128,7 @@ body:not(.mobile-device) .gallery__previews .slick-next:hover:after{ opacity: 1;
 }
 
 .history-sldr__info{ display: none; }
+.history-sldr__year{ display: none; }
 
 .history-sldr__prev-btn,
 .history-sldr__next-btn{
