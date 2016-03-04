@@ -562,7 +562,7 @@ var collapseNavItem = function() {
 /*clone and collapse nav items end*/
 
 /*nav position*/
-function navPosition(){
+function navPosition2(){
 
 	if($('.inner-page').length){
 		var topFixed = false;
@@ -775,6 +775,156 @@ function navPosition(){
 		scrollPositionPrevious = scrollPositionCurrent;
 	}
 }
+function navPosition(){
+
+	if($('.inner-page').length){
+		if($('.btn-menu').is(':visible')){return;}
+
+		var bottomFixed = false;
+		var $window = $(window);
+		var scrollPositionPrevious = $window.scrollTop();
+
+		if ($('.nav-inner-page').has('.current').length) {
+			$window.on('openCurrentNavItem scroll', function () {
+				navRelativePosition();
+			});
+			var resizeTimer;
+			$window.on('load', function () {
+					clearTimeout(resizeTimer);
+					resizeTimer = setTimeout(function () {
+						navRelativePosition();
+					}, 700);
+				});
+		} else {
+			$window.on('load scroll', function () {
+				navRelativePosition();
+			})
+		}
+
+		navPositionOnScroll();
+	}
+
+	function navRelativePosition() {
+
+		var windowHeight = $(window).outerHeight();
+		var scrollPositionCurrent = $(window).scrollTop();
+		//console.log('scrollPositionCurrent: ', scrollPositionCurrent);
+		var windowBottomPosition = scrollPositionCurrent + windowHeight;
+
+		// Высота контента от верхней граниицы окта браузера до нихней границы контента "class.content"
+		var $content = $('.content');
+		var contentHeight = $content.offset().top + $content.outerHeight(true);
+		//console.log('contentHeight: ', contentHeight);
+
+		var $floatingElement = $('.nav-inner-page__holder');
+		var floatingElementHeight = $floatingElement.outerHeight(true);
+		var floatingElementPosition = $floatingElement.offset().top;
+		var floatingElementBottomPosition = floatingElementPosition + floatingElementHeight;
+		//console.log('floatingElementBottomPosition: ', floatingElementBottomPosition);
+
+		var footerPosition = $('.footer').offset().top;
+		//console.log('footerPosition: ', footerPosition);
+
+		var topSpace = scrollPositionCurrent > 140 ? 60 : 200;
+		//console.log('topSpace: ', topSpace);
+
+		// Верхняя координата плавающего элемента + верхний отступ
+		var floatingElementRelativePosition = floatingElementPosition - topSpace;
+		//console.log('floatingElementRelativePosition: ', floatingElementRelativePosition);
+
+		var scrollDown = scrollPositionCurrent > scrollPositionPrevious;
+		var scrollTop = scrollPositionCurrent < scrollPositionPrevious;
+		var footerTouch = floatingElementBottomPosition >= footerPosition;
+		//console.log('footerTouch: ', footerTouch);
+		var floatingElementAbroadBottom = floatingElementBottomPosition > windowBottomPosition;
+		//console.log('floatingElementAbroadBottom: ', floatingElementAbroadBottom);
+		var floatingElementHeightAbsolute = floatingElementHeight + topSpace;
+		//console.log('floatingElementHeightAbsolute: ', floatingElementHeightAbsolute);
+		var floatingElementIsSmall = contentHeight > floatingElementHeightAbsolute;
+		//console.log('floatingElementIsSmall: ', floatingElementIsSmall);
+		var delta = 0;
+
+		if (
+			scrollTop
+			&&
+			scrollPositionCurrent <= floatingElementRelativePosition && floatingElementIsSmall
+			||
+			scrollTop && floatingElementRelativePosition < 0
+			||
+			!footerTouch && floatingElementHeight < windowHeight
+		){
+			//console.log('I');
+			$floatingElement.css({
+				'position': 'fixed',
+				'top': topSpace
+			});
+			bottomFixed = false;
+		} else if (
+			scrollDown
+			&&
+			!floatingElementAbroadBottom
+			&&
+			!footerTouch
+			&&
+			!footerTouch && scrollPositionCurrent > floatingElementRelativePosition
+		){
+			//console.log('II');
+			$floatingElement.css({
+				'position': 'fixed',
+				'top': windowHeight - floatingElementHeight
+			});
+			bottomFixed = true;
+		} else if (
+			scrollDown && floatingElementAbroadBottom
+			||
+			scrollTop && bottomFixed
+		){
+			//console.log('III');
+			$floatingElement.css({
+				'position': 'relative',
+				'top': floatingElementRelativePosition
+			});
+		} else if (
+			footerTouch ||
+			windowBottomPosition > footerPosition && floatingElementHeightAbsolute >= footerPosition - scrollPositionCurrent
+		){
+			//console.log('IV');
+			delta = floatingElementBottomPosition - footerPosition;
+			$floatingElement.css({
+				'position': 'relative',
+				'top': floatingElementRelativePosition - delta
+			});
+			bottomFixed = true;
+
+		} else if (
+			!floatingElementIsSmall && !scrollDown && !scrollTop
+		) {
+			//console.log('V');
+			$floatingElement.css({
+				'position': 'relative',
+				'top': 0
+			});
+		}
+
+		scrollPositionPrevious = scrollPositionCurrent;
+	}
+
+	var resizeTimer2;
+
+	function navPositionOnScroll(){
+		var $floatingElement = $('.nav-inner-page__holder');
+		$floatingElement.attr('style','');
+
+		$(window).on('resizeByWidth', function () {
+				clearTimeout(resizeTimer2);
+				resizeTimer2 = setTimeout(function () {
+					console.log(2);
+					navRelativePosition();
+				}, 500);
+			});
+	}
+}
+
 /*nav position end*/
 
 /*footer drop*/
@@ -2359,7 +2509,9 @@ function headerFixed(){
 		var currentScrollTop = $(window).scrollTop();
 		var reduceLogo = $('.btn-menu').is(':hidden') && currentScrollTop > minScrollTop;
 
-		page.toggleClass('logo-reduce', reduceLogo);
+		page.toggleClass('logo-reduce', reduceLogo, function () {
+			$(window).trigger('openCurrentNavItem');
+		});
 		var showHeaderPanel = currentScrollTop < minScrollTop || currentScrollTop < previousScrollTop;
 
 		if (md.mobile()) {
