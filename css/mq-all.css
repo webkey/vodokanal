@@ -619,6 +619,7 @@
 	/*logo end*/
 	/*HEADER end*/
 
+	/*MAIN NAVIGATION*/
 	.nav{
 		height: 100%;
 	}
@@ -653,6 +654,8 @@
 	/*MAIN NAVIGATION end*/
 
 	/*MAIN CONTENT*/
+	.to-print{ display: none !important; }
+
 	/*promo*/
 	.promo-btn { right: 40px; }
 
