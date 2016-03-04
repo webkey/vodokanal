@@ -132,12 +132,12 @@ table th{
 }
 
 .header {
-	position: relative;
-	top: auto;
-	width: 100%;
+	position: relative !important;
+	top: auto !important;
+	width: 100% !important;
 	height: 100px;
 	padding: 12px 0;
-	background: #f5f5f5 !important;
+	background: #f5f5f5;
 	border-bottom: 1px solid #d9d9d9;
 	margin: 0 0 20px;
 }
