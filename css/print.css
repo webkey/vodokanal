@@ -25,18 +25,34 @@ input[type="submit"],
 .parents-container,
 .category-links,
 .meter,
-.uncos-footer
+.uncos-footer,
+.spacer
 {
 	display: none !important;
 }
 .columns-box-wrap{
 	overflow: visible !important;
 }
+body,
+.columns-box__column,
+.history-sldr__item,
+.contacts-card__post,
+.contacts-card__share,
+.contacts-card__works,.glance__unit,
+.glance__text,
+.cont-dt,
+.cont-dd,
+.contacts-adr__item,
+.cph__dt,
+.cph__dd
+{
+	font-size: 9pt !important;
+	line-height: 1.5 !important;
+	font-weight: normal !important;
+}
 body{
 	background: #fff !important;
 	color: #000 !important;
-	font-size: 11pt;
-	line-height: 1.5;
 }
 h1,h2{
 	padding: 6px 0 25px !important;
@@ -51,15 +67,15 @@ h1{
 	line-height: 1.5;
 }
 h2{
-	font-size: 16pt;
+	font-size: 14pt;
 	line-height: 1.5;
 }
 h3{
-	font-size: 14pt;
+	font-size: 12pt;
 	line-height: 1.3;
 }
 h4{
-	font-size: 18pt;
+	font-size: 16pt;
 	line-height: 1.5;
 }
 p{
@@ -74,9 +90,9 @@ img{
 	page-break-inside: avoid;
 }
 .max-wrap{
-	width: 96%;
-	padding: 0 2%;
-	max-width: 1000px;
+	width: 100%;
+	max-width: 640px;
+	overflow: visible !important;
 }
 .content-wrap{
 	float: none;
@@ -206,8 +222,8 @@ table th{
 }
 .history-sldr__year{
 	display: block;
-	font-size: 18px;
-	line-height: 22px;
+	font-size: 13pt;
+	line-height: 1.5;
 	font-weight: bold;
 	padding: 0 0 10px;
 }
@@ -217,10 +233,11 @@ table th{
 
 .case__item{
 	float: none;
-	display: block;
-	width: auto;
 	margin: 0;
-	padding: 0 0 22px;
+	display: inline-block;
+	vertical-align: top;
+	width: 45%;
+	padding: 0 4% 32px 0;
 }
 .case__contacts-card,
 .case__photo-card{
@@ -270,6 +287,11 @@ table th{
 	min-height: 0 !important;
 	background: none;
 	border: none;
+	color: #000;
+}
+.contacts-card__name {
+	font-size: 12pt;
+	line-height: 1.5;
 }
 .contacts-card__works li{
 	letter-spacing: normal !important;
@@ -281,7 +303,13 @@ table th{
 .contacts-card__works li>div{
 	display: inline;
 	float: none;
+	font-size: 9pt;
+	line-height: 1.5;
+	color: #000;
 	width: auto !important;
+}
+.contacts-card__caption:after{
+	bottom: 3px;
 }
 .contacts-card__switcher{
 	display: none;
@@ -298,6 +326,10 @@ table th{
 .glance__spacer{ display: none; }
 .glance__box{
 	background: none !important;
+	display: inline-block;
+	vertical-align: top;
+	width: 45%;
+	padding: 0 4% 0 0;
 }
 .glance__box-center{
 	width: auto;
@@ -323,17 +355,12 @@ table th{
 .glance__unit,
 .glance__text{
 	color: #000 !important;
-	font-size: 18pt;
+	font-size: 14pt;
 	line-height: 1.2;
 	font-weight: bold;
 	text-align: left;
 	margin: 0 !important;
-	padding: 0 0 10px !important;
-}
-.glance__unit,
-.glance__text{
-	font-size: 11pt;
-	font-weight: normal;
+	padding: 0 0 2px !important;
 }
 
 .main-contacts{
@@ -345,13 +372,18 @@ table th{
 }
 .main-map-frame {
 	position: relative;
-	width: auto;
-	height: 494px;
+	width: 100%;
+	height: 300px;
 	left: auto;
 	top: auto;
 	-webkit-transform: translate(0, 0) !important;
 	-ms-transform: translate(0, 0) !important;
 	transform: translate(0, 0) !important;
+}
+.local-map {
+	width: 600px;
+	height: 300px;
+	background: none;
 }
 .contacts-panel {
 	position: relative;
@@ -428,8 +460,11 @@ table th{
 	display: block;
 }
 .tab-item{
+	display: inline-block !important;
+	vertical-align: top;
 	position: relative !important;
-	width: 100% !important;
+	width: 45% !important;
+	padding-right: 4% !important;
 	left: auto !important;
 	top: auto !important;
 	opacity: 1 !important;
@@ -440,8 +475,6 @@ table th{
 .contacts-adr__item {
 	display: block;
 	width: auto;
-	font-size: 11pt;
-	line-height: 1.3;
 	padding: 0 0 12px;
 	overflow: visible;
 	opacity: 1 !important;
@@ -466,8 +499,8 @@ table th{
 	padding: 0 0 6px !important;
 }
 .contacts-adr__dd .dt {
-	width: 150px;
-	max-width: 50%;
+	width: 50%;
+	max-width: none;
 }
 .contacts-phones-container{
 	padding: 0 0 22px;
@@ -481,11 +514,13 @@ table th{
 .cph__dt,
 .cph__dd{
 	color: #000;
-	font-size: 12pt;
-	line-height: 1.5;
 	height: auto;
 	padding: 8px 0;
 	vertical-align: top;
+}
+.cph__dt{
+	width: 50%;
+	font-weight: bold !important;
 }
 .cph__numbers {
 	position: relative;
@@ -759,6 +794,7 @@ table th{
 
 .footer{
 	background: none;
+	margin: 0 !important;
 }
 .footer-top-row,
 .footer-contacts-row,
