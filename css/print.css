@@ -46,7 +46,7 @@ body,
 .cph__dt,
 .cph__dd
 {
-	font-size: 13px !important;
+	font-size: 12px !important;
 	line-height: 1.5 !important;
 	font-weight: normal !important;
 }
@@ -500,9 +500,15 @@ table th{
 .contacts-adr__dd li{
 	padding: 0 0 6px !important;
 }
+.contacts-adr__dd .dt,
+.contacts-adr__dd .dd{
+	display: inline-block;
+	vertical-align: top;
+}
 .contacts-adr__dd .dt {
 	width: 22%;
 	max-width: none;
+	overflow: visible;
 }
 .contacts-phones-container{
 	padding: 0 0 22px;
