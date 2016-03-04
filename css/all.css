@@ -3583,7 +3583,7 @@ body:not(.mobile-device) .gallery__previews .slick-next:hover:after{ opacity: 1;
 	font-weight: bold;
 	letter-spacing: normal;
 	color: #000;
-	padding: 0 0 22px;
+	padding: 0 0 8px;
 	display: none;
 }
 .contacts-adr__item{
