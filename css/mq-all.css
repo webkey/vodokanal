@@ -404,47 +404,20 @@
 
 	/*FOOTER*/
 	/*grid*/
-	.grid-col-3{ width: 33.3%; }
-	.grid-col-6{ width: 33.3%; }
-	.footer-top .grid-col-3{ width: 33.3%; }
-	.footer-top .grid-col-6{ width: 66.6%; }
+	.grid-col-3{ width: 28.0%; }
 	/*grid end*/
 
-	/*footer top*/
-	.footer-top{ padding: 33px 40px 15px; }
-
-	/*footer phones*/
-	.ft-phones__dt{
-		float: none;
-		display: inline-block;
-		vertical-align: top;
-		width: auto;
-		max-width: none;
-	}
-	.ft-phones__dd{
-		display: inline-block;
-		vertical-align: top;
-		letter-spacing: normal;
-		overflow: visible;
-		width: auto;
-	}
-	/*footer phones end*/
-
 	/*map site*/
-	.footer-top .switcher-col{
-		display: block;
-		float: none;
-		clear: both;
-		width: auto;
+	.switcher-col{
+		width: 16.0%;
+		text-align: right;
 	}
-	.map-site-switcher{ margin-left: 33.3%; }
 	.map-site-switcher:before{
 		left: -11px;
 		right: -11px;
 		top: -6px;
 	}
 	/*map site end*/
-	/*footer top end*/
 
 	/*useful links*/
 	.useful-links li{
@@ -709,19 +682,9 @@
 
 	/*FOOTER*/
 	/*grid*/
-	.footer-top .grid-col-3,
-	.footer-top .grid-col-6{
-		width: auto;
-		float: none;
-		padding-top: 20px;
-	}
-	.footer-top [class*="grid-col-"]:first-child{ padding-top: 0; }
 	.grid-col-3:before,
-	.grid-col-6:before,
-	.grid-col-3:after,
-	.grid-col-6:after { content: ""; display: table; }
-	.grid-col-3:after,
-	.grid-col-6:after { clear: both; }
+	.grid-col-3:after{ content: ""; display: table; }
+	.grid-col-3:after{ clear: both; }
 	/*grid end*/
 
 	/*local map*/
@@ -798,17 +761,12 @@
 	}
 	/*local map end*/
 
-	/*footer top*/
-	/*footer phones*/
-	.ft-phones__list{ text-align: left; }
-	/*footer phones end*/
 
 	/*btn site map*/
 	.footer-top .switcher-col{ padding-top: 0; }
 	.map-site-switcher{ margin-left: 0; }
 	.map-site-switcher:before{ content: none; }
 	/*btn site map end*/
-	/*footer top end*/
 
 	/*site map*/
 	.site-map{ padding: 30px 12px 0; }
@@ -816,23 +774,22 @@
 	/*site map end*/
 
 	/*footer contacts*/
-	.footer-top { padding: 33px 40px; }
-	.footer-contacts { padding: 30px 40px; }
-	.footer-contacts .grid-col-3{ width: 50.0%; }
-	.footer-contacts .grid-col-6{
-		width: 100.0%;
-		float: left;
-		display: block;
-		clear: both;
-		padding-bottom: 30px;
+	.footer-contacts{
+		padding: 30px 40px;
+		font-size: 0;
+		letter-spacing: -4px;
 	}
-	/*useful links*/
-	.useful-links li {
+	.footer-contacts .grid-col-3{
+		float: none;
 		display: inline-block;
 		vertical-align: top;
-		width: 49.9%;
+		width: 49.98%;
+		font-size: 14px;
+		letter-spacing: normal;
 	}
-	/*useful links end*/
+	.switcher-col{
+		text-align: left;
+	}
 	/*footer contacts end*/
 
 	/*footer social*/
@@ -1628,17 +1585,14 @@
 
 	/*FOOTER*/
 	/*grid*/
-	.grid-col-3,
-	.grid-col-6{
+	.grid-col-3{
 		width: auto;
 		float: none;
 		display: block;
 		overflow: hidden;
 	}
 	.grid-col-3:before,
-	.grid-col-6:before,
-	.grid-col-3:after,
-	.grid-col-6:after{ content: none; }
+	.grid-col-3:after{ content: none; }
 	/*grid end*/
 
 	/*contacts*/
@@ -1650,52 +1604,9 @@
 	}
 	/*contacts end*/
 
-	/*footer top*/
-	/*footer logo*/
-	.logo-col{ padding: 0 0 6px; }
-	.footer-logo{
-		float: none;
-		display: block;
-		-webkit-background-size: contain;
-		background-size: contain;
-		width: 208px;
-		height: 40px;
-		margin: 0 auto;
-	}
-	/*footer logo end*/
-
 	/*btn map site*/
 	.footer-top .switcher-col{ text-align: center; }
-	.footer-top:after{ content: none; }
 	/*btn map site end*/
-
-	/*footer phones*/
-	.ft-phones{
-		margin: 0;
-		padding: 0 0 10px;
-		overflow: hidden;
-	}
-	.ft-phones__list{
-		float: left;
-		padding: 0;
-		text-align: left;
-		margin: 0;
-		position: relative;
-		left: 50%;
-		width: 265px;
-		max-width: 100%;
-		-webkit-transform: translate(-50%, 0);
-		-ms-transform: translate(-50%, 0);
-		transform: translate(-50%, 0);
-	}
-	.ft-phones__list>li{
-		display: block;
-		padding: 0 0 15px;
-		width: auto;
-	}
-	.ft-phones__dt, .ft-phones__dd{ float: left; }
-	/*footer phones end*/
-	/*footer top end*/
 
 	/*site map*/
 	.site-map__box{ width: 100%; }
@@ -1717,8 +1628,7 @@
 		text-align: center;
 		padding: 0;
 	}
-	.footer-contacts .grid-col-3,
-	.footer-contacts .grid-col-6{
+	.footer-contacts .grid-col-3{
 		float: none;
 		display: block;
 		width: auto;
