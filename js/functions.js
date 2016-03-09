@@ -1706,7 +1706,6 @@ function mapMainInit(){
 			'bottom': 'auto'
 		});
 		var windowBottomPosition = $(window).scrollTop() + windowHeight;
-		console.log('windowBottomPosition: ', windowBottomPosition);
 		var wrapBottomPosition = $wrap.offset().top + wrapHeight - 20;
 
 		if(windowBottomPosition > wrapBottomPosition){
