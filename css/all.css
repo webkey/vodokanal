@@ -388,6 +388,7 @@ img.img{
 .imgc{
 	text-align: center;
 	padding-bottom: 30px;
+	clear: both;
 }
 .imgc img.img{
 	display: inline-block;
@@ -398,11 +399,13 @@ img.img{
 	text-align: left;
 	float: left;
 	margin: 0 30px 0 0;
+	max-width: 50%;
 }
 .imgr{
 	text-align: right;
 	float: right;
 	margin: 0 0 0 30px;
+	max-width: 50%;
 }
 /*content img end*/
 
@@ -1439,6 +1442,12 @@ body:not(.mobile-device) .slider-typography .slick-next:hover:after{ opacity: 1;
 	position: relative;
 	left: 15px;
 	margin: 2px 0 -2px -10px;
+}
+.show-drop.phs__btn.phs__item_opener .phs__number:after ,
+.show-drop.phs-clone__btn.phs__item_opener .phs__number:after {
+	-webkit-transform: rotate(180px);
+	-ms-transform: rotate(180px);
+	transform: rotate(180px);
 }
 .phs-clone__btn.phs__item_opener .phs__number:after {
 	margin: 4px 0 -4px -10px;

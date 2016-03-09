@@ -5,7 +5,7 @@
  placeholder v2.0.8;
  TouchSwipe 1.6 //delete
  Overscroll v1.7.3
- equalHeight v1.0.0;
+ equalHeight v1.0.1;
  slick slider v1.5.9;
  jOdometer;
  fancyBox v2.1.5;
@@ -72,9 +72,9 @@
 /**Overscroll v1.7.3 end*/
 
 /**
- * equalHeight v1.0.0
+ * equalHeight v1.0.1
  *
- * Compressed code of equalHeight v1.0.0:
+ * Compressed code of equalHeight v1.0.1:
  */
 !function(t){t.fn.equalHeight=function(e){var e=t.extend({amount:2,useParent:!1,parent:null,resize:!1,ratio:1,item:null},e),r=t(this);if(r.removeAttr("style"),1==e.useParent){if(null==e.parent)var a=t(this).parent().outerWidth();else var a=e.parent.outerWidth();var n=null==e.item?t(this).outerWidth(!0):e.item.outerWidth(!0);e.amount=parseInt(a/n)*e.ratio,newAmount=e.amount}var i=this;return 1==e.resize&&1==e.useParent&&t(window).resize(function(){if(r.removeAttr("style"),1==e.useParent){if(null==e.parent)var a=i.parent().outerWidth();else var a=e.parent.outerWidth();var n=null==e.item?i.outerWidth(!0):e.item.outerWidth(!0);e.amount=parseInt(a/n)*e.ratio}return i.each(function(a){if(a%e.amount===0){for(var n=t(this),i=(n.index(),[]),u=[n],o=1;o<e.amount;o++){var h=t(r[a+o]);u.push(h)}for(var s=0;s<e.amount;s++)i.push(u[s].outerHeight());var m=Math.max.apply(Math,i);t(u).each(function(e){var r=t(this);r.css("height",m)})}})}),this.each(function(a){if(a%e.amount===0){for(var n=t(this),i=(n.index(),[]),u=[n],o=1;o<e.amount;o++){var h=t(r[a+o]);u.push(h)}for(var s=0;s<e.amount;s++)i.push(u[s].outerHeight());var m=Math.max.apply(Math,i);t(u).each(function(e){var r=t(this);r.css("height",m)})}})}}(jQuery);
 /**--- equalHeight end ---*/
