@@ -336,7 +336,7 @@ function hoverClassInit(){
 		var $currentElements = self.$navMenuItem.filter('.'+self.modifiers.current+'');
 		$.each($currentElements, function () {
 			$(this).firstChildElement(self.options.navDropMenu).slideDown(0, function () {
-				$(window).trigger('openCurrentNavItem');
+				$(window).trigger('openedCurrentNavItem');
 			});
 		});
 	};
@@ -366,7 +366,7 @@ function hoverClassInit(){
 
 			if (current.siblings(collapsibleElement).is(':visible')){
 				currentAccordionItem.removeClass(modifiers.active).find(collapsibleElement).slideUp(animateSpeed, function () {
-					//$(window).trigger('openCurrentNavItem');
+					//$(window).trigger('openedCurrentNavItem');
 				});
 				currentAccordionItem.removeClass(modifiers.current);
 				currentAccordionItem.find(anyAccordionItem).removeClass(modifiers.active).removeClass(modifiers.current);
@@ -379,7 +379,7 @@ function hoverClassInit(){
 
 			currentAccordionItem.addClass(modifiers.active);
 			current.siblings(collapsibleElement).slideDown(animateSpeed, function () {
-				//$(window).trigger('openCurrentNavItem');
+				//$(window).trigger('openedCurrentNavItem');
 			});
 		})
 	};
@@ -562,219 +562,6 @@ var collapseNavItem = function() {
 /*clone and collapse nav items end*/
 
 /*nav position*/
-function navPosition2(){
-
-	if($('.inner-page').length){
-		var topFixed = false;
-		var bottomFixed = false;
-		var footerTouch = false;
-		var scrollPositionPrevious = $(window).scrollTop();
-
-		if($('.nav-inner-page').has('.current').length){
-			$(window).on('openCurrentNavItem scroll', function () {
-				navRelativePosition();
-			})
-		} else {
-			$(window).on('load scroll', function () {
-				navRelativePosition();
-			})
-		}
-	}
-
-	function navRelativePosition() {
-		if($('.btn-menu').is(':visible')){return;}
-
-		var windowHeight = $(window).outerHeight();
-		var scrollPositionCurrent = $(window).scrollTop();
-		var windowBottomPosition = scrollPositionCurrent + windowHeight;
-
-		var $floatingElement = $('.nav-inner-page__holder');
-		var floatingElementHeight = $floatingElement.outerHeight(true);
-		var floatingElementPosition = $floatingElement.offset().top;
-		var floatingElementBottomPosition = floatingElementHeight + floatingElementPosition;
-		console.log('floatingElementPosition: ', floatingElementPosition);
-
-		var footerPosition = $('.footer').offset().top;
-
-		var topSpace = scrollPositionCurrent > 140 ? 60 : 200;
-
-		var floatingElementRelativePosition = floatingElementPosition - topSpace;
-		console.log('floatingElementPosition - topSpace: ', floatingElementRelativePosition);
-
-		var delta = 0;
-
-		if(!footerTouch && footerPosition <= floatingElementBottomPosition ){
-			console.log(1);
-			footerTouch = true;
-		}
-
-		if(!footerTouch && floatingElementHeight < windowHeight ){ // done
-			console.log(2);
-			$floatingElement.css({
-				'position': 'fixed',
-				//'bottom': 'auto',
-				'top': topSpace
-			});
-			bottomFixed = false;
-			topFixed = true;
-		}
-
-		//if (floatingElementBottomPosition >= windowBottomPosition) {
-		if (floatingElementHeight >= windowHeight) {
-			console.log('nav > window');
-			if (scrollPositionCurrent > scrollPositionPrevious) { // Скроллим вниз
-				if (!bottomFixed && floatingElementBottomPosition <= windowBottomPosition) { // done
-					console.log(3.1);
-					$floatingElement.css({
-						'position': 'fixed',
-						//'bottom': 'auto',
-						'top': windowHeight - floatingElementHeight
-					});
-					bottomFixed = true;
-					footerTouch = false;
-				} else if (!footerTouch && topFixed && floatingElementBottomPosition > windowBottomPosition) { //done
-					console.log(3.2);
-					$floatingElement.css({
-						'position': 'relative',
-						//'bottom': 'auto',
-						'top': floatingElementRelativePosition
-					});
-					topFixed = false;
-				} else if (footerPosition <= floatingElementBottomPosition) {
-					console.log(3.3);
-					delta = floatingElementBottomPosition - footerPosition;
-					$floatingElement.css({
-						'position': 'relative',
-						//'bottom': 'auto',
-						'top': floatingElementRelativePosition - delta
-					});
-					footerTouch = true;
-				}
-			} else if (scrollPositionCurrent < scrollPositionPrevious) { // Скроллим вверх
-				if (!footerTouch && bottomFixed) {
-					console.log(4.1);
-					$floatingElement.css({
-						'position': 'relative',
-						//'bottom': 'auto',
-						'top': scrollPositionCurrent + windowHeight - floatingElementHeight - topSpace
-					});
-					bottomFixed = false;
-				} else if (scrollPositionCurrent < floatingElementRelativePosition) { //done
-					console.log(4.2);
-					$floatingElement.css({
-						'position': 'fixed',
-						//'bottom': 'auto',
-						'top': topSpace
-					});
-					bottomFixed = false;
-					topFixed = true;
-					footerTouch = false;
-				} else if (scrollPositionCurrent < 140) {
-					console.log(4.3);
-					$floatingElement.css({
-						'position': 'relative',
-						//'bottom': 'auto',
-						'top': 0
-					});
-					bottomFixed = false;
-					topFixed = true;
-					footerTouch = false;
-				}
-			} else { // До начала скролла
-				if(!footerTouch && floatingElementHeight < windowHeight ){ // done
-					console.log(2);
-					$floatingElement.css({
-						'position': 'fixed',
-						//'bottom': 'auto',
-						'top': topSpace
-					});
-					bottomFixed = false;
-					topFixed = true;
-				} else
-				if (!topFixed && !bottomFixed){
-					console.log(5.1);
-					$floatingElement.css({
-						'position': 'relative',
-						//'bottom': 'auto',
-						'top': 0
-					});
-				} else if (windowBottomPosition < floatingElementHeight) {
-					console.log(5.2);
-					$floatingElement.css({
-						'position': 'relative',
-						//'bottom': 'auto',
-						'top': scrollPositionCurrent
-					});
-					topFixed = true;
-				} else { // done
-					console.log(5.3);
-					$floatingElement.css({
-						'position': 'fixed',
-						//'bottom': 'auto',
-						'top': windowHeight - floatingElementHeight
-					});
-					topFixed = false;
-					bottomFixed = true;
-				}
-			}
-		} else {
-			console.log('nav < window');
-			if (scrollPositionCurrent > scrollPositionPrevious) { // Скроллим вниз
-				if (footerPosition <= floatingElementBottomPosition) {
-					console.log(6.1);
-					delta = floatingElementBottomPosition - footerPosition;
-					$floatingElement.css({
-						'position': 'relative',
-						//'bottom': 'auto',
-						'top': floatingElementRelativePosition - delta
-					});
-					footerTouch = true;
-				}
-			} else if (scrollPositionCurrent < scrollPositionPrevious) { // Скроллим вверх
-				console.log(7.1);
-				if (scrollPositionCurrent < floatingElementRelativePosition) {
-					$floatingElement.css({ // done
-						'position': 'fixed',
-						//'bottom': 'auto',
-						'top': topSpace
-					});
-					bottomFixed = false;
-					topFixed = true;
-					footerTouch = false;
-				} else if (scrollPositionCurrent < 140) {
-					console.log(7.2);
-					$floatingElement.css({
-						'position': 'relative',
-						//'bottom': 'auto',
-						'top': 0
-					});
-					bottomFixed = false;
-					topFixed = true;
-					footerTouch = false;
-				}
-			} else { // До начала скролла
-				if (!topFixed && !bottomFixed){
-					console.log(8.1);
-					$floatingElement.css({
-						'position': 'relative',
-						//'bottom': 'auto',
-						'top': 0
-					});
-				} else {
-					console.log(8.2);
-					$floatingElement.css({ // done
-						'position': 'fixed',
-						//'bottom': 'auto',
-						'top': topSpace
-					});
-					topFixed = true;
-					bottomFixed = false;
-				}
-			}
-		}
-		scrollPositionPrevious = scrollPositionCurrent;
-	}
-}
 function navPosition(){
 
 	if($('.inner-page').length){
@@ -785,13 +572,13 @@ function navPosition(){
 		var scrollPositionPrevious = $window.scrollTop();
 
 		if ($('.nav-inner-page').has('.current').length) {
-			$window.on('openCurrentNavItem scroll', function () {
+			$window.on('openedCurrentNavItem scroll', function () {
 				navRelativePosition();
 			});
-			var resizeTimer;
+			var loadTimer;
 			$window.on('load', function () {
-					clearTimeout(resizeTimer);
-					resizeTimer = setTimeout(function () {
+					clearTimeout(loadTimer);
+					loadTimer = setTimeout(function () {
 						navRelativePosition();
 					}, 700);
 				});
@@ -801,20 +588,15 @@ function navPosition(){
 			})
 		}
 
-		navPositionOnScroll();
+		navPositionOnResize();
 	}
 
 	function navRelativePosition() {
 
 		var windowHeight = $(window).outerHeight();
 		var scrollPositionCurrent = $(window).scrollTop();
-		//console.log('scrollPositionCurrent: ', scrollPositionCurrent);
 		var windowBottomPosition = scrollPositionCurrent + windowHeight;
-
-		// Высота контента от верхней граниицы окта браузера до нихней границы контента "class.content"
-		var $content = $('.content');
-		var contentHeight = $content.offset().top + $content.outerHeight(true);
-		//console.log('contentHeight: ', contentHeight);
+		//console.log('windowBottomPosition: ', windowBottomPosition);
 
 		var $floatingElement = $('.nav-inner-page__holder');
 		var floatingElementHeight = $floatingElement.outerHeight(true);
@@ -833,25 +615,32 @@ function navPosition(){
 		//console.log('floatingElementRelativePosition: ', floatingElementRelativePosition);
 
 		var scrollDown = scrollPositionCurrent > scrollPositionPrevious;
+		//console.log('scrollDown: ', scrollDown);
 		var scrollTop = scrollPositionCurrent < scrollPositionPrevious;
+		//console.log('scrollTop: ', scrollTop);
+		//var footerTouch = floatingElementBottomPosition >= footerPosition;
 		var footerTouch = floatingElementBottomPosition >= footerPosition;
 		//console.log('footerTouch: ', footerTouch);
 		var floatingElementAbroadBottom = floatingElementBottomPosition > windowBottomPosition;
 		//console.log('floatingElementAbroadBottom: ', floatingElementAbroadBottom);
 		var floatingElementHeightAbsolute = floatingElementHeight + topSpace;
 		//console.log('floatingElementHeightAbsolute: ', floatingElementHeightAbsolute);
+
+		// Высота контента от верхней граниицы окта браузера до нихней границы контента "class.content"
+		var $content = $('.content');
+		var contentHeight = $content.offset().top + $content.outerHeight(true);
+		//console.log('contentHeight: ', contentHeight);
+
 		var floatingElementIsSmall = contentHeight > floatingElementHeightAbsolute;
-		//console.log('floatingElementIsSmall: ', floatingElementIsSmall);
+		console.log('floatingElementIsSmall: ', floatingElementIsSmall);
 		var delta = 0;
 
 		if (
-			scrollTop
-			&&
-			scrollPositionCurrent <= floatingElementRelativePosition && floatingElementIsSmall
+			scrollTop && floatingElementIsSmall && scrollPositionCurrent <= floatingElementRelativePosition && floatingElementIsSmall
 			||
-			scrollTop && floatingElementRelativePosition < 0
+			scrollTop && floatingElementIsSmall && floatingElementRelativePosition < 0
 			||
-			!footerTouch && floatingElementHeight < windowHeight
+			!footerTouch && floatingElementIsSmall && floatingElementHeightAbsolute < windowHeight
 		){
 			//console.log('I');
 			$floatingElement.css({
@@ -866,7 +655,9 @@ function navPosition(){
 			&&
 			!footerTouch
 			&&
-			!footerTouch && scrollPositionCurrent > floatingElementRelativePosition
+			scrollPositionCurrent > floatingElementRelativePosition
+			&&
+			windowBottomPosition < footerPosition
 		){
 			//console.log('II');
 			$floatingElement.css({
@@ -890,6 +681,7 @@ function navPosition(){
 		){
 			//console.log('IV');
 			delta = floatingElementBottomPosition - footerPosition;
+			console.log('delta: ', delta);
 			$floatingElement.css({
 				'position': 'relative',
 				'top': floatingElementRelativePosition - delta
@@ -909,16 +701,15 @@ function navPosition(){
 		scrollPositionPrevious = scrollPositionCurrent;
 	}
 
-	var resizeTimer2;
+	var resizeTimer;
 
-	function navPositionOnScroll(){
+	function navPositionOnResize(){
 		var $floatingElement = $('.nav-inner-page__holder');
 		$floatingElement.attr('style','');
 
 		$(window).on('resizeByWidth', function () {
-				clearTimeout(resizeTimer2);
-				resizeTimer2 = setTimeout(function () {
-					console.log(2);
+				clearTimeout(resizeTimer);
+				resizeTimer = setTimeout(function () {
 					navRelativePosition();
 				}, 500);
 			});
@@ -2509,9 +2300,7 @@ function headerFixed(){
 		var currentScrollTop = $(window).scrollTop();
 		var reduceLogo = $('.btn-menu').is(':hidden') && currentScrollTop > minScrollTop;
 
-		page.toggleClass('logo-reduce', reduceLogo, function () {
-			$(window).trigger('openCurrentNavItem');
-		});
+		page.toggleClass('logo-reduce', reduceLogo);
 		var showHeaderPanel = currentScrollTop < minScrollTop || currentScrollTop < previousScrollTop;
 
 		if (md.mobile()) {
