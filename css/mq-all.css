@@ -775,7 +775,7 @@
 
 	/*footer contacts*/
 	.footer-contacts{
-		padding: 30px 40px;
+		padding: 30px 25px;
 		font-size: 0;
 		letter-spacing: -4px;
 	}
@@ -786,6 +786,8 @@
 		width: 49.98%;
 		font-size: 14px;
 		letter-spacing: normal;
+		padding-left: 15px;
+		padding-right: 15px;
 	}
 	.switcher-col{
 		text-align: left;
@@ -1507,8 +1509,8 @@
 
 	/*MAIN NAVIGATION*/
 	.nav-overlay-page{ background: rgba(0, 0, 0, 0.6); }
-	.nav-opened .nav__holder,
-	.nav-opened .main-page .nav__holder{ width: 260px; }
+	.nav__holder,
+	.main-page .nav__holder{ width: 260px; }
 	.nav__list >li>a{
 		padding-left: 20px;
 		padding-right: 20px;
@@ -1634,6 +1636,10 @@
 		width: auto;
 		padding: 30px 40px 20px;
 		position: relative;
+	}
+	.footer-contacts .switcher-col{
+		text-align: center;
+		padding: 30px 40px;
 	}
 	.footer-contacts > div:after{
 		content: '';

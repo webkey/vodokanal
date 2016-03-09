@@ -457,10 +457,6 @@ function hoverClassInit(){
 				self.closeNav($html,$buttonMenu);
 			}
 
-			// Удаляем с пунктов меню всех уровней активный и текущий классы
-			//self.$navMenuItem.removeClass(_activeClass);
-			//self.$navMenuItem.removeClass(_current);
-
 			// Переключаем класс открывающий меню. Открытие через CSS3 translate
 			$html.toggleClass(modifiers.opened);
 
@@ -478,17 +474,26 @@ function hoverClassInit(){
 			self.closeNav($html,$buttonMenu);
 		});
 
+		//Скрываем меню по клику на кнопку закрытия
+		self.$btnClose.on('click', function () {
+			self.closeNav($html,$buttonMenu);
+		});
+
+		//Скрываем меню по клику на кнопку закрытия
+		$(window).swipe({
+			swipeLeft: function () {
+				if ($buttonMenu.hasClass(_activeClass)) {
+					self.closeNav($html, $buttonMenu);
+				}
+			}
+		});
+
 		// скрываем меню при ресайзе на десктопе
 		if(!self.md.mobile()){
 			$(window).on('debouncedresize', function () {
 				self.closeNav($html,$buttonMenu);
 			});
 		}
-
-		//Скрываем меню по клику на кнопку закрытия
-		self.$btnClose.on('click', function () {
-			self.closeNav($html,$buttonMenu);
-		});
 
 		// Удаляем класс позиционирования хедера при скролле
 		$(window).scroll(function () {
@@ -632,7 +637,7 @@ function navPosition(){
 		//console.log('contentHeight: ', contentHeight);
 
 		var floatingElementIsSmall = contentHeight > floatingElementHeightAbsolute;
-		console.log('floatingElementIsSmall: ', floatingElementIsSmall);
+		//console.log('floatingElementIsSmall: ', floatingElementIsSmall);
 		var delta = 0;
 
 		if (
@@ -681,7 +686,7 @@ function navPosition(){
 		){
 			//console.log('IV');
 			delta = floatingElementBottomPosition - footerPosition;
-			console.log('delta: ', delta);
+			//console.log('delta: ', delta);
 			$floatingElement.css({
 				'position': 'relative',
 				'top': floatingElementRelativePosition - delta
@@ -819,14 +824,14 @@ function navPosition(){
 }(jQuery));
 
 function footerDropInit() {
-	if($('.map-site-switcher').length){
+	/*if($('.map-site-switcher').length){
 		new Disperse({
 			switcher: '.map-site-switcher',
 			wrapperContainer: '.footer',
 			disperseDrop: '.site-map',
 			btnClose: '.site-map-close'
 		});
-	}
+	}*/
 
 	if($('.contact-panel__opener').length){
 		new Disperse({
@@ -834,7 +839,7 @@ function footerDropInit() {
 			wrapperContainer: '.footer',
 			disperseDrop: '.contacts-panel__holder',
 			scrollTo: '.contacts-panel',
-			clearOnResize: true
+				clearOnResize: true
 		});
 	}
 }
@@ -1626,39 +1631,92 @@ function mapMainInit(){
 		//markers = [];
 	}
 
-	/*showed footer map*/
-	var $footerMap = $('.footer-local-map'),
-		animationSpeed = 300;
+	/*switch footer panels*/
+	/*функцию вызываем в пространстве имен функции mapMainInit(),
+	* чтобы сохранить фозможность перезагрузки гугл-карты*/
+	switchFooterPanels();
 
-	$('.road-view').on('click', function () {
-		var $currentBtn = $(this);
-		var $footerMapWrap = $footerMap.closest('.footer-map-row');
+	function switchFooterPanels() {
+		var animationSpeed = 300;
 		var _activeClass = 'active';
-		if($footerMap.is(':animated')){ return; }
+		var panelShow = false;
+		var $footerPanelSwitcher = $('.road-view, .map-site-switcher');
+		$footerPanelSwitcher.on('click', function () {
+			var $currentBtn = $(this);
+			var $panel = $('.' + $currentBtn.data('panel') + '');
+			//if($panel.is(':animated')){ return; }
+			$footerPanelSwitcher.removeClass(_activeClass);
+			if ($panel.is(':visible')) {
+				$panel.stop().slideUp(animationSpeed).removeClass(_activeClass);
+				footerAtBottom(-$panel.outerHeight(true), animationSpeed);
+				panelShow = false;
+				return;
+			}
+			function mapReload() {
+				google.maps.event.trigger(map2, 'resize');
+				moveToLocation(0, map2);
+			}
+			if (panelShow) {
+				$footerPanelSwitcher.removeClass(_activeClass);
+				$('.footer-panels').children(':visible').slideUp(0, function () {
+					footerAtBottom(-$(this).outerHeight(true), animationSpeed);
+				}).removeClass(_activeClass);
+				$panel.slideDown(0, function () {
+					mapReload();
+					footerAtBottom($panel.outerHeight(true), animationSpeed);
+				}).addClass(_activeClass);
+				$currentBtn.addClass(_activeClass);
+			} else {
+				$currentBtn.addClass(_activeClass);
+				$panel.stop().slideDown(animationSpeed, function () {
+					mapReload();
+					footerAtBottom($panel.outerHeight(true), animationSpeed);
+				}).addClass(_activeClass);
+				panelShow = true;
+			}
+			$('html, body').animate({scrollTop: $panel.offset().top}, animationSpeed);
+		});
+		var $footerPanelCloser = $('.site-map-close, .footer-map-close');
+		$footerPanelCloser.on('click', function () {
+			$footerPanelSwitcher.removeClass(_activeClass);
+			var $closingPanel = $(this).closest('.' + _activeClass + '');
+			$closingPanel.stop().slideUp(animationSpeed).removeClass(_activeClass);
+			footerAtBottom(-$closingPanel.outerHeight(true), animationSpeed);
+			panelShow = false;
+		});
+	}
 
-		if($footerMap.is(':visible')){
-			$footerMap.stop().slideUp(animationSpeed, function () {
-				footerAtBottom (-$footerMap.outerHeight(true), animationSpeed);
-			});
-			$footerMapWrap.removeClass(_activeClass);
+	$(window).on('scroll load resizeByWidth', function () {
+		positionBtnClose();
+	});
+
+	function positionBtnClose(){
+		var $btn = $('.site-map-close');
+		var $wrap = $('.site-map');
+		var windowHeight = $(window).outerHeight();
+		var wrapHeight = $wrap.outerHeight();
+
+		if($wrap.is(':hidden') || windowHeight > wrapHeight){
 			return;
 		}
-		$footerMap.stop().slideDown(animationSpeed, function () {
-			google.maps.event.trigger(map2,'resize');
-			moveToLocation(0,map2);
-			footerAtBottom ($footerMap.outerHeight(true), animationSpeed);
-			$footerMapWrap.addClass(_activeClass);
-		});
 
-		$('html, body').animate({ scrollTop: $currentBtn.offset().top }, animationSpeed);
-	});
 
-	$('.footer-map-close').on('click', function () {
-		$footerMap.stop().slideUp(animationSpeed, function () {
-			footerAtBottom (-$footerMap.outerHeight(true), animationSpeed);
+		$btn.css({
+			'top': 14,
+			'bottom': 'auto'
 		});
-		$('.footer-map-row').removeClass('active');
-	});
+		var windowBottomPosition = $(window).scrollTop() + windowHeight;
+		console.log('windowBottomPosition: ', windowBottomPosition);
+		var wrapBottomPosition = $wrap.offset().top + wrapHeight - 20;
+
+		if(windowBottomPosition > wrapBottomPosition){
+			$btn.css({
+				'top': 'auto',
+				'bottom': 16
+			});
+		}
+	}
+	/*switch footer panels end*/
 }
 /*map init end*/
 
@@ -2083,16 +2141,14 @@ function footerAtBottom (height, speed) {
 
 	HistorySlider.prototype.scrollToCurrentSlide = function (index) {
 		var self = this;
-		var slideWidth = self.$slide.eq(index).outerWidth(),
-			slideNextWidth = self.$slide.eq(index).next().outerWidth(),
+		var slideNextWidth = self.$slide.eq(index).next().outerWidth(),
 			slidePrevWidth = self.$slide.eq(index).prev().outerWidth(),
-			slideLeftOffset = self.$slide.eq(index).offset().left,
 			containerWidth = self.$sliderContainer.outerWidth(),
 			containerLeftOffset = self.$sliderContainer.offset().left,
-			slideLeftPosition = slideLeftOffset - containerLeftOffset,
+			slideLeftPosition = self.$slide.eq(index).offset().left - containerLeftOffset,
 
 			minPaddingLeft = self._padding,
-			minPaddingRight = slideWidth + self._padding,
+			minPaddingRight = self.$slide.eq(index).outerWidth() + self._padding,
 
 			rightEdge = containerWidth - minPaddingRight,
 			innerWidth = self.$sliderInner.outerWidth(),

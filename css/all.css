@@ -5259,23 +5259,23 @@ body:not(.mobile-device) .gallery__previews .slick-next:hover:after{ opacity: 1;
 .footer-site-map{
 	overflow: hidden;
 	background: #009eed;
+	display: none;
 }
 .site-map{
 	padding: 30px 32px 0;
-	margin: 0 40px;
 	font-size: 0;
 	letter-spacing: -4px;
 	background: #008acf;
 	position: relative;
+	border-bottom: 1px solid #009eed;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
-	display: none;
 }
 .site-map-close {
 	position: absolute;
 	right: 18px;
-	top: 6px;
+	top: 14px;
 	font-size: 13px;
 	line-height: 17px;
 	letter-spacing: normal;
@@ -5287,7 +5287,7 @@ body:not(.mobile-device) .gallery__previews .slick-next:hover:after{ opacity: 1;
 	-webkit-transition: opacity 0.2s 0.6s;
 	transition: opacity 0.2s 0.6s;
 }
-.site-map.active .site-map-close { opacity: 0.85; }
+.footer-site-map.active .site-map-close { opacity: 0.85; }
 .site-map-close>span{
 	border-bottom: 1px dotted #fff;
 	-webkit-transition: border 0.2s;
@@ -5330,7 +5330,7 @@ body:not(.mobile-device) .gallery__previews .slick-next:hover:after{ opacity: 1;
 	box-sizing: border-box;
 	opacity: 0;
 }
-.site-map.active .site-map__box{ opacity: 1; }
+.footer-site-map.active .site-map__box{ opacity: 1; }
 .site-map__title{
 	display: block;
 	font-size: 14px;
@@ -5613,6 +5613,8 @@ body:not(.mobile-device) .gallery__previews .slick-next:hover:after{ opacity: 1;
 .footer-map-row{
 	overflow: hidden;
 	position: relative;
+	display: none;
+	background: #008acf;
 }
 .footer-map-close {
 	position: absolute;
@@ -5664,10 +5666,15 @@ body:not(.mobile-device) .gallery__previews .slick-next:hover:after{ opacity: 1;
 .footer-local-map{
 	position: relative;
 	width: 100%;
-	background: #f2f2f2;
+	background: #008acf;
 	height: 494px;
 	overflow: hidden;
-	display: none;
+	opacity: 0;
+	-webkit-transition: opacity 0.6s 0.2s;
+	transition: opacity 0.6s 0.2s;
+}
+.footer-map-row.active .footer-local-map{
+	opacity: 1;
 }
 .footer-local-map:before,
 .footer-local-map:after {
