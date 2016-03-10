@@ -18,7 +18,7 @@ body{
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
-html.nav-opened body{ overflow: hidden; padding-right: 17px; }
+html.nav-opened body:not(.mobile-device){ overflow: hidden; padding-right: 17px; }
 body:before{
 	content: '';
 	position: fixed;
