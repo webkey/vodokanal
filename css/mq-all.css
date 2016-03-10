@@ -600,8 +600,8 @@
 		width: 0;
 	}
 	.inner-page .nav__holder{
-		position: fixed;
-		top: 0;
+		position: fixed !important;
+		top: 0 !important;
 		left: 0;
 		height: 100%;
 		margin: 0;

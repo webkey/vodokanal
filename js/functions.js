@@ -457,8 +457,6 @@ function hoverClassInit(){
 				self.closeNav($html,$buttonMenu);
 			}
 
-			$('.nav__holder').attr('style','');
-
 			// Переключаем класс открывающий меню. Открытие через CSS3 translate
 			$html.toggleClass(modifiers.opened);
 
@@ -571,8 +569,7 @@ var collapseNavItem = function() {
 /*nav position*/
 function navPosition(){
 
-	if($('.inner-page').length){
-		if($('.btn-menu').is(':visible')){return;}
+	if($('.inner-page').length && $('.btn-menu').is(':hidden')){
 
 		var bottomFixed = false;
 		var $window = $(window);
@@ -594,14 +591,23 @@ function navPosition(){
 				navRelativePosition();
 			})
 		}
-
-		navPositionOnResize();
 	}
+
+	var resizeTimer;
+	$(window).on('resizeByWidth', function () {
+		if($('.inner-page').length && $('.btn-menu').is(':hidden')){
+			clearTimeout(resizeTimer);
+			resizeTimer = setTimeout(function () {
+				navRelativePosition();
+			}, 500);
+		}
+	});
 
 	function navRelativePosition() {
 
 		var windowHeight = $(window).outerHeight();
 		var scrollPositionCurrent = $(window).scrollTop();
+		//console.log('scrollPositionCurrent: ', scrollPositionCurrent);
 		var windowBottomPosition = scrollPositionCurrent + windowHeight;
 		//console.log('windowBottomPosition: ', windowBottomPosition);
 
@@ -706,20 +712,6 @@ function navPosition(){
 		}
 
 		scrollPositionPrevious = scrollPositionCurrent;
-	}
-
-	var resizeTimer;
-
-	function navPositionOnResize(){
-		var $floatingElement = $('.nav-inner-page__holder');
-		$floatingElement.attr('style','');
-
-		$(window).on('resizeByWidth', function () {
-				clearTimeout(resizeTimer);
-				resizeTimer = setTimeout(function () {
-					navRelativePosition();
-				}, 500);
-			});
 	}
 }
 
