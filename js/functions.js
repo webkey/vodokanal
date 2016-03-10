@@ -457,6 +457,8 @@ function hoverClassInit(){
 				self.closeNav($html,$buttonMenu);
 			}
 
+			$('.nav__holder').attr('style','');
+
 			// Переключаем класс открывающий меню. Открытие через CSS3 translate
 			$html.toggleClass(modifiers.opened);
 
