@@ -8,6 +8,9 @@ html{
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
+html.nav-opened{
+	overflow: hidden;
+}
 body{
 	font: 14px/24px Tahoma, Geneva, sans-serif;
 	height: 100%;
