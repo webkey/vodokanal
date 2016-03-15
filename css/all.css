@@ -1037,7 +1037,7 @@ html.position .footer{
 	position: relative;
 	overflow: hidden;
 }
-.main>.max-wrap:before {
+.inner-page .main>.max-wrap:before {
 	content: '';
 	position: absolute;
 	left: 0;
