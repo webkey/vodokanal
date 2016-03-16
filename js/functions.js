@@ -331,6 +331,7 @@ function hoverClassInit(){
 			//self.$navContainer.after(tplNavOverlay);
 			$('.header-holder').append(tplNavOverlay);
 			$('.content-wrap').append(tplNavOverlay);
+			$('.footer').append(tplNavOverlay);
 		}
 	};
 
@@ -450,7 +451,7 @@ function hoverClassInit(){
 			_positionClass = modifiers.position;
 
 		$buttonMenu.on('click', function (e) {
-			// Закрываем форму поиска, если открытас
+			// Закрываем форму поиска, если открытая
 			var $searchForm = $('.search-form');
 			if($searchForm.is(':visible')){
 				$searchForm.find('.js-btn-search-close').trigger('click');
@@ -482,15 +483,6 @@ function hoverClassInit(){
 		//Скрываем меню по клику на кнопку закрытия
 		self.$btnClose.on('click', function () {
 			self.closeNav($html,$buttonMenu);
-		});
-
-		//Скрываем меню по клику на кнопку закрытия
-		$(window).swipe({
-			swipeLeft: function () {
-				if ($buttonMenu.hasClass(_activeClass)) {
-					self.closeNav($html, $buttonMenu);
-				}
-			}
 		});
 
 		// скрываем меню при ресайзе на десктопе
@@ -2502,7 +2494,7 @@ function fancyboxInit(){
 
 $(document).ready(function () {
 	placeholderInit();
-	//dropLanguageInit();
+	dropLanguageInit();
 	showFormSearch();
 	footerDropInit();
 	initJsDrops();
