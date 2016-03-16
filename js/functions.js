@@ -2365,11 +2365,13 @@ function headerFixed(){
 		page.toggleClass('logo-reduce', reduceLogo);
 		var showHeaderPanel = currentScrollTop < minScrollTop || currentScrollTop < previousScrollTop;
 
-		if (md.mobile()) {
+		/*if (md.mobile()) {
 			page.find('.header-options').toggle(showHeaderPanel);
 		} else {
-			page.toggleClass('top-panel-show', showHeaderPanel);
-		}
+		}*/
+
+		page.toggleClass('top-panel-show', showHeaderPanel);
+
 		if(showHeaderPanel && resizeByWidth){
 			collapsePhones();
 		}
