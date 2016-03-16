@@ -682,6 +682,7 @@
 	/*MAIN CONTENT end*/
 
 	/*FOOTER*/
+	.footer { z-index: 2; }
 	/*grid*/
 	.grid-col-3:before,
 	.grid-col-3:after{ content: ""; display: table; }
