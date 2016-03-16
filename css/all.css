@@ -1371,6 +1371,10 @@ html.position .footer{
 	position: relative;
 }
 .top-panel-show .phones{ box-shadow: 0 0 15px rgba(0, 0, 0, 0.25); }
+.phones a{
+	text-decoration: none;
+	color: #fff;
+}
 .phs__container{
 	margin-right: 60px;
 	height: 100%;
@@ -1423,9 +1427,6 @@ html.position .footer{
 .phs__label{
 	display: block;
 	margin: 0 0 2px;
-}
-.phones-clone .phs__label{
-	height: 16px;
 }
 .phs__number{
 	font-size: 18px;
@@ -1480,6 +1481,7 @@ html.position .footer{
 	width: 100%;
 	background: #0080bf;
 	opacity: 0;
+	overflow: auto;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -1491,6 +1493,9 @@ html.position .footer{
 	left: 0;
 	top: 100%;
 	opacity: 1;
+}
+.phones-drop .phones-drop{
+	overflow: visible;
 }
 .phones-drop .phs__item{
 	float: none;
@@ -5907,20 +5912,6 @@ body:not(.mobile-device) .gallery__previews .slick-next:hover:after{ opacity: 1;
 	-ms-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
 	opacity: 0;
-}
-
-.loader__icon{
-	/*width: 54px;*/
-	/*height: 54px;*/
-	/*background: url(../img/preloader.gif) no-repeat;*/
-	width: 64px;
-	height: 64px;
-	/*transform: rotateZ(45deg);*/
-	/*-o-transform: rotateZ(45deg);*/
-	/*-ms-transform: rotateZ(45deg);*/
-	/*-webkit-transform: rotateZ(45deg);*/
-	/*-moz-transform: rotateZ(45deg);*/
-	/*display: none;*/
 }
 
 .loader__icon {

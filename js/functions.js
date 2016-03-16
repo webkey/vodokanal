@@ -863,7 +863,23 @@ function initJsDrops(){
 
 	$(document).click(function () {
 		$jsDropWrapper.removeClass('show-drop');
-	})
+	});
+
+	//recalculate height of phone drop
+	$('.phs__item_opener').on('click', function () {
+		recalcPhonesDrop.call();
+	});
+
+	$(window).on('resize scroll', function () {
+		recalcPhonesDrop.call();
+	});
+
+	function recalcPhonesDrop() {
+		var topSpace = $('body').hasClass('top-panel-show') ? 60 : 0;
+		var windowHeight = $(window).height() - topSpace;
+
+		$('.phones-drop').css('max-height', windowHeight);
+	}
 }
 /*init js drop end*/
 
@@ -2494,7 +2510,7 @@ function fancyboxInit(){
 
 $(document).ready(function () {
 	placeholderInit();
-	dropLanguageInit();
+	//dropLanguageInit();
 	showFormSearch();
 	footerDropInit();
 	initJsDrops();

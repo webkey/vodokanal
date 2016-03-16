@@ -1711,3 +1711,10 @@
 	/*footer bottom end*/
 	/*FOOTER end*/
 }
+
+@media only screen and (max-height: 400px){
+	#preloader-logo{
+		left: -9999px;
+		top: -9999px;
+	}
+}
