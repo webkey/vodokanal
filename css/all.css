@@ -1955,7 +1955,7 @@ li.has-drop.current>.nav-sub-drop:after,
 /*page heading*/
 .page-heading{
 	background: #f5f5f5;
-	padding: 16px 40px 36px;
+	padding: 13px 40px 36px;
 	min-height: 140px;
 	margin: 0 -40px 30px;
 	position: relative;
@@ -1998,7 +1998,7 @@ li.has-drop.current>.nav-sub-drop:after,
 	line-height: 18px;
 	letter-spacing: 0.1em;
 	color: #808080;
-	padding: 0 0 17px;
+	padding: 0 0 7px;
 	overflow: hidden;
 	list-style: none;
 	margin: 0;
