@@ -372,7 +372,7 @@ function hoverClassInit(){
 
 			if (current.siblings(collapsibleElement).is(':visible')){
 				currentAccordionItem.removeClass(modifiers.active).find(collapsibleElement).slideUp(animateSpeed, function () {
-					//$(window).trigger('openedCurrentNavItem');
+					$(window).trigger('openedCurrentNavItem');
 				});
 				currentAccordionItem.removeClass(modifiers.current);
 				currentAccordionItem.find(anyAccordionItem).removeClass(modifiers.active).removeClass(modifiers.current);
@@ -385,7 +385,7 @@ function hoverClassInit(){
 
 			currentAccordionItem.addClass(modifiers.active);
 			current.siblings(collapsibleElement).slideDown(animateSpeed, function () {
-				//$(window).trigger('openedCurrentNavItem');
+				$(window).trigger('openedCurrentNavItem');
 			});
 		})
 	};
@@ -622,7 +622,7 @@ function navPosition(){
 
 		// Верхняя координата плавающего элемента + верхний отступ
 		var floatingElementRelativePosition = floatingElementPosition - topSpace;
-		//console.log('floatingElementRelativePosition: ', floatingElementRelativePosition);
+		console.log('floatingElementRelativePosition: ', floatingElementRelativePosition);
 
 		var scrollDown = scrollPositionCurrent > scrollPositionPrevious;
 		//console.log('scrollDown: ', scrollDown);
@@ -680,7 +680,7 @@ function navPosition(){
 			||
 			scrollTop && bottomFixed
 		){
-			//console.log('III');
+			console.log('III');
 			$floatingElement.css({
 				'position': 'relative',
 				'top': floatingElementRelativePosition
@@ -689,7 +689,7 @@ function navPosition(){
 			footerTouch ||
 			windowBottomPosition > footerPosition && floatingElementHeightAbsolute >= footerPosition - scrollPositionCurrent
 		){
-			//console.log('IV');
+			console.log('IV');
 			delta = floatingElementBottomPosition - footerPosition;
 			//console.log('delta: ', delta);
 			$floatingElement.css({
@@ -701,7 +701,7 @@ function navPosition(){
 		} else if (
 			!floatingElementIsSmall && !scrollDown && !scrollTop
 		) {
-			//console.log('V');
+			console.log('V');
 			$floatingElement.css({
 				'position': 'relative',
 				'top': 0

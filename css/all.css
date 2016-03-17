@@ -989,6 +989,9 @@ body:not(.mobile-device) .slider-typography .slick-next:hover:after{ opacity: 1;
 	height: 100%;
 	overflow: hidden;
 	position: relative;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 }
 .inner-page .wrapper{ padding: 60px 0 0; }
 .header{
@@ -1426,6 +1429,8 @@ html.position .footer{
 }
 .phs__label{
 	display: block;
+	line-height: 1.1;
+	padding-bottom: 1px;
 	margin: 0 0 2px;
 }
 .phs__number{
@@ -1565,6 +1570,7 @@ html.position .footer{
 	text-indent: -9999px;
 	overflow: hidden;
 	background: #008acf;
+	box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.1);
 	z-index: 1;
 }
 .logo-reduce .logo{ height: 60px; }
