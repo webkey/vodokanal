@@ -871,22 +871,45 @@
 			<div class="popup-title">Форма обращения</div>
 			<form action="#" method="get">
 				<div class="form-row">
+
 					<div class="input-wrap">
-						<input type="text" placeholder="Ваше имя">
+						<div class="label-holder">
+							<label for="entity-form-person" title="Обязательно для заполнения"><span class="required">*</span> Фамилия, имя, отчество лица, уполномоченного в установленном порядке подписывать обращения:</label>
+						</div>
+						<input type="text" value="" id="entity-form-person">
 					</div>
+
 					<div class="input-wrap">
-						<input type="text" placeholder="Телефон">
+						<div class="label-holder">
+							<label for="entity-form-address" title="Обязательно для заполнения"><span class="required">*</span> Адрес места нахождения юридического лица:</label>
+						</div>
+						<input type="text" value="" id="entity-form-address">
 					</div>
+
 				</div>
 				<div class="form-row">
+
 					<div class="input-wrap">
-						<input type="text" placeholder="E-mail">
+						<div class="label-holder">
+							<label for="entity-form-name" title="Обязательно для заполнения"><span class="required">*</span> Полное наименование юридического лица:</label>
+						</div>
+						<input type="text" value="" id="entity-form-name">
 					</div>
+
 					<div class="input-wrap">
-						<input type="email" placeholder="Тема обсуждения">
+						<div class="label-holder">
+							<label for="entity-form-email" title="Обязательно для заполнения"><span class="required">*</span> E-mail для ответа:</label>
+						</div>
+						<input type="email" value="" id="entity-form-email">
 					</div>
+
 				</div>
-				<textarea placeholder="Текст"></textarea>
+
+				<div class="label-holder">
+					<label for="entity-form-message" title="Обязательно для заполнения"><span class="required">*</span> Текст сообщения:</label>
+				</div>
+				<textarea id="entity-form-message" title="Введите текстовое сообщение"></textarea>
+
 				<div class="form-row form-buttons">
 					<div class="input-wrap">
 						<input type="submit" value="Отправить">
@@ -898,27 +921,38 @@
 	</div>
 
 	<div class="popup">
-		<!-- callback individual form -->
+		<!-- callback individual popup -->
 		<div id="callback-individual-popup" class="callback-popup-form">
 			<div class="popup-title">Форма обращения</div>
 			<form action="#" method="get">
 				<div class="form-row">
+
 					<div class="input-wrap">
-						<input type="text" placeholder="Ваше имя">
+						<div class="label-holder">
+							<label for="individual-form-person" title="Обязательно для заполнения"><span class="required">*</span> Фамилия, имя, отчество гражданина:</label>
+						</div>
+						<input type="text" value="" id="individual-form-person">
 					</div>
+
 					<div class="input-wrap">
-						<input type="text" placeholder="Телефон">
+						<div class="label-holder">
+							<label for="individual-form-name" title="Обязательно для заполнения"><span class="required">*</span> E-mail для ответа:</label>
+						</div>
+						<input type="email" value="" id="individual-form-name">
 					</div>
+
 				</div>
-				<div class="form-row">
-					<div class="input-wrap">
-						<input type="text" placeholder="E-mail">
-					</div>
-					<div class="input-wrap">
-						<input type="email" placeholder="Тема обсуждения">
-					</div>
+
+				<div class="label-holder">
+					<label for="individual-form-address" title="Обязательно для заполнения"><span class="required">*</span> Адрес места жительства либо места пребывания гражданина:</label>
 				</div>
-				<textarea placeholder="Текст"></textarea>
+				<input type="text" value="" id="individual-form-address">
+
+				<div class="label-holder">
+					<label for="individual-form-message" title="Обязательно для заполнения"><span class="required">*</span> Текст сообщения:</label>
+				</div>
+				<textarea id="individual-form-message" title="Введите текстовое сообщение"></textarea>
+
 				<div class="form-row form-buttons">
 					<div class="input-wrap">
 						<input type="submit" value="Отправить">
@@ -926,7 +960,7 @@
 				</div>
 			</form>
 		</div>
-		<!-- individual form end -->
+		<!-- callback individual popup end -->
 	</div>
 </div>
 <!--popups end-->

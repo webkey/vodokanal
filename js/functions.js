@@ -371,8 +371,17 @@ function hoverClassInit(){
 			}
 
 			if (current.siblings(collapsibleElement).is(':visible')){
+
+				var changeAccordingTimeOut1;
+
 				currentAccordionItem.removeClass(modifiers.active).find(collapsibleElement).slideUp(animateSpeed, function () {
-					$(window).trigger('openedCurrentNavItem');
+
+					// Запускаем событые пересчета позиционирования главной навигации navPosition()
+					clearTimeout(changeAccordingTimeOut1);
+					changeAccordingTimeOut1 = setTimeout(function () {
+						$(window).trigger('openedCurrentNavItem');
+						console.log('changeAccordingTimeOut1: ', changeAccordingTimeOut1);
+					}, 100);
 				});
 				currentAccordionItem.removeClass(modifiers.current);
 				currentAccordionItem.find(anyAccordionItem).removeClass(modifiers.active).removeClass(modifiers.current);
@@ -384,8 +393,15 @@ function hoverClassInit(){
 			currentAccordionItem.siblings().find(anyAccordionItem).removeClass(modifiers.active).removeClass(modifiers.current);
 
 			currentAccordionItem.addClass(modifiers.active);
+			var changeAccordingTimeOut2;
+
 			current.siblings(collapsibleElement).slideDown(animateSpeed, function () {
-				$(window).trigger('openedCurrentNavItem');
+				// Запускаем событые пересчета позиционирования главной навигации navPosition()
+				clearTimeout(changeAccordingTimeOut2);
+				changeAccordingTimeOut2 = setTimeout(function () {
+					$(window).trigger('openedCurrentNavItem');
+					console.log('changeAccordingTimeOut2: ', changeAccordingTimeOut2);
+				}, 100);
 			});
 		})
 	};
