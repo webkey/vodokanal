@@ -44,7 +44,7 @@ h1, h2, h3, h4, h5, h6{
 h1{
 	font-size: 24px;
 	line-height: 29px;
-	letter-spacing: 0.1em;
+	letter-spacing: 0.02em;
 	text-transform: uppercase;
 	padding: 0 0 20px;
 }
@@ -2042,7 +2042,7 @@ li.has-drop.current>.nav-sub-drop:after,
 .breadcrumbs li:first-child:before,
 .user-content .breadcrumbs li:first-child:before{ content: none; }
 .breadcrumbs a{
-	color: #333;
+	color: #969696;
 	text-decoration: underline;
 }
 .breadcrumbs a:hover{ text-decoration: none; }
