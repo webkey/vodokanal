@@ -372,16 +372,15 @@ function hoverClassInit(){
 
 			if (current.siblings(collapsibleElement).is(':visible')){
 
-				var changeAccordingTimeOut1;
+				//var changeAccordingTimeOut1;
 
 				currentAccordionItem.removeClass(modifiers.active).find(collapsibleElement).slideUp(animateSpeed, function () {
 
 					// Запускаем событые пересчета позиционирования главной навигации navPosition()
-					clearTimeout(changeAccordingTimeOut1);
-					changeAccordingTimeOut1 = setTimeout(function () {
-						$(window).trigger('openedCurrentNavItem');
-						console.log('changeAccordingTimeOut1: ', changeAccordingTimeOut1);
-					}, 100);
+					//clearTimeout(changeAccordingTimeOut1);
+					//changeAccordingTimeOut1 = setTimeout(function () {
+					//	$(window).trigger('openedCurrentNavItem');
+					//}, 100);
 				});
 				currentAccordionItem.removeClass(modifiers.current);
 				currentAccordionItem.find(anyAccordionItem).removeClass(modifiers.active).removeClass(modifiers.current);
@@ -393,15 +392,14 @@ function hoverClassInit(){
 			currentAccordionItem.siblings().find(anyAccordionItem).removeClass(modifiers.active).removeClass(modifiers.current);
 
 			currentAccordionItem.addClass(modifiers.active);
-			var changeAccordingTimeOut2;
+			//var changeAccordingTimeOut2;
 
 			current.siblings(collapsibleElement).slideDown(animateSpeed, function () {
 				// Запускаем событые пересчета позиционирования главной навигации navPosition()
-				clearTimeout(changeAccordingTimeOut2);
-				changeAccordingTimeOut2 = setTimeout(function () {
-					$(window).trigger('openedCurrentNavItem');
-					console.log('changeAccordingTimeOut2: ', changeAccordingTimeOut2);
-				}, 100);
+				//clearTimeout(changeAccordingTimeOut2);
+				//changeAccordingTimeOut2 = setTimeout(function () {
+				//	$(window).trigger('openedCurrentNavItem');
+				//}, 100);
 			});
 		})
 	};
@@ -638,7 +636,7 @@ function navPosition(){
 
 		// Верхняя координата плавающего элемента + верхний отступ
 		var floatingElementRelativePosition = floatingElementPosition - topSpace;
-		console.log('floatingElementRelativePosition: ', floatingElementRelativePosition);
+		//console.log('floatingElementRelativePosition: ', floatingElementRelativePosition);
 
 		var scrollDown = scrollPositionCurrent > scrollPositionPrevious;
 		//console.log('scrollDown: ', scrollDown);
@@ -696,16 +694,18 @@ function navPosition(){
 			||
 			scrollTop && bottomFixed
 		){
-			console.log('III');
+			//console.log('III');
 			$floatingElement.css({
 				'position': 'relative',
+				//'top': footerPosition - floatingElementHeight - topSpace
 				'top': floatingElementRelativePosition
 			});
 		} else if (
-			footerTouch ||
+			footerTouch
+			||
 			windowBottomPosition > footerPosition && floatingElementHeightAbsolute >= footerPosition - scrollPositionCurrent
 		){
-			console.log('IV');
+			//console.log('IV');
 			delta = floatingElementBottomPosition - footerPosition;
 			//console.log('delta: ', delta);
 			$floatingElement.css({
@@ -717,7 +717,7 @@ function navPosition(){
 		} else if (
 			!floatingElementIsSmall && !scrollDown && !scrollTop
 		) {
-			console.log('V');
+			//console.log('V');
 			$floatingElement.css({
 				'position': 'relative',
 				'top': 0
