@@ -986,15 +986,10 @@
 	/*window*/
 	.promo .window{
 		width: auto;
-		height: auto;
 		position: relative;
 		right: auto;
 		top: auto;
 		margin: 0 auto;
-	}
-	.window__title {
-		margin: 0 0 10px;
-		height: 58px;
 	}
 	/*window end*/
 
