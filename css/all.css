@@ -882,21 +882,10 @@ body:not(.mobile-device) .slider-typography .slick-next:hover:after{ opacity: 1;
 	display: inline-block;
 	vertical-align: top;
 }
-.depict-files-word{
-	background-position: 0 0;
-	width: 46px;
-	height: 59px;
-}
-.depict-files-xls{
-	background-position: 0 -80px ;
-	width: 46px;
-	height: 59px;
-}
-.depict-files-pdf{
-	background-position: 0 -160px ;
-	width: 46px;
-	height: 59px;
-}
+.depict-files-word{ background-position: 0 0; width: 46px; height: 59px; }
+.depict-files-xls{ background-position: 0 -80px; width: 46px; height: 59px; }
+.depict-files-pdf{ background-position: 0 -160px; width: 46px; height: 59px; }
+.depict-files-coral{ background-position: 0 -240px; width: 46px; height: 59px; }
 /*depict files end*/
 
 /*files item*/
@@ -964,6 +953,11 @@ body:not(.mobile-device) .slider-typography .slick-next:hover:after{ opacity: 1;
 	background-color: #3289c8;
 	width: 100%;
 }
+.file-coral:hover .file__info{ border-color: #579d41; }
+.file-coral:hover .file__info:before{
+	background-color: #579d41;
+	width: 100%;
+}
 .file__info>div{
 	text-align: left;
 	display: inline-block;
@@ -982,6 +976,7 @@ body:not(.mobile-device) .slider-typography .slick-next:hover:after{ opacity: 1;
 .file-pdf .file__info>div>b{ color: #e22919; }
 .file-excel .file__info>div>b{ color: #32c869; }
 .file-word .file__info>div>b{ color: #3289c8; }
+.file-coral .file__info>div>b{ color: #579d41; }
 .file:hover .file__info>div,
 .file:hover .file__info>div>b{ color: #fff; }
 /*files item end*/
@@ -5943,9 +5938,6 @@ body:not(.mobile-device) .gallery__previews .slick-next:hover:after{ opacity: 1;
 	opacity: 1;
 }
 .preloader-end #preloader-logo{
-	-webkit-transform: translate(-50%, -50%);
-	-ms-transform: translate(-50%, -50%);
-	transform: translate(-50%, -50%);
 	opacity: 0;
 }
 
