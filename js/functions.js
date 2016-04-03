@@ -2547,7 +2547,7 @@ $(window).load(function () {
 	mainNavigationInit();
 	equalHeightInit();
 	caseEqualHeight();
-	preloader();
+	//preloader();
 	mapMainInit();
 });
 
