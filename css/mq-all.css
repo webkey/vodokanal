@@ -168,6 +168,7 @@
 		box-sizing: border-box;
 	}
 	.nav-main-page .nav__list>li.hover>a,
+	.no-js .nav-main-page .nav__list>li:hover>a,
 	.nav-main-page .nav__list>li.active>a,
 	.nav-main-page .nav__list>li.current>a,
 	.nav-cloned.hover>.nav-cloned__btn{
@@ -187,7 +188,10 @@
 		left: 50%;
 		margin-left: -5px;
 	}
-	.nav-main-page .nav__list>li.hover>a>[class*="depict-icons-angle-"]:before{ border-top-color: #008acf; }
+	.nav-main-page .nav__list>li.hover>a>[class*="depict-icons-angle-"]:before,
+	.no-js .nav-main-page .nav__list>li:hover>a>[class*="depict-icons-angle-"]:before{
+		border-top-color: #008acf;
+	}
 	.nav-main-page .nav__list>li.active>a>[class*="depict-icons-angle-"]:before,
 	.nav-main-page .nav__list>li.current>a>[class*="depict-icons-angle-"]:before{
 		border: 5px solid rgba(128, 128, 128, 0);
@@ -200,6 +204,7 @@
 		right: 0;
 	}
 	.nav-main-page .nav__list>li.hover>.nav-drop,
+	.no-js .nav-main-page .nav__list>li:hover>.nav-drop,
 	.nav-main-page .nav__list>li.active>.nav-drop{
 		top: 100%;
 		opacity: 1;
@@ -224,6 +229,7 @@
 	}
 	.nav-main-page .nav-drop__list>li.has-drop>a{ padding-right: 25px; }
 	.nav-main-page .nav-drop__list>li.hover>a,
+	.no-js .nav-main-page .nav-drop__list>li:hover>a,
 	.nav-main-page .nav-drop__list>li.active>a,
 	.nav-main-page .nav-drop__list>li.current>a{
 		color: #fff;
@@ -248,6 +254,7 @@
 		border-left-color: #333;
 	}
 	.nav-main-page .nav-drop__list li.hover>a>[class*="depict-icons-angle-"]:before,
+	.no-js .nav-main-page .nav-drop__list li:hover>a>[class*="depict-icons-angle-"]:before,
 	.nav-main-page .nav-drop__list li.active>a>[class*="depict-icons-angle-"]:before,
 	.nav-main-page .nav-drop__list li.current>a>[class*="depict-icons-angle-"]:before{ border-left-color: #fff; }
 	.nav-main-page .nav-sub-drop{
@@ -260,6 +267,7 @@
 		right: 100%;
 	}
 	.nav-main-page .nav-drop__list>li.hover>.nav-sub-drop,
+	.no-js .nav-main-page .nav-drop__list>li:hover>.nav-sub-drop,
 	.nav-main-page .nav-drop__list>li.active>.nav-sub-drop{
 		top: 0;
 		opacity: 1;
@@ -281,6 +289,7 @@
 	}
 	.nav-main-page .nav-sub-drop__list>li.has-drop>a{ padding-right: 25px; }
 	.nav-main-page .nav-sub-drop__list>li.hover>a,
+	.no-js .nav-main-page .nav-sub-drop__list>li:hover>a,
 	.nav-main-page .nav-sub-drop__list>li.active>a,
 	.nav-main-page .nav-sub-drop__list>li.current>a{
 		color: #fff;
@@ -1487,10 +1496,11 @@
 	.faq-list h3+div{ padding: 0 20px 15px; }
 	/*faq end*/
 
-	#preloader{
+	.preloader__logo{
 		-webkit-background-size:100px;
 		background-size:100px;
 		background-position: 50% 20px;
+		margin-top: 20px;
 	}
 }
 
@@ -1717,7 +1727,8 @@
 }
 
 @media only screen and (max-height: 400px){
-	#preloader-logo{
+	.preloader__logo{
+		position: absolute;
 		left: -9999px;
 		top: -9999px;
 	}

@@ -44,17 +44,6 @@ function preloader(){
 	$spinner.fadeOut();
 	$preloader.addClass('preloader-end');
 
-	//var $logo = $('.logo');
-
-	//if ($logo.length) {
-	//	var _logoPosTop = $logo.offset().top + $logo.height()/2;
-	//	var _logoPosLeft = $logo.offset().left + $logo.width()/2;
-	//
-	//	$('#preloader-logo').css({
-	//		'position': 'fixed', 'top': _logoPosTop, 'left': _logoPosLeft
-	//	});
-	//}
-
 	$preloader.delay(350).fadeOut(500);
 }
 /*preloader */
