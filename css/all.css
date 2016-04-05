@@ -405,13 +405,15 @@ img.img{
 	vertical-align: top;
 	margin: 0;
 }
-.imgl{
+.imgl,
+.justifyleft{
 	text-align: left;
 	float: left;
 	margin: 0 30px 0 0;
 	max-width: 50%;
 }
-.imgr{
+.imgr,
+.justifyright {
 	text-align: right;
 	float: right;
 	margin: 0 0 0 30px;
@@ -2440,7 +2442,10 @@ body:not(.mobile-device) .promo-slider .slick-next:hover:after{ opacity: 1; }
 .promo-slider .slick-dots li.slick-active button { background: #fff; }
 .promo-slider .slick-dots li button:before{ content: none; }
 
-.no-js .promo-holder{ height: auto; }
+.no-js .promo-holder{
+	height: auto;
+	min-height: 443px;
+}
 .no-js .promo-slider{
 	height: auto;
 	visibility: visible;
