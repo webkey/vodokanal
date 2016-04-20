@@ -1121,9 +1121,9 @@ html.position .footer{
 
 /*header options aside*/
 .header-options__aside{
-	width: 60px;
+	width: 260px;
 	float: right;
-	margin: 0 0 0 -60px;
+	margin: 0 0 0 -260px;
 	position: relative;
 }
 .header-options__aside:before,
@@ -1383,6 +1383,64 @@ html.position .footer{
 }
 .lang-list a:hover{ background: #008acf; }
 /*lang end*/
+
+/*login*/
+.login{
+	float: right;
+	width: 200px;
+}
+.login a{
+	display: block;
+	position: relative;
+	height: 60px;
+	font-size: 14px;
+	line-height: 60px;
+	letter-spacing: 0.03em;
+	text-decoration: none;
+	color: #fff;
+	text-align: center;
+	background: #008acf;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-transition-property: background;
+	transition-property: background;
+	-webkit-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+}
+.login a:after{
+	content: '';
+	position: absolute;
+	right: 0;
+	top: 50%;
+	height: 30px;
+	width: 0;
+	margin-top: -15px;
+	border-left: 1px solid #0077B3;
+	-webkit-transition-property: border;
+	transition-property: border;
+	-webkit-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+}
+.login a:hover:after{
+	border-color: transparent;
+}
+.login a i{ margin: 20px 6px 0 0; }
+.login a .login__inner{
+	text-align: left;
+	border-bottom: 1px dotted #fff;
+	-webkit-transition-property: border;
+	transition-property: border;
+	-webkit-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+}
+.login a:hover{
+	background: #0080bf;
+}
+.login a:hover .login__inner{
+	border-color: transparent;
+}
+/*login end*/
 /*header options aside end*/
 
 /*phones*/
@@ -1401,7 +1459,7 @@ html.position .footer{
 	color: #fff;
 }
 .phs__container{
-	margin-right: 60px;
+	margin-right: 260px;
 	height: 100%;
 	position: relative;
 }
@@ -6335,3 +6393,58 @@ body:not(.mobile-device) .gallery__previews .slick-next:hover:after{ opacity: 1;
 	}
 }
 /*preloader end*/
+
+/*cabinet*/
+body{
+	/*overflow: hidden;*/
+}
+.cabinet{
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	z-index: 1009;
+	display: none;
+}
+.cabinet__overlay{
+	background: rgba(0, 0, 0, 0.50);
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1008;
+	overflow: hidden;
+	-webkit-transform: translate(0, 0);
+	-ms-transform: translate(0, 0);
+	transform: translate(0, 0);
+}
+.cabinet__container{
+	background: #0af;
+	width: 320px;
+	margin-left: auto;
+}
+.cabinet__head {
+	width: 320px;
+	margin-left: auto;
+}
+.login-clone{
+	float: none;
+}
+.login-clone a{
+	background: #0af;
+}
+.login-clone a:after{
+	content: none;
+}
+
+.cabinet__preview{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.personal-popups .login{
+
+}
+/*cabinet end*/

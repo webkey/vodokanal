@@ -902,6 +902,7 @@ function collapsePhones() {
 
 	var phonesListWidth = $phonesList.outerWidth();
 	var lengthPhonesItems = $phonesItem.length;
+
 	// Количество ячеек, которые нужно "переместить" в дроп "все номера"
 	var cloneLength = Math.abs(Math.ceil((lengthPhonesItems * minWidthItem - phonesListWidth)/minWidthItem));
 
@@ -926,7 +927,7 @@ function collapsePhones() {
 	$('.phs__item').removeClass('ph-cloned');
 	var $phonesCloneItems = $('.phones-clone-drop', $phonesCloneContainer).children('.phs__list').children('.phs__item');
 
-	for(var i = 0; i < cloneLength; i++){
+	for(var i = 0; i <= cloneLength; i++){
 		var indexCloned = lengthPhonesItems - i - 1;
 		$($phonesItem[indexCloned]).addClass('ph-cloned');
 		$($phonesCloneItems[indexCloned]).addClass('ph-cloned');
@@ -2511,6 +2512,75 @@ function fancyboxInit(){
 }
 /* fancybox initial */
 
+/*cabinet events*/
+function cabinetEvents(){
+	var $cabinet = $('.cabinet');
+	if(!$cabinet.length) return;
+
+	var $html = $('html');
+	var $btnLogin = $('.login a');
+	var $cabinetHead = $('.cabinet__head');
+	var $overlay = $('<div class="cabinet__overlay"></div>');
+	var showClass = 'show-cabinet';
+	var btnActiveClass = 'active';
+	var animateSpeed = 200;
+
+	$btnLogin.on('click', function(e){
+		e.preventDefault();
+		console.log($overlay);
+
+		var $currentBtnLogin = $(this).parent('.login');
+
+		//if($cabinet.is(':visible')){
+		//	closeMenu();
+		//	return;
+		//}
+
+		$currentBtnLogin.toggleClass(btnActiveClass, !$currentBtnLogin.hasClass(btnActiveClass));
+		$html.toggleClass(showClass, $currentBtnLogin.hasClass(btnActiveClass));
+
+		var $btnLoginClone = $currentBtnLogin.clone().addClass('login-clone');
+
+		$cabinetHead.css('height', $currentBtnLogin.outerHeight());
+
+		$btnLoginClone.appendTo('body')
+				.css({
+					'position': 'absolute',
+					'z-index': '1011',
+					'top': $btnLogin.offset().top,
+					'left': $btnLogin.offset().left
+				});
+
+		$cabinet.fadeIn(animateSpeed);
+
+		$overlay.appendTo('body').stop().fadeOut(0, function () {
+			$overlay.fadeIn(animateSpeed);
+		});
+
+		e.stopPropagation();
+	});
+
+	$('.cabinet__container').on('click', function (e) {
+		e.stopPropagation();
+	});
+
+	$(document).on('click', function (e) {
+		closeMenu();
+	});
+
+	function closeMenu(){
+		$btnLogin.removeClass(btnActiveClass);
+		$html.removeClass(showClass);
+		$overlay.stop().fadeOut(animateSpeed, function () {
+			$overlay.remove();
+		});
+		$cabinet.fadeOut(animateSpeed, function () {
+			$('.login-clone').remove();
+		});
+	}
+}
+/*cabinet events end*/
+
 /**!
  * ready/load/resize document
  */
@@ -2534,6 +2604,7 @@ $(document).ready(function () {
 	cloneNavItem();
 	collapseNavItem();
 	navPosition();
+	cabinetEvents();
 });
 
 $(window).load(function () {
