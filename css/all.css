@@ -6399,14 +6399,16 @@ body{
 	/*overflow: hidden;*/
 }
 .cabinet{
-	position: absolute;
+	/*max-width: 320px;*/
+	/*position: absolute;*/
+	/*position: absolute;
 	left: 0;
 	top: 0;
 	width: 100%;
 	z-index: 1009;
-	display: none;
+	display: none;*/
 }
-.cabinet__overlay{
+/*.cabinet__overlay{
 	background: rgba(0, 0, 0, 0.50);
 	position: fixed;
 	left: 0;
@@ -6418,7 +6420,7 @@ body{
 	-webkit-transform: translate(0, 0);
 	-ms-transform: translate(0, 0);
 	transform: translate(0, 0);
-}
+}*/
 .cabinet__container{
 	background: #0af;
 	width: 320px;
@@ -6428,23 +6430,27 @@ body{
 	width: 320px;
 	margin-left: auto;
 }
-.login-clone{
-	float: none;
-}
-.login-clone a{
-	background: #0af;
-}
-.login-clone a:after{
-	content: none;
-}
 
-.cabinet__preview{
+.cabinet__options{
 	list-style: none;
 	padding: 0;
 	margin: 0;
 }
 
-.personal-popups .login{
+.white-popup {
+	position: relative;
+	background: #FFF;
+	padding: 20px;
+	width:auto;
+	max-width: 500px;
+	margin: 20px auto;
+}
 
+.cabinet__login{ float: none; }
+.cabinet__login a{ background: #0af; }
+.cabinet__login a:after{ content: none; }
+
+button.mfp-close:hover, button.mfp-arrow:hover{
+	background: none;
 }
 /*cabinet end*/

@@ -2514,20 +2514,63 @@ function fancyboxInit(){
 
 /*cabinet events*/
 function cabinetEvents(){
+	$('.login a, .cabinet__options a').magnificPopup({
+		closeBtnInside: false,
+		type:'inline',
+		mainClass:'cabinet-main',
+		midClick: true, // allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source.
+		preloader: true,
+
+		callbacks: {
+			open: function() {
+
+				var $cabinetHead = $(this.content).find('.cabinet__head');
+
+				var $btnLogin = this.ev.closest('.login');
+
+				$('.cabinet__login').remove();
+
+				var $btnLoginClone = $btnLogin.clone().addClass('cabinet__login');
+
+				$cabinetHead.css('height', $btnLogin.outerHeight());
+
+				$btnLoginClone.prependTo($cabinetHead)
+					.css({
+						'position': 'absolute',
+						'z-index': '1044',
+						'top': $btnLogin.offset().top,
+						'left': $btnLogin.offset().left
+					});
+			},
+			close: function() {
+				//$('.cabinet__login').remove();
+			}
+			// e.t.c.
+		}
+	});
+
+	$('.cabinet__container').on('click', function (e) {
+		e.stopPropagation();
+	});
+
+	$('.cabinet').on('click', function () {
+		$.magnificPopup.close();
+	});
+}
+
+function cabinetEvents2(){
 	var $cabinet = $('.cabinet');
 	if(!$cabinet.length) return;
 
 	var $html = $('html');
 	var $btnLogin = $('.login a');
 	var $cabinetHead = $('.cabinet__head');
-	var $overlay = $('<div class="cabinet__overlay"></div>');
 	var showClass = 'show-cabinet';
 	var btnActiveClass = 'active';
 	var animateSpeed = 200;
 
 	$btnLogin.on('click', function(e){
 		e.preventDefault();
-		console.log($overlay);
 
 		var $currentBtnLogin = $(this).parent('.login');
 
@@ -2539,7 +2582,7 @@ function cabinetEvents(){
 		$currentBtnLogin.toggleClass(btnActiveClass, !$currentBtnLogin.hasClass(btnActiveClass));
 		$html.toggleClass(showClass, $currentBtnLogin.hasClass(btnActiveClass));
 
-		var $btnLoginClone = $currentBtnLogin.clone().addClass('login-clone');
+		var $btnLoginClone = $currentBtnLogin.clone().addClass('cabinet__login');
 
 		$cabinetHead.css('height', $currentBtnLogin.outerHeight());
 
@@ -2553,9 +2596,7 @@ function cabinetEvents(){
 
 		$cabinet.fadeIn(animateSpeed);
 
-		$overlay.appendTo('body').stop().fadeOut(0, function () {
-			$overlay.fadeIn(animateSpeed);
-		});
+		overlaySwitch(true);
 
 		e.stopPropagation();
 	});
@@ -2571,11 +2612,23 @@ function cabinetEvents(){
 	function closeMenu(){
 		$btnLogin.removeClass(btnActiveClass);
 		$html.removeClass(showClass);
-		$overlay.stop().fadeOut(animateSpeed, function () {
-			$overlay.remove();
-		});
+		overlaySwitch(false);
 		$cabinet.fadeOut(animateSpeed, function () {
-			$('.login-clone').remove();
+			$('.cabinet__login').remove();
+		});
+	}
+}
+
+function overlaySwitch(param){
+	var $overlay = $('<div class="cabinet__overlay"></div>');
+
+	if (param) {
+		$overlay.appendTo('body').stop().fadeOut(0, function () {
+			$(this).fadeIn(300);
+		});
+	} else {
+		$('.cabinet__overlay').stop().fadeOut(300, function () {
+			$(this).remove();
 		});
 	}
 }
