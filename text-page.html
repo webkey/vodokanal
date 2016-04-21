@@ -1,11 +1,11 @@
-<!DOCTYPE HTML>
+﻿<!DOCTYPE HTML>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
 <head>
 	<meta charset="UTF-8">
-	<title>Минскводоканал - Ткстовая страница</title>
+	<title>Минскводоканал - Текстовая страница</title>
 	<!--[if IE]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	<!--Mobile optimized-->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -599,20 +599,199 @@
 <!--FOOTER end-->
 
 <!--cabinet-->
-<div class="cabinet mfp-hide" id="cabinet-popup">
+<div class="cabinet" id="cabinet-popup">
 	<div class="max-wrap">
 		<div class="cabinet__head"></div>
 		<div class="cabinet__container">
 			<ul class="cabinet__options">
 				<li><a href="#cabinet-enter">Вход</a></li>
-				<li><a href="#cabinet-reg">Регистрация</a></li>
+				<li class="active"><a href="#cabinet-reg">Регистрация</a></li>
 			</ul>
-			<div class="tabs">
-				<div class="tab">
-					<p style="height: 1000px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam dolorum eligendi magni minima modi omnis perspiciatis praesentium voluptate voluptates. Deserunt.</p>
-				</div>
-				<div class="tab">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea et fugit id magni nam neque possimus praesentium repudiandae voluptate voluptatibus! Doloremque enim excepturi ipsa minus nesciunt optio qui sit, ut?</div>
+			<!--reg-form-->
+			<div class="reg-form">
+				<form action="#" method="get">
+					<div class="fields-line fields-light">
+						<div class="label-holder label-animate">
+							<label for="reg-form-name">Имя</label>
+						</div>
+						<div class="fields-wrap">
+							<input type="text" id="reg-form-name" />
+						</div>
+					</div>
+					<div class="fields-line fields-light">
+						<div class="label-holder label-animate">
+							<label for="reg-form-last-name">Фамилия</label>
+						</div>
+						<div class="fields-wrap">
+							<input type="text" id="reg-form-last-name" />
+						</div>
+					</div>
+					<div class="fields-line fields-light">
+						<div class="label-holder label-animate">
+							<label for="reg-form-email">Email</label>
+						</div>
+						<div class="fields-wrap">
+							<input type="email" id="reg-form-email" />
+						</div>
+					</div>
+					<div class="fields-line fields-light">
+						<div class="label-holder label-animate">
+							<label for="reg-form-pass">Пароль</label>
+						</div>
+						<div class="fields-wrap">
+							<input type="password" id="reg-form-pass" />
+						</div>
+					</div>
+					<div class="fields-line fields-light">
+						<div class="label-holder label-animate">
+							<label for="reg-form-pass-repeat">Повторите пароль</label>
+						</div>
+						<div class="fields-wrap">
+							<input type="password" id="reg-form-pass-repeat" />
+						</div>
+					</div>
+					<div class="fields-line fields-light">
+						<div class="label-holder label-animate">
+							<label for="reg-form-birth">Дата рождения</label>
+						</div>
+						<div class="fields-wrap">
+							<input type="text" id="reg-form-birth" />
+						</div>
+						<div class="form-drop">
+							<div class="fields-row birth-fields">
+								<div class="fields-col" style="width: 24%">
+									<div class="select-wrap no-arrow">
+										<select class="cselect cselect-center" name="filter-type" id="sing-up__form-birth">
+											<option value=""></option>
+											<option value="1">01</option>
+											<option value="2">02</option>
+											<option value="3">03</option>
+											<option value="4">04 </option>
+											<option value="5">05</option>
+											<option value="6">06</option>
+											<option value="7">07</option>
+											<option value="8">08</option>
+											<option value="9">09</option>
+											<option value="10">10</option>
+											<option value="11">11</option>
+											<option value="12">12</option>
+											<option value="13">13</option>
+											<option value="14">14 </option>
+											<option value="15">15</option>
+											<option value="16">16</option>
+											<option value="17">17</option>
+											<option value="18">18</option>
+											<option value="19">19</option>
+											<option value="20">20</option>
+											<option value="21">21</option>
+											<option value="22">22</option>
+											<option value="23">23</option>
+											<option value="24">24 </option>
+											<option value="25">25</option>
+											<option value="26">26</option>
+											<option value="27">27</option>
+											<option value="28">28</option>
+											<option value="29">29</option>
+											<option value="30">30</option>
+											<option value="31">31</option>
+										</select>
+									</div>
+								</div>
+								<div class="fields-col" style="width: 42%">
+									<div class="select-wrap no-arrow">
+										<select class="cselect cselect-center" name="filter-type">
+											<option value=""></option>
+											<option value="1">Январь</option>
+											<option value="2">Февраль</option>
+											<option value="3">Март </option>
+											<option value="4">Апрель</option>
+											<option value="5">Май </option>
+											<option value="6">Июнь</option>
+											<option value="7">Июль</option>
+											<option value="8">Август</option>
+											<option value="9">Сентябрь</option>
+											<option value="10">Октябрь</option>
+											<option value="11">Ноябрь</option>
+											<option value="12">Декабрь</option>
+										</select>
+									</div>
+								</div>
+								<div class="fields-col" style="width: 34%">
+									<div class="select-wrap no-arrow">
+										<select class="cselect cselect-center" name="filter-type">
+											<option value="0"></option>
+											<option value="1">1970</option>
+											<option value="2">1971</option>
+											<option value="3">1972</option>
+											<option value="4">1973</option>
+											<option value="5">1974</option>
+											<option value="6">1975</option>
+											<option value="7">1976</option>
+											<option value="8">1977</option>
+											<option value="9">1978</option>
+											<option value="10">1979</option>
+											<option value="11" selected>1980</option>
+											<option value="12">1981</option>
+											<option value="13">1982</option>
+											<option value="14">1983</option>
+											<option value="15">1984</option>
+											<option value="16">1985</option>
+											<option value="17">1986</option>
+											<option value="18">1987</option>
+											<option value="19">1988</option>
+											<option value="20">1989</option>
+											<option value="21">1990</option>
+											<option value="22">1991</option>
+											<option value="23">1992</option>
+											<option value="24">1993</option>
+											<option value="25">1994</option>
+											<option value="26">1995</option>
+											<option value="27">1996</option>
+											<option value="28">1997</option>
+											<option value="29">1998</option>
+											<option value="30">1999</option>
+											<option value="31">2000</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<button class="btn-form-drop">ок</button>
+						</div>
+					</div>
+
+					<div class="fields-line fields-light">
+						<div class="label-holder label-animate">
+							<label for="reg-form-secret-word">Секретный вопрос</label>
+						</div>
+						<div class="select-wrap">
+							<select class="cselect select-light" name="filter-type" id="reg-form-secret-word">
+								<option value=""></option>
+								<option value="1">Что?</option>
+								<option value="2">Где?</option>
+								<option value="1">Когда?</option>
+								<option value="3">Какое слово всегда звучит неверно?</option>
+							</select>
+						</div>
+					</div>
+					<div class="fields-line fields-light">
+						<div class="label-holder label-animate">
+							<label for="reg-form-answer">Ответ на вопрос</label>
+						</div>
+						<div class="fields-wrap">
+							<input type="text" id="reg-form-answer" />
+						</div>
+					</div>
+					<div class="fields-line fields-light">
+						<div class="label-holder label-animate">
+							<label for="reg-form-phone">Мобильный телефон</label>
+						</div>
+						<div class="fields-wrap">
+							<input type="text" id="reg-form-phone" />
+						</div>
+					</div>
+				</form>
 			</div>
+			<!--reg-form-->
 		</div>
 	</div>
 </div>

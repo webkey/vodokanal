@@ -2536,10 +2536,8 @@ function cabinetEvents(){
 
 				$btnLoginClone.prependTo($cabinetHead)
 					.css({
-						'position': 'absolute',
-						'z-index': '1044',
-						'top': $btnLogin.offset().top,
-						'left': $btnLogin.offset().left
+						'position': 'relative',
+						'margin-left': $btnLogin.offset().left - $cabinetHead.offset().left
 					});
 			},
 			close: function() {
@@ -2557,82 +2555,179 @@ function cabinetEvents(){
 		$.magnificPopup.close();
 	});
 }
-
-function cabinetEvents2(){
-	var $cabinet = $('.cabinet');
-	if(!$cabinet.length) return;
-
-	var $html = $('html');
-	var $btnLogin = $('.login a');
-	var $cabinetHead = $('.cabinet__head');
-	var showClass = 'show-cabinet';
-	var btnActiveClass = 'active';
-	var animateSpeed = 200;
-
-	$btnLogin.on('click', function(e){
-		e.preventDefault();
-
-		var $currentBtnLogin = $(this).parent('.login');
-
-		//if($cabinet.is(':visible')){
-		//	closeMenu();
-		//	return;
-		//}
-
-		$currentBtnLogin.toggleClass(btnActiveClass, !$currentBtnLogin.hasClass(btnActiveClass));
-		$html.toggleClass(showClass, $currentBtnLogin.hasClass(btnActiveClass));
-
-		var $btnLoginClone = $currentBtnLogin.clone().addClass('cabinet__login');
-
-		$cabinetHead.css('height', $currentBtnLogin.outerHeight());
-
-		$btnLoginClone.appendTo('body')
-				.css({
-					'position': 'absolute',
-					'z-index': '1011',
-					'top': $btnLogin.offset().top,
-					'left': $btnLogin.offset().left
-				});
-
-		$cabinet.fadeIn(animateSpeed);
-
-		overlaySwitch(true);
-
-		e.stopPropagation();
-	});
-
-	$('.cabinet__container').on('click', function (e) {
-		e.stopPropagation();
-	});
-
-	$(document).on('click', function (e) {
-		closeMenu();
-	});
-
-	function closeMenu(){
-		$btnLogin.removeClass(btnActiveClass);
-		$html.removeClass(showClass);
-		overlaySwitch(false);
-		$cabinet.fadeOut(animateSpeed, function () {
-			$('.cabinet__login').remove();
-		});
-	}
-}
-
-function overlaySwitch(param){
-	var $overlay = $('<div class="cabinet__overlay"></div>');
-
-	if (param) {
-		$overlay.appendTo('body').stop().fadeOut(0, function () {
-			$(this).fadeIn(300);
-		});
-	} else {
-		$('.cabinet__overlay').stop().fadeOut(300, function () {
-			$(this).remove();
-		});
-	}
-}
 /*cabinet events end*/
+
+/* multiselect init */
+// add ui position add class
+function addPositionClass(position, feedback, obj){
+	removePositionClass(obj);
+	obj.css( position );
+	obj
+			.addClass( feedback.vertical )
+			.addClass( feedback.horizontal );
+}
+// add ui position remove class
+function removePositionClass(obj){
+	obj.removeClass('top');
+	obj.removeClass('bottom');
+	obj.removeClass('center');
+	obj.removeClass('left');
+	obj.removeClass('right');
+}
+function customSelect(select){
+	if ( select.length ) {
+		selectArray = new Array();
+		select.each(function(selectIndex, selectItem){
+			var placeholderText = $(selectItem).attr('data-placeholder');
+			var flag = true;
+			if ( placeholderText === undefined ) {
+				placeholderText = $(selectItem).find(':selected').html();
+				flag = false;
+			}
+			var classes = $(selectItem).attr('class');
+			selectArray[selectIndex] = $(selectItem).multiselect({
+				header: false,
+				height: 'auto',
+				minWidth: 50,
+				selectedList: 1,
+				classes: classes,
+				multiple: false,
+				noneSelectedText: placeholderText,
+				show: ['fade', 100],
+				hide: ['fade', 100],
+				create: function(event){
+					var select = $(this);
+					var button = $(this).multiselect('getButton');
+					var widget = $(this).multiselect('widget');
+					button.wrapInner('<span class="select-inner"></span>');
+					button.find('.ui-icon').append('<i class="arrow-select"></i>')
+							.siblings('span').addClass('select-text');
+					widget.find('.ui-multiselect-checkboxes li:last')
+							.addClass('last')
+							.siblings().removeClass('last');
+					if ( flag ) {
+						$(selectItem).multiselect('uncheckAll');
+						$(selectItem)
+								.multiselect('widget')
+								.find('.ui-state-active')
+								.removeClass('ui-state-active')
+								.find('input')
+								.removeAttr('checked');
+					}
+				},
+				selectedText: function(number, total, checked){
+					var checkedText = checked[0].title;
+					return checkedText;
+				},
+				position: {
+					my: 'left top',
+					at: 'left bottom',
+					using: function( position, feedback ) {
+						addPositionClass(position, feedback, $(this));
+					}
+				},
+				open: function () {
+					$(this)
+							.closest('.select')
+							.addClass('focus')
+							.closest('.form-line')
+							.find('.label-holder')
+							.addClass('focus');
+				},
+				close: function () {
+					$(this)
+							.closest('.select')
+							.removeClass('focus')
+							.closest('.form-line')
+							.find('.label-holder')
+							.removeClass('focus');
+				}
+			});
+		});
+		$(window).resize(selectResize);
+	}
+}
+function selectResize(){
+	if ( selectArray.length ) {
+		$.each(selectArray, function(i, el){
+			var checked = $(el).multiselect('getChecked');
+			var flag = true;
+			if ( !checked.length ) {
+				flag = false
+			}
+			$(el).multiselect('refresh');
+			if ( !flag ) {
+				$(el).multiselect('uncheckAll');
+				$(el)
+						.multiselect('widget')
+						.find('.ui-state-active')
+						.removeClass('ui-state-active')
+						.find('input')
+						.removeAttr('checked');
+			}
+			$(el).multiselect('close');
+		});
+	}
+}
+/*choose "other" param*/
+$('select').on('change', function() {
+	var $currentItem = $(this);
+	var other = $currentItem.find('option:selected').data('other');
+	var addInputJs = $(this).closest('.form-line').find('.add-input-js');
+	addInputJs.hide();
+
+	if(other){
+		addInputJs
+				.show()
+				.find('input')
+				.focus();
+	}
+});
+/*choose "other" param end*/
+/* multiselect init end */
+
+/*state form fields*/
+function stateFields(){
+	var $fieldWrap = $('.fields-line');
+	var $inputs = $fieldWrap.find( "input, textarea" );
+	var $inputsAll = $fieldWrap.find( "input, textarea, select" );
+	var _classHasValue = 'has-value';
+
+	$inputsAll.focus(function() {
+		var $thisField = $(this);
+
+		$thisField
+				.closest($fieldWrap)
+				.addClass('focus');
+
+	}).blur(function() {
+		var $thisField = $(this);
+
+		$thisField
+				.closest($fieldWrap)
+				.removeClass('focus');
+	});
+
+	$.each($inputsAll, function () {
+		switchHasValue.call(this);
+	});
+
+	$inputsAll.on('change', function () {
+		switchHasValue.call(this);
+	});
+
+	function switchHasValue() {
+		var $currentField = $(this);
+		var $currentFieldWrap = $currentField.closest($fieldWrap);
+
+		$currentFieldWrap.removeClass(_classHasValue);
+		//first element of the select must have a value empty ("")
+		if ($currentField.val() != '') {
+			$currentFieldWrap.addClass(_classHasValue);
+		}
+	}
+}
+/*state form fields*/
 
 /**!
  * ready/load/resize document
@@ -2658,6 +2753,12 @@ $(document).ready(function () {
 	collapseNavItem();
 	navPosition();
 	cabinetEvents();
+
+	var md = new MobileDetect(window.navigator.userAgent);
+	if(!md.mobile()){
+		//customSelect($('select.cselect'));
+	}
+	stateFields();
 });
 
 $(window).load(function () {
