@@ -2576,6 +2576,7 @@ function removePositionClass(obj){
 }
 function customSelect(select){
 	if ( select.length ) {
+		var $fieldWrap = $('.fields-line');
 		selectArray = new Array();
 		select.each(function(selectIndex, selectItem){
 			var placeholderText = $(selectItem).attr('data-placeholder');
@@ -2627,19 +2628,17 @@ function customSelect(select){
 					}
 				},
 				open: function () {
-					$(this)
-							.closest('.select')
-							.addClass('focus')
-							.closest('.form-line')
-							.find('.label-holder')
+					var $thisField = $(this);
+
+					$thisField
+							.closest($fieldWrap)
 							.addClass('focus');
 				},
 				close: function () {
-					$(this)
-							.closest('.select')
-							.removeClass('focus')
-							.closest('.form-line')
-							.find('.label-holder')
+					var $thisField = $(this);
+
+					$thisField
+							.closest($fieldWrap)
 							.removeClass('focus');
 				}
 			});
@@ -2669,61 +2668,47 @@ function selectResize(){
 		});
 	}
 }
-/*choose "other" param*/
-$('select').on('change', function() {
-	var $currentItem = $(this);
-	var other = $currentItem.find('option:selected').data('other');
-	var addInputJs = $(this).closest('.form-line').find('.add-input-js');
-	addInputJs.hide();
-
-	if(other){
-		addInputJs
-				.show()
-				.find('input')
-				.focus();
-	}
-});
-/*choose "other" param end*/
 /* multiselect init end */
 
 /*state form fields*/
 function stateFields(){
 	var $fieldWrap = $('.fields-line');
-	var $inputs = $fieldWrap.find( "input, textarea" );
-	var $inputsAll = $fieldWrap.find( "input, textarea, select" );
-	var _classHasValue = 'has-value';
+	if($fieldWrap.length){
+		var $inputsAll = $fieldWrap.find( "input, textarea, select" );
+		var _classHasValue = 'has-value';
 
-	$inputsAll.focus(function() {
-		var $thisField = $(this);
+		$inputsAll.focus(function() {
+			var $thisField = $(this);
 
-		$thisField
-				.closest($fieldWrap)
-				.addClass('focus');
+			$thisField
+					.closest($fieldWrap)
+					.addClass('focus');
 
-	}).blur(function() {
-		var $thisField = $(this);
+		}).blur(function() {
+			var $thisField = $(this);
 
-		$thisField
-				.closest($fieldWrap)
-				.removeClass('focus');
-	});
+			$thisField
+					.closest($fieldWrap)
+					.removeClass('focus');
+		});
 
-	$.each($inputsAll, function () {
-		switchHasValue.call(this);
-	});
+		$.each($inputsAll, function () {
+			switchHasValue.call(this);
+		});
 
-	$inputsAll.on('change', function () {
-		switchHasValue.call(this);
-	});
+		$inputsAll.on('change', function () {
+			switchHasValue.call(this);
+		});
 
-	function switchHasValue() {
-		var $currentField = $(this);
-		var $currentFieldWrap = $currentField.closest($fieldWrap);
+		function switchHasValue() {
+			var $currentField = $(this);
+			var $currentFieldWrap = $currentField.closest($fieldWrap);
 
-		$currentFieldWrap.removeClass(_classHasValue);
-		//first element of the select must have a value empty ("")
-		if ($currentField.val() != '') {
-			$currentFieldWrap.addClass(_classHasValue);
+			$currentFieldWrap.removeClass(_classHasValue);
+			//first element of the select must have a value empty ("")
+			if ($currentField.val() != '') {
+				$currentFieldWrap.addClass(_classHasValue);
+			}
 		}
 	}
 }
@@ -2756,7 +2741,7 @@ $(document).ready(function () {
 
 	var md = new MobileDetect(window.navigator.userAgent);
 	if(!md.mobile()){
-		//customSelect($('select.cselect'));
+		customSelect($('select.cselect'));
 	}
 	stateFields();
 });

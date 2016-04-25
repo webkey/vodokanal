@@ -650,20 +650,22 @@
 							<input type="password" id="reg-form-pass-repeat" />
 						</div>
 					</div>
-					<div class="fields-line fields-light">
-						<div class="label-holder label-animate">
-							<label for="reg-form-birth">Дата рождения</label>
+					<!--birth box-->
+					<div class="birth-box">
+						<div class="fields-line fields-light">
+							<div class="label-holder label-animate">
+								<label for="reg-form-birth">Дата рождения</label>
+							</div>
+							<div class="fields-wrap">
+								<input type="text" id="reg-form-birth" />
+							</div>
 						</div>
-						<div class="fields-wrap">
-							<input type="text" id="reg-form-birth" />
-						</div>
-						<div class="form-drop">
+						<div class="birth-drop">
 							<div class="fields-row birth-fields">
 								<div class="fields-col" style="width: 24%">
 									<div class="select-wrap no-arrow">
 										<select class="cselect cselect-center" name="filter-type" id="sing-up__form-birth">
-											<option value=""></option>
-											<option value="1">01</option>
+											<option value="1" selected>01</option>
 											<option value="2">02</option>
 											<option value="3">03</option>
 											<option value="4">04 </option>
@@ -700,8 +702,7 @@
 								<div class="fields-col" style="width: 42%">
 									<div class="select-wrap no-arrow">
 										<select class="cselect cselect-center" name="filter-type">
-											<option value=""></option>
-											<option value="1">Январь</option>
+											<option value="1" selected>Январь</option>
 											<option value="2">Февраль</option>
 											<option value="3">Март </option>
 											<option value="4">Апрель</option>
@@ -719,7 +720,6 @@
 								<div class="fields-col" style="width: 34%">
 									<div class="select-wrap no-arrow">
 										<select class="cselect cselect-center" name="filter-type">
-											<option value="0"></option>
 											<option value="1">1970</option>
 											<option value="2">1971</option>
 											<option value="3">1972</option>
@@ -755,9 +755,28 @@
 									</div>
 								</div>
 							</div>
-							<button class="btn-form-drop">ок</button>
+							<button class="btn-birth-ok">ок</button>
 						</div>
 					</div>
+					<!--birth box end-->
+
+					<ul class="gender-list">
+						<li>
+							<span class="label">Пол:</span>
+						</li>
+						<li>
+							<label>
+								<input type="radio" name="radio-gender" checked />
+								<span>Мужской</span>
+							</label>
+						</li>
+						<li>
+							<label>
+								<input type="radio" name="radio-gender" />
+								<span>Женский</span>
+							</label>
+						</li>
+					</ul>
 
 					<div class="fields-line fields-light">
 						<div class="label-holder label-animate">
@@ -789,9 +808,25 @@
 							<input type="text" id="reg-form-phone" />
 						</div>
 					</div>
+
+					<div class="fields-line">
+						<label>
+							<input type="checkbox" name="delivery" checked />
+							<span>Получать новостную рассылку</span>
+						</label>
+					</div>
+
+					<input type="submit" value="ЗАРЕГИСТРИРОВАТЬСЯ">
 				</form>
 			</div>
 			<!--reg-form-->
+
+			<!--cabinet notes-->
+			<div class="cabinet-notes">
+				<h4>У Вас уже есть аккаунт?</h4>
+				<div class="cabinet-notes__link"><a href="#">Тогда войдите</a></div>
+			</div>
+			<!--cabinet notes end-->
 		</div>
 	</div>
 </div>
