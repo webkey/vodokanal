@@ -2594,8 +2594,8 @@ function customSelect(select){
 				classes: classes,
 				multiple: false,
 				noneSelectedText: placeholderText,
-				show: ['fade', 100],
-				hide: ['fade', 100],
+				show: ['fade', 200],
+				hide: ['fade', 200],
 				create: function(event){
 					var select = $(this);
 					var button = $(this).multiselect('getButton');
@@ -2714,6 +2714,70 @@ function stateFields(){
 }
 /*state form fields*/
 
+/*form drop switch*/
+function formDropSwitch(){
+	var $formBox = $('.form-box-js');
+	var $formBoxHead = $('.form-box-head-js');
+	var $formDrop = $('.form-drop-js');
+	var $opener = $formBoxHead.find('input:text');
+	var _classDropOpen = 'drop-open';
+
+	if(!$formBox.length){
+		return;
+	}
+
+	$opener.on('focus', function (e) {
+		var $currentOpener = $(this);
+
+		var $currentFromBox = $currentOpener.closest($formBox);
+		$currentFromBox.addClass(_classDropOpen);
+
+		var $cselect = $currentFromBox.find('select.cselect');
+		//$cselect.multiselect('uncheckAll');
+		$cselect.multiselect('refresh');
+
+		$currentOpener.closest($formBox).find($opener).val(setBirthDate($cselect));
+
+		e.stopPropagation();
+	});
+
+	$formDrop.find('select').on('change', function () {
+		var $currentSelect = $(this);
+
+		var $select = $currentSelect.closest($formDrop).find('select');
+
+		$currentSelect.closest($formBox).find($opener).val(setBirthDate($select));
+	});
+
+	$formDrop.on('click', '.btn-birth-ok', function (e) {
+		e.preventDefault();
+		var $currentBtn = $(this);
+
+		var $select = $currentBtn.closest($formDrop).find('select');
+
+		if(!$currentBtn.closest($formBox).find($opener).val().length){
+			$currentBtn.closest($formBox).removeClass(_classDropOpen);
+			return;
+		}
+
+		$currentBtn.closest($formBox)
+			.removeClass(_classDropOpen)
+			.find($formBoxHead)
+			.addClass('has-value')
+			.find('input:text')
+			.val(setBirthDate($select));
+	});
+
+	function setBirthDate($select) {
+		var birth = $select.eq(0).find('option:selected').text() + '.' +
+			$select.eq(1).val() + '.' +
+			$select.eq(2).find('option:selected').text();
+
+		return birth;
+	}
+}
+/*form drop switch end*/
+
 /**!
  * ready/load/resize document
  */
@@ -2744,6 +2808,7 @@ $(document).ready(function () {
 		customSelect($('select.cselect'));
 	}
 	stateFields();
+	formDropSwitch();
 });
 
 $(window).load(function () {
