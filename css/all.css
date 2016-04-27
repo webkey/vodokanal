@@ -6507,8 +6507,9 @@ body:not(.mobile-device) .gallery__previews .slick-next:hover:after{ opacity: 1;
 /*preloader end*/
 
 /*cabinet*/
-body{
-	/*overflow: hidden;*/
+.mfp-bg.cabinet-main{
+	opacity: 0.5;
+	filter: alpha(opacity=50);
 }
 .cabinet{
 	position: relative;
@@ -6523,7 +6524,7 @@ body{
 	background: #0af;
 	width: 320px;
 	margin-left: auto;
-	padding: 26px 30px;
+	padding: 26px 30px 30px;
 	box-sizing: border-box;
 }
 .cabinet__head {
@@ -6583,9 +6584,10 @@ button.mfp-close:hover, button.mfp-arrow:hover{
 }
 
 /*cabinet forms*/
-.reg-form{ padding: 0 0 22px; }
+.reg-form, .enter-form{ padding: 0 0 34px; }
 .fields-line{
-	padding: 20px 0 0;
+	padding: 0;
+	margin: 20px 0 0;
 	position: relative;
 }
 .fields-row{
@@ -6678,11 +6680,15 @@ button.mfp-close:hover, button.mfp-arrow:hover{
 	margin: 0;
 	cursor: text;
 	-webkit-font-smoothing: antialiased;
+	color: #bfeaff;
+}
+.fields-light:hover label{
+	color: #fff;
 }
 .fields-light .label-holder.label-animate{
 	position: absolute;
 	left: 0;
-	top: 20px;
+	top: 0;
 	box-sizing: border-box;
 	-webkit-transition-property: -webkit-transform;
 	transition-property: transform;
@@ -6719,6 +6725,7 @@ button.mfp-close:hover, button.mfp-arrow:hover{
 	font-size: 12px;
 	color: #a3d7ff;
 }
+.fields-light.error .label-animate label,
 .fields-light.focus.error .label-animate label,
 .fields-light.has-value.error .label-animate label,
 .birth-box.drop-open .error .label-animate label{ color: #9e0b0f; }
@@ -6799,6 +6806,12 @@ button.cselect .ui-icon .arrow-select:before{
 .focus .select-wrap:before,
 .focus button.cselect .ui-icon .arrow-select:before,
 .focus button.cselect .ui-icon .arrow-select:after{ border-top-color: #fff; }
+
+.birth-drop .select-wrap:before,
+button.form-drop-select .ui-icon .arrow-select:before{
+	border-top-color: #ccc;
+	right: 3px;
+}
 /*select + css3 end*/
 
 /*multiselect button*/
@@ -6848,7 +6861,7 @@ div.cselect .ui-multiselect-checkboxes {
 	margin:0;
 	list-style-type:none;
 	height: auto !important;
-	max-height:288px;
+	max-height:272px;
 	overflow:auto;
 	background-color:#008ACF;
 	border: none;
@@ -6864,8 +6877,11 @@ div.cselect .ui-multiselect-checkboxes::-webkit-scrollbar-track { background: rg
 div.cselect .ui-multiselect-checkboxes::-webkit-scrollbar-thumb { background: #fff; }
 /*cselect scrollbar for webkit end*/
 div.cselect .ui-multiselect-checkboxes li{
-	padding: 2px;
+	padding: 0 2px 2px;
 	overflow: hidden;
+}
+div.cselect .ui-multiselect-checkboxes li:first-child{
+	padding-top: 2px;
 }
 div.cselect .ui-multiselect-checkboxes label input {
 	position:absolute;
@@ -6903,6 +6919,24 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span{
 }
 div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:before,
 div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content: none; }
+
+div.form-drop-select .ui-multiselect-checkboxes {
+	background: #fff;
+}
+div.form-drop-select .ui-multiselect-checkboxes::-webkit-scrollbar-track { background: rgba(204, 204, 204, 0.2); }
+div.form-drop-select .ui-multiselect-checkboxes::-webkit-scrollbar-thumb { background: #ccc; }
+div.form-drop-select .ui-multiselect-checkboxes label{
+	padding-left: 7px;
+	padding-right: 7px;
+	color: #333;
+}
+div.form-drop-select .ui-multiselect-checkboxes label:hover{
+	background-color:#f5f5f5;
+}
+div.form-drop-select .ui-multiselect-checkboxes label.ui-state-active {
+	background: none;
+	border-color: #ccc;
+}
 /*multiselect menu end*/
 
 .select-wrap.no-arrow select,
@@ -6930,12 +6964,12 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 /*checkbox and radiobutton end*/
 
 /*birth box*/
-.birth-box{
-	position: relative;
-}
+.birth-box{ position: relative; }
+.birth-box input[type="text"]{ color: #bfeaff; }
+.birth-box .has-value input[type="text"]{ color: #fff; }
 .birth-drop{
 	background: #59c8ff;
-	padding: 11px;
+	padding: 11px 11px 1px;
 	box-sizing: border-box;
 	position: absolute;
 	left: 0;
@@ -6990,10 +7024,9 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 .birth-box .select-wrap button.cselect .select-inner{
 	background: #fff;
 	color: #333;
-	padding: 12px 4px;
+	padding: 12px 15px 12px 10px;
 }
-.birth-box .select-inner{ text-align: center; }
-.btn-birth-ok{
+.btn-form-drop{
 	display: block;
 	background: #008acf;
 	box-sizing: border-box;
@@ -7003,8 +7036,8 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	border-radius: 0;
 	font-size: 14px;
 	line-height: 24px;
-	font-weight: bold;
-	letter-spacing: 0.1em;
+	font-weight: normal;
+	letter-spacing: normal;
 	text-transform: uppercase;
 	padding: 10px 8px;
 	-webkit-transition-property: background;
@@ -7012,9 +7045,12 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	-webkit-transition-duration: 0.2s;
 	transition-duration: 0.2s;
 }
-.btn-birth-ok:hover{ background: #0077b3; }
+.btn-form-drop:hover{ background: #0077b3; }
 /*select end*/
 /*birth box end*/
+
+.delivery-line{ margin: 30px 0 0; }
+.buttons-line{ margin: 33px 0 0; }
 
 /*gender list*/
 .gender-list,
@@ -7045,7 +7081,7 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 }
 /*gender list end*/
 
-.reg-form input[type="submit"]{
+.cabinet form input[type="submit"]{
 	display: block;
 	font-size: 14px;
 	font-weight: bold;
@@ -7056,7 +7092,6 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	border-radius: 4px;
 	box-sizing: border-box;
 }
-/*cabinet forms end*/
 
 /*cabinet notes*/
 .cabinet-notes{
@@ -7069,11 +7104,13 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	font-weight: normal;
 	font-size: 14px;
 	line-height: 18px;
+	letter-spacing: 0.05em;
 	padding: 0 0 6px;
 	color: #fff;
 }
 .cabinet-notes__link{
 	text-align: center;
+	letter-spacing: 0.05em;
 }
 .cabinet-notes__link a{
 	color: #004890;
@@ -7088,4 +7125,5 @@ div.cselect .ui-multiselect-checkboxes input[type="radio"] + span:after{ content
 	border-color: transparent;
 }
 /*cabinet notes end*/
+/*cabinet forms end*/
 /*cabinet end*/

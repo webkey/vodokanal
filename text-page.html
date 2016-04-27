@@ -607,262 +607,281 @@
 				<li><a href="#cabinet-enter">Вход</a></li>
 				<li class="active"><a href="#cabinet-reg">Регистрация</a></li>
 			</ul>
-			<!--reg-form-->
-			<div class="reg-form">
-				<form action="#" method="get">
-					<div class="fields-line fields-light">
-						<div class="label-holder label-animate">
-							<label for="reg-form-name">Имя</label>
-						</div>
-						<div class="fields-wrap">
-							<input type="text" id="reg-form-name" />
-						</div>
-					</div>
-					<div class="fields-line fields-light">
-						<div class="label-holder label-animate">
-							<label for="reg-form-last-name">Фамилия</label>
-						</div>
-						<div class="fields-wrap">
-							<input type="text" id="reg-form-last-name" />
-						</div>
-					</div>
-					<div class="fields-line fields-light error">
-						<div class="label-holder label-animate">
-							<label for="reg-form-email">Email</label>
-						</div>
-						<div class="fields-wrap">
-							<input type="email" id="reg-form-email" />
-						</div>
-					</div>
-					<div class="fields-line fields-light">
-						<div class="label-holder label-animate">
-							<label for="reg-form-pass">Пароль</label>
-						</div>
-						<div class="fields-wrap">
-							<input type="password" id="reg-form-pass" />
-						</div>
-					</div>
-					<div class="fields-line fields-light">
-						<div class="label-holder label-animate">
-							<label for="reg-form-pass-repeat">Повторите пароль</label>
-						</div>
-						<div class="fields-wrap">
-							<input type="password" id="reg-form-pass-repeat" />
-						</div>
-					</div>
-					<!--birth box-->
-					<div class="birth-box form-box-js">
-						<div class="fields-line fields-light form-box-head-js">
+			<!--registration-->
+			<div class="reg" id="cabinet-reg" style="display: none;">
+				<!--reg form-->
+				<div class="reg-form">
+					<form action="#" method="get">
+						<div class="fields-line fields-light">
 							<div class="label-holder label-animate">
-								<label for="reg-form-birth">Дата рождения</label>
+								<label for="reg-form-name">Имя</label>
 							</div>
 							<div class="fields-wrap">
-								<input type="text" id="reg-form-birth" />
+								<input type="text" id="reg-form-name" />
 							</div>
 						</div>
-						<div class="birth-drop form-drop-js">
-							<div class="fields-row birth-fields">
-								<div class="fields-col" style="width: 24%">
-									<div class="select-wrap no-arrow">
-										<select class="cselect cselect-center form-drop-select" name="filter-type" id="sing-up__form-birth">
-											<option value="1" selected>01</option>
-											<option value="2">02</option>
-											<option value="3">03</option>
-											<option value="4">04 </option>
-											<option value="5">05</option>
-											<option value="6">06</option>
-											<option value="7">07</option>
-											<option value="8">08</option>
-											<option value="9">09</option>
-											<option value="10">10</option>
-											<option value="11">11</option>
-											<option value="12">12</option>
-											<option value="13">13</option>
-											<option value="14">14 </option>
-											<option value="15">15</option>
-											<option value="16">16</option>
-											<option value="17">17</option>
-											<option value="18">18</option>
-											<option value="19">19</option>
-											<option value="20">20</option>
-											<option value="21">21</option>
-											<option value="22">22</option>
-											<option value="23">23</option>
-											<option value="24">24 </option>
-											<option value="25">25</option>
-											<option value="26">26</option>
-											<option value="27">27</option>
-											<option value="28">28</option>
-											<option value="29">29</option>
-											<option value="30">30</option>
-											<option value="31">31</option>
-										</select>
+						<div class="fields-line fields-light">
+							<div class="label-holder label-animate">
+								<label for="reg-form-last-name">Фамилия</label>
+							</div>
+							<div class="fields-wrap">
+								<input type="text" id="reg-form-last-name" />
+							</div>
+						</div>
+						<div class="fields-line fields-light error">
+							<div class="label-holder label-animate">
+								<label for="reg-form-email">Email</label>
+							</div>
+							<div class="fields-wrap">
+								<input type="email" id="reg-form-email" />
+							</div>
+						</div>
+						<div class="fields-line fields-light">
+							<div class="label-holder label-animate">
+								<label for="reg-form-pass">Пароль</label>
+							</div>
+							<div class="fields-wrap">
+								<input type="password" id="reg-form-pass" />
+							</div>
+						</div>
+						<div class="fields-line fields-light">
+							<div class="label-holder label-animate">
+								<label for="reg-form-pass-repeat">Повторите пароль</label>
+							</div>
+							<div class="fields-wrap">
+								<input type="password" id="reg-form-pass-repeat" />
+							</div>
+						</div>
+						<!--birth box-->
+						<div class="birth-box form-box-js">
+							<div class="fields-line fields-light form-box-head-js">
+								<div class="label-holder label-animate">
+									<label for="reg-form-birth">Дата рождения</label>
+								</div>
+								<div class="fields-wrap">
+									<input type="text" id="reg-form-birth" />
+								</div>
+							</div>
+							<div class="birth-drop form-drop-js">
+								<div class="fields-row birth-fields">
+									<div class="fields-col" style="width: 24%">
+										<div class="select-wrap">
+											<select class="cselect form-drop-select" name="filter-type" id="sing-up__form-birth">
+												<option value="1" selected>01</option>
+												<option value="2">02</option>
+												<option value="3">03</option>
+												<option value="4">04</option>
+												<option value="5">05</option>
+												<option value="6">06</option>
+												<option value="7">07</option>
+												<option value="8">08</option>
+												<option value="9">09</option>
+												<option value="10">10</option>
+												<option value="11">11</option>
+												<option value="12">12</option>
+												<option value="13">13</option>
+												<option value="14">14</option>
+												<option value="15">15</option>
+												<option value="16">16</option>
+												<option value="17">17</option>
+												<option value="18">18</option>
+												<option value="19">19</option>
+												<option value="20">20</option>
+												<option value="21">21</option>
+												<option value="22">22</option>
+												<option value="23">23</option>
+												<option value="24">24 </option>
+												<option value="25">25</option>
+												<option value="26">26</option>
+												<option value="27">27</option>
+												<option value="28">28</option>
+												<option value="29">29</option>
+												<option value="30">30</option>
+												<option value="31">31</option>
+											</select>
+										</div>
+									</div>
+									<div class="fields-col" style="width: 42%">
+										<div class="select-wrap">
+											<select class="cselect form-drop-select" name="filter-type">
+												<option value="01" selected>Январь</option>
+												<option value="02">Февраль</option>
+												<option value="03">Март</option>
+												<option value="04">Апрель</option>
+												<option value="05">Май</option>
+												<option value="06">Июнь</option>
+												<option value="07">Июль</option>
+												<option value="08">Август</option>
+												<option value="09">Сентябрь</option>
+												<option value="10">Октябрь</option>
+												<option value="11">Ноябрь</option>
+												<option value="12">Декабрь</option>
+											</select>
+										</div>
+									</div>
+									<div class="fields-col" style="width: 34%">
+										<div class="select-wrap">
+											<select class="cselect form-drop-select" name="filter-type">
+												<option value="1">1970</option>
+												<option value="2">1971</option>
+												<option value="3">1972</option>
+												<option value="4">1973</option>
+												<option value="5">1974</option>
+												<option value="6">1975</option>
+												<option value="7">1976</option>
+												<option value="8">1977</option>
+												<option value="9">1978</option>
+												<option value="10">1979</option>
+												<option value="11" selected>1980</option>
+												<option value="12">1981</option>
+												<option value="13">1982</option>
+												<option value="14">1983</option>
+												<option value="15">1984</option>
+												<option value="16">1985</option>
+												<option value="17">1986</option>
+												<option value="18">1987</option>
+												<option value="19">1988</option>
+												<option value="20">1989</option>
+												<option value="21">1990</option>
+												<option value="22">1991</option>
+												<option value="23">1992</option>
+												<option value="24">1993</option>
+												<option value="25">1994</option>
+												<option value="26">1995</option>
+												<option value="27">1996</option>
+												<option value="28">1997</option>
+												<option value="29">1998</option>
+												<option value="30">1999</option>
+												<option value="31">2000</option>
+											</select>
+										</div>
 									</div>
 								</div>
-								<div class="fields-col" style="width: 42%">
-									<div class="select-wrap no-arrow">
-										<select class="cselect cselect-center form-drop-select" name="filter-type">
-											<option value="01" selected>Январь</option>
-											<option value="02">Февраль</option>
-											<option value="03">Март </option>
-											<option value="04">Апрель</option>
-											<option value="05">Май </option>
-											<option value="06">Июнь</option>
-											<option value="07">Июль</option>
-											<option value="08">Август</option>
-											<option value="09">Сентябрь</option>
-											<option value="10">Октябрь</option>
-											<option value="11">Ноябрь</option>
-											<option value="12">Декабрь</option>
-										</select>
+								<div class="fields-row">
+									<div class="fields-col" style="width: 45%;">
+										<button class="btn-form-drop btn-drop-ok-js">Ок</button>
 									</div>
-								</div>
-								<div class="fields-col" style="width: 34%">
-									<div class="select-wrap no-arrow">
-										<select class="cselect cselect-center form-drop-select" name="filter-type">
-											<option value="1">1970</option>
-											<option value="2">1971</option>
-											<option value="3">1972</option>
-											<option value="4">1973</option>
-											<option value="5">1974</option>
-											<option value="6">1975</option>
-											<option value="7">1976</option>
-											<option value="8">1977</option>
-											<option value="9">1978</option>
-											<option value="10">1979</option>
-											<option value="11" selected>1980</option>
-											<option value="12">1981</option>
-											<option value="13">1982</option>
-											<option value="14">1983</option>
-											<option value="15">1984</option>
-											<option value="16">1985</option>
-											<option value="17">1986</option>
-											<option value="18">1987</option>
-											<option value="19">1988</option>
-											<option value="20">1989</option>
-											<option value="21">1990</option>
-											<option value="22">1991</option>
-											<option value="23">1992</option>
-											<option value="24">1993</option>
-											<option value="25">1994</option>
-											<option value="26">1995</option>
-											<option value="27">1996</option>
-											<option value="28">1997</option>
-											<option value="29">1998</option>
-											<option value="30">1999</option>
-											<option value="31">2000</option>
-										</select>
+									<div class="fields-col" style="width: 55%;">
+										<a href="#" class="btn-form-drop btn-drop-clear-js">Очистить</a>
 									</div>
 								</div>
 							</div>
-							<button class="btn-birth-ok">ок</button>
 						</div>
-					</div>
-					<!--birth box end-->
+						<!--birth box end-->
 
-					<div class="fields-line">
-						<ul class="gender-list">
-							<li>
-								<span class="label">Пол:</span>
-							</li>
-							<li>
-								<label>
-									<input type="radio" name="radio-gender" checked />
-									<span>Мужской</span>
-								</label>
-							</li>
-							<li>
-								<label>
-									<input type="radio" name="radio-gender" />
-									<span>Женский</span>
-								</label>
-							</li>
-						</ul>
-					</div>
+						<div class="fields-line">
+							<ul class="gender-list">
+								<li>
+									<span class="label">Пол:</span>
+								</li>
+								<li>
+									<label>
+										<input type="radio" name="radio-gender" checked />
+										<span>Мужской</span>
+									</label>
+								</li>
+								<li>
+									<label>
+										<input type="radio" name="radio-gender" />
+										<span>Женский</span>
+									</label>
+								</li>
+							</ul>
+						</div>
 
-					<div class="fields-line fields-light">
-						<div class="label-holder label-animate">
-							<label for="reg-form-secret-word">Секретный вопрос</label>
+						<div class="fields-line fields-light">
+							<div class="label-holder label-animate">
+								<label for="reg-form-secret-word">Секретный вопрос</label>
+							</div>
+							<div class="select-wrap">
+								<select class="cselect select-light" name="filter-type" id="reg-form-secret-word">
+									<option value=""></option>
+									<option value="1">Что?</option>
+									<option value="2">Где?</option>
+									<option value="1">Когда?</option>
+									<option value="3">Какое слово всегда звучит неверно?</option>
+								</select>
+							</div>
 						</div>
-						<div class="select-wrap">
-							<select class="cselect select-light" name="filter-type" id="reg-form-secret-word">
-								<option value=""></option>
-								<option value="1">Что?</option>
-								<option value="2">Где?</option>
-								<option value="1">Когда?</option>
-								<option value="3">Какое слово всегда звучит неверно?</option>
-							</select>
+						<div class="fields-line fields-light">
+							<div class="label-holder label-animate">
+								<label for="reg-form-answer">Ответ на вопрос</label>
+							</div>
+							<div class="fields-wrap">
+								<input type="text" id="reg-form-answer" />
+							</div>
 						</div>
-					</div>
-					<div class="fields-line fields-light">
-						<div class="label-holder label-animate">
-							<label for="reg-form-answer">Ответ на вопрос</label>
+						<div class="fields-line fields-light">
+							<div class="label-holder label-animate">
+								<label for="reg-form-phone">Мобильный телефон</label>
+							</div>
+							<div class="fields-wrap">
+								<input type="text" id="reg-form-phone" />
+							</div>
 						</div>
-						<div class="fields-wrap">
-							<input type="text" id="reg-form-answer" />
-						</div>
-					</div>
-					<div class="fields-line fields-light">
-						<div class="label-holder label-animate">
-							<label for="reg-form-phone">Мобильный телефон</label>
-						</div>
-						<div class="fields-wrap">
-							<input type="text" id="reg-form-phone" />
-						</div>
-					</div>
 
-					<div class="fields-line">
-						<label>
-							<input type="checkbox" name="delivery" checked />
-							<span>Получать новостную рассылку</span>
-						</label>
-					</div>
+						<div class="delivery-line">
+							<label>
+								<input type="checkbox" name="delivery" checked />
+								<span>Получать новостную рассылку</span>
+							</label>
+						</div>
 
-					<div class="fields-line">
-						<input type="submit" value="ЗАРЕГИСТРИРОВАТЬСЯ">
-					</div>
-				</form>
-			</div>
-			<!--reg-form-->
-
-			<!--cabinet notes-->
-			<div class="cabinet-notes">
-				<h4>У Вас уже есть аккаунт?</h4>
-				<div class="cabinet-notes__link"><a href="#">Тогда войдите</a></div>
-			</div>
-			<!--cabinet notes end-->
-		</div>
-	</div>
-</div>
-
-<div class="cabinet mfp-hide" id="cabinet-enter">
-	<div class="max-wrap">
-		<div class="cabinet__head"></div>
-		<div class="cabinet__container">
-			<ul class="cabinet__options">
-				<li><a href="#cabinet-enter">Вход</a></li>
-				<li><a href="#cabinet-reg">Регистрация</a></li>
-			</ul>
-			<div class="tabs">
-				<div class="tab">
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam dolorum eligendi magni minima modi omnis perspiciatis praesentium voluptate voluptates. Deserunt.</p>
+						<div class="buttons-line">
+							<input type="submit" value="ЗАРЕГИСТРИРОВАТЬСЯ">
+						</div>
+					</form>
 				</div>
-			</div>
-		</div>
-	</div>
-</div>
+				<!--reg form-->
 
-<div class="cabinet mfp-hide" id="cabinet-reg">
-	<div class="max-wrap">
-		<div class="cabinet__head"></div>
-		<div class="cabinet__container">
-			<ul class="cabinet__options">
-				<li><a href="#cabinet-enter">Вход</a></li>
-				<li><a href="#cabinet-reg">Регистрация</a></li>
-			</ul>
-			<div class="tabs">
-				<div class="tab">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea et fugit id magni nam neque possimus praesentium repudiandae voluptate voluptatibus! Doloremque enim excepturi ipsa minus nesciunt optio qui sit, ut?</div>
+				<!--cabinet notes-->
+				<div class="cabinet-notes">
+					<h4>У Вас уже есть аккаунт?</h4>
+					<div class="cabinet-notes__link"><a href="#">Тогда войдите</a></div>
+				</div>
+				<!--cabinet notes end-->
 			</div>
+			<!--registration end-->
+
+			<!--enter-->
+			<div class="enter" id="cabinet-enter">
+				<div class="cabinet-logo"></div>
+				<!--enter form-->
+				<div class="enter-form">
+					<form action="#" method="get">
+						<div class="fields-line fields-light">
+							<div class="label-holder label-animate">
+								<label for="enter-form-name">Логин</label>
+							</div>
+							<div class="fields-wrap">
+								<input type="text" id="enter-form-name" />
+							</div>
+						</div>
+						<div class="fields-line fields-light">
+							<div class="label-holder label-animate">
+								<label for="enter-form-pass">Пароль</label>
+							</div>
+							<div class="fields-wrap">
+								<input type="password" id="enter-form-pass" />
+							</div>
+						</div>
+						<div class="forgot-pass"><a href="#">Забыли пароль?</a></div>
+
+						<div class="buttons-line">
+							<input type="submit" value="ВОЙТИ">
+						</div>
+					</form>
+				</div>
+				<!--enter form end-->
+
+				<!--cabinet notes-->
+				<div class="cabinet-notes">
+					<h4>У вас нет аккаунта?</h4>
+					<div class="cabinet-notes__link"><a href="#">Создайте его</a></div>
+				</div>
+				<!--cabinet notes end-->
+			</div>
+			<!--enter end-->
 		</div>
 	</div>
 </div>

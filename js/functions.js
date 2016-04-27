@@ -1,3 +1,5 @@
+var md = new MobileDetect(window.navigator.userAgent);
+
 /*resized only width*/
 var resizeByWidth = true;
 
@@ -2512,51 +2514,6 @@ function fancyboxInit(){
 }
 /* fancybox initial */
 
-/*cabinet events*/
-function cabinetEvents(){
-	$('.login a, .cabinet__options a').magnificPopup({
-		closeBtnInside: false,
-		type:'inline',
-		mainClass:'cabinet-main',
-		midClick: true, // allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source.
-		preloader: true,
-
-		callbacks: {
-			open: function() {
-
-				var $cabinetHead = $(this.content).find('.cabinet__head');
-
-				var $btnLogin = this.ev.closest('.login');
-
-				$('.cabinet__login').remove();
-
-				var $btnLoginClone = $btnLogin.clone().addClass('cabinet__login');
-
-				$cabinetHead.css('height', $btnLogin.outerHeight());
-
-				$btnLoginClone.prependTo($cabinetHead)
-					.css({
-						'position': 'relative',
-						'margin-left': $btnLogin.offset().left - $cabinetHead.offset().left
-					});
-			},
-			close: function() {
-				//$('.cabinet__login').remove();
-			}
-			// e.t.c.
-		}
-	});
-
-	$('.cabinet__container').on('click', function (e) {
-		e.stopPropagation();
-	});
-
-	$('.cabinet').on('click', function () {
-		$.magnificPopup.close();
-	});
-}
-/*cabinet events end*/
-
 /* multiselect init */
 // add ui position add class
 function addPositionClass(position, feedback, obj){
@@ -2718,26 +2675,36 @@ function stateFields(){
 function formDropSwitch(){
 	var $formBox = $('.form-box-js');
 	var $formBoxHead = $('.form-box-head-js');
-	var $formDrop = $('.form-drop-js');
 	var $opener = $formBoxHead.find('input:text');
+	var $formDrop = $('.form-drop-js');
 	var _classDropOpen = 'drop-open';
 
 	if(!$formBox.length){
 		return;
 	}
 
-	$opener.on('focus', function (e) {
-		var $currentOpener = $(this);
-
-		var $currentFromBox = $currentOpener.closest($formBox);
+	$opener.on('click', function (e) {
+		var $currentFromBox = $(this).closest($formBox);
 		$currentFromBox.addClass(_classDropOpen);
 
 		var $cselect = $currentFromBox.find('select.cselect');
-		//$cselect.multiselect('uncheckAll');
-		$cselect.multiselect('refresh');
+		if(!md.mobile()){
+			//$cselect.multiselect('uncheckAll');
+			//$cselect.multiselect('refresh');
+		}
 
-		$currentOpener.closest($formBox).find($opener).val(setBirthDate($cselect));
+		e.stopPropagation();
+	});
 
+	$(document).on('click', function () {
+		$formBox.removeClass(_classDropOpen);
+	});
+
+	$('.cabinet__container').on('click', function () {
+		$formBox.removeClass(_classDropOpen);
+	});
+
+	$formDrop.on('click', function (e) {
 		e.stopPropagation();
 	});
 
@@ -2749,7 +2716,7 @@ function formDropSwitch(){
 		$currentSelect.closest($formBox).find($opener).val(setBirthDate($select));
 	});
 
-	$formDrop.on('click', '.btn-birth-ok', function (e) {
+	$formDrop.on('click', '.btn-drop-ok-js', function (e) {
 		e.preventDefault();
 		var $currentBtn = $(this);
 
@@ -2768,6 +2735,17 @@ function formDropSwitch(){
 			.val(setBirthDate($select));
 	});
 
+	$('.btn-drop-clear-js').on('click', function (e) {
+		e.preventDefault();
+		$(this)
+				.closest($formBox)
+				.find($formBoxHead)
+				.removeClass('has-value')
+				.find('input:text')
+				.val('')
+				.focus();
+	});
+
 	function setBirthDate($select) {
 		var birth = $select.eq(0).find('option:selected').text() + '.' +
 			$select.eq(1).val() + '.' +
@@ -2777,6 +2755,51 @@ function formDropSwitch(){
 	}
 }
 /*form drop switch end*/
+
+/*cabinet events*/
+function cabinetEvents(){
+	$('.login a').magnificPopup({
+		closeBtnInside: false,
+		type:'inline',
+		mainClass:'cabinet-main',
+		midClick: true, // allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source.
+		preloader: true,
+
+		callbacks: {
+			open: function() {
+
+				var $cabinetHead = $(this.content).find('.cabinet__head');
+
+				var $btnLogin = this.ev.closest('.login');
+
+				$('.cabinet__login').remove();
+
+				var $btnLoginClone = $btnLogin.clone().addClass('cabinet__login');
+
+				$cabinetHead.css('height', $btnLogin.outerHeight());
+
+				$btnLoginClone.prependTo($cabinetHead)
+						.css({
+							'position': 'relative',
+							'margin-left': $btnLogin.offset().left - $cabinetHead.offset().left
+						});
+			},
+			close: function() {
+				//$('.cabinet__login').remove();
+			}
+			// e.t.c.
+		}
+	});
+
+	$('.cabinet__container').on('click', function (e) {
+		e.stopPropagation();
+	});
+
+	$('.cabinet').on('click', function () {
+		$.magnificPopup.close();
+	});
+}
+/*cabinet events end*/
 
 /**!
  * ready/load/resize document
@@ -2801,14 +2824,14 @@ $(document).ready(function () {
 	cloneNavItem();
 	collapseNavItem();
 	navPosition();
-	cabinetEvents();
 
 	var md = new MobileDetect(window.navigator.userAgent);
 	if(!md.mobile()){
-		customSelect($('select.cselect'));
+		//customSelect($('select.cselect'));
 	}
 	stateFields();
 	formDropSwitch();
+	//cabinetEvents();
 });
 
 $(window).load(function () {
