@@ -6517,12 +6517,20 @@ body:not(.mobile-device) .gallery__previews .slick-next:hover:after{ opacity: 1;
 .cabinet-main .mfp-container:before{
 	vertical-align: top;
 }
-.mfp-close{
+.cabinet-main .mfp-container{ padding: 0; }
+button.mfp-close{
 	width: 60px;
 	height: 60px;
 }
 button.mfp-close:hover,
 button.mfp-arrow:hover{ background: none; }
+.mfp-close-btn-in .mfp-close { color: #fff; }
+.cabinet-main button.mfp-close{
+	background: #008acf;
+	opacity: 1;
+	border-radius: 0;
+}
+.cabinet-main button.mfp-close:hover{ background: #0080bf; }
 .cabinet{
 	position: relative;
 	width: 100%;

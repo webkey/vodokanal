@@ -1738,9 +1738,6 @@
 	.footer-col_right{ padding: 20px 10px; }
 	/*footer bottom end*/
 	/*FOOTER end*/
-	button.mfp-close {
-		width: 50px;
-	}
 }
 
 @media only screen and (max-height: 400px){

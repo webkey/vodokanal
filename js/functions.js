@@ -2512,119 +2512,6 @@ function fancyboxInit(){
 }
 /* fancybox initial */
 
-/* multiselect init */
-// add ui position add class
-function addPositionClass(position, feedback, obj){
-	removePositionClass(obj);
-	obj.css( position );
-	obj
-			.addClass( feedback.vertical )
-			.addClass( feedback.horizontal );
-}
-// add ui position remove class
-function removePositionClass(obj){
-	obj.removeClass('top');
-	obj.removeClass('bottom');
-	obj.removeClass('center');
-	obj.removeClass('left');
-	obj.removeClass('right');
-}
-function customSelect(select){
-	if ( select.length ) {
-		var $fieldWrap = $('.fields-line');
-		selectArray = new Array();
-		select.each(function(selectIndex, selectItem){
-			var placeholderText = $(selectItem).attr('data-placeholder');
-			var flag = true;
-			if ( placeholderText === undefined ) {
-				placeholderText = $(selectItem).find(':selected').html();
-				flag = false;
-			}
-			var classes = $(selectItem).attr('class');
-			selectArray[selectIndex] = $(selectItem).multiselect({
-				header: false,
-				height: 'auto',
-				minWidth: 50,
-				selectedList: 1,
-				classes: classes,
-				multiple: false,
-				noneSelectedText: placeholderText,
-				show: ['fade', 200],
-				hide: ['fade', 200],
-				create: function(event){
-					var select = $(this);
-					var button = $(this).multiselect('getButton');
-					var widget = $(this).multiselect('widget');
-					button.wrapInner('<span class="select-inner"></span>');
-					button.find('.ui-icon').append('<i class="arrow-select"></i>')
-							.siblings('span').addClass('select-text');
-					widget.find('.ui-multiselect-checkboxes li:last')
-							.addClass('last')
-							.siblings().removeClass('last');
-					if ( flag ) {
-						$(selectItem).multiselect('uncheckAll');
-						$(selectItem)
-								.multiselect('widget')
-								.find('.ui-state-active')
-								.removeClass('ui-state-active')
-								.find('input')
-								.removeAttr('checked');
-					}
-				},
-				selectedText: function(number, total, checked){
-					var checkedText = checked[0].title;
-					return checkedText;
-				},
-				position: {
-					my: 'left top',
-					at: 'left bottom',
-					using: function( position, feedback ) {
-						addPositionClass(position, feedback, $(this));
-					}
-				},
-				open: function () {
-					var $thisField = $(this);
-
-					$thisField
-							.closest($fieldWrap)
-							.addClass('focus');
-				},
-				close: function () {
-					var $thisField = $(this);
-
-					$thisField
-							.closest($fieldWrap)
-							.removeClass('focus');
-				}
-			});
-		});
-		$(window).resize(selectResize);
-	}
-}
-function selectResize(){
-	if ( selectArray.length ) {
-		$.each(selectArray, function(i, el){
-			var checked = $(el).multiselect('getChecked');
-			var flag = true;
-			if ( !checked.length ) {
-				flag = false
-			}
-			$(el).multiselect('refresh');
-			if ( !flag ) {
-				$(el).multiselect('uncheckAll');
-				$(el)
-						.multiselect('widget')
-						.find('.ui-state-active')
-						.removeClass('ui-state-active')
-						.find('input')
-						.removeAttr('checked');
-			}
-			$(el).multiselect('close');
-		});
-	}
-}
-/* multiselect init end */
-
 /*state form fields*/
 function stateFields(){
 	var $fieldWrap = $('.fields-line');
@@ -2714,7 +2601,6 @@ function formDropSwitch(){
 	var $formDrop = $('.form-drop-js');
 	var _classDropOpen = 'drop-open';
 	var _classHasValue = 'has-value';
-	//var md = new MobileDetect(window.navigator.userAgent);
 
 	if(!$formBox.length){
 		return;
@@ -2729,27 +2615,7 @@ function formDropSwitch(){
 		var $currentResultField = $currentFormBox.find($resultField);
 
 		setBirthDate($currentFormBoxHead, $select, $currentResultField, _classHasValue);
-
-		//var $cselect = $currentFormBox.find('select.cselect');
-		//if(!md.mobile()){
-			//$cselect.multiselect('uncheckAll');
-			//$cselect.multiselect('refresh');
-		//}
-
-		//e.stopPropagation();
 	});
-
-	//$(document).on('click', function () {
-	//	$formBox.removeClass(_classDropOpen);
-	//});
-	//
-	//$('.cabinet__container').on('click', function () {
-	//	$formBox.removeClass(_classDropOpen);
-	//});
-	//
-	//$formDrop.on('click', function (e) {
-	//	e.stopPropagation();
-	//});
 
 	$formDrop.on('change', 'select', function () {
 		var $currentSelect = $(this);
@@ -2803,15 +2669,15 @@ function formDropSwitch(){
 }
 /*form drop switch end*/
 
-/*cabinet events*/
-function cabinetEvents(){
+/*cabinet popups*/
+function cabinetPopups(){
 	var $cabinet = $('.cabinet');
 	if(!$cabinet.length){
 		return;
 	}
 
 	$('.login a').magnificPopup({
-		closeBtnInside: false,
+		closeBtnInside: true,
 		type:'inline',
 		mainClass:'cabinet-main',
 		midClick: true, // allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source.
@@ -2835,21 +2701,17 @@ function cabinetEvents(){
 							'position': 'relative',
 							'margin-left': $btnLogin.offset().left - $cabinetHead.offset().left
 						});
+
+				$('html').css('overflow','hidden');
+				$(this.container).css('overflow','auto');
+				console.log('$(this): ', this.container);
 			},
-			close: function() {
-				//$('.cabinet__login').remove();
+			close: function () {
+				$('html').css('overflow','visible');
+				$(this.container).css('overflow','visible');
 			}
-			// e.t.c.
 		}
 	});
-
-	/*$('.cabinet__container').on('click', function (e) {
-		e.stopPropagation();
-	});*/
-
-	/*$('.cabinet').on('click', function () {
-		$.magnificPopup.close();
-	});*/
 
 	$cabinet.on('click', '.login a', function () {
 		$.magnificPopup.close();
@@ -2881,7 +2743,7 @@ function successPopupInit(){
 	}, 0);
 }
 /*success modal end*/
-/*cabinet events end*/
+/*cabinet popups end*/
 
 /**!
  * ready/load/resize document
@@ -2907,14 +2769,10 @@ $(document).ready(function () {
 	collapseNavItem();
 	navPosition();
 
-	//var md = new MobileDetect(window.navigator.userAgent);
-	//if(!md.mobile()){
-	//	customSelect($('select.cselect'));
-	//}
 	stateFields();
 	cabinetTabs();
 	formDropSwitch();
-	cabinetEvents();
+	cabinetPopups();
 });
 
 $(window).load(function () {
