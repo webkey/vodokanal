@@ -7071,6 +7071,10 @@ div.form-drop-select .ui-multiselect-checkboxes label.ui-state-active {
 	display: block;
 	width: 100%;
 }
+.cabinet input[type="submit"]:hover{
+	background: #fff;
+	color: #008acf;
+}
 
 .cabinet__logo{
 	display: block;

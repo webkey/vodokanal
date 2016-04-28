@@ -1,5 +1,3 @@
-var md = new MobileDetect(window.navigator.userAgent);
-
 /*resized only width*/
 var resizeByWidth = true;
 
@@ -2712,27 +2710,33 @@ function cabinetTabs(){
 function formDropSwitch(){
 	var $formBox = $('.form-box-js');
 	var $formBoxHead = $('.form-box-head-js');
-	var $opener = $formBoxHead.find('input:text');
+	var $resultField = $formBoxHead.find('input:text');
 	var $formDrop = $('.form-drop-js');
 	var _classDropOpen = 'drop-open';
+	var _classHasValue = 'has-value';
+	//var md = new MobileDetect(window.navigator.userAgent);
 
 	if(!$formBox.length){
 		return;
 	}
 
-	$opener.on('click', function (e) {
-		var $currentFromBox = $(this).closest($formBox);
-		$currentFromBox.addClass(_classDropOpen);
+	$resultField.on('click', function () {
+		var $currentFormBox = $(this).closest($formBox);
+		$currentFormBox.addClass(_classDropOpen);
 
-		var $select = $currentFromBox.find($formDrop).find('select');
-		$currentFromBox.find($opener).val(setBirthDate($select));
-		//var $cselect = $currentFromBox.find('select.cselect');
-		if(!md.mobile()){
+		var $currentFormBoxHead = $currentFormBox.find($formBoxHead);
+		var $select = $currentFormBox.find($formDrop).find('select');
+		var $currentResultField = $currentFormBox.find($resultField);
+
+		setBirthDate($currentFormBoxHead, $select, $currentResultField, _classHasValue);
+
+		//var $cselect = $currentFormBox.find('select.cselect');
+		//if(!md.mobile()){
 			//$cselect.multiselect('uncheckAll');
 			//$cselect.multiselect('refresh');
-		}
+		//}
 
-		e.stopPropagation();
+		//e.stopPropagation();
 	});
 
 	//$(document).on('click', function () {
@@ -2747,50 +2751,54 @@ function formDropSwitch(){
 	//	e.stopPropagation();
 	//});
 
-	$formDrop.find('select').on('change', function () {
+	$formDrop.on('change', 'select', function () {
 		var $currentSelect = $(this);
-
+		var $currentFormBox = $currentSelect.closest($formBox);
+		var $currentFormBoxHead = $currentFormBox.find($formBoxHead);
 		var $select = $currentSelect.closest($formDrop).find('select');
+		var $currentResultField = $currentFormBox.find($resultField);
 
-		$currentSelect.closest($formBox).find($opener).val(setBirthDate($select));
+		setBirthDate($currentFormBoxHead, $select, $currentResultField, _classHasValue);
 	});
 
 	$formDrop.on('click', '.btn-drop-ok-js', function (e) {
 		e.preventDefault();
 		var $currentBtn = $(this);
-
+		var $currentFormBox = $currentBtn.closest($formBox);
+		var $currentFormBoxHead = $currentFormBox.find($formBoxHead);
 		var $select = $currentBtn.closest($formDrop).find('select');
+		var $currentResultField = $currentFormBox.find($resultField);
 
-		if(!$currentBtn.closest($formBox).find($opener).val().length){
-			$currentBtn.closest($formBox).removeClass(_classDropOpen);
+		$currentFormBox.removeClass(_classDropOpen);
+
+		if(!$currentResultField.val().length){
+			$currentFormBoxHead.removeClass(_classHasValue);
 			return;
 		}
 
-		$currentBtn.closest($formBox)
-			.removeClass(_classDropOpen)
-			.find($formBoxHead)
-			.addClass('has-value')
-			.find('input:text')
-			.val(setBirthDate($select));
+		setBirthDate($currentFormBoxHead, $select, $currentResultField, _classHasValue);
 	});
 
 	$('.btn-drop-clear-js').on('click', function (e) {
 		e.preventDefault();
 		$(this)
-				.closest($formBox)
-				.find($formBoxHead)
-				.removeClass('has-value')
-				.find('input:text')
-				.val('')
-				.focus();
+			.closest($formBox)
+			.find($formBoxHead)
+			.removeClass('has-value')
+			.find('input:text')
+			.val('')
+			.focus();
 	});
 
-	function setBirthDate($select) {
-		var birth = $select.eq(0).find('option:selected').text() + '.' +
-			$select.eq(1).val() + '.' +
-			$select.eq(2).find('option:selected').text();
+	function setBirthDate(formBoxHead, selects, resultField, _classHasValue) {
+		var birth = selects.eq(0).find('option:selected').text() + '.' +
+			selects.eq(1).val() + '.' +
+			selects.eq(2).find('option:selected').text();
 
-		return birth;
+		formBoxHead
+			.addClass(_classHasValue)
+			.find(resultField)
+			.val(birth);
 	}
 }
 /*form drop switch end*/
@@ -2845,7 +2853,6 @@ function cabinetEvents(){
 
 	$cabinet.on('click', '.login a', function () {
 		$.magnificPopup.close();
-		console.log(1);
 	});
 }
 
@@ -2900,10 +2907,10 @@ $(document).ready(function () {
 	collapseNavItem();
 	navPosition();
 
-	var md = new MobileDetect(window.navigator.userAgent);
-	if(!md.mobile()){
-		//customSelect($('select.cselect'));
-	}
+	//var md = new MobileDetect(window.navigator.userAgent);
+	//if(!md.mobile()){
+	//	customSelect($('select.cselect'));
+	//}
 	stateFields();
 	cabinetTabs();
 	formDropSwitch();
