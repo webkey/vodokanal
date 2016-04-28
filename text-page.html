@@ -175,7 +175,7 @@
 								<!--search form opener end-->
 								<!--login-->
 								<div class="login">
-									<a href="#cabinet-popup"><i class="depict-icons-user"></i> <span class="login__inner">Личный Кабинет</span> </a>
+									<a href="#cabinet-popup" title="Личный Кабинет"><i class="depict-icons-user"></i> <span class="login__inner">Личный Кабинет</span> </a>
 								</div>
 								<!--login end-->
 							</div>
@@ -599,18 +599,61 @@
 <!--FOOTER end-->
 
 <!--cabinet-->
-<div class="cabinet" id="cabinet-popup">
+<div class="cabinet mfp-hide" id="cabinet-popup">
 	<div class="max-wrap">
 		<div class="cabinet__head"></div>
 		<div class="cabinet__container">
+			<!--cabinet options-->
 			<ul class="cabinet__options">
-				<li><a href="#cabinet-enter">Вход</a></li>
-				<li class="active"><a href="#cabinet-reg">Регистрация</a></li>
+				<li><a href="#cabinet-enter" class="cabinet-anchor-js active">Вход</a></li>
+				<li><a href="#cabinet-reg" class="cabinet-anchor-js">Регистрация</a></li>
 			</ul>
+			<!--cabinet options end-->
+
+			<!--enter-->
+			<div class="cabinet__enter cabinet-box-js" id="cabinet-enter">
+				<div class="cabinet__logo"></div>
+				<!--cabinet form-->
+				<div class="cabinet__form enter-form">
+					<form action="#" method="get">
+						<div class="fields-line fields-light">
+							<div class="label-holder label-animate">
+								<label for="enter-form-login">Логин</label>
+							</div>
+							<div class="fields-wrap">
+								<input type="text" id="enter-form-login" />
+							</div>
+						</div>
+						<div class="fields-line fields-light">
+							<div class="label-holder label-animate">
+								<label for="enter-form-pass">Пароль</label>
+							</div>
+							<div class="fields-wrap">
+								<input type="password" id="enter-form-pass" />
+							</div>
+						</div>
+						<div class="forgot-pass"><a href="#password-remind" class="cabinet-anchor-js">Забыли пароль?</a></div>
+
+						<div class="buttons-line">
+							<input type="submit" value="ВОЙТИ">
+						</div>
+					</form>
+				</div>
+				<!--cabinet form end-->
+
+				<!--cabinet notes-->
+				<div class="cabinet-notes">
+					<h4>У вас нет аккаунта?</h4>
+					<div class="cabinet-notes__link"><a href="#cabinet-reg">Создайте его</a></div>
+				</div>
+				<!--cabinet notes end-->
+			</div>
+			<!--enter end-->
+
 			<!--registration-->
-			<div class="reg" id="cabinet-reg" style="display: none;">
-				<!--reg form-->
-				<div class="reg-form">
+			<div class="cabinet__reg cabinet-box-js" id="cabinet-reg" style="display: none;">
+				<!--cabinet form-->
+				<div class="cabinet__form reg-form">
 					<form action="#" method="get">
 						<div class="fields-line fields-light">
 							<div class="label-holder label-animate">
@@ -832,60 +875,73 @@
 						</div>
 					</form>
 				</div>
-				<!--reg form-->
+				<!--cabinet form-->
 
 				<!--cabinet notes-->
 				<div class="cabinet-notes">
 					<h4>У Вас уже есть аккаунт?</h4>
-					<div class="cabinet-notes__link"><a href="#">Тогда войдите</a></div>
+					<div class="cabinet-notes__link"><a href="#cabinet-enter">Тогда войдите</a></div>
 				</div>
 				<!--cabinet notes end-->
 			</div>
 			<!--registration end-->
 
-			<!--enter-->
-			<div class="enter" id="cabinet-enter">
-				<div class="cabinet-logo"></div>
-				<!--enter form-->
-				<div class="enter-form">
+			<!--remind password-->
+			<div class="remind-box cabinet-box-js" id="password-remind" style="display: none;">
+				<div class="cabinet__logo"></div>
+				<!--cabinet form-->
+				<div class="cabinet__form remind-form">
 					<form action="#" method="get">
 						<div class="fields-line fields-light">
 							<div class="label-holder label-animate">
-								<label for="enter-form-name">Логин</label>
+								<label for="remind-form-email">Электронная почта</label>
 							</div>
 							<div class="fields-wrap">
-								<input type="text" id="enter-form-name" />
+								<input type="email" id="remind-form-email" />
 							</div>
 						</div>
-						<div class="fields-line fields-light">
+						<div class="fields-line fields-light" style="display: none;">
 							<div class="label-holder label-animate">
-								<label for="enter-form-pass">Пароль</label>
+								<label for="remind-form-secret">Какое слово всегда звучит неверно?</label>
 							</div>
 							<div class="fields-wrap">
-								<input type="password" id="enter-form-pass" />
+								<input type="email" id="remind-form-secret" />
 							</div>
 						</div>
-						<div class="forgot-pass"><a href="#">Забыли пароль?</a></div>
 
 						<div class="buttons-line">
-							<input type="submit" value="ВОЙТИ">
+							<input type="submit" value="ОТПРАВИТЬ ПАРОЛЬ">
 						</div>
 					</form>
 				</div>
-				<!--enter form end-->
+				<!--cabinet form end-->
+			</div>
+			<!--remind password end-->
 
+			<!--return send-->
+			<div class="return-send cabinet-box-js" style="display: none;">
+				<div class="cabinet__logo"></div>
+				<h3>Спасибо! <br> Инструкции высланы <br> на ваш e-mail</h3>
 				<!--cabinet notes-->
 				<div class="cabinet-notes">
-					<h4>У вас нет аккаунта?</h4>
-					<div class="cabinet-notes__link"><a href="#">Создайте его</a></div>
+					<h4>Вам не пришло письмо?</h4>
+					<div class="cabinet-notes__link"><a href="#password-remind" class="cabinet-anchor-js">Отправьте повторно</a></div>
 				</div>
 				<!--cabinet notes end-->
 			</div>
-			<!--enter end-->
+			<!--return send end-->
 		</div>
 	</div>
 </div>
 <!--cabinet end-->
+
+<!--success window-->
+<div class="success-window" id="success-popup">
+	<h3>Спасибо за регистрацию на нашем портале</h3>
+	<div class="success-window__logo"></div>
+	<div class="success-window__note">Пароль выслан на указанный при регистрации e-mail</div>
+</div>
+<!--success window end-->
 
 <!--JQuery library-->
 <script src="js/jquery-1.12.0.min.js"></script>

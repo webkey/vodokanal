@@ -931,6 +931,9 @@
 	.main-page .top-panel-show .phones{ box-shadow: none; }
 	/*header options end*/
 
+	.header-options__aside{ width: 120px; }
+	.phs__container{ margin-right: 120px; }
+
 	/*button menu*/
 	.main-page .btn-menu{ display: block; }
 	/*button menu end*/
@@ -950,6 +953,12 @@
 		background-size: 160px;
 	}
 	/*logo end*/
+
+	/*login*/
+	.login{ width: 60px; }
+	.login a i { margin-right: 0; }
+	.login a .login__inner{ display: none; }
+	/*login end*/
 	/*HEADER end*/
 
 	/*MAIN NAVIGATION*/
@@ -1068,6 +1077,10 @@
 	/*useful links end*/
 	/*footer contacts end*/
 	/*FOOTER end*/
+	.mfp-bg.cabinet-main {
+		opacity: 0.9;
+		filter: alpha(opacity=90);
+	}
 }
 
 @media only screen and (max-width: 639px){
@@ -1725,6 +1738,9 @@
 	.footer-col_right{ padding: 20px 10px; }
 	/*footer bottom end*/
 	/*FOOTER end*/
+	button.mfp-close {
+		width: 50px;
+	}
 }
 
 @media only screen and (max-height: 400px){

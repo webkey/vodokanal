@@ -2671,6 +2671,43 @@ function stateFields(){
 }
 /*state form fields*/
 
+/*cabinet tabs*/
+function cabinetTabs(){
+	var $cabinetOptions = $('.cabinet');
+	if(!$cabinetOptions.length){
+		return;
+	}
+
+	var $cabinetAnchor = $cabinetOptions.find('.cabinet-anchor-js');
+	var _activeClass = 'active';
+
+	$cabinetOptions.on('click', '.cabinet-anchor-js', function (e) {
+		e.preventDefault();
+		var $currentCabinetAnchor = $(this);
+
+		if($currentCabinetAnchor.hasClass(_activeClass)){
+			return;
+		}
+
+		$cabinetAnchor.removeClass(_activeClass);
+		$currentCabinetAnchor.addClass(_activeClass);
+
+		$currentCabinetAnchor
+			.closest($cabinetOptions)
+			.find('.cabinet-box-js')
+			.hide().end()
+			.find($currentCabinetAnchor.attr('href')).show();
+	});
+
+	$('.cabinet-notes a').on('click', function (e) {
+		e.preventDefault();
+
+		$cabinetAnchor.removeClass(_activeClass);
+		$('.cabinet__options a[href="'+$(this).attr('href')+'"]').trigger('click');
+	})
+}
+/*cabinet tabs end*/
+
 /*form drop switch*/
 function formDropSwitch(){
 	var $formBox = $('.form-box-js');
@@ -2687,7 +2724,9 @@ function formDropSwitch(){
 		var $currentFromBox = $(this).closest($formBox);
 		$currentFromBox.addClass(_classDropOpen);
 
-		var $cselect = $currentFromBox.find('select.cselect');
+		var $select = $currentFromBox.find($formDrop).find('select');
+		$currentFromBox.find($opener).val(setBirthDate($select));
+		//var $cselect = $currentFromBox.find('select.cselect');
 		if(!md.mobile()){
 			//$cselect.multiselect('uncheckAll');
 			//$cselect.multiselect('refresh');
@@ -2696,17 +2735,17 @@ function formDropSwitch(){
 		e.stopPropagation();
 	});
 
-	$(document).on('click', function () {
-		$formBox.removeClass(_classDropOpen);
-	});
-
-	$('.cabinet__container').on('click', function () {
-		$formBox.removeClass(_classDropOpen);
-	});
-
-	$formDrop.on('click', function (e) {
-		e.stopPropagation();
-	});
+	//$(document).on('click', function () {
+	//	$formBox.removeClass(_classDropOpen);
+	//});
+	//
+	//$('.cabinet__container').on('click', function () {
+	//	$formBox.removeClass(_classDropOpen);
+	//});
+	//
+	//$formDrop.on('click', function (e) {
+	//	e.stopPropagation();
+	//});
 
 	$formDrop.find('select').on('change', function () {
 		var $currentSelect = $(this);
@@ -2758,6 +2797,11 @@ function formDropSwitch(){
 
 /*cabinet events*/
 function cabinetEvents(){
+	var $cabinet = $('.cabinet');
+	if(!$cabinet.length){
+		return;
+	}
+
 	$('.login a').magnificPopup({
 		closeBtnInside: false,
 		type:'inline',
@@ -2791,14 +2835,45 @@ function cabinetEvents(){
 		}
 	});
 
-	$('.cabinet__container').on('click', function (e) {
+	/*$('.cabinet__container').on('click', function (e) {
 		e.stopPropagation();
-	});
+	});*/
 
-	$('.cabinet').on('click', function () {
+	/*$('.cabinet').on('click', function () {
 		$.magnificPopup.close();
+	});*/
+
+	$cabinet.on('click', '.login a', function () {
+		$.magnificPopup.close();
+		console.log(1);
 	});
 }
+
+/*success modal*/
+/** == Init successPopupInit(); after success form ==*/
+var timerShowModal;
+function successPopupInit(){
+	$.magnificPopup.close();
+
+	$.magnificPopup.open({
+		items: {
+			src: '#success-popup'
+		},
+		type: 'inline',
+		removalDelay: 300,
+		mainClass: 'mfp-fade',
+		closeBtnInside: false,
+		callbacks: {
+			open: function() {
+				clearTimeout(timerShowModal);
+				timerShowModal = setTimeout(function () {
+					$.magnificPopup.close();
+				}, 3000);
+			}
+		}
+	}, 0);
+}
+/*success modal end*/
 /*cabinet events end*/
 
 /**!
@@ -2830,8 +2905,9 @@ $(document).ready(function () {
 		//customSelect($('select.cselect'));
 	}
 	stateFields();
+	cabinetTabs();
 	formDropSwitch();
-	//cabinetEvents();
+	cabinetEvents();
 });
 
 $(window).load(function () {
