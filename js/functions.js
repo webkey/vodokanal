@@ -2386,8 +2386,6 @@ function headerFixed(){
 }
 /*header fixed end*/
 
-
-
 /* fancybox initial */
 function fancyboxInit(){
 	/*modal window*/
@@ -2737,7 +2735,7 @@ function successPopupInit(){
 				clearTimeout(timerShowModal);
 				timerShowModal = setTimeout(function () {
 					$.magnificPopup.close();
-				}, 3000);
+				}, 5000);
 			}
 		}
 	}, 0);
