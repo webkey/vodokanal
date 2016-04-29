@@ -2702,7 +2702,6 @@ function cabinetPopups(){
 
 				$('html').css('overflow','hidden');
 				$(this.container).css('overflow','auto');
-				console.log('$(this): ', this.container);
 			},
 			close: function () {
 				$('html').css('overflow','visible');
