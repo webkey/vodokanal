@@ -925,12 +925,11 @@ function collapsePhones() {
 	$phonesCloneContainer.toggleClass('show-clone', lengthPhonesItems * minWidthItem > phonesListWidth);
 
 	$('.phs__item').removeClass('ph-cloned');
-	var $phonesCloneItems = $('.phones-clone-drop', $phonesCloneContainer).children('.phs__list').children('.phs__item');
 
-	for(var i = 0; i <= cloneLength; i++){
-		var indexCloned = lengthPhonesItems - i - 1;
-		$($phonesItem[indexCloned]).addClass('ph-cloned');
-		$($phonesCloneItems[indexCloned]).addClass('ph-cloned');
+	if(cloneLength){
+		var indexCloned = - cloneLength - 1;
+		$('.phs__container > .phs__list > .phs__item').slice(indexCloned).addClass('ph-cloned');
+		$('.phones-drop > .phs__list > .phs__item').slice(indexCloned).addClass('ph-cloned');
 	}
 }
 /*clone and collapse phones*/

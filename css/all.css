@@ -1553,6 +1553,16 @@ html.position .footer{
 	border-color: transparent;
 }
 /*login end*/
+
+.no-login .login{
+	display: none;
+}
+.no-login .header-options__aside{
+	width: 60px;
+}
+.no-login .phs__container {
+	margin-right: 60px;
+}
 /*header options aside end*/
 
 /*phones*/
