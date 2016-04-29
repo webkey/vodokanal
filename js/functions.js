@@ -2532,14 +2532,6 @@ function stateFields(){
 					.removeClass('focus');
 		});
 
-		$.each($inputsAll, function () {
-			switchHasValue.call(this);
-		});
-
-		$inputsAll.on('change', function () {
-			switchHasValue.call(this);
-		});
-
 		function switchHasValue() {
 			var $currentField = $(this);
 			var $currentFieldWrap = $currentField.closest($fieldWrap);
@@ -2550,6 +2542,14 @@ function stateFields(){
 				$currentFieldWrap.addClass(_classHasValue);
 			}
 		}
+
+		$.each($inputsAll, function () {
+			switchHasValue.call(this);
+		});
+
+		$inputsAll.on('change', function () {
+			switchHasValue.call(this);
+		});
 	}
 }
 /*state form fields*/
