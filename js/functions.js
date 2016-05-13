@@ -1572,6 +1572,7 @@ function mapMainInit(){
 	if($(elementById[1]).length){
 		var map2 = new google.maps.Map(elementById[1], mapOptions);
 		addMarker(0,map2);
+		addMarker(1,map2);
 
 		/*aligned after resize*/
 		var resizeTimer2;
@@ -1585,6 +1586,7 @@ function mapMainInit(){
 	if($(elementById[2]).length){
 		var map3 = new google.maps.Map(elementById[2], mapOptions);
 		addMarker(0,map3);
+		addMarker(1,map3);
 	}
 
 	/*change location*/
@@ -1604,8 +1606,13 @@ function mapMainInit(){
 		map.setZoom(object[3]);
 	}
 
+	var infoWindow = new google.maps.InfoWindow({
+		maxWidth: 220
+	});
+	
 	function addMarker(index,map) {
 		var object = localObjects[index];
+
 		var marker = new google.maps.Marker({
 			position: object[0],
 			//animation: google.maps.Animation.DROP,
@@ -1613,23 +1620,33 @@ function mapMainInit(){
 			icon: object[2],
 			title: object[4].title
 		});
+
 		markers.push(marker);
 
-		var infoWindow = new google.maps.InfoWindow({
-			content: '<div class="map-popup">' +
-			'<h4>'+object[4].title+'</h4>' +
-			'<div class="map-popup__list">' +
+		function onMarkerClick() {
+			var marker = this;
+
+			infoWindow.setContent(
+				'<div class="map-popup">' +
+				'<h4>'+object[4].title+'</h4>' +
+				'<div class="map-popup__list">' +
 				'<div class="map-popup__row">'+object[4].address+'</div>' +
 				'<div class="map-popup__row">'+object[4].phone+'</div>' +
 				'<div class="map-popup__row">'+object[4].works+'</div>' +
-			'</div>' +
-			'</div>',
-			maxWidth: 220
+				'</div>' +
+				'</div>'
+			);
+
+			infoWindow.close();
+
+			infoWindow.open(map, marker);
+		}
+
+		map.addListener('click', function () {
+			infoWindow.close();
 		});
 
-		marker.addListener('click', function() {
-			infoWindow.open(map, marker);
-		});
+		marker.addListener('click', onMarkerClick);
 	}
 
 	function setMapOnAll(map) {
