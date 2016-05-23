@@ -1066,70 +1066,71 @@ function contactsSwitcher(){
 /*contacts switcher end*/
 
 /*equal height initial*/
-
-
 /*case list*/
 function caseEqualHeight(){
 	var caseList = $('.case__list');
 	if(caseList.length){
-		var $caseItem = $('.case__item');
-		caseList.find('.case__photo-card').css('height', 'auto');
-		caseList.find('.case__contacts-card').css('height', 'auto');
-		caseList.find('.photo-card__img, .contacts-card__caption').equalHeight({
-			//amount: 8,
-			ratio: 2,
-			item: $caseItem,
-			useParent: true,
-			parent: caseList,
-			resize: true
-		});
-		caseList.find('.photo-card__name, .contacts-card__share').equalHeight({
-			//amount: 12,
-			ratio: 2,
-			item: $caseItem,
-			useParent: true,
-			parent: caseList,
-			resize: true
-		});
-		caseList.find('.photo-card__post, .contacts-card__works').equalHeight({
-			//amount: 12,
-			ratio: 2,
-			item: $caseItem,
-			useParent: true,
-			parent: caseList,
-			resize: true
-		});
-		caseList.find('.contacts-card__post').equalHeight({
-			ratio: 1,
-			item: $caseItem,
-			useParent: true,
-			parent: caseList,
-			resize: true
-		});
-		caseList.find('.contacts-card__name').equalHeight({
-			ratio: 1,
-			item: $caseItem,
-			useParent: true,
-			parent: caseList,
-			resize: true
+		imagesLoaded(caseList, function () {
+			var $caseItem = $('.case__item');
+			caseList.find('.case__photo-card').css('height', 'auto');
+			caseList.find('.case__contacts-card').css('height', 'auto');
+			caseList.find('.photo-card__img, .contacts-card__caption').equalHeight({
+				//amount: 8,
+				ratio: 2,
+				item: $caseItem,
+				useParent: true,
+				parent: caseList,
+				resize: true
+			});
+			caseList.find('.photo-card__name, .contacts-card__share').equalHeight({
+				//amount: 12,
+				ratio: 2,
+				item: $caseItem,
+				useParent: true,
+				parent: caseList,
+				resize: true
+			});
+			caseList.find('.photo-card__post, .contacts-card__works').equalHeight({
+				//amount: 12,
+				ratio: 2,
+				item: $caseItem,
+				useParent: true,
+				parent: caseList,
+				resize: true
+			});
+			caseList.find('.contacts-card__post').equalHeight({
+				ratio: 1,
+				item: $caseItem,
+				useParent: true,
+				parent: caseList,
+				resize: true
+			});
+			caseList.find('.contacts-card__name').equalHeight({
+				ratio: 1,
+				item: $caseItem,
+				useParent: true,
+				parent: caseList,
+				resize: true
+			});
 		});
 	}
 }
-/*case list end*/
 
 function caseEqualHeightOnMobile() {
 	var $caseList = $('.case__list');
-	var $caseItem = $('.case__item');
-	$caseList.each(function () {
-		var amount = $('.case__item', this).length;
-		$('.case__photo-card', this).equalHeight({
-			amount: amount
-		});
-		$('.case__contacts-card', this).equalHeight({
-			amount: amount
+	imagesLoaded($caseList, function () {
+		$caseList.each(function () {
+			var amount = $('.case__item', this).length;
+			$('.case__photo-card', this).equalHeight({
+				amount: amount
+			});
+			$('.case__contacts-card', this).equalHeight({
+				amount: amount
+			});
 		});
 	});
 }
+/*case list end*/
 
 function equalHeightInit(){
 	/*parents*/
