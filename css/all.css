@@ -2039,9 +2039,9 @@ html.position .footer{
 	width: auto;
 }
 /*navigation scrollbar*/
-.nav__holder::-webkit-scrollbar { width: 3px; }
-.nav__holder::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.2); }
-.nav__holder::-webkit-scrollbar-thumb { background: #005a8f; }
+/*.nav__holder::-webkit-scrollbar { width: 3px; }*/
+/*.nav__holder::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.2); }*/
+/*.nav__holder::-webkit-scrollbar-thumb { background: #005a8f; }*/
 /*navigation scrollbar end*/
 .logo-reduce .nav__holder{ top: 60px; }
 

@@ -1307,8 +1307,7 @@
 		padding-right: 15px;
 	}
 	.glance__count{
-		font: 40px/42px 'Times New Roman', Times, serif;
-		font-weight: bold;
+		font: bold 40px/42px Tahoma, Geneva, sans-serif;
 		text-align: left;
 		margin: 0;
 	}
