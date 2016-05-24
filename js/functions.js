@@ -932,6 +932,10 @@ function collapsePhones() {
 		$('.phones-drop > .phs__list > .phs__item').slice(indexCloned).addClass('ph-cloned');
 	}
 }
+
+$(window).on('load resizeByWidth', function () {
+	collapsePhones();
+});
 /*clone and collapse phones*/
 
 /*phones popup*/
@@ -2781,6 +2785,26 @@ function successPopupInit(){
 /*success modal end*/
 /*cabinet popups end*/
 
+/*back to top*/
+function backToTop(){
+	var $btnToTop = $('.back-to-top');
+	var minScrollTop = 200;
+
+	if($btnToTop.length){
+		$(window).on('load scroll resizeByWidth', function () {
+			var scrollTop = $(window).scrollTop();
+			$btnToTop.toggleClass('btn-show', scrollTop > minScrollTop);
+		});
+
+		$btnToTop.on('click', function (e) {
+			e.preventDefault();
+			$('html, body').animate({ scrollTop: 0 }, 450);
+		})
+	}
+}
+/*header fixed end*/
+/*back to top end*/
+
 /**!
  * ready/load/resize document
  */
@@ -2809,6 +2833,7 @@ $(document).ready(function () {
 	cabinetTabs();
 	formDropSwitch();
 	cabinetPopups();
+	backToTop();
 });
 
 $(window).load(function () {

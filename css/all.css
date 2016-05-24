@@ -7295,3 +7295,90 @@ div.form-drop-select .ui-multiselect-checkboxes label.ui-state-active {
 	border-top: 1px solid #ccc;
 }
 /*success window end*/
+
+/*back to top*/
+.back-to-top{
+	position: fixed;
+	right: 0;
+	bottom: 100px;
+	height: 50px;
+	width: 120px;
+	background: rgba(255, 255, 255, 0.80);
+	box-shadow: 0 2px 28px rgba(0, 0, 0, 0.35);
+	line-height: 18px;
+	text-decoration: none;
+	color: #008acf;
+	white-space: nowrap;
+	text-align: center;
+	z-index: 9999;
+	opacity: 0;
+	-webkit-transform: translate(120px, 0);
+	-ms-transform: translate(120px, 0);
+	transform: translate(120px, 0);
+	-webkit-transition-property: width, opacity, background, -webkit-transform;
+	transition-property: width, opacity, background, transform;
+	-webkit-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+	-webkit-transition-delay: 0.3s;
+	transition-delay: 0.3s;
+
+	font-size: 0;
+	letter-spacing: -4px;
+}
+.back-to-top.btn-show{
+	opacity: 1;
+	-webkit-transform: translate(70px, 0);
+	-ms-transform: translate(70px, 0);
+	transform: translate(70px, 0);
+}
+body:not(.mobile-device) .back-to-top:hover{
+	width: 160px;
+	background: rgba(255, 255, 255, 0.8);
+	-webkit-transform: translate(0, 0);
+	-ms-transform: translate(0, 0);
+	transform: translate(0, 0);
+	-webkit-transition-delay: 0s;
+	transition-delay: 0s;
+}
+.back-to-top:before{
+	content: '';
+	display: inline-block;
+	vertical-align: middle;
+	height: 50px;
+	min-height: 100%;
+}
+.back-to-top>*{
+	font-size: 14px;
+	letter-spacing: normal;
+}
+.back-to-top>i{
+	display: inline-block;
+	vertical-align: middle;
+	background: url(../img/depict-to-top.png) no-repeat;
+	-webkit-background-size: contain;
+	background-size: contain;
+	width: 20px;
+	height: 29px;
+	margin-right: 10px;
+}
+.back-to-top>span{
+	display: inline-block;
+	vertical-align: middle;
+	width: 59px;
+	text-align: left;
+	font-weight: bold;
+	text-transform: uppercase;
+	opacity: 0;
+	-webkit-transition-property: opacity;
+	transition-property: opacity;
+	-webkit-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+	-webkit-transition-delay: 0.3s;
+	transition-delay: 0.3s;
+}
+body:not(.mobile-device) .back-to-top:hover>span{
+	opacity: 1;
+	-webkit-transition-delay: 0.2s;
+	transition-delay: 0.2s;
+}
+/*back to top end*/
