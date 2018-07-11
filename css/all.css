@@ -98,6 +98,11 @@ a{
 	cursor: default;
 }
 a:link{ cursor: pointer; }
+a[href^="tel:"]{
+	text-decoration: none;
+	color: inherit;
+	cursor: default;
+}
 a:hover{ text-decoration: none; }
 img{
 	border: none;
@@ -1672,6 +1677,10 @@ html.position .footer{
 	padding-bottom: 1px;
 	margin: 0 0 2px;
 }
+.phs__item_opener .phs__label{
+	margin: 0;
+	padding: 0;
+}
 .phs__number{
 	font-size: 18px;
 	line-height: 20px;
@@ -2760,13 +2769,14 @@ body:not(.mobile-device) .promo-slider .slick-next:hover:after{ opacity: 1; }
 	line-height: 18px;
 	font-weight: bold;
 	text-transform: uppercase;
-	margin: 0 0 53px;
+	margin: 0 0 40px;
 	height: 87px;
 	overflow: hidden;
 	position: relative;
 }
 .window__btns{ padding: 0 0 10px; }
-.window__btns>div{ padding: 0 0 10px; }
+.window__btns>div{ padding: 0 0 5px; }
+.window__btns>div>a{ padding: 9px 4px; }
 .window__works{
 	position: absolute;
 	bottom: 73px;
@@ -6059,6 +6069,26 @@ body:not(.mobile-device) .gallery__previews .slick-next:hover:after{ opacity: 1;
 	color: #fff;
 	font-style: normal;
 }
+.address a{ color: #fff; }
+.tel__services{ text-transform: uppercase; }
+.tel__services a{
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 22px;
+}
+.tel__services a:after{
+	content: '';
+	position: absolute;
+	left: 100%;
+	top: 50%;
+	margin-top: -11px;
+	background: url(../img/depict-phone.png) no-repeat 100% 0;
+	width: 22px;
+	height: 19px;
+	padding-left: 8px;
+	box-sizing: border-box;
+}
 .road{
 	position: relative;
 	color: #fff;
@@ -6074,6 +6104,7 @@ body:not(.mobile-device) .gallery__previews .slick-next:hover:after{ opacity: 1;
 	padding-right: 25px;
 }
 .road-view>span{
+	color: #fff;
 	border-bottom: 1px dotted #fff;
 	-webkit-transition: border 0.2s;
 	transition: border 0.2s;

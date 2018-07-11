@@ -1,0 +1,542 @@
+:root {
+	--main-bg-color: #fafafa;
+}
+
+/*=========== SPECIAL ===========*/
+.vspec{
+	/*-webkit-filter: grayscale(1);*/
+	/*filter: grayscale(1);*/
+}
+body.vspec{
+	font-size: 18px;
+}
+.vspec path,
+.vspec polygon{
+	fill: currentColor; !important;
+}
+/* bg */
+.vspec .phones,
+.vspec .phones-clone,
+.vspec .phones-drop,
+.vspec .login a,
+.vspec .btn-search-open,
+.vspec .questions__item>a,
+.vspec .nav-main-page .nav-drop,
+.vspec .nav-main-page .nav-sub-drop,
+.vspec .someclass,
+.vspec .someclass{
+	background-color: var(--main-bg-color);
+}
+/* border */
+.vspec .questions__item>a,
+.vspec .someclass{
+	border: 2px solid #000;
+}
+body.vspec:not(.mobile-device) .btn-default-alt:hover{
+	border-color: var(--main-bg-color);
+	color: inherit;
+}
+
+.phs__list>.phs__item>.phs__btn,
+.phones-clone>.phs-clone__btn{
+	border: 2px solid transparent;
+}
+.vspec .phs__container>.phs__list>.phs__item:hover>.phs__btn,
+.vspec .phs__container>.phs__list>.phs__item.show-drop>.phs__btn,
+.vspec .phones-clone:hover>.phs-clone__btn,
+.vspec .phones-clone.show-drop>.phs-clone__btn{
+	border-color: #000;
+}
+
+.vspec .phs__container>.phs__list>.phs__item>.phones-drop,
+.vspec .phones-clone>.phones-drop{
+	border: 2px solid #000;
+}
+.vspec .phs__btn,
+.vspec .phs-clone__btn{
+	color: inherit;
+	cursor: pointer;
+}
+.vspec .phs__item_opener .phs__number .txt-inner{
+	border-color: currentColor;
+	border: none;
+}
+.vspec .show-drop .phs__btn,
+.no-js .vspec  .phs__item:hover .phs__btn,
+.vspec .show-drop .phs-clone__btn{
+	background-color: var(--main-bg-color);
+}
+.vspec .phones-drop .phs__item{
+	color: inherit;
+}
+.vspec .login a:after{
+	border-color: currentColor;
+}
+.vspec .search-form{
+	border-color: #000;
+}
+
+.vspec .nav-main-page .nav__list>li>a{
+	color: inherit;
+	background-color: var(--main-bg-color);
+	border: 2px solid transparent;
+}
+.vspec .nav-main-page .nav__list>li.hover>a{
+	color: inherit;
+	border-color: inherit;
+}
+.vspec .nav-main-page .nav__list>li>a>[class*="depict-icons-angle-"]:before,
+.vspec .nav-cloned .nav__list>li>a>[class*="depict-icons-angle-"]:before,
+.vspec .nav-main-page .nav__list>li.hover>a>[class*="depict-icons-angle-"]:before,
+.no-js .vspec .nav-main-page .nav__list>li:hover>a>[class*="depict-icons-angle-"]:before{
+	border-top-color: currentColor;
+}
+@media only screen and (min-width: 768px){
+	.vspec .nav-main-page .nav-drop__list [class*="depict-icons-angle-"]:before,
+	.vspec .nav-main-page .nav-drop__list li.active>a>[class*="depict-icons-angle-"]:before,
+	.vspec .nav-main-page .nav-drop__list li.current>a>[class*="depict-icons-angle-"]:before,
+	.vspec .nav-main-page .nav-drop__list li.hover>a>[class*="depict-icons-angle-"]:before,
+	.no-js .vspec .nav-main-page .nav-drop__list li:hover>a>[class*="depict-icons-angle-"]:before,
+	.vspec .nav-main-page .nav-drop__list li.active>a>[class*="depict-icons-angle-"]:before,
+	.vspec .nav-main-page .nav-drop__list li.current>a>[class*="depict-icons-angle-"]:before {
+		border-left-color: currentColor;
+	}
+}
+.vspec .nav-main-page .nav-drop__list>li>a{
+	background-color: var(--main-bg-color);
+	color: inherit;
+}
+.vspec .nav-main-page .nav-drop__list>li.hover>a,
+.no-js .vspec .nav-main-page .nav-drop__list>li:hover>a,
+.vspec .nav-main-page .nav-drop__list>li.active>a,
+.vspec .nav-main-page .nav-drop__list>li.current>a,
+.vspec .nav-main-page .nav-sub-drop__list>li>a{
+	background-color: var(--main-bg-color);
+	color: inherit;
+}
+.vspec .nav-main-page .nav-drop,
+.vspec .nav-main-page .nav-sub-drop{
+	border: 2px solid #000;
+}
+.vspec .btn-menu,
+.vspec .nav-cloned__btn-inner{
+	color: inherit;
+}
+.vspec .btn-lines > span{
+	background-color: currentColor;
+}
+@media only screen and (min-width: 768px){
+	.vspec .nav-cloned>.nav-cloned__btn{
+		background-color: var(--main-bg-color);
+		color: inherit;
+	}
+}
+
+.vspec .btn-search-close:before,
+.vspec .btn-search-close:after{
+	background-color: currentColor;
+}
+
+.vspec .promo-holder{
+	padding: 10px;
+	height: auto;
+	margin-right: 0;
+}
+.vspec .promo-slider{
+	display: none;
+}
+.vspec .promo-btn{
+	position: relative;
+	right: auto;
+	bottom: auto;
+}
+.vspec .promo-btn a{
+	padding: 0;
+	background: none;
+	color: inherit;
+	font-size: 24px;
+	line-height: 30px;
+	text-decoration: underline;
+	border: none;
+	-webkit-transition: none;
+	transition: none;
+}
+.vspec .promo-btn a:hover{
+	text-decoration: none;
+}
+
+.vspec .category-links li a{
+	background: var(--main-bg-color);
+	color: inherit;
+	border: 2px solid #000;
+	box-sizing: border-box;
+}
+
+.vspec .window,
+.vspec .wit-holder{
+	position: relative;
+	right: auto;
+	top: auto;
+	background: none;
+	margin: 0;
+	padding: 10px 10px 30px;
+	width: auto;
+	text-align: left;
+	height: auto;
+	font-size: 24px;
+	line-height: 30px;
+}
+.vspec .window{
+	padding-top: 30px;
+}
+.vspec .window:before{
+	content: none;
+}
+.vspec .window__title,
+.vspec .uncos-title{
+	height: auto;
+	font-size: inherit;
+	line-height: inherit;
+	margin: 0 0 0.5em;
+	padding: 0;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+.vspec .window__btns{
+	padding: 0;
+	margin: 0 0 0.5em;
+}
+.vspec .window__btns>div>a{
+	padding: 0;
+}
+.vspec .btn-transparent{
+	min-width: 0;
+	text-decoration: underline;
+	font-size: inherit;
+	line-height: inherit;
+}
+.vspec .btn-transparent:hover {
+	box-shadow: none;
+	top: auto;
+	text-decoration: none;
+}
+.vspec .window__works {
+	position: relative;
+	bottom: auto;
+	left: auto;
+	width: auto;
+	font-size: inherit;
+	line-height: inherit;
+}
+.vspec .window__works>a {
+	text-decoration: underline;
+	border: none;
+}
+.vspec .window__works>a:hover {
+	text-decoration: none;
+}
+
+.vspec .meter{
+	display: none;
+}
+.vspec .uncos{
+	padding: 0;
+}
+.vspec .uncos-slider{
+	margin: 0;
+	height: auto;
+	padding: 0;
+}
+.vspec .uncos-slider .slick-list:before,
+.vspec .uncos-slider .slick-list:after{
+	display: none;
+}
+.vspec .uncos-slider .slick-track{
+	opacity: 1 !important;
+	left: auto !important;
+	width: auto !important;
+	-webkit-transform: none !important;
+	-ms-transform: none !important;
+	transform: none !important;
+}
+.vspec .uncos-slider .slick-slide{
+	width: auto !important;
+}
+.vspec .uncos-slider .uncos-item:after{
+	display: none;
+}
+.vspec .uncos-slider .slick-arrow{
+	display: none !important;
+}
+.vspec .uncos-slider .slick-dots{
+	display: none !important;
+}
+.vspec .uncos-item{
+	padding: 0;
+	margin-bottom: 0.5em;
+}
+.vspec .uncos-item__title{
+	padding: 0;
+	margin-bottom: 0.5em;
+	font-size: 24px;
+	line-height: 30px;
+}
+.vspec .uncos-item__title a{
+	border: none;
+	text-decoration: underline;
+}
+.vspec .uncos-item__title a:hover{
+	text-decoration: none;
+}
+.vspec .uncos-item__time{
+	color: inherit;
+	font-size: 16px;
+	line-height: 24px;
+	padding: 0;
+	margin-bottom: 0.5em;
+}
+.vspec .uncos-item__text {
+	font-size: 18px;
+	line-height: 24px;
+	letter-spacing: normal;
+}
+.vspec .uncos-footer{
+	border: none;
+	padding: 0;
+	text-align: left;
+}
+.vspec .all-link{
+	font-size: 20px;
+	line-height: 24px;
+	border: none;
+	text-decoration: underline;
+}
+.vspec .all-link:hover{
+	text-decoration: none;
+}
+
+
+
+
+
+.vspec .footer .max-wrap{
+	border-top: 2px solid #000;
+}
+.vspec .footer-contacts{
+	background-color: var(--main-bg-color);
+	padding: 30px 10px;
+	box-sizing: border-box;
+}
+.vspec .work-list{
+	color: inherit;
+}
+.vspec .address{
+	color: inherit;
+}
+.vspec .road{
+	display: none;
+}
+.vspec .footer-map-row{
+	display: none;
+}
+.vspec .map-site-switcher{
+	color: inherit;
+}
+.vspec .map-site-btn:before,
+.vspec .map-site-btn:after,
+.vspec .map-site-btn>i{
+	color: inherit;
+	background-color: currentColor;
+}
+.vspec .map-site-btn{
+	width: 14px;
+	height: 14px;
+}
+.vspec .map-site-btn>i {
+	top: 6px;
+}
+.vspec .site-map{
+	color: inherit;
+	background-color: var(--main-bg-color);
+	padding: 30px 10px;
+	border-top: 2px solid #000;
+	border-bottom: none;
+}
+.vspec .site-map__menu ul li:before{
+	border-top: 1px solid #000;
+}
+.vspec .site-map__menu ul li:after{
+	border-right: 1px solid #000;
+}
+.vspec .site-map__menu a{
+	text-decoration: underline;
+}
+.vspec .site-map__menu a:hover{
+	text-decoration: none;
+}
+.vspec .site-map__menu a>span{
+	border: none;
+}
+.vspec .site-map-close{
+	color: inherit;
+	text-decoration: underline;
+	font-size: 18px;
+	line-height: 20px;
+}
+.vspec .site-map-close:hover{
+	text-decoration: none;
+}
+.vspec .site-map-close:before,
+.vspec .site-map-close:after{
+	color: inherit;
+	background-color: currentColor;
+	top: 10px;
+}
+.vspec .site-map-close>span{
+	border: none;
+}
+
+.vspec .social-networks{
+	background-color: var(--main-bg-color);
+	border-top: 2px solid #000;
+	padding: 10px;
+}
+.vspec .footer-holder{
+	background-color: var(--main-bg-color);
+	border-top: 2px solid #000;
+	padding: 0 10px;
+	color: inherit;
+}
+.vspec .footer-col{
+	font-size: 18px;
+	line-height: 24px;
+	letter-spacing: normal;
+}
+
+.vspec .social-networks a{
+	background: none;
+	width: auto;
+	height: auto;
+	border-radius: 0;
+	font-size: 20px;
+	line-height: 24px;
+	text-decoration: underline;
+}
+.vspec .social-networks a:hover{
+	text-decoration: none;
+}
+.vspec .social-networks a::before{
+	content: none;
+}
+.vspec .social-networks a>span{
+	left: auto;
+	top: auto;
+	position: relative;
+}
+.vspec .social-networks a>i{
+	display: none;
+}
+
+.vspec .footer-bottom a{
+	border: none;
+	text-decoration: underline;
+}
+.vspec .footer-bottom a:hover{
+	text-decoration: none;
+}
+.vspec .site-developer_logo{
+	background: none;
+	color: inherit;
+	text-indent: 0;
+	font-size: inherit;
+	line-height: inherit;
+	width: auto;
+	height: auto;
+	display: inline;
+	vertical-align: baseline;
+}
+.vspec .site-developer a{
+	text-decoration: underline;
+}
+.vspec .site-developer a:hover{
+	text-decoration: none;
+}
+.vspec .site-developer .text-inner{
+	border: none;
+}
+/*=========== SPECIAL end ===========*/
+
+/*=========== BLACK AND WHITE scheme ===========*/
+.vspec {
+	background-color: white;
+	color: #000;
+}
+.vspec h1, .vspec h2, .vspec h3, .vspec h4, .vspec h5, .vspec h6 {
+	color: #000;
+}
+.vspec table td, .vspec table th {
+	color: #000;
+	border-color: #000;
+}
+.vspec hr {
+	border-bottom-color: #000;
+}
+.vspec a {
+	color: #000;
+}
+.vspec .mark {
+	color: white;
+	background-color: #000;
+}
+.vspec .dark-text {
+	color: #000;
+}
+.vspec .dark-text-light {
+	color: #000;
+}
+.vspec .text-color-alt {
+	color: #000;
+}
+.vspec .user-content ul > li::before {
+	border-left-color: #000;
+}
+.vspec .user-content ol > li::before {
+	color: #000;
+}
+.vspec .user-content .tbl td, .vspec .user-content .tbl th, .vspec .user-content .tbl th, .vspec .user-content .tbl thead td, .vspec .user-content .tbl tfoot td {
+	color: #000;
+	background-color: white;
+	border: 1px solid #000;
+}
+.vspec .user-content blockquote q {
+	color: #000;
+}
+.vspec .user-content blockquote q::before, .vspec .user-content blockquote q::after {
+	background-image: none;
+}
+/*=========== BLACK AND WHITE scheme end ===========*/
+
+/*=========== BLACK AND WHITE images ===========*/
+.vspec img,
+.vspec .logo,
+.vspec .someclass,
+.vspec .someclass{
+	-webkit-filter: grayscale(1) contrast(3);
+	filter: grayscale(1) contrast(3);
+}
+.vspec .phones-clone .phs__item:before,
+.vspec .phs__btn.phs__item_opener .phs__number:after,
+.vspec .phs-clone__btn.phs__item_opener .phs__number:after,
+.vspec .questions__icon img,
+.vspec .questions-slider .slick-arrow:before,
+.vspec .depict-icons-user,
+.vspec .depict-icons-magnifier,
+.vspec .category-links__icon,
+.vspec .tel__services a:after,
+.vspec .depict-icons-pin-w,
+.vspec .someclass,
+.vspec .someclass{
+	-webkit-filter: grayscale(1) contrast(3) invert(1);
+	filter: grayscale(1) contrast(3) invert(1);
+}
+/*=========== BLACK AND WHITE images end ===========*/

@@ -39,6 +39,7 @@ function placeholderInit(){
 /*preloader*/
 function preloader(){
 	var $preloader = $('#preloader');
+
 	var $spinner = $preloader.find('.loader__icon');
 
 	$spinner.fadeOut();
@@ -240,15 +241,6 @@ function hoverClassInit(){
 		new HoverClass({
 			container: $navList,
 			drop: '.js-nav-drop'
-		});
-	}
-
-	var $nav = $('.nav');
-	if($nav.length){
-		new HoverClass({
-			container: $nav,
-			item: '.nav-cloned',
-			drop: '.nav-cloned__drop'
 		});
 	}
 }
@@ -866,6 +858,10 @@ function initJsDrops(){
 		return false;
 	});
 
+	$jsDropWrapper.on('click', '.phones-drop a', function (e) {
+		document.location.href = $(this).attr('href');
+	});
+
 	$(document).click(function () {
 		$jsDropWrapper.removeClass('show-drop');
 	});
@@ -890,7 +886,7 @@ function initJsDrops(){
 
 /*clone and collapse phones*/
 function clonePhones() {
-	$('.phs__list').clone().appendTo('#phones-list-clone');
+	$('.phs__list').clone().appendTo('#phones-list-clone').find('.phs__btn').removeClass('phs__item_opener');
 }
 
 function collapsePhones() {
@@ -1579,10 +1575,11 @@ function mapMainInit(){
 
 	var markers = [],
 		elementById = [
-		document.getElementById('main-map'),
-		document.getElementById('footer-main-map'),
-		document.getElementById('contacts-map')
-	];
+			document.getElementById('main-map'),
+			document.getElementById('footer-main-map'),
+			document.getElementById('contacts-map')
+		];
+
 	if($(elementById[0]).length){
 		var map = new google.maps.Map(elementById[0], mapOptions);
 		addMarker(0,map);
@@ -1596,6 +1593,7 @@ function mapMainInit(){
 			}, 500);
 		});
 	}
+
 	if($(elementById[1]).length){
 		var map2 = new google.maps.Map(elementById[1], mapOptions);
 		addMarker(0,map2);
@@ -1610,6 +1608,7 @@ function mapMainInit(){
 			}, 500);
 		});
 	}
+
 	if($(elementById[2]).length){
 		var map3 = new google.maps.Map(elementById[2], mapOptions);
 		addMarker(0,map3);
@@ -1636,7 +1635,7 @@ function mapMainInit(){
 	var infoWindow = new google.maps.InfoWindow({
 		maxWidth: 220
 	});
-	
+
 	function addMarker(index,map) {
 		var object = localObjects[index];
 
@@ -1689,7 +1688,7 @@ function mapMainInit(){
 
 	/*switch footer panels*/
 	/*функцию вызываем в пространстве имен функции mapMainInit(),
-	* чтобы сохранить фозможность перезагрузки гугл-карты*/
+	 * чтобы сохранить фозможность перезагрузки гугл-карты*/
 	switchFooterPanels();
 
 	function switchFooterPanels() {
@@ -1950,6 +1949,7 @@ function simpleTabInit() {
 		new SimpleTabs({
 			tabContainer: '.contacts',
 			tabControlsItem: '.contacts__biz li',
+			tabControlsAnchor: '.contacts__biz li a',
 			tabs: [
 				'.contacts__address',
 				'.contacts-share-container',
