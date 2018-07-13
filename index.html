@@ -18,87 +18,16 @@
 	<!--Media queries style-->
 	<link href="css/mq-all.css" rel="stylesheet" media="screen">
 	<!--style for IE-->
-	<!--[if lte IE 8]><link rel="stylesheet" href="css/ie8.css" media="screen, projection"><![endif]-->
+	<!--[if lte IE 8]>
+	<link rel="stylesheet" href="css/ie8.css" media="screen, projection"><![endif]-->
 	<!--Print style-->
 	<link href="css/print.css" rel="stylesheet" media="print">
 	<script src="js/modernizr-custom.js"></script>
 	<!--Special-->
-	<style>
-		.special-btn{
-			overflow: hidden;
-			position: fixed;
-			left: 10px;
-			top: 10px;
-			z-index: 9999;
-			background-color: wheat;
-			width: 50px;
-			height: 50px;
-			box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
-			text-decoration: none;
-			border-radius: 2px;
-		}
-		.vspec .special-btn{
-			display: none;
-			border: 2px solid #000;
-			background-color: white;
-			box-shadow: none;
-		}
-		.special-btn:hover,
-		.special-btn:focus{
-			left: 9px;
-			top: 9px;
-			box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25);
-		}
-		.special-btn:focus{
-			box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25), 0 0 0 2px rgba(0, 194, 220, 0.5);
-		}
-		.vspec .special-btn:focus{
-			box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25);
-		}
-		.special-btn:active{
-			left: 10px;
-			top: 10px;
-			box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
-		}
-		.special-btn span{
-			font-size: 0;
-			line-height: 0;
-		}
-		.special-btn svg{
-			display: block;
-			position: absolute;
-			left: 50%;
-			top: 50%;
-			width: 40px;
-			height: 40px;
-			margin: -20px 0 0 -20px;
-		}
-		.special-btn path{
-			fill: currentColor;
-		}
-
-		.by-normal{
-			display: none;
-		}
-		.by-normal::after{
-			content: "";
-			display: block;
-			position: absolute;
-			width: 50px;
-			height: 2px;
-			background-color: currentColor;
-			-webkit-transform: rotate(-35deg);
-			-ms-transform: rotate(-35deg);
-			transform: rotate(-35deg);
-		}
-		.vspec .by-normal{
-			display: block;
-		}
-	</style>
+	<link href="css/base.css" rel="stylesheet" media="screen">
 	<script>
 		var cssPath = 'css/';
 	</script>
-	<!--<link href="css/special.css" rel="stylesheet" media="screen">-->
 </head>
 <body class="main-page">
 <!--[if lt IE 8]>
@@ -112,13 +41,21 @@
 <!--preloader end-->
 
 <!--special-->
-<a href="#" title="Версия для слабовидящих" class="special-btn special-version-toggle-js">
-	<svg class="icon-special" xmlns="http://www.w3.org/2000/svg" version="1.1" width="24" height="24" viewBox="0 0 289.9 117.7"> <path d="M278.6,49c-4.7-27.7-28.9-49-58-49c-22.4,0-41.9,12.6-51.9,31.1c-6.4-5.5-14.7-8.9-23.8-8.9s-17.4,3.4-23.8,8.9  C111.2,12.6,91.7,0,69.3,0C40.2,0,16,21.2,11.3,49H0v19.8h11.3c4.7,27.7,28.9,48.9,58,48.9c32.4,0,58.8-26.4,58.8-58.8  c0-9.3,7.6-16.9,16.9-16.9c9.3,0,16.9,7.6,16.9,16.9c0,32.4,26.4,58.8,58.8,58.8c29.1,0,53.3-21.2,58-48.9h11.3V49H278.6z   M69.2,97.9c-21.5,0-39.1-17.5-39.1-39.1c0-21.5,17.5-39.1,39.1-39.1s39.1,17.5,39.1,39.1C108.3,80.4,90.8,97.9,69.2,97.9z   M220.6,97.9c-21.5,0-39.1-17.5-39.1-39.1c0-21.5,17.5-39.1,39.1-39.1c21.5,0,39.1,17.5,39.1,39.1C259.7,80.4,242.2,97.9,220.6,97.9  z"></path> </svg>
+<div class="spec-panel">
+	<div class="spec-panel_h">
+		<a href="#" title="Обычная версия" class="vnorm-btn special-version-toggle-js">
+			<svg class="icon-special" xmlns="http://www.w3.org/2000/svg" version="1.1" width="24" height="24" viewBox="0 0 289.9 117.7">
+				<path d="M278.6,49c-4.7-27.7-28.9-49-58-49c-22.4,0-41.9,12.6-51.9,31.1c-6.4-5.5-14.7-8.9-23.8-8.9s-17.4,3.4-23.8,8.9  C111.2,12.6,91.7,0,69.3,0C40.2,0,16,21.2,11.3,49H0v19.8h11.3c4.7,27.7,28.9,48.9,58,48.9c32.4,0,58.8-26.4,58.8-58.8  c0-9.3,7.6-16.9,16.9-16.9c9.3,0,16.9,7.6,16.9,16.9c0,32.4,26.4,58.8,58.8,58.8c29.1,0,53.3-21.2,58-48.9h11.3V49H278.6z   M69.2,97.9c-21.5,0-39.1-17.5-39.1-39.1c0-21.5,17.5-39.1,39.1-39.1s39.1,17.5,39.1,39.1C108.3,80.4,90.8,97.9,69.2,97.9z   M220.6,97.9c-21.5,0-39.1-17.5-39.1-39.1c0-21.5,17.5-39.1,39.1-39.1c21.5,0,39.1,17.5,39.1,39.1C259.7,80.4,242.2,97.9,220.6,97.9  z"></path>
+			</svg>
+			<span>Обычная версия</span>
+		</a>
+	</div>
+</div>
+<a href="#" title="Версия для слабовидящих" class="vspec-btn special-version-toggle-js">
+	<svg class="icon-special" xmlns="http://www.w3.org/2000/svg" version="1.1" width="24" height="24" viewBox="0 0 289.9 117.7">
+		<path d="M278.6,49c-4.7-27.7-28.9-49-58-49c-22.4,0-41.9,12.6-51.9,31.1c-6.4-5.5-14.7-8.9-23.8-8.9s-17.4,3.4-23.8,8.9  C111.2,12.6,91.7,0,69.3,0C40.2,0,16,21.2,11.3,49H0v19.8h11.3c4.7,27.7,28.9,48.9,58,48.9c32.4,0,58.8-26.4,58.8-58.8  c0-9.3,7.6-16.9,16.9-16.9c9.3,0,16.9,7.6,16.9,16.9c0,32.4,26.4,58.8,58.8,58.8c29.1,0,53.3-21.2,58-48.9h11.3V49H278.6z   M69.2,97.9c-21.5,0-39.1-17.5-39.1-39.1c0-21.5,17.5-39.1,39.1-39.1s39.1,17.5,39.1,39.1C108.3,80.4,90.8,97.9,69.2,97.9z   M220.6,97.9c-21.5,0-39.1-17.5-39.1-39.1c0-21.5,17.5-39.1,39.1-39.1c21.5,0,39.1,17.5,39.1,39.1C259.7,80.4,242.2,97.9,220.6,97.9  z"></path>
+	</svg>
 	<span>Версия для слабовидящих</span>
-</a>
-<a href="#" title="Обычная версия" class="special-btn by-normal special-version-toggle-js">
-	<svg class="icon-special" xmlns="http://www.w3.org/2000/svg" version="1.1" width="24" height="24" viewBox="0 0 289.9 117.7"> <path d="M278.6,49c-4.7-27.7-28.9-49-58-49c-22.4,0-41.9,12.6-51.9,31.1c-6.4-5.5-14.7-8.9-23.8-8.9s-17.4,3.4-23.8,8.9  C111.2,12.6,91.7,0,69.3,0C40.2,0,16,21.2,11.3,49H0v19.8h11.3c4.7,27.7,28.9,48.9,58,48.9c32.4,0,58.8-26.4,58.8-58.8  c0-9.3,7.6-16.9,16.9-16.9c9.3,0,16.9,7.6,16.9,16.9c0,32.4,26.4,58.8,58.8,58.8c29.1,0,53.3-21.2,58-48.9h11.3V49H278.6z   M69.2,97.9c-21.5,0-39.1-17.5-39.1-39.1c0-21.5,17.5-39.1,39.1-39.1s39.1,17.5,39.1,39.1C108.3,80.4,90.8,97.9,69.2,97.9z   M220.6,97.9c-21.5,0-39.1-17.5-39.1-39.1c0-21.5,17.5-39.1,39.1-39.1c21.5,0,39.1,17.5,39.1,39.1C259.7,80.4,242.2,97.9,220.6,97.9  z"></path> </svg>
-	<span>Обычная версия</span>
 </a>
 <!--special end-->
 

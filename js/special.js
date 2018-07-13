@@ -47,11 +47,11 @@ $(document).on('ready', function () {
 	function switchSpecialVersion() {
 		$('.special-version-toggle-js').on('click', function (e) {
 			e.preventDefault();
-			$('body').hide(); // hide content
+			// $('body').hide(); // hide content
 
 			toggleSpecialVersion();
 
-			location.reload();
+			// location.reload(); // reload page
 		});
 	}
 	switchSpecialVersion();
@@ -71,11 +71,14 @@ $(document).on('ready', function () {
 	/**
 	 * !toggle special version
 	 * */
+	toggleSpecialVersion();
 	function toggleSpecialVersion() {
 
 		var $specialCssLink = $('#special-css-link');
 		var $body = $('body');
 		var path = cssPath || 'css/';
+
+		// console.log("$specialCssLink.length: ", $specialCssLink.length);
 
 		if ($specialCssLink.length) {
 
