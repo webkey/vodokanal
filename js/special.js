@@ -1,4 +1,6 @@
 $(document).on('ready', function () {
+	var $body = $('body');
+
 	/**
 	 * !cookie
 	 * */
@@ -75,7 +77,6 @@ $(document).on('ready', function () {
 	function toggleSpecialVersion() {
 
 		var $specialCssLink = $('#special-css-link');
-		var $body = $('body');
 		var path = cssPath || 'css/';
 
 		// console.log("$specialCssLink.length: ", $specialCssLink.length);
@@ -117,4 +118,19 @@ $(document).on('ready', function () {
 		}
 	}
 	/*toggle special version end*/
+
+	/**
+	 * !settings
+	 * */
+	$body.on('click', '.vimg-btn-js', function (e) {
+		e.preventDefault();
+		var $curBtn = $(this);
+		$curBtn.toggleClass('active');
+		if($curBtn.hasClass(active)) {
+			$curBtn.attr('title', $curBtn.attr('data-title-on'));
+		} else {
+			$curBtn.attr('title', $curBtn.attr('data-title-off'));
+		}
+		$body.toggleClass('imageson');
+	});
 });
