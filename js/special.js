@@ -1,5 +1,28 @@
 $(document).on('ready', function () {
-	var $body = $('body');
+	var $body = $('body'),
+		cssId = '#special-css-link',
+		$specialCssLink = $(cssId),
+		path = cssPath || 'css/',
+		cookies = {
+			'specVersionOn': 'special-version',
+			'specVersionMods': 'special-mods'
+		},
+		elem = {
+			'btnCheck': '.sv-btn-check-js', // if check modifier
+			'btnGroup': '.vbtn-group-js'
+		},
+		mod = {
+			'hidePage': 'hide-page',
+			'specOn': 'vspec',
+			'btnActive': 'active', // active class of the buttons
+			'imagesOn': 'imageson', // show images on page
+			'sizeSm': 'fontsize-small',
+			'sizeNorm': 'fontsize-normal',
+			'sizeLg': 'fontsize-large',
+			'colorBlack': 'schemecolor-black',
+			'colorWhite': 'schemecolor-white',
+			'colorBlue': 'schemecolor-blue'
+		};
 
 	/**
 	 * !cookie
@@ -41,172 +64,129 @@ $(document).on('ready', function () {
 		));
 		return matches ? decodeURIComponent(matches[1]) : undefined;
 	}
+
+	function setCookieMod (name, val) {
+		setCookie(name, val, {
+			// expires: expiresValue,
+			// domain: "minskvodokanal.by",
+			path: "/"
+		});
+	}
 	/*cookie end*/
+
+	/**
+	 * !include special css and add special class on a body
+	 */
+	// console.log("getCookie('specialVersion'): ", getCookie(cookies.specVersionOn));
+	if (getCookie(cookies.specVersionOn) === 'true' && !$(cssId).length) {
+		$('<link/>', {
+			id: cssId.substr(1),
+			rel: 'stylesheet',
+			href: path + 'special.css'
+		}).appendTo('head');
+
+		$body.addClass(mod.specOn);
+	}
+
+	/**
+	 * !add special modifiers class
+	 * */
+	var cookieMods = getCookie(cookies.specVersionMods);
+	// console.log("getCookie('specVersionMods'): ", cookieMods);
+	if (cookieMods) {
+		$body.addClass(cookieMods.replace(/, /g, ' '));
+		$(elem.btnCheck).removeClass(mod.btnActive);
+
+		var cookieModsArr = cookieMods.split(', ');
+		for(var i = 0; i < cookieModsArr.length; i++){
+			// console.log(cookieModsArr[i]);
+			$('[data-mod=' + cookieModsArr[i] + ']').addClass(mod.btnActive);
+		}
+	}
 
 	/**
 	 * !switch special version
 	 * */
-	function switchSpecialVersion() {
-		$('.special-version-toggle-js').on('click', function (e) {
-			e.preventDefault();
-			$('body').hide(); // hide content
-
-			toggleSpecialVersion();
-
-			location.reload(); // reload page
-		});
-	}
-	switchSpecialVersion();
+	$('.special-version-toggle-js').on('click', function (e) {
+		e.preventDefault();
+		$('body').addClass(mod.hidePage); // first hide content
+		// toggle special version cookie
+		if(getCookie(cookies.specVersionOn) === 'true'){
+			setCookieMod(cookies.specVersionOn, 'false');
+		} else {
+			setCookieMod(cookies.specVersionOn, 'true');
+		}
+		location.reload(); // reload page
+	});
 	/*switch special version end*/
 
 	/**
-	 * !check special version cookie
-	 */
-	function checkSpecialVersionCookie() {
-		if (getCookie('specialVersion') === 'true' && !$('#special-css-link').length) {
-			toggleSpecialVersion();
-		}
-	}
-	checkSpecialVersionCookie();
-	/*check special version cookie end*/
-
-	/**
-	 * !toggle special version
-	 * */
-	// toggleSpecialVersion();
-	function toggleSpecialVersion() {
-
-		var $specialCssLink = $('#special-css-link');
-		var path = cssPath || 'css/';
-
-		console.log("$specialCssLink.length: ", $specialCssLink.length);
-
-		if ($specialCssLink.length) {
-
-			$specialCssLink.remove();
-
-			setCookie('specialVersion', false, {
-				// expires: expiresValue,
-				// domain: "minskvodokanal.by",
-				path: "/"
-			});
-
-			$body.removeClass('vspec');
-			// $body.removeClass('color-scheme-bw');
-			// $body.removeClass('images-bw');
-
-			$(document).trigger('specialVersionOff');
-
-		} else {
-			setCookie('specialVersion', true, {
-				// expires: expiresValue,
-				// domain: "minskvodokanal.by",
-				path: "/"
-			});
-
-			$('<link/>', {
-				id: 'special-css-link',
-				rel: 'stylesheet',
-				href: path + 'special.css'
-			}).appendTo('head');
-
-			$body.addClass('vspec');
-			// $body.addClass('color-scheme-bw');
-			// $body.addClass('images-bw');
-
-			$(document).trigger('specialVersionOn');
-		}
-	}
-	/*toggle special version end*/
-
-	/**
-	 * !settings
+	 * !change settings
 	 * */
 	$body.on('click', '.vimg-btn-js', function (e) {
 		e.preventDefault();
 		var $curBtn = $(this);
-		$curBtn.toggleClass('active');
-		if($curBtn.hasClass('active')) {
+		$curBtn.toggleClass(mod.btnActive);
+		if($curBtn.hasClass(mod.btnActive)) {
 			$curBtn.attr('title', $curBtn.attr('data-title-on'));
 		} else {
 			$curBtn.attr('title', $curBtn.attr('data-title-off'));
 		}
-		$body.toggleClass('imageson');
+		$body.toggleClass(mod.imagesOn);
 	});
 
 	// size
 
-	$body.on('click', '.vsize-btn-sm-js', function (e) {
+	$body.on('click', elem.btnCheck, function (e) {
 		e.preventDefault();
 		var $curBtn = $(this);
-		if(!$curBtn.hasClass('active')) {
-			$curBtn.closest('.vbtn-group-js').find('.vsize-btn').removeClass('active');
-			$curBtn.addClass('active');
-			$body.removeClass('fontsize-normal');
-			$body.removeClass('fontsize-large');
-			$body.addClass('fontsize-small');
+
+		if(!$curBtn.hasClass(mod.btnActive)) {
+			var $curGroup = $curBtn.closest(elem.btnGroup),
+				modsArr = [],
+				_curMod = $curBtn.attr('data-mod');
+
+			// create mods array
+			$.each($curGroup.find(elem.btnCheck), function (i, el) {
+				modsArr.push($(el).attr('data-mod'));
+			});
+
+			// toggle active class on buttons
+			$curGroup.find(elem.btnCheck).removeClass(mod.btnActive);
+			$curBtn.addClass(mod.btnActive);
+
+			// toggle modifiers class on a body
+			$body.removeClass(modsArr.join(' '));
+			$body.addClass(_curMod);
+
+			// toggle a cookies
+			// for(var i = 0; i < modsArr.length; i++){
+			// 	setCookieMod(modsArr[i], 'false');
+			// }
+			// setCookieMod(_curMod, 'true');
+
+			var curCookieMods = getCookie(cookies.specVersionMods);
+			// console.log("getCookie(cookies.specVersionOn): ", curCookieMods);
+			var curCookieModsArr = curCookieMods ? curCookieMods.split(', ') : [];
+			// var newModsArr = [];
+			// console.log("curCookieModsArr: ", curCookieModsArr);
+			for(var i = 0; i < modsArr.length; i++){
+				// console.log("modsArr[i]: ", modsArr[i]);
+				for(var j = 0; j < curCookieModsArr.length; j++){
+					// console.log("curCookieModsArr[j]: ", curCookieModsArr[j]);
+					if(modsArr[i] === curCookieModsArr[j]) {
+						// console.log("curCookieModsArr[j]: ", curCookieModsArr[j]);
+						// newModsArr.push(curCookieModsArr[j]);
+						// break outer;
+						// console.log("j: ", j);
+						curCookieModsArr.splice(j, 1);
+					}
+				}
+			}
+			curCookieModsArr.push(_curMod);
+			// console.log("curCookieModsArr: ", curCookieModsArr);
+			setCookieMod(cookies.specVersionMods, curCookieModsArr.join(', '));
 		}
 	});
 
-	$body.on('click', '.vsize-btn-md-js', function (e) {
-		e.preventDefault();
-		var $curBtn = $(this);
-		if(!$curBtn.hasClass('active')) {
-			$curBtn.closest('.vbtn-group-js').find('.vsize-btn').removeClass('active');
-			$curBtn.addClass('active');
-			$body.removeClass('fontsize-small');
-			$body.removeClass('fontsize-large');
-			$body.addClass('fontsize-normal');
-		}
-	});
-
-	$body.on('click', '.vsize-btn-lg-js', function (e) {
-		e.preventDefault();
-		var $curBtn = $(this);
-		if(!$curBtn.hasClass('active')) {
-			$curBtn.closest('.vbtn-group-js').find('.vsize-btn').removeClass('active');
-			$curBtn.addClass('active');
-			$body.removeClass('fontsize-normal');
-			$body.removeClass('fontsize-small');
-			$body.addClass('fontsize-large');
-		}
-	});
-
-	// color
-
-	$body.on('click', '.vcolor-btn-black-js', function (e) {
-		e.preventDefault();
-		var $curBtn = $(this);
-		if(!$curBtn.hasClass('active')) {
-			$curBtn.closest('.vbtn-group-js').find('.vcolor-btn').removeClass('active');
-			$curBtn.addClass('active');
-			$body.removeClass('schemecolor-white');
-			$body.removeClass('schemecolor-blue');
-			$body.addClass('schemecolor-black');
-		}
-	});
-
-	$body.on('click', '.vcolor-btn-white-js', function (e) {
-		e.preventDefault();
-		var $curBtn = $(this);
-		if(!$curBtn.hasClass('active')) {
-			$curBtn.closest('.vbtn-group-js').find('.vcolor-btn').removeClass('active');
-			$curBtn.addClass('active');
-			$body.removeClass('schemecolor-black');
-			$body.removeClass('schemecolor-blue');
-			$body.addClass('schemecolor-white');
-		}
-	});
-
-	$body.on('click', '.vcolor-btn-blue-js', function (e) {
-		e.preventDefault();
-		var $curBtn = $(this);
-		if(!$curBtn.hasClass('active')) {
-			$curBtn.closest('.vbtn-group-js').find('.vcolor-btn').removeClass('active');
-			$curBtn.addClass('active');
-			$body.removeClass('schemecolor-black');
-			$body.removeClass('schemecolor-white');
-			$body.addClass('schemecolor-blue');
-		}
-	});
 });

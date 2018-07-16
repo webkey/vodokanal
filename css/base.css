@@ -84,7 +84,7 @@
 }*/
 .spec-panel ~ .vspec-btn,
 .spec-panel .vimg-btn,
-.spec-panel .vsize-btn,
+.spec-panel .sv-btn-size,
 .spec-panel .vcolor-btn,
 .spec-panel .vnorm-btn{
 	display: block;
@@ -103,8 +103,8 @@
 .spec-panel ~ .vspec-btn:focus,
 .spec-panel .vimg-btn:hover,
 .spec-panel .vimg-btn:focus,
-.spec-panel .vsize-btn:not(.active):hover,
-.spec-panel .vsize-btn:not(.active):focus,
+.spec-panel .sv-btn-size:not(.active):hover,
+.spec-panel .sv-btn-size:not(.active):focus,
 .spec-panel .vcolor-btn:not(.active):hover,
 .spec-panel .vcolor-btn:not(.active):focus,
 .spec-panel .vnorm-btn:hover,
@@ -118,8 +118,8 @@
 .spec-panel .vnorm-btn:active,
 .spec-panel .vimg-btn:active,
 .spec-panel .vimg-btn:active,
-.spec-panel .vsize-btn:not(.active):active,
-.spec-panel .vsize-btn:not(.active):active,
+.spec-panel .sv-btn-size:not(.active):active,
+.spec-panel .sv-btn-size:not(.active):active,
 .spec-panel .vcolor-btn:not(.active):active,
 .spec-panel .vcolor-btn:not(.active):active,
 .spec-panel .vspec .vspec-btn:active,
@@ -131,7 +131,7 @@
 }
 .spec-panel ~ .vspec-btn span,
 .spec-panel .vimg-btn span,
-.spec-panel .vsize-btn span,
+.spec-panel .sv-btn-size span,
 .spec-panel .vcolor-btn span,
 .spec-panel .vnorm-btn span{
 	font-size: 0;
@@ -139,7 +139,7 @@
 }
 .spec-panel ~ .vspec-btn svg,
 .spec-panel .vimg-btn svg,
-.spec-panel .vsize-btn svg,
+.spec-panel .sv-btn-size svg,
 .spec-panel .vcolor-btn svg,
 .spec-panel .vnorm-btn svg{
 	display: block;
@@ -151,31 +151,31 @@
 	margin: -16px 0 0 -16px;
 	box-sizing: border-box;
 }
-.spec-panel .vsize-btn-sm svg{
+.spec-panel .sv-btn-size--sm svg{
 	width: 16px;
 	height: 16px;
 	margin: -8px 0 0 -8px;
 }
-.spec-panel .vsize-btn-md svg{
+.spec-panel .sv-btn-size--md svg{
 	width: 20px;
 	height: 20px;
 	margin: -10px 0 0 -10px;
 }
-.spec-panel .vsize-btn-lg svg{
+.spec-panel .sv-btn-size--lg svg{
 	width: 26px;
 	height: 26px;
 	margin: -13px 0 0 -13px;
 }
 .spec-panel ~ .vspec-btn path,
 .spec-panel .vimg-btn path,
-.spec-panel .vsize-btn path,
+.spec-panel .sv-btn-size path,
 .spec-panel .vnorm-btn path{
 	fill: currentColor;
 }
 
 
 .spec-panel .vimg-btn,
-.spec-panel .vsize-btn,
+.spec-panel .sv-btn-size,
 .spec-panel .vcolor-btn,
 .spec-panel .vnorm-btn{
 	border: 2px solid currentColor;
@@ -230,7 +230,7 @@
 .spec-panel .vsize.active{
 	cursor: default;
 }
-.spec-panel .vsize-btn{
+.spec-panel .sv-btn-size{
 	/*background-color: #000;*/
 	background-color: #404040;
 	/*border-color: #000;*/
@@ -238,7 +238,7 @@
 	/*color: #fff;*/
 	color: #fff;
 }
-.spec-panel .vsize-btn.active{
+.spec-panel .sv-btn-size.active{
 	/*background-color: #fff;*/
 	background-color: inherit;
 	/*border-color: #000;*/

@@ -1944,7 +1944,7 @@ function tabsInit() {
 	window.SimpleTabs = SimpleTabs;
 }(jQuery));
 
-function simpleTabInit() {
+function    simpleTabInit() {
 	if($('.contacts').length){
 		new SimpleTabs({
 			tabContainer: '.contacts',
