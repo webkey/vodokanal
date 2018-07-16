@@ -6,10 +6,13 @@
 	height: 100%;
 	width: 70px;
 	z-index: 999;
+	font-size: 16px;
+	line-height: 1;
 	overflow: hidden;
 	border: 0 solid currentColor;
 	border-width: 0 2px 0 0;
-	background-color: var(--main-bg-color);
+	/*background-color: var(--main-bg-color);*/
+	background-color: inherit;
 	will-change: transform;
 	-webkit-transform: translate(0, 0);
 	-ms-transform: translate(0, 0);
@@ -68,17 +71,22 @@
 	}
 }
 .spec-panel hr{
-	margin-bottom: 10px;
+	/*border: none;*/
+	border-color: currentColor;
+	border-bottom-width: 2px;
+	margin-bottom: 15px;
 }
 .spec-panel a{
-	margin-bottom: 10px;
+	margin-bottom: 15px;
 }
-.spec-panel a:last-child{
+/*.spec-panel a:last-child{
 	margin-bottom: 0;
-}
-.vspec-btn,
-.vnorm-btn,
-.vimg-btn{
+}*/
+.spec-panel ~ .vspec-btn,
+.spec-panel .vimg-btn,
+.spec-panel .vsize-btn,
+.spec-panel .vcolor-btn,
+.spec-panel .vnorm-btn{
 	display: block;
 	position: relative;
 	overflow: hidden;
@@ -88,64 +96,98 @@
 	text-decoration: none;
 	border-radius: 2px;
 	box-sizing: border-box;
+	font-size: 16px;
+	line-height: 1;
 }
-.vspec-btn:hover,
-.vspec-btn:focus,
-.vimg-btn:hover,
-.vimg-btn:focus,
-.vnorm-btn:hover,
-.vnorm-btn:focus{
+.spec-panel ~ .vspec-btn:hover,
+.spec-panel ~ .vspec-btn:focus,
+.spec-panel .vimg-btn:hover,
+.spec-panel .vimg-btn:focus,
+.spec-panel .vsize-btn:not(.active):hover,
+.spec-panel .vsize-btn:not(.active):focus,
+.spec-panel .vcolor-btn:not(.active):hover,
+.spec-panel .vcolor-btn:not(.active):focus,
+.spec-panel .vnorm-btn:hover,
+.spec-panel .vnorm-btn:focus{
 	-webkit-transform: translate(-1px, -1px);
 	-ms-transform: translate(-1px, -1px);
 	transform: translate(-1px, -1px);
-	box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25);
+	/*box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25);*/
 }
-.vspec-btn:active,
-.vnorm-btn:active,
-.vimg-btn:active,
-.vimg-btn:active,
-.vspec .vspec-btn:active,
-.vspec .vnorm-btn:active{
+.spec-panel ~ .vspec-btn:active,
+.spec-panel .vnorm-btn:active,
+.spec-panel .vimg-btn:active,
+.spec-panel .vimg-btn:active,
+.spec-panel .vsize-btn:not(.active):active,
+.spec-panel .vsize-btn:not(.active):active,
+.spec-panel .vcolor-btn:not(.active):active,
+.spec-panel .vcolor-btn:not(.active):active,
+.spec-panel .vspec .vspec-btn:active,
+.spec-panel .vspec .vnorm-btn:active{
 	-webkit-transform: translate(0, 0);
 	-ms-transform: translate(0, 0);
 	transform: translate(0, 0);
-	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+	/*box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);*/
 }
-.vspec-btn span,
-.vimg-btn span,
-.vnorm-btn span{
+.spec-panel ~ .vspec-btn span,
+.spec-panel .vimg-btn span,
+.spec-panel .vsize-btn span,
+.spec-panel .vcolor-btn span,
+.spec-panel .vnorm-btn span{
 	font-size: 0;
 	line-height: 0;
 }
-.vspec-btn svg,
-.vimg-btn svg,
-.vnorm-btn svg{
+.spec-panel ~ .vspec-btn svg,
+.spec-panel .vimg-btn svg,
+.spec-panel .vsize-btn svg,
+.spec-panel .vcolor-btn svg,
+.spec-panel .vnorm-btn svg{
 	display: block;
 	position: absolute;
 	left: 50%;
 	top: 50%;
-	width: 36px;
-	height: 36px;
-	margin: -18px 0 0 -18px;
+	width: 32px;
+	height: 32px;
+	margin: -16px 0 0 -16px;
 	box-sizing: border-box;
 }
-.vspec-btn path,
-.vimg-btn path,
-.vnorm-btn path{
+.spec-panel .vsize-btn-sm svg{
+	width: 16px;
+	height: 16px;
+	margin: -8px 0 0 -8px;
+}
+.spec-panel .vsize-btn-md svg{
+	width: 20px;
+	height: 20px;
+	margin: -10px 0 0 -10px;
+}
+.spec-panel .vsize-btn-lg svg{
+	width: 26px;
+	height: 26px;
+	margin: -13px 0 0 -13px;
+}
+.spec-panel ~ .vspec-btn path,
+.spec-panel .vimg-btn path,
+.spec-panel .vsize-btn path,
+.spec-panel .vnorm-btn path{
 	fill: currentColor;
 }
 
-.vnorm-btn,
-.vimg-btn{
+
+.spec-panel .vimg-btn,
+.spec-panel .vsize-btn,
+.spec-panel .vcolor-btn,
+.spec-panel .vnorm-btn{
 	border: 2px solid currentColor;
-	background-color: white;
+	/*background-color: white;*/
+	background-color: inherit;
 	box-shadow: none;
 }
-.vnorm-btn{
+.spec-panel .vnorm-btn{
 	display: none;
 }
 /*.vnorm-btn::after,*/
-.vimg-btn::after{
+.spec-panel .vimg-btn::after{
 	content: "";
 	display: block;
 	position: absolute;
@@ -161,18 +203,18 @@
 	transform: rotate(-35deg);
 	box-sizing: border-box;
 }
-.vspec .vnorm-btn{
+.vspec .spec-panel .vnorm-btn{
 	display: block;
 }
 
-.vspec-btn{
+.spec-panel ~ .vspec-btn{
 	position: fixed;
 	left: 10px;
 	top: 10px;
 	z-index: 9998;
 	background-color: wheat;
 }
-.vspec .vspec-btn{
+.vspec .spec-panel ~ .vspec-btn{
 	display: none;
 }
 
@@ -180,6 +222,52 @@
 	background-color: black;
 	color: white;
 }*/
-.vimg-btn.active::after{
+.spec-panel .vimg-btn.active::after{
 	display: none;
+}
+
+/* vsize-btn */
+.spec-panel .vsize.active{
+	cursor: default;
+}
+.spec-panel .vsize-btn{
+	/*background-color: #000;*/
+	background-color: #404040;
+	/*border-color: #000;*/
+	border-color: #404040;
+	/*color: #fff;*/
+	color: #fff;
+}
+.spec-panel .vsize-btn.active{
+	/*background-color: #fff;*/
+	background-color: inherit;
+	/*border-color: #000;*/
+	color: inherit;
+	border-color: currentColor;
+}
+
+/* vcolor-btn */
+.spec-panel .vcolor-btn-black{
+	color: #000;
+	background-color: #fff;
+}
+.spec-panel .vcolor-btn-white{
+	color: #fff;
+	background-color: #000;
+	border-color: #000;
+}
+.spec-panel .vcolor-btn-blue{
+	color: #002d56;
+	background-color: #c8e5ff;
+}
+.schemecolor-white .spec-panel .vcolor-btn-black,
+.schemecolor-white .spec-panel .vcolor-btn-white,
+.schemecolor-white .spec-panel .vcolor-btn-blue{
+	border-color: #fff;
+}
+.schemecolor-blue .spec-panel .vcolor-btn-black,
+.schemecolor-blue .spec-panel .vcolor-btn-white,
+.schemecolor-blue .spec-panel .vcolor-btn-blue{
+	/*border-color: #002d56;*/
+	border-color: red;
 }

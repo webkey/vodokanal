@@ -1,24 +1,42 @@
 :root {
-	--main-bg-color: #b3faf7;
-	--main-bg-color-inver: #fac2bd;
-	/*--main-bg-color: #fff;*/
-	/*--main-bg-color-inver: #000;*/
+	/*--main-bg-color: #b3faf7;*/
+	/*--main-bg-color-inver: #fac2bd;*/
+	--main-bg-color: #fff;
+	--main-bg-color-inver: #000;
+
+	--main-bg-color-scheme-white: #000;
+	--main-bg-color-scheme-blue: #c8e5ff;
 
 	--font-size: 18px;
-	--line-height: 32px;
-	--font-size--small: 16px;
-	--line-height--small: 28px;
+	/*--line-height: 32px;*/
+	--line-height: 1.78;
+	--font-size--sm: 14px;
+	--font-size--lg: 30px;
 
-	--title-font-size: 30px;
-	--title-line-height: 36px;
-	--sub-title-font-size: 24px;
-	--sub-title-line-height: 30px;
-	--item-font-size: 24px;
-	--item-line-height: 30px;
+	/*--font-size--small: 16px;*/
+	--font-size--small: 0.89em;
+	/*--line-height--small: 28px;*/
+	--line-height--small: 1.75;
+
+	/*--title-font-size: 30px;*/
+	--title-font-size: 1.67em;
+	/*--title-line-height: 36px;*/
+	--title-line-height: 1.2;
+
+	/*--sub-title-font-size: 24px;*/
+	--sub-title-font-size: 1.33em;
+	/*--sub-title-line-height: 30px;*/
+	--sub-title-line-height: 1.25;
+
+	/*--item-font-size: 24px;*/
+	--item-font-size: 1.33em;
+	/*--item-line-height: 30px;*/
+	--item-line-height: 1.25;
 
 	--letter-spacing: normal;
 
-	--bottom-space-section: 30px;
+	/*--bottom-space-section: 30px;*/
+	--bottom-space-section: 2.5em;
 	--bottom-space: 0.5em;
 	--bottom-space-item: 2em;
 }
@@ -34,7 +52,22 @@ body.vspec{
 	/*font-family: Tahoma, Geneva, sans-serif;*/
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 	/*font-family: "Times New Roman", Serif;*/
-	/*color: red;*/
+	color: #000;
+}
+body.vspec.fontsize-small{
+	font-size: var(--font-size--sm);
+}
+body.vspec.fontsize-large{
+	font-size: var(--font-size--lg);
+}
+body.vspec.schemecolor-white{
+	color: #fff;
+	background-color: #000;
+}
+body.vspec.schemecolor-blue{
+	/*color: #002d56;*/
+	color: red;
+	background-color: #c8e5ff;
 }
 body.vspec::before{
 	content: none;
@@ -72,6 +105,38 @@ body.vspec::before{
 .vspec .btn-default-alt{
 	font-family: inherit;
 }
+.vspec h1{
+	font-size: var(--title-font-size);
+	line-height: var(--title-font-size);
+	letter-spacing: inherit;
+}
+.vspec h2{
+	font-size: 24px;
+	line-height: 29px;
+	padding: 0 0 23px;
+}
+.vspec h3{
+	font-size: 18px;
+	line-height: 22px;
+	padding: 0 0 15px;
+}
+.vspec h4{
+	font-size: 14px;
+	line-height: 24px;
+	padding: 0 0 10px;
+}
+.vspec h5{
+	font-size: 14px;
+	line-height: 16px;
+	font-weight: normal;
+	padding: 0 0 5px;
+}
+.vspec h6{
+	font-size: 12px;
+	line-height: 14px;
+	font-weight: 100;
+	padding: 0 0 5px;
+}
 .vspec p{
 	letter-spacing: inherit;
 }
@@ -84,6 +149,7 @@ body.vspec::before{
 	display: none;
 }
 /* bg */
+.vspec .content-wrap,
 .vspec input[type="text"],
 .vspec input[type="password"],
 .vspec input[type="email"],
@@ -105,10 +171,97 @@ body.vspec::before{
 .vspec .page-heading,
 .vspec .nav-main-page,
 .vspec .logo,
+.vspec .footer-site-map,
+.vspec .site-map,
+.vspec .press-adt__item,
+.vspec .press-archive,
+.vspec .show-drop .phs__btn,
+.no-js .vspec  .phs__item:hover .phs__btn,
+.vspec .show-drop .phs-clone__btn,
+.vspec .search-form,
+.vspec .nav__list li>a,
+.vspec .nav__list li.hover>a,
+.vspec .nav__list li>a:hover,
+.vspec .nav__list li.active>a,
 .vspec .someclass,
 .vspec .someclass{
 	background-color: var(--main-bg-color);
-	/*background: none;*/
+}
+.vspec.schemecolor-white .content-wrap,
+.vspec.schemecolor-white input[type="text"],
+.vspec.schemecolor-white input[type="password"],
+.vspec.schemecolor-white input[type="email"],
+.vspec.schemecolor-white input[type="search"],
+.vspec.schemecolor-white textarea,
+.vspec.schemecolor-white .phones,
+.vspec.schemecolor-white .phones-clone,
+.vspec.schemecolor-white .phones-drop,
+.vspec.schemecolor-white .login a,
+.vspec.schemecolor-white .btn-search-open,
+.vspec.schemecolor-white .questions__item>a,
+.vspec.schemecolor-white .nav-main-page .nav-drop,
+.vspec.schemecolor-white .nav-main-page .nav-sub-drop,
+.vspec.schemecolor-white .promo-slider__content,
+.vspec.schemecolor-white .category-links li a,
+.vspec.schemecolor-white .footer-contacts,
+.vspec.schemecolor-white .social-networks,
+.vspec.schemecolor-white .footer-holder,
+.vspec.schemecolor-white .page-heading,
+.vspec.schemecolor-white .nav-main-page,
+.vspec.schemecolor-white .logo,
+.vspec.schemecolor-white .footer-site-map,
+.vspec.schemecolor-white .site-map,
+.vspec.schemecolor-white .press-adt__item,
+.vspec.schemecolor-white .press-archive,
+.vspec.schemecolor-blue .show-drop .phs__btn,
+.no-js .vspec.schemecolor-blue .phs__item:hover .phs__btn,
+.vspec.schemecolor-blue .show-drop .phs-clone__btn,
+.vspec.schemecolor-white .search-form,
+.vspec.schemecolor-white .nav__list li>a,
+.vspec.schemecolor-white .nav__list li.hover>a,
+.vspec.schemecolor-white .nav__list li>a:hover,
+.vspec.schemecolor-white .nav__list li.active>a,
+.vspec.schemecolor-white .someclass,
+.vspec.schemecolor-white .someclass{
+	background-color: var(--main-bg-color-scheme-white);
+}
+.vspec.schemecolor-blue .content-wrap,
+.vspec.schemecolor-blue input[type="text"],
+.vspec.schemecolor-blue input[type="password"],
+.vspec.schemecolor-blue input[type="email"],
+.vspec.schemecolor-blue input[type="search"],
+.vspec.schemecolor-blue textarea,
+.vspec.schemecolor-blue .phones,
+.vspec.schemecolor-blue .phones-clone,
+.vspec.schemecolor-blue .phones-drop,
+.vspec.schemecolor-blue .login a,
+.vspec.schemecolor-blue .btn-search-open,
+.vspec.schemecolor-blue .questions__item>a,
+.vspec.schemecolor-blue .nav-main-page .nav-drop,
+.vspec.schemecolor-blue .nav-main-page .nav-sub-drop,
+.vspec.schemecolor-blue .promo-slider__content,
+.vspec.schemecolor-blue .category-links li a,
+.vspec.schemecolor-blue .footer-contacts,
+.vspec.schemecolor-blue .social-networks,
+.vspec.schemecolor-blue .footer-holder,
+.vspec.schemecolor-blue .page-heading,
+.vspec.schemecolor-blue .nav-main-page,
+.vspec.schemecolor-blue .logo,
+.vspec.schemecolor-blue .footer-site-map,
+.vspec.schemecolor-blue .site-map,
+.vspec.schemecolor-blue .press-adt__item,
+.vspec.schemecolor-blue .press-archive,
+.vspec.schemecolor-blue .show-drop .phs__btn,
+.no-js .vspec.schemecolor-blue .phs__item:hover .phs__btn,
+.vspec.schemecolor-blue .show-drop .phs-clone__btn,
+.vspec.schemecolor-blue .search-form,
+.vspec.schemecolor-blue .nav__list li>a,
+.vspec.schemecolor-blue .nav__list li.hover>a,
+.vspec.schemecolor-blue .nav__list li>a:hover,
+.vspec.schemecolor-blue .nav__list li.active>a
+.vspec.schemecolor-blue .someclass,
+.vspec.schemecolor-blue .someclass{
+	background-color: var(--main-bg-color-scheme-blue);
 }
 /* bg end */
 /* slider reset */
@@ -169,7 +322,8 @@ body.vspec::before{
 }
 .vspec .header-holder{
 	height: auto;
-	border-bottom: 2px solid #000;
+	border: 2px solid currentColor;
+	border-width: 0 2px 2px 0;
 	padding: 0;
 }
 @media only screen and (max-width: 979px){
@@ -183,13 +337,26 @@ body.vspec::before{
 .vspec .logo{
 	box-shadow: none;
 	border: 0 solid currentColor;
-	border-width: 0 2px 2px 0;
+	border-width: 0 2px 2px 2px;
 	box-sizing: border-box;
 	height: 202px;
+}
+.vspec.schemecolor-white .logo>a::before,
+.vspec.schemecolor-white .logo>span::before{
+	-webkit-filter: grayscale(1) contrast(3) invert(0);
+	filter: grayscale(1) contrast(3) invert(0);
+}
+.vspec.schemecolor-blue .logo>a::before,
+.vspec.schemecolor-blue .logo>span::before{
+	-webkit-filter: grayscale(1) contrast(1) invert(1);
+	filter: grayscale(1) contrast(1) invert(1);
 }
 .vspec.main-page .logo{
 	height: 174px;
 }
+/*.vspec.inner-page .logo{*/
+	/*border-width: 0 2px 2px 2px;*/
+/*}*/
 @media only screen and (max-width: 979px){
 	.vspec.inner-page .logo{
 		height: 80px;
@@ -315,6 +482,7 @@ body.vspec:not(.mobile-device) .btn-default-alt:hover{
 }
 .vspec .phs__list>.phs__item:before{
 	border-color: #000;
+	display: none;
 }
 .vspec .phs__list>.phs__item>.phs__btn,
 .vspec .phones-clone>.phs-clone__btn{
@@ -355,21 +523,18 @@ body.vspec:not(.mobile-device) .btn-default-alt:hover{
 
 .vspec .phs__container>.phs__list>.phs__item>.phones-drop,
 .vspec .phones-clone>.phones-drop{
-	border: 2px solid #000;
+	border: 2px solid currentColor;
 }
 .vspec .phs__btn,
 .vspec .phs-clone__btn{
 	color: inherit;
 	cursor: pointer;
+	-webkit-transition: none;
+	transition: none;
 }
 .vspec .phs__item_opener .phs__number .txt-inner{
 	border-color: currentColor;
 	border: none;
-}
-.vspec .show-drop .phs__btn,
-.no-js .vspec  .phs__item:hover .phs__btn,
-.vspec .show-drop .phs-clone__btn{
-	background-color: var(--main-bg-color);
 }
 .vspec .phones-drop .phs__item{
 	color: inherit;
@@ -385,7 +550,7 @@ body.vspec:not(.mobile-device) .btn-default-alt:hover{
 	text-decoration: none;
 }
 .vspec .search-form{
-	border-color: #000;
+	border-color: currentColor;
 	height: 62px;
 	width: calc(100% + 2px);
 	left: -2px;
@@ -407,12 +572,22 @@ body.vspec:not(.mobile-device) .btn-default-alt:hover{
 	background: transparent;
 	font-family: inherit;
 }
-.vspec .search-form .btn-search input{
+.vspec .search-form .btn-search input,
+.vspec .search-form .btn-search input:hover{
 	background: transparent;
+}
+.vspec .btn-search,
+.vspec .btn-search::before,
+.vspec .btn-search::after,
+.vspec .btn-search-close,
+.vspec .btn-search-close::before,
+.vspec .btn-search-close::after{
+	-webkit-transition: none;
+	transition: none;
 }
 .vspec .btn-search:before,
 .vspec .btn-search:after{
-	border-color: #000;
+	border-color: currentColor;
 }
 
 .logo-reduce.vspec .nav{
@@ -422,26 +597,38 @@ body.vspec:not(.mobile-device) .btn-default-alt:hover{
 	/*height: 112px;*/
 }
 .vspec .nav__list{
-	border-color: #000;
+	border-color: currentColor;
 }
 .vspec .nav__list li,
 .vspec .nav__list li>a{
-	border-color: #000;
+	border-color: currentColor;
 }
 .vspec .nav__list li>a,
 .vspec .nav__list li.hover>a,
 .vspec .nav__list li>a:hover,
 .vspec .nav__list li.active>a{
-	background-color: var(--main-bg-color);
-	color: #000;
+	color: inherit;
 }
 .vspec .nav__list li.current>a{
-	background-color: var(--main-bg-color-inver);
-	color: var(--main-bg-color);
+	/*background-color: var(--main-bg-color-inver);*/
+	/*color: var(--main-bg-color);*/
+}
+.vspec .nav__list li.current>a::before{
+	content: "";
+	width: 6px;
+	height: 6px;
+	border-radius: 3px;
+	background-color: black;
+	display: block;
+	position: absolute;
+	letter-spacing: 5px;
+	left: 20px;
+	top: 50%;
+	margin-top: -2px;
 }
 .vspec .nav__list li.current>a>.depict-icons-angle-btm{
-	-webkit-filter: grayscale(1) contrast(10);
-	filter: grayscale(1) contrast(10);
+	/*-webkit-filter: grayscale(1) contrast(10);*/
+	/*filter: grayscale(1) contrast(10);*/
 }
 @media only screen and (min-width: 768px){
 	.vspec .nav-main-page .nav__list>li>a{
@@ -568,6 +755,7 @@ body.vspec:not(.mobile-device) .btn-default-alt:hover{
 @media only screen and (min-width: 979px){
 	.vspec .nav-inner-page .nav__list{
 		border-right-width: 2px;
+		border-left-width: 2px;
 		box-sizing: border-box;
 	}
 }
@@ -579,7 +767,7 @@ body.vspec:not(.mobile-device) .btn-default-alt:hover{
 	/*border-bottom: none;*/
 }
 .vspec .nav-inner-page .nav__list>li{
-	border-top: 1px solid #000;
+	border-top: 1px solid currentColor;
 }
 .vspec .nav__list>li:first-child{
 	border-top: none;
@@ -817,8 +1005,8 @@ body.vspec:not(.mobile-device) .btn-default-alt:hover{
 	padding-top: 30px;
 	padding-bottom: 30px;
 	box-sizing: border-box;
-	font-size: var(--font-size--small);
-	line-height: var(--line-height--small);
+	font-size: 16px;
+	line-height: 24px;
 	text-align: left;
 }
 .vspec .footer-contacts>div:after{
@@ -843,9 +1031,10 @@ body.vspec:not(.mobile-device) .btn-default-alt:hover{
 }
 .vspec .footer-contacts__title{
 	padding: 0;
-	font-size: var(--font-size);
-	line-height: var(--line-height);
+	font-size: 18px;
+	line-height: 32px;
 	letter-spacing: inherit;
+	color: inherit;
 	margin-bottom: var(--bottom-space);
 	width: auto;
 }
@@ -934,20 +1123,23 @@ body.vspec:not(.mobile-device) .btn-default-alt:hover{
 }
 .vspec .site-map{
 	color: inherit;
-	background-color: var(--main-bg-color);
 	padding-top: 30px;
 	padding-bottom: 30px;
-	border-top: 2px solid #000;
+	border-top: 2px solid currentColor;
 	border-bottom: none;
 }
+.vspec .site-map__title{
+	color: inherit;
+}
 .vspec .site-map__menu ul li:before{
-	border-top: 1px solid #000;
+	border-top: 1px solid currentColor;
 }
 .vspec .site-map__menu ul li:after{
-	border-right: 1px solid #000;
+	border-right: 1px solid currentColor;
 }
 .vspec .site-map__menu a{
 	text-decoration: underline;
+	color: inherit;
 }
 .vspec .site-map__menu a:hover{
 	text-decoration: none;
@@ -987,9 +1179,9 @@ body.vspec:not(.mobile-device) .btn-default-alt:hover{
 	}
 }
 .vspec .footer-col{
-	font-size: var(--font-size--small);
-	line-height: var(--line-height--small);
-	letter-spacing: var(--letter-spacing);
+	font-size: 16px;
+	line-height: 28px;
+	letter-spacing: normal;
 }
 @media only screen and (max-width: 979px){
 	.vspec .footer-col{
@@ -1009,8 +1201,8 @@ body.vspec:not(.mobile-device) .btn-default-alt:hover{
 	border-top: 2px solid currentColor;
 	padding-top: 10px;
 	padding-bottom: 10px;
-	font-size: var(--font-size);
-	line-height: var(--line-height);
+	font-size: 24px;
+	line-height: 32px;
 	letter-spacing: inherit;
 }
 @media only screen and (max-width: 979px){
@@ -1162,9 +1354,9 @@ body.vspec:not(.mobile-device) .btn-default-alt:hover{
 }
 
 .vspec .press-archive{
-	background-color: var(--main-bg-color);
 	border-color: currentColor;
 	border-top: none;
+	margin-bottom: var(--bottom-space-item);
 }
 .press-archive > strong{
 	font-size: var(--sub-title-font-size);
@@ -1352,7 +1544,7 @@ body.vspec .press-adt__list .press-adt__item:hover{
 .vspec {
 	/*background-color: var(--main-bg-color);*/
 	background-color: #fff;
-	color: currentColor;
+	/*color: currentColor;*/
 }
 .vspec h1, .vspec h2, .vspec h3, .vspec h4, .vspec h5, .vspec h6 {
 	color: currentColor;
