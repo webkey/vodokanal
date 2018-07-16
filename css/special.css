@@ -183,6 +183,7 @@ body.vspec::before{
 .vspec .nav__list li.hover>a,
 .vspec .nav__list li>a:hover,
 .vspec .nav__list li.active>a,
+.vspec .btn-transparent,
 .vspec .someclass,
 .vspec .someclass{
 	background-color: var(--main-bg-color);
@@ -221,6 +222,7 @@ body.vspec::before{
 .vspec.schemecolor-white .nav__list li.hover>a,
 .vspec.schemecolor-white .nav__list li>a:hover,
 .vspec.schemecolor-white .nav__list li.active>a,
+.vspec.schemecolor-white .btn-transparent,
 .vspec.schemecolor-white .someclass,
 .vspec.schemecolor-white .someclass{
 	background-color: var(--main-bg-color-scheme-white);
@@ -259,6 +261,7 @@ body.vspec::before{
 .vspec.schemecolor-blue .nav__list li.hover>a,
 .vspec.schemecolor-blue .nav__list li>a:hover,
 .vspec.schemecolor-blue .nav__list li.active>a
+.vspec.schemecolor-blue .btn-transparent,
 .vspec.schemecolor-blue .someclass,
 .vspec.schemecolor-blue .someclass{
 	background-color: var(--main-bg-color-scheme-blue);
@@ -456,6 +459,8 @@ body.vspec::before{
 	padding: 0;
 	min-height: 0;
 	text-decoration: underline;
+	-webkit-transition: none;
+	transition: none;
 }
 .vspec .questions__item>a:hover{
 	text-decoration: none;
@@ -581,7 +586,10 @@ body.vspec:not(.mobile-device) .btn-default-alt:hover{
 .vspec .btn-search::after,
 .vspec .btn-search-close,
 .vspec .btn-search-close::before,
-.vspec .btn-search-close::after{
+.vspec .btn-search-close::after,
+.vspec .btn-search-open,
+.vspec .btn-search-open::before,
+.vspec .btn-search-open::after{
 	-webkit-transition: none;
 	transition: none;
 }
@@ -762,6 +770,8 @@ body.vspec:not(.mobile-device) .btn-default-alt:hover{
 
 .vspec .nav__list >li>a{
 	border: none;
+	-webkit-transition: none;
+	transition: none;
 }
 .vspec .nav-inner-page .nav__list >li>a{
 	/*border-bottom: none;*/
@@ -824,7 +834,7 @@ body.vspec:not(.mobile-device) .btn-default-alt:hover{
 	font-size: var(--font-size);
 	line-height: var(--line-height);
 	letter-spacing: inherit;
-	color: #000;
+	color: inherit;
 	max-height: none;
 }
 
@@ -855,7 +865,7 @@ body.vspec:not(.mobile-device) .btn-default-alt:hover{
 }
 .vspec .category-links li a{
 	color: inherit;
-	border: 1px solid #000;
+	border: 1px solid currentColor;
 	box-sizing: border-box;
 }
 
@@ -1565,6 +1575,8 @@ body.vspec .press-adt__list .press-adt__item:hover{
 .vspec .dark-text-light,
 .vspec .text-color-alt {
 	color: currentColor;
+	-webkit-transition: none;
+	transition: none;
 }
 .vspec .user-content ul > li::before {
 	background-color: currentColor;
@@ -1721,6 +1733,26 @@ body.vspec .press-adt__list .press-adt__item:hover{
 	-webkit-filter: grayscale(1) contrast(3) invert(1);
 	filter: grayscale(1) contrast(3) invert(1);
 }
+.vspec.schemecolor-white .phs__btn.phs__item_opener .phs__number:after,
+.vspec.schemecolor-white .phs-clone__btn.phs__item_opener .phs__number:after,
+.vspec.schemecolor-white .nav-inner-page .depict-icons-angle-btm,
+.vspec.schemecolor-white .questions__icon img,
+.vspec.schemecolor-white .questions-slider .slick-arrow:before,
+.vspec.schemecolor-white .depict-icons-user,
+.vspec.schemecolor-white .depict-icons-magnifier,
+.vspec.schemecolor-white .tel__services a:after,
+.vspec.schemecolor-white .depict-icons-pin-w,
+.vspec.schemecolor-white .logo>a:before,
+.vspec.schemecolor-white .logo>span:before,
+.vspec.schemecolor-white .logo>a:after,
+.vspec.schemecolor-white .logo>span:after,
+.vspec.schemecolor-white .depict-icons-angle-btm,
+.vspec.schemecolor-white .press-adt__icon>i,
+.vspec.schemecolor-white .someclass,
+.vspec.schemecolor-white .someclass {
+	-webkit-filter: grayscale(1) contrast(3) invert(0);
+	filter: grayscale(1) contrast(3) invert(0);
+}
 .vspec .back-to-top>i,
 .vspec .contacts-panel__list li [class*="depict-"],
 .vspec .someclass,
@@ -1736,6 +1768,14 @@ body.vspec .press-adt__list .press-adt__item:hover{
 .vspec .someclass{
 	-webkit-filter: grayscale(1) contrast(1) invert(0);
 	filter: grayscale(1) contrast(1) invert(0);
+}
+.vspec.schemecolor-white img,
+.vspec.schemecolor-white .history-sldr__item.slide-current img,
+.vspec.schemecolor-white .file,
+.vspec.schemecolor-white .someclass,
+.vspec.schemecolor-white .someclass{
+	-webkit-filter: grayscale(1) contrast(1) invert(1);
+	filter: grayscale(1) contrast(1) invert(1);
 }
 
 .vspec .depict-icons-arrow-prev-n,
