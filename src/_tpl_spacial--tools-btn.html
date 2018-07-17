@@ -1,0 +1,9 @@
+<a href="#" class="@@classes" data-mod="@@mod" title="@@text" >
+	@@if(context.icon) {
+		@@include("@@icon")
+	}
+	@@if(!context.icon) {
+		<div class="icon"></div>
+	}
+	<span>@@text</span>
+</a>

@@ -30,7 +30,7 @@ var gulp = require('gulp'), // Подключаем Gulp
 	;
 
 var path = {
-	'dist': 'dist'
+	'dist': '1'
 };
 
 gulp.task('htmlCompilation', function () { // Таск формирования ДОМ страниц
@@ -116,15 +116,19 @@ gulp.task('buildDist', ['cleanDist', 'htmlCompilation', 'copyImgToDist', 'sassCo
 
 	gulp.src(['src/video/**/*']) // Переносим видеофайлы в продакшен
 		.pipe(gulp.dest(path.dist + '/video'));
-
-	gulp.src(['!src/css/_temp_*.css', 'src/css/*.css']) // Переносим стили в продакшен
+	// Переносим стили в продакшен с форматированием
+	gulp.src(['src/css/base.css', 'src/css/special.css'])
 		.pipe(removeEmptyLines()) // Удаляем пустые строки
+		.pipe(gulp.dest(path.dist + '/css'));
+
+	// Переносим остальные стили в продакшен без изменений
+	gulp.src(['!src/css/_temp_*.css', '!src/css/base.css', '!src/css/special.css', 'src/css/*.css'])
 		.pipe(gulp.dest(path.dist + '/css'));
 
 	gulp.src('src/fonts/**/*') // Переносим шрифты в продакшен
 		.pipe(gulp.dest(path.dist + '/fonts'));
 
-	gulp.src('src/js/common.js') // Переносим common.js в продакшен
+	gulp.src('src/js/special.js') // Переносим special.js в продакшен
 		.pipe(strip({
 			safe: true,
 			ignore: /\/\*\*\s*\n([^\*]*(\*[^\/])?)*\*\//g // Не удалять /**...*/
@@ -137,7 +141,7 @@ gulp.task('buildDist', ['cleanDist', 'htmlCompilation', 'copyImgToDist', 'sassCo
 		}))
 		.pipe(gulp.dest(path.dist + '/js'));
 
-	gulp.src(['!src/js/temp/**/*.js', '!src/js/**/_temp_*.js', '!src/js/common.js', 'src/js/*.js']) // Переносим остальные скрипты в продакшен
+	gulp.src(['!src/js/temp/**/*.js', '!src/js/**/_temp_*.js', '!src/js/special.js', 'src/js/*.js']) // Переносим остальные скрипты в продакшен
 		.pipe(gulp.dest(path.dist + '/js'));
 
 	gulp.src('src/assets/**/*') // Переносим дополнительные файлы в продакшен

@@ -77,7 +77,6 @@ $(document).on('ready', function () {
 	/**
 	 * !include special css and add special class on a body
 	 */
-	// console.log("getCookie('specialVersion'): ", getCookie(cookies.specVersionOn));
 	if (getCookie(cookies.specVersionOn) === 'true' && !$(cssId).length) {
 		$('<link/>', {
 			id: cssId.substr(1),
@@ -92,7 +91,6 @@ $(document).on('ready', function () {
 	 * !add special modifiers class
 	 * */
 	var cookieMods = getCookie(cookies.specVersionMods);
-	// console.log("getCookie('specVersionMods'): ", cookieMods);
 	if (cookieMods) {
 		$body.addClass(cookieMods.replace(/, /g, ' '));
 		$(elem.btnCheck).removeClass(mod.btnActive);
@@ -112,9 +110,9 @@ $(document).on('ready', function () {
 		$('body').addClass(mod.hidePage); // first hide content
 		// toggle special version cookie
 		if(getCookie(cookies.specVersionOn) === 'true'){
-			setCookieMod(cookies.specVersionOn, 'false');
+			setCookieMod(cookies.specVersionOn, "false");
 		} else {
-			setCookieMod(cookies.specVersionOn, 'true');
+			setCookieMod(cookies.specVersionOn, "true");
 		}
 		location.reload(); // reload page
 	});
