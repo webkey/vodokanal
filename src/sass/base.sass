@@ -15,8 +15,7 @@
 	font-size: 16px
 	line-height: 1
 	overflow: hidden
-	border: 0 solid currentColor
-	border-width: 0 1px 0 0
+	box-shadow: 0 0 0 1px currentColor
 	//background-color: var(--main-bg-color);
 	background-color: inherit
 	will-change: transform
@@ -26,116 +25,103 @@
 	-webkit-transition: transform 0.3s linear
 	transition: transform 0.3s linear
 
-@media only screen and (max-width: 479px)
-	.spec-panel
+	+media('<479px')
 		height: 70px
 		width: 100%
 		border-width: 0 0 2px 0
 
-.vspec .spec-panel
-	display: block
+	.vspec &
+		display: block
 
-@media only screen and (max-width: 979px)
-	.nav-opened .inner-page .spec-panel
-		-webkit-transform: translate(-100%, 0)
-		-ms-transform: translate(-100%, 0)
-		transform: translate(-100%, 0)
+	&:hover,
+	.mobile-device &
+		overflow-y: auto
 
-@media only screen and (max-width: 767px)
-	.nav-opened .main-page .spec-panel
-		-webkit-transform: translate(-100%, 0)
-		-ms-transform: translate(-100%, 0)
-		transform: translate(-100%, 0)
+		+media('<mob-md')
+			overflow-y: hidden
+			overflow-x: auto
 
-.spec-panel:hover,
-.mobile-device .spec-panel
-	overflow-y: auto
+	.nav-opened .inner-page &
+		+media('<tab-lg')
+			transform: translate(-100%, 0)
 
-@media only screen and (max-width: 479px)
-	.spec-panel:hover,
-	.mobile-device .spec-panel
-		overflow-y: hidden
-		overflow-x: auto
+	.nav-opened .main-page &
+		+media('<tab-sm')
+			transform: translate(-100%, 0)
+
+	hr
+		border-color: currentColor
+		border-bottom-width: 1px
+		margin: 20px 0
+
+	a
+		margin-bottom: 18px
 
 .spec-panel_h
-	padding: 11px
+	padding: 20px 0
+	text-align: center
 
 .spec-panel,
 .spec-panel_h
 	width: 70px
 	box-sizing: border-box
 
-@media only screen and (max-width: 479px)
-	.spec-panel,
-	.spec-panel_h
+	+media('<mob-md')
 		height: 70px
 		width: 100%
 
-.spec-panel hr
-	//border: none;
-	border-color: currentColor
-	border-bottom-width: 1px
-	margin: 20px 0
-
-.spec-panel a
-	margin-bottom: 15px
-
-//.spec-panel a:last-child{
-//	margin-bottom: 0;
-//}
-.spec-panel ~ .vspec-btn,
-.spec-panel .vimg-btn,
-.spec-panel .sv-btn-size,
-.spec-panel .vcolor-btn,
+.vspec-btn,
+.spec-panel .sv-btn,
 .spec-panel .vnorm-btn
+	$size: 42px
 	display: block
 	position: relative
 	overflow: hidden
-	width: 46px
-	height: 46px
-	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2)
-	text-decoration: none
-	border-radius: 2px
-	box-sizing: border-box
+	width: $size
+	height: $size
+	margin-left: auto
+	margin-right: auto
 	font-size: 16px
 	line-height: 1
+	text-decoration: none
+	border-radius: 2px
+	border: 1px solid $spec-text-color
+	box-sizing: border-box
 
-.spec-panel ~ .vspec-btn:hover,
-.spec-panel ~ .vspec-btn:focus,
-.spec-panel .vimg-btn:hover,
-.spec-panel .vimg-btn:focus,
-.spec-panel .sv-btn-size:not(.active):hover,
-.spec-panel .sv-btn-size:not(.active):focus,
-.spec-panel .vcolor-btn:not(.active):hover,
-.spec-panel .vcolor-btn:not(.active):focus,
-.spec-panel .vnorm-btn:hover,
+	.schemecolor-white &
+		border-color: $spec-text-color--scheme-white
+
+	.schemecolor-blue &
+		border-color: $spec-text-color--scheme-blue
+
+.vspec-btn:hover,
+.spec-panel .sv-btn:not(.active):hover,
+.spec-panel .vnorm-btn:hover
+	-webkit-transform: translate(-1px, -1px)
+	-ms-transform: translate(-1px, -1px)
+	transform: translate(-1px, -1px)
+
+.vspec-btn:focus,
+.spec-panel .sv-btn:not(.active):focus,
 .spec-panel .vnorm-btn:focus
 	-webkit-transform: translate(-1px, -1px)
 	-ms-transform: translate(-1px, -1px)
 	transform: translate(-1px, -1px)
-	//box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25);
 
-.spec-panel ~ .vspec-btn:active,
+.vspec-btn:active,
 .spec-panel .vnorm-btn:active,
-.spec-panel .vimg-btn:active,
-.spec-panel .sv-btn-size:not(.active):active,
-.spec-panel .vcolor-btn:not(.active):active,
-.spec-panel .vspec .vspec-btn:active,
+.spec-panel .sv-btn:active,
 .spec-panel .vspec .vnorm-btn:active
 	-webkit-transform: translate(0, 0)
 	-ms-transform: translate(0, 0)
 	transform: translate(0, 0)
-	//box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
 
-.spec-panel ~ .vspec-btn.active,
+.vspec-btn.active,
 .spec-panel .vnorm-btn.active,
-.spec-panel .vimg-btn.active,
-.spec-panel .sv-btn-size.active,
-.spec-panel .vcolor-btn.active,
-.spec-panel .vspec .vspec-btn.active,
+.spec-panel .sv-btn.active,
 .spec-panel .vspec .vnorm-btn.active
 	$w1: 0 0 0 2px
-	$w2: 0 0 0 5px
+	$w2: 0 0 0 6px
 	box-shadow: $w1 $spec-bg-color, $w2 $spec-text-color
 
 	.schemecolor-white &
@@ -144,130 +130,50 @@
 	.schemecolor-blue &
 		box-shadow: $w1 $spec-bg-color--scheme-blue, $w2 $spec-text-color--scheme-blue
 
-.spec-panel ~ .vspec-btn span,
-.spec-panel .vimg-btn span,
-.spec-panel .sv-btn-size span,
-.spec-panel .vcolor-btn span,
+.vspec-btn span,
+.spec-panel .sv-btn span,
 .spec-panel .vnorm-btn span
 	font-size: 0
 	line-height: 0
 
-.spec-panel ~ .vspec-btn svg,
-.spec-panel .vimg-btn svg,
-.spec-panel .sv-btn-size svg,
-.spec-panel .vcolor-btn svg,
+.vspec-btn svg,
+.spec-panel .sv-btn svg,
 .spec-panel .vnorm-btn svg
 	display: block
 	position: absolute
 	left: 50%
 	top: 50%
-	$size: 30px
-	width: $size
-	height: $size
-	margin: -#{round($size/2)} 0 0 -#{round($size/2)}
+	transform: translate(-50%, -50%)
 	box-sizing: border-box
 
-.spec-panel .sv-btn-size--sm svg
-	$size: 20px
-	width: $size
-	height: $size
-	margin: -#{round($size/2)} 0 0 -#{round($size/2)}
-
-.spec-panel .sv-btn-size--md svg
-	$size: 24px
-	width: $size
-	height: $size
-	margin: -#{round($size/2)} 0 0 -#{round($size/2)}
-
-.spec-panel .sv-btn-size--lg svg
-	$size: 30px
-	width: $size
-	height: $size
-	margin: -#{round($size/2)} 0 0 -#{round($size/2)}
-
-.spec-panel ~ .vspec-btn path,
-.spec-panel .vimg-btn path,
-.spec-panel .sv-btn-size path,
+.vspec-btn path,
+.spec-panel .sv-btn path,
 .spec-panel .vnorm-btn path
 	fill: currentColor
-
-.spec-panel .vimg-btn,
-.spec-panel .sv-btn-size,
-.spec-panel .vcolor-btn,
-.spec-panel .vnorm-btn
-	border: 2px solid currentColor
-	//background-color: white;
-	background-color: inherit
-	box-shadow: none
 
 .spec-panel .vnorm-btn
 	display: none
 
-/*.vnorm-btn::after,
-.spec-panel
-	.vnorm-btn::after,
-	.vimg-btn::after
-		content: ""
-		display: block
-		position: absolute
-		top: 50%
-		left: 50%
-		width: 50px
-		height: 3px
-		box-shadow: -1px -1px 0 $spec-bg-color, -2px -2px 0 $spec-bg-color
-		margin-left: -25px
-		background-color: currentColor
-		-webkit-transform: rotate(-35deg)
-		-ms-transform: rotate(-35deg)
-		transform: rotate(-35deg)
-		box-sizing: border-box
-
-		.schemecolor-white &
-			box-shadow: -1px -1px 0 $spec-bg-color--scheme-white, -2px -2px 0 $spec-bg-color--scheme-white
-
-		.schemecolor-blue &
-			box-shadow: -1px -1px 0 $spec-bg-color--scheme-blue, -2px -2px 0 $spec-bg-color--scheme-blue
-
 .vspec .spec-panel .vnorm-btn
 	display: block
 
-.spec-panel ~ .vspec-btn
+.vspec-btn
 	position: fixed
 	left: 10px
 	top: 10px
 	z-index: 9998
 	background-color: wheat
+	border: none
+	box-shadow: 2px 2px 2px rgba(black, 0.2)
 
-.vspec .spec-panel ~ .vspec-btn
-	display: none
-
-//.vimg-btn.active{
-//	background-color: black;
-//	color: white;
-//}
-.spec-panel .vimg-btn.active::after
+.vspec .vspec-btn
 	display: none
 
 /* vsize-btn
 .spec-panel .vsize.active
 	cursor: default
 
-.spec-panel .sv-btn-size
-	//background-color: #000;
-	background-color: #404040
-	//border-color: #000;
-	border-color: #404040
-	//color: #fff;
-	color: #fff
-
-.spec-panel .sv-btn-size.active
-	//background-color: #fff;
-	background-color: inherit
-	//border-color: #000;
-	color: inherit
-	border-color: currentColor
-
-/* vcolor-btn
+/* special version color
 .spec-panel .vcolor-btn-black
 	color: #000
 	background-color: #fff
@@ -279,15 +185,6 @@
 .spec-panel .vcolor-btn-blue
 	color: #002d56
 	background-color: #c8e5ff
-
-.spec-panel .vcolor-btn-black, .spec-panel .vcolor-btn-white, .spec-panel .vcolor-btn-blue
-	border-color: $spec-text-color
-
-	.schemecolor-white &
-		border-color: $spec-text-color--scheme-white
-
-	.schemecolor-blue &
-		border-color: $spec-text-color--scheme-blue
 
 // letter spacing
 $icon-spacing--size: 16px 2px // h w

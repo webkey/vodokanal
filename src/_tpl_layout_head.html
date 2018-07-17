@@ -43,13 +43,13 @@
 <!--special-->
 <div class="spec-panel">
 	<div class="spec-panel_h">
-		<a href="#" title="Обычная версия" class="vnorm-btn special-version-toggle-js">
+		<a href="#" title="Обычная версия" class="vnorm-btn special-version-toggle-js active">
 			@@include("includes/svg/icon-special.svg")
 			<span>Обычная версия</span>
 		</a>
 		<hr>
 		<div class="vbtn-group-js">
-			<a href="#" class="vimg-btn vimg-btn-js" data-spec-class="imageson" data-title-on="Выключить изображения" data-title-off="Включить изображения">
+			<a href="#" class="sv-btn vimg-btn vimg-btn-js" data-spec-class="imageson" data-title-on="Выключить изображения" data-title-off="Включить изображения">
 				@@include("includes/svg/icon-images.svg")
 				<span>Изображения</span>
 			</a>
@@ -57,40 +57,40 @@
 		<hr>
 		<div class="vbtn-group-js">
 			@@include("_tpl_spacial--tools-btn.html", {
-				"classes": "sv-btn-size sv-btn-size--sm sv-btn-check-js",
+				"classes": "sv-btn sv-btn-size--sm sv-btn-check-js",
 				"mod": "fontsize-small",
-				"icon": "includes/svg/icon-text-size.svg",
+				"icon": "includes/svg/icon-text-size--sm.svg",
 				"text": "Маленкий размер шрифта"
 			})
 			@@include("_tpl_spacial--tools-btn.html", {
-				"classes": "sv-btn-size sv-btn-size--md sv-btn-check-js active",
+				"classes": "sv-btn sv-btn-size--md sv-btn-check-js active",
 				"mod": "fontsize-normal",
 				"icon": "includes/svg/icon-text-size.svg",
 				"text": "Средний размер шрифта"
 			})
 			@@include("_tpl_spacial--tools-btn.html", {
-				"classes": "sv-btn-size sv-btn-size--lg sv-btn-check-js",
+				"classes": "sv-btn sv-btn-size--lg sv-btn-check-js",
 				"mod": "fontsize-large",
-				"icon": "includes/svg/icon-text-size.svg",
+				"icon": "includes/svg/icon-text-size--lg.svg",
 				"text": "Большой размер шрифта"
 			})
 		</div>
 		<hr>
 		<div class="vbtn-group-js">
 			@@include("_tpl_spacial--tools-btn.html", {
-				"classes": "vcolor-btn vcolor-btn-black sv-btn-check-js active",
+				"classes": "sv-btn vcolor-btn-black sv-btn-check-js active",
 				"mod": "schemecolor-black",
 				"icon": "includes/svg/icon-scheme-color.svg",
 				"text": "Черным по белому"
 			})
 			@@include("_tpl_spacial--tools-btn.html", {
-				"classes": "vcolor-btn vcolor-btn-white sv-btn-check-js",
+				"classes": "sv-btn vcolor-btn-white sv-btn-check-js",
 				"mod": "schemecolor-white",
 				"icon": "includes/svg/icon-scheme-color.svg",
 				"text": "Белым по черному"
 			})
 			@@include("_tpl_spacial--tools-btn.html", {
-				"classes": "vcolor-btn vcolor-btn-blue sv-btn-check-js",
+				"classes": "sv-btn vcolor-btn-blue sv-btn-check-js",
 				"mod": "schemecolor-blue",
 				"icon": "includes/svg/icon-scheme-color.svg",
 				"text": "Темно-синим по голубому"
@@ -99,19 +99,19 @@
 		<hr>
 		<div class="vbtn-group-js">
 			@@include("_tpl_spacial--tools-btn.html", {
-				"classes": "vcolor-btn sv-spacing-btn--small sv-btn-check-js active",
+				"classes": "sv-btn sv-spacing-btn--small sv-btn-check-js active",
 				"mod": "spacing-normal",
 				"icon": "",
 				"text": "Стандартный интервал"
 			})
 			@@include("_tpl_spacial--tools-btn.html", {
-				"classes": "vcolor-btn sv-spacing-btn--medium sv-btn-check-js",
+				"classes": "sv-btn sv-spacing-btn--medium sv-btn-check-js",
 				"mod": "spacing-medium",
 				"icon": "",
 				"text": "Средний интервал"
 			})
 			@@include("_tpl_spacial--tools-btn.html", {
-				"classes": "vcolor-btn sv-spacing-btn--large sv-btn-check-js",
+				"classes": "sv-btn sv-spacing-btn--large sv-btn-check-js",
 				"mod": "spacing-large",
 				"icon": "",
 				"text": "Большой интервал"

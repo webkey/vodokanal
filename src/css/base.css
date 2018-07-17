@@ -9,8 +9,7 @@
 	font-size: 16px;
 	line-height: 1;
 	overflow: hidden;
-	border: 0 solid currentColor;
-	border-width: 0 1px 0 0;
+	box-shadow: 0 0 0 1px currentColor;
 	background-color: inherit;
 	will-change: transform;
 	-ms-transform: translate(0, 0);
@@ -18,7 +17,7 @@
 	transition: transform 0.3s linear;
 }
 
-@media only screen and (max-width: 479px) {
+@media (max-width: 478px) {
 	.spec-panel {
 		height: 70px;
 		width: 100%;
@@ -30,26 +29,12 @@
 	display: block;
 }
 
-@media only screen and (max-width: 979px) {
-	.nav-opened .inner-page .spec-panel {
-		-ms-transform: translate(-100%, 0);
-		transform: translate(-100%, 0);
-	}
-}
-
-@media only screen and (max-width: 767px) {
-	.nav-opened .main-page .spec-panel {
-		-ms-transform: translate(-100%, 0);
-		transform: translate(-100%, 0);
-	}
-}
-
 .spec-panel:hover,
 .mobile-device .spec-panel {
 	overflow-y: auto;
 }
 
-@media only screen and (max-width: 479px) {
+@media (max-width: 479px) {
 	.spec-panel:hover,
 	.mobile-device .spec-panel {
 		overflow-y: hidden;
@@ -57,21 +42,17 @@
 	}
 }
 
-.spec-panel_h {
-	padding: 11px;
+@media (max-width: 979px) {
+	.nav-opened .inner-page .spec-panel {
+		-ms-transform: translate(-100%, 0);
+		    transform: translate(-100%, 0);
+	}
 }
 
-.spec-panel,
-.spec-panel_h {
-	width: 70px;
-	box-sizing: border-box;
-}
-
-@media only screen and (max-width: 479px) {
-	.spec-panel,
-	.spec-panel_h {
-		height: 70px;
-		width: 100%;
+@media (max-width: 767px) {
+	.nav-opened .main-page .spec-panel {
+		-ms-transform: translate(-100%, 0);
+		    transform: translate(-100%, 0);
 	}
 }
 
@@ -82,189 +63,145 @@
 }
 
 .spec-panel a {
-	margin-bottom: 15px;
+	margin-bottom: 18px;
 }
 
-.spec-panel ~ .vspec-btn,
-.spec-panel .vimg-btn,
-.spec-panel .sv-btn-size,
-.spec-panel .vcolor-btn,
+.spec-panel_h {
+	padding: 20px 0;
+	text-align: center;
+}
+
+.spec-panel,
+.spec-panel_h {
+	width: 70px;
+	box-sizing: border-box;
+}
+
+@media (max-width: 479px) {
+	.spec-panel,
+	.spec-panel_h {
+		height: 70px;
+		width: 100%;
+	}
+}
+
+.vspec-btn,
+.spec-panel .sv-btn,
 .spec-panel .vnorm-btn {
 	display: block;
 	position: relative;
 	overflow: hidden;
-	width: 46px;
-	height: 46px;
-	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
-	text-decoration: none;
-	border-radius: 2px;
-	box-sizing: border-box;
+	width: 42px;
+	height: 42px;
+	margin-left: auto;
+	margin-right: auto;
 	font-size: 16px;
 	line-height: 1;
+	text-decoration: none;
+	border-radius: 2px;
+	border: 1px solid #000;
+	box-sizing: border-box;
 }
 
-.spec-panel ~ .vspec-btn:hover,
-.spec-panel ~ .vspec-btn:focus,
-.spec-panel .vimg-btn:hover,
-.spec-panel .vimg-btn:focus,
-.spec-panel .sv-btn-size:not(.active):hover,
-.spec-panel .sv-btn-size:not(.active):focus,
-.spec-panel .vcolor-btn:not(.active):hover,
-.spec-panel .vcolor-btn:not(.active):focus,
-.spec-panel .vnorm-btn:hover,
+.schemecolor-white .vspec-btn, .schemecolor-white
+.spec-panel .sv-btn, .schemecolor-white
+.spec-panel .vnorm-btn {
+	border-color: #fff;
+}
+
+.schemecolor-blue .vspec-btn, .schemecolor-blue
+.spec-panel .sv-btn, .schemecolor-blue
+.spec-panel .vnorm-btn {
+	border-color: #ff6c87;
+}
+
+.vspec-btn:hover,
+.spec-panel .sv-btn:not(.active):hover,
+.spec-panel .vnorm-btn:hover {
+	-ms-transform: translate(-1px, -1px);
+	transform: translate(-1px, -1px);
+}
+
+.vspec-btn:focus,
+.spec-panel .sv-btn:not(.active):focus,
 .spec-panel .vnorm-btn:focus {
 	-ms-transform: translate(-1px, -1px);
 	transform: translate(-1px, -1px);
 }
 
-.spec-panel ~ .vspec-btn:active,
+.vspec-btn:active,
 .spec-panel .vnorm-btn:active,
-.spec-panel .vimg-btn:active,
-.spec-panel .sv-btn-size:not(.active):active,
-.spec-panel .vcolor-btn:not(.active):active,
-.spec-panel .vspec .vspec-btn:active,
+.spec-panel .sv-btn:active,
 .spec-panel .vspec .vnorm-btn:active {
 	-ms-transform: translate(0, 0);
 	transform: translate(0, 0);
 }
 
-.spec-panel ~ .vspec-btn.active,
+.vspec-btn.active,
 .spec-panel .vnorm-btn.active,
-.spec-panel .vimg-btn.active,
-.spec-panel .sv-btn-size.active,
-.spec-panel .vcolor-btn.active,
-.spec-panel .vspec .vspec-btn.active,
+.spec-panel .sv-btn.active,
 .spec-panel .vspec .vnorm-btn.active {
-	box-shadow: 0 0 0 2px #fff, 0 0 0 5px #000;
+	box-shadow: 0 0 0 2px #fff, 0 0 0 6px #000;
 }
 
-.schemecolor-white .spec-panel ~ .vspec-btn.active, .schemecolor-white
+.schemecolor-white .vspec-btn.active, .schemecolor-white
 .spec-panel .vnorm-btn.active, .schemecolor-white
-.spec-panel .vimg-btn.active, .schemecolor-white
-.spec-panel .sv-btn-size.active, .schemecolor-white
-.spec-panel .vcolor-btn.active, .schemecolor-white
-.spec-panel .vspec .vspec-btn.active, .schemecolor-white
+.spec-panel .sv-btn.active, .schemecolor-white
 .spec-panel .vspec .vnorm-btn.active {
-	box-shadow: 0 0 0 2px #000, 0 0 0 5px #fff;
+	box-shadow: 0 0 0 2px #000, 0 0 0 6px #fff;
 }
 
-.schemecolor-blue .spec-panel ~ .vspec-btn.active, .schemecolor-blue
+.schemecolor-blue .vspec-btn.active, .schemecolor-blue
 .spec-panel .vnorm-btn.active, .schemecolor-blue
-.spec-panel .vimg-btn.active, .schemecolor-blue
-.spec-panel .sv-btn-size.active, .schemecolor-blue
-.spec-panel .vcolor-btn.active, .schemecolor-blue
-.spec-panel .vspec .vspec-btn.active, .schemecolor-blue
+.spec-panel .sv-btn.active, .schemecolor-blue
 .spec-panel .vspec .vnorm-btn.active {
-	box-shadow: 0 0 0 2px #c8e5ff, 0 0 0 5px #002d56;
+	box-shadow: 0 0 0 2px #c8e5ff, 0 0 0 6px #ff6c87;
 }
 
-.spec-panel ~ .vspec-btn span,
-.spec-panel .vimg-btn span,
-.spec-panel .sv-btn-size span,
-.spec-panel .vcolor-btn span,
+.vspec-btn span,
+.spec-panel .sv-btn span,
 .spec-panel .vnorm-btn span {
 	font-size: 0;
 	line-height: 0;
 }
 
-.spec-panel ~ .vspec-btn svg,
-.spec-panel .vimg-btn svg,
-.spec-panel .sv-btn-size svg,
-.spec-panel .vcolor-btn svg,
+.vspec-btn svg,
+.spec-panel .sv-btn svg,
 .spec-panel .vnorm-btn svg {
 	display: block;
 	position: absolute;
 	left: 50%;
 	top: 50%;
-	width: 30px;
-	height: 30px;
-	margin: -15px 0 0 -15px;
+	-ms-transform: translate(-50%, -50%);
+	    transform: translate(-50%, -50%);
 	box-sizing: border-box;
 }
 
-.spec-panel .sv-btn-size--sm svg {
-	width: 20px;
-	height: 20px;
-	margin: -10px 0 0 -10px;
-}
-
-.spec-panel .sv-btn-size--md svg {
-	width: 24px;
-	height: 24px;
-	margin: -12px 0 0 -12px;
-}
-
-.spec-panel .sv-btn-size--lg svg {
-	width: 30px;
-	height: 30px;
-	margin: -15px 0 0 -15px;
-}
-
-.spec-panel ~ .vspec-btn path,
-.spec-panel .vimg-btn path,
-.spec-panel .sv-btn-size path,
+.vspec-btn path,
+.spec-panel .sv-btn path,
 .spec-panel .vnorm-btn path {
 	fill: currentColor;
 }
 
-.spec-panel .vimg-btn,
-.spec-panel .sv-btn-size,
-.spec-panel .vcolor-btn,
-.spec-panel .vnorm-btn {
-	border: 2px solid currentColor;
-	background-color: inherit;
-	box-shadow: none;
-}
-
 .spec-panel .vnorm-btn {
 	display: none;
-}
-
-/*.vnorm-btn::after, */
-.spec-panel .vnorm-btn::after,
-.spec-panel .vimg-btn::after {
-	content: "";
-	display: block;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	width: 50px;
-	height: 3px;
-	box-shadow: -1px -1px 0 #fff, -2px -2px 0 #fff;
-	margin-left: -25px;
-	background-color: currentColor;
-	-ms-transform: rotate(-35deg);
-	transform: rotate(-35deg);
-	box-sizing: border-box;
-}
-
-.schemecolor-white .spec-panel .vnorm-btn::after, .schemecolor-white
-.spec-panel .vimg-btn::after {
-	box-shadow: -1px -1px 0 #000, -2px -2px 0 #000;
-}
-
-.schemecolor-blue .spec-panel .vnorm-btn::after, .schemecolor-blue
-.spec-panel .vimg-btn::after {
-	box-shadow: -1px -1px 0 #c8e5ff, -2px -2px 0 #c8e5ff;
 }
 
 .vspec .spec-panel .vnorm-btn {
 	display: block;
 }
 
-.spec-panel ~ .vspec-btn {
+.vspec-btn {
 	position: fixed;
 	left: 10px;
 	top: 10px;
 	z-index: 9998;
 	background-color: wheat;
+	border: none;
+	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
 }
 
-.vspec .spec-panel ~ .vspec-btn {
-	display: none;
-}
-
-.spec-panel .vimg-btn.active::after {
+.vspec .vspec-btn {
 	display: none;
 }
 
@@ -273,19 +210,7 @@
 	cursor: default;
 }
 
-.spec-panel .sv-btn-size {
-	background-color: #404040;
-	border-color: #404040;
-	color: #fff;
-}
-
-.spec-panel .sv-btn-size.active {
-	background-color: inherit;
-	color: inherit;
-	border-color: currentColor;
-}
-
-/* vcolor-btn */
+/* special version color */
 .spec-panel .vcolor-btn-black {
 	color: #000;
 	background-color: #fff;
@@ -299,18 +224,6 @@
 .spec-panel .vcolor-btn-blue {
 	color: #002d56;
 	background-color: #c8e5ff;
-}
-
-.spec-panel .vcolor-btn-black, .spec-panel .vcolor-btn-white, .spec-panel .vcolor-btn-blue {
-	border-color: #000;
-}
-
-.schemecolor-white .spec-panel .vcolor-btn-black, .schemecolor-white .spec-panel .vcolor-btn-white, .schemecolor-white .spec-panel .vcolor-btn-blue {
-	border-color: #fff;
-}
-
-.schemecolor-blue .spec-panel .vcolor-btn-black, .schemecolor-blue .spec-panel .vcolor-btn-white, .schemecolor-blue .spec-panel .vcolor-btn-blue {
-	border-color: #002d56;
 }
 
 .spec-panel .sv-spacing-btn--small .icon, .spec-panel .sv-spacing-btn--small .icon::before, .spec-panel .sv-spacing-btn--small .icon::after, .spec-panel .sv-spacing-btn--medium .icon, .spec-panel .sv-spacing-btn--medium .icon::before, .spec-panel .sv-spacing-btn--medium .icon::after, .spec-panel .sv-spacing-btn--large .icon, .spec-panel .sv-spacing-btn--large .icon::before, .spec-panel .sv-spacing-btn--large .icon::after {
