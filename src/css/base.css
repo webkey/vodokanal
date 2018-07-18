@@ -17,11 +17,18 @@
 	transition: transform 0.3s linear;
 }
 
-@media (max-width: 478px) {
+@media (max-width: 479px) {
 	.spec-panel {
 		height: 70px;
 		width: 100%;
 		border-width: 0 0 2px 0;
+		box-shadow: 0 0 0 2px currentColor, 0 4px 4px rgba(0, 0, 0, 0.3);
+	}
+	.schemecolor-white .spec-panel {
+		box-shadow: 0 0 0 2px currentColor, 0 4px 4px rgba(255, 255, 255, 0.3);
+	}
+	.schemecolor-blue .spec-panel {
+		box-shadow: 0 0 0 2px currentColor, 0 4px 4px rgba(0, 76, 146, 0.3);
 	}
 }
 
@@ -49,10 +56,25 @@
 	}
 }
 
+@media (max-width: 479px) {
+	.nav-opened .inner-page .spec-panel {
+		-ms-transform: translate(0, calc(-100% - 2px));
+		    transform: translate(0, calc(-100% - 2px));
+		box-shadow: none;
+	}
+}
+
 @media (max-width: 767px) {
 	.nav-opened .main-page .spec-panel {
 		-ms-transform: translate(-100%, 0);
 		    transform: translate(-100%, 0);
+	}
+}
+
+@media (max-width: 479px) {
+	.spec-panel .sv-btn-group {
+		display: inline-block;
+		vertical-align: top;
 	}
 }
 
@@ -62,13 +84,47 @@
 	margin: 20px 0;
 }
 
+@media (max-width: 479px) {
+	.spec-panel hr {
+		display: inline-block;
+		vertical-align: top;
+		border-left: 1px solid currentColor;
+		border: none;
+		width: 0;
+		height: 36px;
+		margin: 0 10px 0 0;
+	}
+}
+
 .spec-panel a {
+	display: block;
 	margin-bottom: 18px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+@media (max-width: 479px) {
+	.spec-panel a {
+		display: inline-block;
+		vertical-align: top;
+		margin-bottom: 0;
+		margin-right: 10px;
+	}
 }
 
 .spec-panel_h {
 	padding: 20px 0;
 	text-align: center;
+	letter-spacing: -4px;
+	font-size: 0;
+	line-height: 1;
+}
+
+@media (max-width: 479px) {
+	.spec-panel_h {
+		white-space: nowrap;
+		padding: 10px;
+	}
 }
 
 .spec-panel,
@@ -80,7 +136,7 @@
 @media (max-width: 479px) {
 	.spec-panel,
 	.spec-panel_h {
-		height: 70px;
+		height: 56px;
 		width: 100%;
 	}
 }
@@ -88,19 +144,26 @@
 .vspec-btn,
 .spec-panel .sv-btn,
 .spec-panel .vnorm-btn {
-	display: block;
-	position: relative;
-	overflow: hidden;
 	width: 42px;
 	height: 42px;
-	margin-left: auto;
-	margin-right: auto;
+	position: relative;
+	overflow: hidden;
 	font-size: 16px;
 	line-height: 1;
+	letter-spacing: normal;
 	text-decoration: none;
 	border-radius: 2px;
 	border: 1px solid #000;
 	box-sizing: border-box;
+}
+
+@media (max-width: 479px) {
+	.vspec-btn,
+	.spec-panel .sv-btn,
+	.spec-panel .vnorm-btn {
+		width: 36px;
+		height: 36px;
+	}
 }
 
 .schemecolor-white .vspec-btn, .schemecolor-white
@@ -112,7 +175,7 @@
 .schemecolor-blue .vspec-btn, .schemecolor-blue
 .spec-panel .sv-btn, .schemecolor-blue
 .spec-panel .vnorm-btn {
-	border-color: #ff6c87;
+	border-color: #004c92;
 }
 
 .vspec-btn:hover,
@@ -144,6 +207,15 @@
 	box-shadow: 0 0 0 2px #fff, 0 0 0 6px #000;
 }
 
+@media (max-width: 479px) {
+	.vspec-btn.active,
+	.spec-panel .vnorm-btn.active,
+	.spec-panel .sv-btn.active,
+	.spec-panel .vspec .vnorm-btn.active {
+		box-shadow: 0 0 0 2px #fff, 0 0 0 4px #000;
+	}
+}
+
 .schemecolor-white .vspec-btn.active, .schemecolor-white
 .spec-panel .vnorm-btn.active, .schemecolor-white
 .spec-panel .sv-btn.active, .schemecolor-white
@@ -151,11 +223,29 @@
 	box-shadow: 0 0 0 2px #000, 0 0 0 6px #fff;
 }
 
+@media (max-width: 479px) {
+	.schemecolor-white .vspec-btn.active, .schemecolor-white
+	.spec-panel .vnorm-btn.active, .schemecolor-white
+	.spec-panel .sv-btn.active, .schemecolor-white
+	.spec-panel .vspec .vnorm-btn.active {
+		box-shadow: 0 0 0 2px #000, 0 0 0 4px #fff;
+	}
+}
+
 .schemecolor-blue .vspec-btn.active, .schemecolor-blue
 .spec-panel .vnorm-btn.active, .schemecolor-blue
 .spec-panel .sv-btn.active, .schemecolor-blue
 .spec-panel .vspec .vnorm-btn.active {
-	box-shadow: 0 0 0 2px #c8e5ff, 0 0 0 6px #ff6c87;
+	box-shadow: 0 0 0 2px #c8e5ff, 0 0 0 6px #004c92;
+}
+
+@media (max-width: 479px) {
+	.schemecolor-blue .vspec-btn.active, .schemecolor-blue
+	.spec-panel .vnorm-btn.active, .schemecolor-blue
+	.spec-panel .sv-btn.active, .schemecolor-blue
+	.spec-panel .vspec .vnorm-btn.active {
+		box-shadow: 0 0 0 2px #c8e5ff, 0 0 0 4px #004c92;
+	}
 }
 
 .vspec-btn span,
@@ -191,6 +281,12 @@
 	display: block;
 }
 
+@media (max-width: 479px) {
+	.vspec .spec-panel .vnorm-btn {
+		display: inline-block;
+	}
+}
+
 .vspec-btn {
 	position: fixed;
 	left: 10px;
@@ -222,7 +318,7 @@
 }
 
 .spec-panel .vcolor-btn-blue {
-	color: #ff6c87;
+	color: #004c92;
 	background-color: #c8e5ff;
 }
 
@@ -267,6 +363,11 @@
 
 .spec-panel .sv-spacing-btn--large .icon::after {
 	margin-left: 10px;
+}
+
+.main-contacts,
+.local-map {
+	height: 595px;
 }
 
 /*# sourceMappingURL=base.css.map */

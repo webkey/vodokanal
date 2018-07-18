@@ -25,10 +25,19 @@
 	-webkit-transition: transform 0.3s linear
 	transition: transform 0.3s linear
 
-	+media('<479px')
+	+media('<mob-md')
 		height: 70px
 		width: 100%
 		border-width: 0 0 2px 0
+		$sh1: 0 0 0 2px
+		$sh2: 0 4px 4px
+		box-shadow: $sh1 currentColor, $sh2 rgba($spec-text-color, 0.3)
+
+		.schemecolor-white &
+			box-shadow: $sh1 currentColor, $sh2 rgba($spec-text-color--scheme-white, 0.3)
+
+		.schemecolor-blue &
+			box-shadow: $sh1 currentColor, $sh2 rgba($spec-text-color--scheme-blue, 0.3)
 
 	.vspec &
 		display: block
@@ -45,21 +54,61 @@
 		+media('<tab-lg')
 			transform: translate(-100%, 0)
 
+		+media('<mob-md')
+			transform: translate(0, calc(-100% - 2px))
+			box-shadow: none
+
 	.nav-opened .main-page &
 		+media('<tab-sm')
 			transform: translate(-100%, 0)
+
+	.sv-btn-group
+		+media('<mob-md')
+			display: inline-block
+			vertical-align: top
+
+		//a:last-child
+			margin-bottom: 0
+
+			+media('<mob-md')
+				margin-right: 0
 
 	hr
 		border-color: currentColor
 		border-bottom-width: 1px
 		margin: 20px 0
 
+		+media('<mob-md')
+			display: inline-block
+			vertical-align: top
+			border-left: 1px solid currentColor
+			border: none
+			width: 0
+			height: 36px
+			margin: 0 10px 0 0
+
 	a
+		display: block
 		margin-bottom: 18px
+		margin-left: auto
+		margin-right: auto
+
+		+media('<mob-md')
+			display: inline-block
+			vertical-align: top
+			margin-bottom: 0
+			margin-right: 10px
 
 .spec-panel_h
 	padding: 20px 0
 	text-align: center
+	letter-spacing: -4px
+	font-size: 0
+	line-height: 1
+
+	+media('<mob-md')
+		white-space: nowrap
+		padding: 10px
 
 .spec-panel,
 .spec-panel_h
@@ -67,26 +116,29 @@
 	box-sizing: border-box
 
 	+media('<mob-md')
-		height: 70px
+		height: 56px
 		width: 100%
 
 .vspec-btn,
 .spec-panel .sv-btn,
 .spec-panel .vnorm-btn
 	$size: 42px
-	display: block
-	position: relative
-	overflow: hidden
 	width: $size
 	height: $size
-	margin-left: auto
-	margin-right: auto
+	position: relative
+	overflow: hidden
 	font-size: 16px
 	line-height: 1
+	letter-spacing: normal
 	text-decoration: none
 	border-radius: 2px
 	border: 1px solid $spec-text-color
 	box-sizing: border-box
+
+	+media('<mob-md')
+		$size: 36px
+		width: $size
+		height: $size
 
 	.schemecolor-white &
 		border-color: $spec-text-color--scheme-white
@@ -122,13 +174,24 @@
 .spec-panel .vspec .vnorm-btn.active
 	$w1: 0 0 0 2px
 	$w2: 0 0 0 6px
+	$w1--sm: 0 0 0 2px
+	$w2--sm: 0 0 0 4px
 	box-shadow: $w1 $spec-bg-color, $w2 $spec-text-color
+
+	+media('<mob-md')
+		box-shadow: $w1--sm $spec-bg-color, $w2--sm $spec-text-color
 
 	.schemecolor-white &
 		box-shadow: $w1 $spec-bg-color--scheme-white, $w2 $spec-text-color--scheme-white
 
+		+media('<mob-md')
+			box-shadow: $w1--sm $spec-bg-color--scheme-white, $w2--sm $spec-text-color--scheme-white
+
 	.schemecolor-blue &
 		box-shadow: $w1 $spec-bg-color--scheme-blue, $w2 $spec-text-color--scheme-blue
+
+		+media('<mob-md')
+			box-shadow: $w1--sm $spec-bg-color--scheme-blue, $w2--sm $spec-text-color--scheme-blue
 
 .vspec-btn span,
 .spec-panel .sv-btn span,
@@ -156,6 +219,9 @@
 
 .vspec .spec-panel .vnorm-btn
 	display: block
+
+	+media('<mob-md')
+		display: inline-block
 
 .vspec-btn
 	position: fixed
@@ -235,3 +301,8 @@ $icon-spacing--space: 3px // h
 
 			&::after
 				margin-left: #{$icon-spacing--space + round(nth($icon-spacing--size, 2)*0.5)}
+
+// добавить в all.css
+.main-contacts,
+.local-map
+	height: 595px

@@ -54,16 +54,17 @@ body.vspec::before
 	.vspec .footer
 		padding-right: 0
 
-@media (max-width: 480px)
++media('<mob-md')
 	.vspec .wrapper,
 	.vspec .footer
 		padding-left: 0
 	.vspec .wrapper
-		padding-top: 70px
+		padding-top: 56px
 
 .vspec
 	.content
 		padding-top: 30px
+		padding-bottom: 30px
 
 	.article-press
 		padding-top: 30px
@@ -74,6 +75,15 @@ body.vspec::before
 
 	.press
 		margin-top: 0
+
+	.full-width
+		margin: 0
+
+	.spacer
+		display: none
+
+	.footer
+		margin-top: 0 !important
 
 .vspec path,
 .vspec polygon
@@ -269,36 +279,38 @@ body.vspec::before
 /* bg end
 
 /* slider reset
-.vspec .uncos-slider .slick-track,
-.vspec .questions-slider .slick-track,
-.vspec .promo-slider .slick-track
-	opacity: 1 !important
-	left: auto !important
-	width: auto !important
-	-webkit-transform: none !important
-	-ms-transform: none !important
-	transform: none !important
+.vspec
+	.uncos-slider,
+	.questions-slider,
+	.promo-slider,
+	.case__list,
+	.glance__slider
+		.slick-track
+			opacity: 1 !important
+			left: auto !important
+			width: auto !important
+			-webkit-transform: none !important
+			-ms-transform: none !important
+			transform: none !important
 
-.vspec .uncos-slider .slick-slide,
-.vspec .questions-slider .slick-slide,
-.vspec .promo-slider .slick-slide
-	position: relative !important
-	width: auto !important
-	opacity: 1 !important
-	left: auto !important
-	top: auto !important
-	float: none !important
-	z-index: auto !important
+			&::before, &::after
+				content: none
 
-.vspec .uncos-slider .slick-arrow,
-.vspec .questions-slider .slick-arrow,
-.vspec .promo-slider .slick-arrow
-	display: none !important
+		.slick-slide
+			position: relative !important
+			width: auto !important
+			height: auto !important
+			opacity: 1 !important
+			left: auto !important
+			top: auto !important
+			float: none !important
+			z-index: auto !important
 
-.vspec .uncos-slider .slick-dots,
-.vspec .questions-slider .slick-dots,
-.vspec .promo-slider .slick-dots
-	display: none !important
+		.slick-arrow
+			display: none !important
+
+		.slick-dots
+			display: none !important
 
 /* slider reset end
 
@@ -320,15 +332,21 @@ body.vspec::before
 	left: auto
 	top: auto
 
-.vspec .header-holder
-	height: auto
-	border: 2px solid currentColor
-	border-width: 0 2px 2px 0
-	padding: 0
+.vspec
+	.header-holder
+		height: auto
+		border: 2px solid currentColor
+		border-width: 0 2px 2px 0
+		padding: 0
 
-@media (max-width: 979px)
-	.vspec.inner-page .header-holder
-		min-height: 142px
+	&.main-page .header-holder
+		+media('<tab-sm')
+			border-width: 0 0 2px 0
+
+	&.inner-page .header-holder
+		+media('<tab-lg')
+			min-height: 142px
+			border-width: 0 0 2px 0
 
 .vspec .header-options__holder
 	border-bottom: 2px solid currentColor
@@ -600,6 +618,7 @@ body.vspec::before
 .vspec .nav__list li > a
 	border-color: currentColor
 	letter-spacing: normal
+	transition: none
 
 .vspec .nav__list li > a,
 .vspec .nav__list li.hover > a,
@@ -621,7 +640,7 @@ body.vspec::before
 		position: absolute
 		letter-spacing: 5px
 		background-color: $spec-text-color
-		left: 20px
+		left: 8px
 		top: 50%
 		margin-top: -2px
 
@@ -892,7 +911,7 @@ body.vspec::before
 	letter-spacing: inherit
 	padding: 0
 	font-weight: bold
-	text-transform: uppercase
+	text-transform: none
 
 .vspec .window__btns
 	padding: 0
@@ -1195,8 +1214,8 @@ body.vspec::before
 	border-top: 2px solid currentColor
 	padding-top: 10px
 	padding-bottom: 10px
-	font-size: 24px
-	line-height: 32px
+	font-size: 20px
+	line-height: 28px
 	letter-spacing: inherit
 
 @media (max-width: 979px)
@@ -1265,78 +1284,548 @@ body.vspec::before
 .vspec .site-developer .text-inner
 	border: none
 
-.vspec .back-to-top.btn-show
-	box-sizing: border-box
-	box-shadow: 0 0 0 2px #000
+/* to top
+.vspec
+	.back-to-top
+		box-sizing: border-box
+		color: inherit
+		background: none !important
+		box-shadow: 0 0 0 2px currentColor
 
-.vspec .content-box__caption,
-.vspec .columns-box__column
-	border-color: currentColor
+		& > i
+			position: relative
+			width: 4px
+			margin-right: 14px
+			background: none
+			background-color: currentColor
 
-.content-box__caption h2
-	letter-spacing: inherit
+			&::before
+				content: ""
+				display: block
+				position: absolute
+				top: 0
+				left: 50%
+				width: 14px
+				height: 14px
+				border: 0 solid currentColor
+				border-width: 4px 0 0 4px
+				transform: rotate(45deg)
+				margin: 0 0 0 -9px
 
-.vspec .years-slider,
-.vspec .years-sldr__item
-	border-color: currentColor
+		& > span
+			transition: none
 
-.vspec .years-sldr__item > span
-	color: inherit
+		// hover
+		&:hover
+			& > i
+				margin-right: 20px
 
-.vspec .years-sldr__item > span:hover,
-.vspec .years-sldr__item.slide-current > span
-	box-shadow: inset 0 0 0 1px currentColor, 0 0 0 1px currentColor
+	.back-to-top:hover
+		background-color: $spec-bg-color !important
 
-.vspec .case__photo-card
-	border-color: currentColor
+	&.schemecolor-white
+		.back-to-top:hover
+			background-color: $spec-bg-color--scheme-white !important
 
-.vspec .case__photo-card:hover,
-.vspec .case__contacts-card:hover
-	border-color: currentColor
-	box-shadow: inset 0 0 0 1px currentColor
+	&.schemecolor-blue
+		.back-to-top:hover
+			background-color: $spec-bg-color--scheme-blue !important
 
-.vspec .contacts-card__caption:after
-	border-color: currentColor
+/* to top end
 
-.vspec .contacts-card__post,
-.vspec .photo-card__post,
-.vspec .photo-card__switcher > span:hover,
-.vspec .photo-card__name a:hover
-	color: inherit
+/* about
+.vspec
+	.content-box
+		padding: 0
+		margin-bottom: $bottom-space-section
 
-.vspec .glance
-	border: 1px solid currentColor
+	.content-box__head
+		padding: 0
+		margin-bottom: $bottom-space
 
-.vspec .glance__box
-	background: none
-	color: inherit
-	border: 1px solid currentColor
+	.content-box__caption
+		border: none
+		padding: 0
+		margin: 0 0 $bottom-space
+		width: auto
 
-.vspec .glance__box:before,
-.vspec .glance__box:after
-	content: none
+		h2
+			letter-spacing: inherit
 
-.vspec .glance__unit:after
-	border-color: currentColor
+	.content-box__description
+		width: auto
+		margin: 0 0 $bottom-space-item
+		padding: 0
 
-.vspec .glance__count,
-.vspec .glance__unit,
-.vspec .glance__text
-	color: inherit
+	.columns-box-wrap
+		overflow: visible
 
-.main-contacts,
-.local-map
-	height: 595px
+	.columns-box
+		font-size: inherit
+		line-height: inherit
+		letter-spacing: inherit
+		margin: 0 0 $bottom-space
+		padding: 0
 
-.vspec .main-contacts
-	border-bottom: 2px solid currentColor
+	.columns-box__column
+		display: block
+		width: auto
+		height: auto !important
+		font-size: inherit
+		line-height: inherit
+		letter-spacing: inherit
+		border: none
+		padding: 0
+		margin: 0 0 $bottom-space
 
-.vspec .contacts-panel__switcher
-	background-color: currentColor
+		&::before
+			content: none
 
-.vspec .contacts-panel__list,
-.vspec .contacts-panel__phones
-	color: inherit
+	// history
+	.years-slider
+		display: none
+
+	.history-slider
+		padding: 0
+		margin-bottom: $bottom-space-item
+		overflow: visible
+
+		.slider-track
+			width: auto !important
+
+			&::before, &::after
+				content: none
+
+	.history-sldr__holder
+		font-size: inherit
+		line-height: inherit
+		letter-spacing: inherit
+		transition: none
+
+	.left-stop .history-sldr__prev-btn,
+	.left-stop .history-sldr__next-btn,
+	.right-stop .history-sldr__prev-btn,
+	.right-stop .history-sldr__next-btn
+		display: none
+
+	.history-sldr__holder.slider-track .history-sldr__item
+		float: none
+		transition: none
+
+	.history-sldr__item
+		display: block
+		overflow: visible
+		width: auto !important
+		height: auto
+		opacity: 1 !important
+		z-index: auto !important
+		font-size: inherit
+		line-height: inherit
+		letter-spacing: inherit
+		box-shadow: none
+		transition: none
+		margin: 0 0 $bottom-space-item
+
+	.history-sldr__item img
+		display: none
+		position: relative
+		left: auto
+		top: auto
+		bottom: auto
+		right: auto
+		transform: none
+		max-width: 100%
+		margin-bottom: $bottom-space
+
+	&.imageson
+		.history-sldr__item img
+			display: block
+
+	.history-sldr__year
+		display: block
+		margin-bottom: $bottom-space
+		font-size: $item-font-size
+		line-height: $item-line-height
+		font-weight: bold
+
+	.history-sldr__info
+		display: block
+		margin-bottom: $bottom-space
+
+	.history-info
+		display: none
+
+	// case
+	.case
+		padding: 0
+		margin: 0
+		max-width: none
+
+	.case__list
+		padding: 0
+
+		&::before, &::after
+			content: none
+
+		.slick-list
+			border: none
+			box-shadow: none
+			transition: none
+
+	.case__item
+		width: auto
+		float: none
+		margin: 0 0 $bottom-space-item
+
+	.case__photo-card
+		display: block
+		display: flex
+		height: auto !important
+		flex-direction: column
+		padding: 0
+		border: none
+		box-shadow: none
+		transition: none
+		background: none
+		opacity: 1
+		transform: none
+
+	.case__contacts-card
+		position: relative
+		left: auto
+		top: auto
+		width: auto
+		height: auto !important
+		border: none
+		padding: 0
+		box-shadow: none
+		opacity: 1
+		z-index: auto
+		background: none
+		transform: none
+		transition: none
+
+	.contacts-card__caption
+		height: auto !important
+		margin-bottom: $bottom-space
+
+	.photo-card__name, .photo-card__post,
+	.contacts-card__name, .contacts-card__post
+		height: auto !important
+		min-height: 0
+		padding: 0
+		margin-bottom: $bottom-space
+		font-size: inherit
+		line-height: inherit
+		color: inherit
+		letter-spacing: inherit
+
+		a
+			color: inherit
+			text-decoration: underline
+
+			&:hover
+				text-decoration: none
+
+	.photo-card__img
+		display: none
+		order: 2
+		text-align: inherit
+		height: auto !important
+		margin-bottom: $bottom-space
+
+	&.imageson .photo-card__img
+		display: block
+
+	.photo-card__name
+		order: 1
+		font-size: $item-font-size
+		line-height: $item-line-height
+
+	.photo-card__post
+		order: 3
+		font-weight: 500
+
+	.contacts-card__caption
+		display: none
+
+	.contacts-card__share,
+	.user-content .contacts-card__share,
+	.contacts-card__works,
+	.user-content .contacts-card__works
+		margin: 0 0 $bottom-space
+		min-height: 0
+		height: auto !important
+		font-size: inherit
+		line-height: inherit
+		letter-spacing: inherit
+
+		li
+			overflow: visible
+			margin-bottom: round-float($bottom-space/2, 1)
+
+	.contacts-card__share, .contacts-card__works
+		li
+			font-size: inherit
+			line-height: inherit
+			letter-spacing: inherit
+
+			& > span, & > div
+				display: block
+				display: inline
+				float: none
+				width: auto
+				color: inherit
+				font-size: inherit
+				line-height: inherit
+				letter-spacing: inherit
+
+	.photo-card__switcher, .contacts-card__switcher
+		display: none
+
+	// glance
+	.glance__slider
+		padding: 0
+
+	.glance__slide
+		margin-bottom: $bottom-space
+
+	.glance__box
+		visibility: visible
+		font-size: inherit
+		line-height: inherit
+		letter-spacing: inherit
+		color: inherit
+		background: none
+		margin-bottom: $bottom-space
+
+		&::before, &::after
+			content: none
+
+	.glance__spacer
+		display: none
+
+	.glance__box-center
+		width: auto
+		height: auto
+		position: relative
+		left: auto
+		top: auto
+		margin: 0
+		padding: 0
+
+	.glance__caption
+		float: none
+		width: auto !important
+		min-width: 0
+		padding: 0
+
+	.glance__count, .glance__unit, .glance__text
+		visibility: visible
+		font-family: inherit
+		font-size: inherit
+		line-height: inherit
+		letter-spacing: inherit
+		color: inherit
+		white-space: normal
+		text-align: inherit
+		text-transform: none
+		max-height: none
+		margin: 0
+		padding: 0
+
+		&::before, &::after
+			content: none
+
+	.glance__count, .glance__unit
+		display: inline
+		font-size: $item-font-size
+		line-height: $item-line-height
+
+	.glance__unit
+		font-style: italic
+
+	.main-contacts
+		height: auto
+		padding-top: 30px
+		padding-bottom: 30px
+		border-bottom: 2px solid currentColor
+
+	.main-map-holder
+		display: none
+		height: auto
+		margin-bottom: $bottom-space-item
+
+	&.imageson .main-map-holder
+		display: block
+
+	.main-map-frame
+		position: relative
+		left: auto
+		top: auto
+		width: auto
+		height: 460px
+		transform: none
+		transition: none
+
+	.contacts-panel
+		overflow: visible
+		position: relative
+		left: auto
+		right: auto
+		top: auto
+		width: auto
+		height: auto
+		padding: 0
+		background: none
+		transform: none
+		transition: none
+		box-shadow: none
+
+	.contacts-panel__holder
+		display: block
+		padding: 0
+
+	.contacts-panel__switcher,
+	.contact-panel__opener
+		display: none
+
+	.contacts-panel__box
+		&, &:first-child, &:first-child + .contacts-panel__box
+			float: none
+			width: auto
+			max-width: none
+			margin: 0 0 $bottom-space-item
+			padding: 0
+
+		&:last-child
+			margin-bottom: 0
+
+		h4
+			letter-spacing: inherit
+			font-size: $item-font-size
+			line-height: $item-line-height
+
+	.contacts-panel__list, .user-content .contacts-panel__list,
+	.contacts-panel__phones, .user-content .contacts-panel__phones
+		padding: 0
+		margin-bottom: $bottom-space
+		max-width: none
+		color: inherit
+
+		li
+			padding: 0
+			margin-bottom: round-float($bottom-space/2, 1)
+			font-size: inherit
+			line-height: inherit
+			letter-spacing: inherit
+
+			& > i
+				display: none
+
+	.cont-dt, .cont-dd
+		display: block
+		margin: 0
+		padding: 0
+		font-size: inherit
+		line-height: inherit
+		letter-spacing: inherit
+		color: inherit
+		height: auto
+		text-align: left
+		width: auto
+
+	.cont-dd
+		padding-left: 1.5em
+
+	.cont-numbers
+		position: relative
+		right: auto
+		left: auto
+		top: auto
+		bottom: auto
+		max-height: none
+		overflow: visible
+
+		&::before
+			content: none
+
+		& > div
+			& > span
+				transition: none
+				cursor: default
+				border: none
+
+			& ~ div
+				padding-top: 0
+				opacity: 1
+
+//.vspec .content-box__caption,
+//.vspec .columns-box__column
+//	border-color: currentColor
+//
+//.content-box__caption h2
+//	letter-spacing: inherit
+//
+//.vspec .years-slider,
+//.vspec .years-sldr__item
+//	border-color: currentColor
+//
+//.vspec .years-sldr__item > span
+//	color: inherit
+//
+//.vspec .years-sldr__item > span:hover,
+//.vspec .years-sldr__item.slide-current > span
+//	box-shadow: inset 0 0 0 1px currentColor, 0 0 0 1px currentColor
+//
+//.vspec .case__photo-card
+//	border-color: currentColor
+//
+//.vspec .case__photo-card:hover,
+//.vspec .case__contacts-card:hover
+//	border-color: currentColor
+//	box-shadow: inset 0 0 0 1px currentColor
+//
+//.vspec .contacts-card__caption:after
+//	border-color: currentColor
+//
+//.vspec .contacts-card__post,
+//.vspec .photo-card__post,
+//.vspec .photo-card__switcher > span:hover,
+//.vspec .photo-card__name a:hover
+//	color: inherit
+//
+//.vspec .glance
+//	border: 1px solid currentColor
+//
+//.vspec .glance__box
+//	background: none
+//	color: inherit
+//	border: 1px solid currentColor
+//
+//.vspec .glance__box:before,
+//.vspec .glance__box:after
+//	content: none
+//
+//.vspec .glance__unit:after
+//	border-color: currentColor
+//
+//.vspec .glance__count,
+//.vspec .glance__unit,
+//.vspec .glance__text
+//	color: inherit
+//
+//.vspec .main-contacts
+//	border-bottom: 2px solid currentColor
+//
+//.vspec .contacts-panel__switcher
+//	background-color: currentColor
+//
+//.vspec .contacts-panel__list,
+//.vspec .contacts-panel__phones
+//	color: inherit
+//
+/* about end
 
 .vspec .press-archive
 	border-color: currentColor
@@ -1470,48 +1959,6 @@ body.vspec .press-adt__list .press-adt__item:hover
 		line-height: $line-height--small
 		font-style: italic
 
-/* layout spaces
-.vspec
-	.content,
-	.window,
-	.wit-holder,
-	.promo-holder,
-	.footer-contacts,
-	.social-networks,
-	.footer-holder,
-	.site-map,
-	.press-archive,
-	.press-adt__item,
-	.category-links,
-	.questions,
-	.article-press
-		padding-left: 30px
-		padding-right: 30px
-
-		+media('<mob-lg')
-			padding-left: 20px
-			padding-right: 20px
-
-		+media('<mob-md')
-			padding-left: 15px
-			padding-right: 15px
-
-	.full-width
-		margin-left: -30px
-		margin-right: -30px
-
-		+media('<mob-lg')
-			margin-left: -20px
-			margin-right: -20px
-
-		+media('<mob-md')
-			margin-left: -15px
-			margin-right: -15px
-
-/* layout spaces end
-/*=========== SPECIAL end ===========
-
-/*=========== BLACK AND WHITE scheme ===========
 .vspec
 	//background-color: $main-bg-color
 	background-color: #fff
@@ -1634,62 +2081,72 @@ body.vspec .press-adt__list .press-adt__item:hover
 				&:before
 					top: auto
 
-.vspec input[type="text"],
-.vspec input[type="password"],
-.vspec input[type="email"],
-.vspec input[type="search"],
-.vspec textarea
-	font-family: inherit
-	box-shadow: none
-	height: 50px
-	font-size: $font-size
-	line-height: 30px
-	color: inherit
-	padding: 8px 15px
-	border: 2px solid #000
+.vspec
+	input[type="text"],
+	input[type="password"],
+	input[type="email"],
+	input[type="search"],
+	textarea
+		font-family: inherit
+		box-shadow: none
+		height: 50px
+		font-size: $font-size
+		line-height: 30px
+		color: inherit
+		padding: 8px 15px
+		border: 2px solid currentColor
+		transition: none
 
-.vspec input[type="text"].error,
-.vspec input[type="password"].error,
-.vspec input[type="email"].error,
-.vspec input[type="search"].error,
-.vspec textarea.error
-	border-color: #000
-	box-shadow: none
-	color: inherit
+		&.error
+			border-color: currentColor
+			box-shadow: none
+			color: inherit
 
-.vspec .btn-default,
-.vspec input[type="submit"],
-.vspec input[type="button"],
-.vspec input[type="reset"],
-.vspec button
-	font-family: inherit
-	border-color: #000
-	background-color: $spec-bg-color
-	-webkit-transition: none
-	transition: none
+		&:focus
+			box-shadow: none
 
-.vspec .btn-default:hover,
-.vspec input[type="submit"]:hover,
-.vspec input[type="button"]:hover,
-.vspec input[type="reset"]:hover,
-.vspec button
-	border-color: #000
-	background-color: #000
-	color: $spec-bg-color
+		+placeholder
+			color: currentColor
 
-.vspec input[type="text"]:focus,
-.vspec input[type="password"]:focus,
-.vspec input[type="email"]:focus,
-.vspec input[type="search"]:focus,
-.vspec textarea:focus
-	box-shadow: none
+.btn-default, input[type="submit"], input[type="button"], input[type="reset"], button
+	.vspec &
+		font-family: inherit
+		color: $spec-text-color
+		border-color: $spec-text-color
+		background-color: $spec-bg-color
+		transition: none
 
-.vspec .label-holder,
-.vspec label
-	color: inherit
-	font-size: inherit
-	line-height: inherit
-	letter-spacing: inherit
+		&:hover
+			border-color: $spec-text-color
+			background-color: $spec-text-color
+			color: $spec-bg-color
+
+	.vspec.schemecolor-white &
+		color: $spec-text-color--scheme-white
+		border-color: $spec-text-color--scheme-white
+		background-color: $spec-bg-color--scheme-white
+
+		&:hover
+			color: $spec-bg-color--scheme-white
+			border-color: $spec-text-color--scheme-white
+			background-color: $spec-text-color--scheme-white
+
+	.vspec.schemecolor-blue &
+		color: $spec-text-color--scheme-blue
+		border-color: $spec-text-color--scheme-blue
+		background-color: $spec-bg-color--scheme-blue
+
+		&:hover
+			color: $spec-bg-color--scheme-blue
+			border-color: $spec-text-color--scheme-blue
+			background-color: $spec-text-color--scheme-blue
+
+.vspec
+	.label-holder, label
+		color: inherit
+		font-size: inherit
+		line-height: inherit
+		letter-spacing: inherit
 
 .vspec .arrow,
 .vspec .slider-typography .slick-prev,
@@ -1728,7 +2185,561 @@ body.vspec .press-adt__list .press-adt__item:hover
 .vspec .img-group__item.video-preview a.img:hover
 	box-shadow: 0 0 0 4px #000
 
-/*=========== BLACK AND WHITE scheme end ===========
+/* faq
+.vspec
+	.faq
+		margin: 0
+
+	.faq-list
+		h3
+			font-size: $item-font-size
+			line-height: $item-line-height
+			font-weight: normal
+			border: none
+
+			&>span
+				border: none
+				text-decoration: underline
+				color: inherit
+
+			&>i
+				display: none
+
+			// hover
+			&:hover
+				&>span
+					text-decoration: none
+
+/* faq end
+
+/* gallery
+.vspec
+	.gallery-section
+		margin: 0
+
+	.gallery
+		padding: 0
+		margin-bottom: $bottom-space-item
+
+	.gallery__holder
+		box-shadow: none
+		padding: 0
+		color: inherit
+		background: none
+
+	.gallery__title
+		font-size: inherit
+		line-height: inherit
+		padding: 0
+		margin-bottom: $bottom-space
+
+	.gallery__title-text
+		color: inherit
+		border: none
+		font-size: $item-font-size
+		line-height: $item-line-height
+		text-decoration: underline
+		transition: none
+
+	.gallery__title-count
+		font-size: inherit
+		line-height: inherit
+		color: inherit
+
+	.gallery__title a:hover
+		.gallery__title-text, .gallery__title-count
+			text-decoration: none
+			color: inherit
+
+	.gallery__previews .slick-arrow,
+	.fancybox-custom-btn span
+		color: inherit
+		border-color: currentColor
+		transition: none
+		background-color: $spec-bg-color
+
+		&::before, &::after
+			content: ""
+			display: block
+			color: inherit
+			width: 20px
+			height: 4px
+			margin: 0
+			left: 50%
+			top: 50%
+			background: none
+			background-color: currentColor
+			opacity: 1 !important
+
+		&::before
+			transform: rotate(45deg)
+			margin: -7px 0 0 -8px
+
+		&::after
+			transform: rotate(-45deg)
+			margin: 4px 0 0 -8px
+
+	.gallery__previews .slick-prev
+		&::before
+			transform: rotate(-45deg)
+			margin: -7px 0 0 -10px
+
+		&::after
+			transform: rotate(45deg)
+			margin: 4px 0 0 -10px
+
+	&.schemecolor-white
+		.gallery__previews .slick-arrow,
+		.fancybox-custom-btn span
+			background-color: $spec-bg-color--scheme-white
+
+	&.schemecolor-blue
+		.gallery__previews .slick-arrow,
+		.fancybox-custom-btn span
+			background-color: $spec-bg-color--scheme-blue
+
+	&:not(.mobile-device)
+		.gallery__previews .slick-arrow,
+		.fancybox-custom-btn span
+			&:hover
+				background-color: $spec-text-color
+				color: $spec-bg-color
+
+	&.schemecolor-white:not(.mobile-device)
+		.gallery__previews .slick-arrow,
+		.fancybox-custom-btn span
+			&:hover
+				background-color: $spec-text-color--scheme-white
+				color: $spec-bg-color--scheme-white
+
+	&.schemecolor-blue:not(.mobile-device)
+		.gallery__previews .slick-arrow,
+		.fancybox-custom-btn span
+			&:hover
+				background-color: $spec-text-color--scheme-blue
+				color: $spec-bg-color--scheme-blue
+
+	&.schemecolor-blue
+		.fancybox-overlay
+			background-color: rgba($spec-text-color--scheme-blue, 0.9)
+
+/* gallery end
+
+/* works
+.vspec
+	.works__list
+		font-size: inherit
+		line-height: inherit
+		letter-spacing: inherit
+		margin: 0
+
+		.works__item
+			width: 100%
+			max-width: none
+			font-size: inherit
+			line-height: inherit
+			letter-spacing: inherit
+			padding: 0
+			margin-bottom: $bottom-space-item
+
+	.works__img
+		float: none
+		margin: 0 0 $bottom-space
+		display: none
+		width: 320px
+		max-width: 100%
+
+	&.imageson .works__img
+		display: block
+
+	.works__item-holder
+		border: none
+
+	.works__container
+		padding: 0
+
+	.works__title
+		font-size: $item-font-size
+		line-height: $item-line-height
+		font-weight: normal
+
+	.works__tabs-control, .user-content .works__tabs-control
+		padding: 0
+		margin-bottom: 0.5em
+		font-size: $font-size--small
+		line-height: $line-height--small
+		letter-spacing: inherit
+
+	.works__tabs-control
+		a
+			border: none
+			color: inherit
+			text-decoration: underline
+
+			&:hover
+				text-decoration: none
+				color: inherit
+
+		.active a
+			color: inherit
+
+		li
+			padding: 0
+			margin: 0 1.5em 0.5em 0
+
+	.works__text
+		font-size: inherit
+		line-height: inherit
+		letter-spacing: inherit
+		height: auto
+		margin-bottom: $bottom-space
+
+	.btn-more
+		font-size: inherit
+		line-height: inherit
+		letter-spacing: inherit
+		border-color: currentColor
+		color: inherit
+
+		&:hover
+			color: $spec-bg-color
+			background-color: $spec-text-color
+			border-color: $spec-text-color
+
+		& > i
+			display: none
+
+	&.schemecolor-white
+		.btn-more:hover
+			color: $spec-bg-color--scheme-white
+			background-color: $spec-text-color--scheme-white
+			border-color: $spec-text-color--scheme-white
+
+	&.schemecolor-blue
+		.btn-more:hover
+			color: $spec-bg-color--scheme-blue
+			background-color: $spec-text-color--scheme-blue
+			border-color: $spec-text-color--scheme-blue
+
+
+/* works end
+
+/* contacts
+.vspec
+	.contacts__biz
+		display: none
+
+	.contacts__address
+		padding: 0
+		margin: 0
+
+	.tab-item-wrap
+		height: auto !important
+
+	.tab-item
+		position: relative !important
+		width: auto !important
+		left: auto !important
+		top: auto !important
+		opacity: 1 !important
+		margin-bottom: $bottom-space-item
+
+	.contacts-adr
+		background: none
+		font-size: inherit
+		line-height: inherit
+		letter-spacing: inherit
+		padding: 0
+
+	.contacts-adr__title
+		display: block
+		font-size: $item-font-size
+		line-height: $item-line-height
+		letter-spacing: inherit
+		color: inherit
+		padding: 0
+		margin-bottom: $bottom-space
+		font-weight: normal
+
+	.contacts-adr__item
+		overflow: visible
+		width: auto
+		font-size: inherit
+		line-height: inherit
+		letter-spacing: inherit
+		display: block
+		padding: 0
+		margin-bottom: $bottom-space
+		opacity: 1
+		transition: none
+
+		&::before
+			display: none
+
+	.contacts-adr__icon
+		display: none
+
+	.contacts-adr__content
+		max-width: none
+		overflow: visible
+
+	.contacts-adr__dd, .user-content .contacts-adr__dd
+		line-height: inherit
+		padding: 0
+		margin-bottom: $bottom-space
+
+		li
+			padding: 0
+			margin-bottom: round-float($bottom-space/2, 1)
+
+		.dt
+			float: none
+			width: auto
+			max-width: none
+
+	.contacts-adr__row_mark
+		color: inherit
+
+	.contacts-map
+		display: none
+
+	&.imageson .contacts-map
+		display: block
+		margin-bottom: $bottom-space-item
+
+	.contacts-share-container
+		display: none
+
+	.contacts-phones-container
+		background: none
+		padding: 0
+		margin-bottom: $bottom-space-section
+
+	.contacts-phones
+		padding: 0
+		margin-bottom: $bottom-space-item
+		max-width: none
+
+	.cph__row
+		display: block
+		display: flex
+		flex-direction: column
+		margin-bottom: $bottom-space-item
+
+	.cph__dt
+		display: block
+		order: 2
+		width: auto
+		height: auto
+		font-size: inherit
+		line-height: inherit
+		font-weight: normal
+		letter-spacing: inherit
+		color: inherit
+		padding: 0
+
+	.cph__dd
+		order: 1
+		padding: 0
+		font-size: $item-font-size
+		line-height: $item-line-height
+		font-weight: normal
+		margin-bottom: $bottom-space
+
+	.cph__numbers
+		position: relative
+		visibility: visible
+		max-height: none
+		top: auto
+		left: auto
+
+		&::before
+			content: none
+
+	.cph__number
+		&, &:first-child ~ .cph__number
+			padding: 0
+			opacity: 1
+
+		& > span > em
+			color: inherit
+			font-weight: 500
+
+	.cph__number_opener
+		&::after
+			content: none
+
+		& > span
+			border: none
+			cursor: default
+
+	.callback-container
+		padding: 0
+		margin-bottom: $bottom-space-item
+
+		h2
+			letter-spacing: inherit
+			font-weight: bold
+			text-transform: uppercase
+
+	.note
+		font-size: $font-size--small
+		line-height: $line-height--small
+		color: inherit
+		letter-spacing: inherit
+		padding: 0
+		margin-bottom: $bottom-space
+
+	.parents-container
+		h2
+			letter-spacing: inherit
+			font-weight: bold
+			text-transform: uppercase
+
+	.parents
+		border: none
+		display: block
+		width: auto
+
+	.parents__item
+		border: none
+		display: block
+		text-align: left
+		margin-bottom: $bottom-space
+
+		& > a
+			display: inline
+			padding: 0
+			border: none
+			box-shadow: none
+			text-decoration: underline
+
+			&::before
+				content: none
+
+			&:hover
+				text-decoration: none
+
+	.parents__icon
+		position: relative
+		left: auto
+		top: auto
+		height: 80px
+		width: auto
+		text-align: left
+		display: none
+		margin: 0 0 $bottom-space
+
+	&.imageson .parents__icon
+		display: block
+
+	.parents__title
+		max-width: none
+		font-size: $item-font-size
+		line-height: $item-line-height
+		letter-spacing: normal
+		color: inherit
+
+		br
+			display: none
+
+/* contacts end
+
+/* page 404
+.vspec
+	&.page-404
+		.wrapper
+			background: none
+
+	.error-404
+		padding: 0
+		text-align: left
+
+		& > h1
+			text-transform: uppercase
+
+	.error-404__note
+		font-size: inherit
+		line-height: inherit
+		color: inherit
+		letter-spacing: inherit
+		padding: 0
+		margin-bottom: $bottom-space
+
+	.error-404__img
+		overflow: visible
+		max-width: none
+		text-indent: 0
+		font-size: $title-font-size
+		line-height: $title-line-height
+		text-transform: uppercase
+		text-align: inherit
+		background: none
+		margin: 0 0 $bottom-space
+
+		&::before
+			content: none
+
+	.error-404__list,
+	.user-content .error-404__list
+		font-size: $item-font-size
+		line-height: $item-line-height
+		padding: 0
+		margin-bottom: $bottom-space
+
+		li
+			display: block
+			padding: 0
+			margin-bottom: round-float($bottom-space/2, 1)
+
+			&::before
+				content: none
+
+		a
+			color: inherit
+
+/* page 404 end
+
+/* layout spaces
+.vspec
+	.content,
+	.window,
+	.wit-holder,
+	.promo-holder,
+	.footer-contacts,
+	.social-networks,
+	.footer-holder,
+	.site-map,
+	.press-archive,
+	.press-adt__item,
+	.category-links,
+	.questions,
+	.main-contacts,
+	.article-press
+		padding-left: 30px
+		padding-right: 30px
+
+		+media('<mob-lg')
+			padding-left: 20px
+			padding-right: 20px
+
+		+media('<mob-md')
+			padding-left: 15px
+			padding-right: 15px
+
+	.class
+		margin-left: -30px
+		margin-right: -30px
+
+		+media('<mob-lg')
+			margin-left: -20px
+			margin-right: -20px
+
+		+media('<mob-md')
+			margin-left: -15px
+			margin-right: -15px
+
+/* layout spaces end
 
 /*=========== BLACK AND WHITE images ===========
 .vspec .phs__btn.phs__item_opener .phs__number:after,
@@ -1749,7 +2760,6 @@ body.vspec .press-adt__list .press-adt__item:hover
 .vspec .press-adt__icon > i,
 .vspec .someclass,
 .vspec .someclass
-	-webkit-filter: grayscale(1) contrast(3) invert(1)
 	filter: grayscale(1) contrast(3) invert(1)
 
 .vspec.schemecolor-white .phs__btn.phs__item_opener .phs__number:after,
@@ -1769,14 +2779,11 @@ body.vspec .press-adt__list .press-adt__item:hover
 .vspec.schemecolor-white .press-adt__icon > i,
 .vspec.schemecolor-white .someclass,
 .vspec.schemecolor-white .someclass
-	-webkit-filter: grayscale(1) contrast(3) invert(0)
 	filter: grayscale(1) contrast(3) invert(0)
 
-.vspec .back-to-top > i,
 .vspec .contacts-panel__list li [class*="depict-"],
 .vspec .someclass,
 .vspec .someclass
-	-webkit-filter: grayscale(1) contrast(5)
 	filter: grayscale(1) contrast(5)
 
 .vspec img,
@@ -1784,25 +2791,21 @@ body.vspec .press-adt__list .press-adt__item:hover
 .vspec .file,
 .vspec .someclass,
 .vspec .someclass
-	-webkit-filter: grayscale(1) contrast(1) invert(0)
 	filter: grayscale(1) contrast(1) invert(0)
 
-.vspec.schemecolor-white img,
 .vspec.schemecolor-white .history-sldr__item.slide-current img,
 .vspec.schemecolor-white .file,
 .vspec.schemecolor-white .someclass,
 .vspec.schemecolor-white .someclass
-	-webkit-filter: grayscale(1) contrast(1) invert(1)
 	filter: grayscale(1) contrast(1) invert(1)
 
 .vspec .depict-icons-arrow-prev-n,
 .vspec .depict-icons-arrow-next-n
-	-webkit-filter: grayscale(1) contrast(10) invert(1)
 	filter: grayscale(1) contrast(10) invert(1)
 
 @media (max-width: 767px)
 	.vspec .nav__list .depict-icons-angle-btm
-		-webkit-filter: grayscale(1) contrast(3) invert(1)
 		filter: grayscale(1) contrast(3) invert(1)
 
 /*=========== BLACK AND WHITE images end ===========
+/*=========== SPECIAL end ===========
