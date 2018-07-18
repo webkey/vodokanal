@@ -69,6 +69,10 @@ body.vspec::before {
 	}
 }
 
+.vspec .max-wrap {
+	margin: 0;
+}
+
 .vspec .content {
 	padding-top: 30px;
 	padding-bottom: 30px;

@@ -1,14 +1,17 @@
 $(document).on('ready', function () {
+	if(!$('.spec-panel-js').length) {
+		return false;
+	}
+
 	var $body = $('body'),
 		cssId = '#special-css-link',
-		$specialCssLink = $(cssId),
 		path = cssPath || 'css/',
 		cookies = {
 			'specVersionOn': 'special-version',
 			'specVersionMods': 'special-mods'
 		},
 		elem = {
-			'btnCheck': '.sv-btn-check-js', // if check modifier
+			'btnRadio': '.sv-btn-radio-js', // if check modifier
 			'btnGroup': '.vbtn-group-js'
 		},
 		mod = {
@@ -91,9 +94,10 @@ $(document).on('ready', function () {
 	 * !add special modifiers class
 	 * */
 	var cookieMods = getCookie(cookies.specVersionMods);
+	// console.log("cookieMods (after document ready): ", cookieMods);
 	if (cookieMods) {
 		$body.addClass(cookieMods.replace(/, /g, ' '));
-		$(elem.btnCheck).removeClass(mod.btnActive);
+		$(elem.btnRadio).removeClass(mod.btnActive);
 
 		var cookieModsArr = cookieMods.split(', ');
 		for(var i = 0; i < cookieModsArr.length; i++){
@@ -135,27 +139,21 @@ $(document).on('ready', function () {
 
 	// size
 
-	$body.on('click', elem.btnCheck, function (e) {
+	$body.on('click', elem.btnRadio, function (e) {
 		e.preventDefault();
 		var $curBtn = $(this);
 
-		if(!$curBtn.hasClass(mod.btnActive)) {
+		if(!$curBtn.hasClass(mod.btnActive) || $curBtn.attr('data-toggle') !== undefined) {
 			var $curGroup = $curBtn.closest(elem.btnGroup),
 				modsArr = [],
 				_curMod = $curBtn.attr('data-mod');
 
-			// create mods array
-			$.each($curGroup.find(elem.btnCheck), function (i, el) {
+			// create modifiers class array
+			$.each($curGroup.find(elem.btnRadio), function (i, el) {
 				modsArr.push($(el).attr('data-mod'));
 			});
 
-			// toggle active class on buttons
-			$curGroup.find(elem.btnCheck).removeClass(mod.btnActive);
-			$curBtn.addClass(mod.btnActive);
-
-			// toggle modifiers class on a body
-			$body.removeClass(modsArr.join(' '));
-			$body.addClass(_curMod);
+			// console.log("modsArr: ", modsArr);
 
 			// toggle a cookies
 			// for(var i = 0; i < modsArr.length; i++){
@@ -163,28 +161,49 @@ $(document).on('ready', function () {
 			// }
 			// setCookieMod(_curMod, 'true');
 
+			// console.log("$curBtn.attr('data-toggle'): ", $curBtn.attr('data-toggle') !== undefined);
+
 			var curCookieMods = getCookie(cookies.specVersionMods);
 			// console.log("getCookie(cookies.specVersionOn): ", curCookieMods);
-			var curCookieModsArr = curCookieMods ? curCookieMods.split(', ') : [];
-			// var newModsArr = [];
-			// console.log("curCookieModsArr: ", curCookieModsArr);
-			for(var i = 0; i < modsArr.length; i++){
+			var newCookieModsArr = curCookieMods ? curCookieMods.split(', ') : [];
+			// console.log("newCookieModsArr (before change): ", newCookieModsArr);
+
+			for (var i = 0; i < modsArr.length; i++) {
 				// console.log("modsArr[i]: ", modsArr[i]);
-				for(var j = 0; j < curCookieModsArr.length; j++){
-					// console.log("curCookieModsArr[j]: ", curCookieModsArr[j]);
-					if(modsArr[i] === curCookieModsArr[j]) {
-						// console.log("curCookieModsArr[j]: ", curCookieModsArr[j]);
-						// newModsArr.push(curCookieModsArr[j]);
+				for (var j = 0; j < newCookieModsArr.length; j++) {
+					// console.log("newCookieModsArr[j]: ", newCookieModsArr[j]);
+					if (modsArr[i] === newCookieModsArr[j]) {
+						// console.log("newCookieModsArr[j]: ", newCookieModsArr[j]);
+						// newModsArr.push(newCookieModsArr[j]);
 						// break outer;
 						// console.log("j: ", j);
-						curCookieModsArr.splice(j, 1);
+						newCookieModsArr.splice(j, 1);
 					}
 				}
 			}
-			curCookieModsArr.push(_curMod);
-			// console.log("curCookieModsArr: ", curCookieModsArr);
-			setCookieMod(cookies.specVersionMods, curCookieModsArr.join(', '));
+
+			if(!$curBtn.hasClass(mod.btnActive)) {
+				newCookieModsArr.push(_curMod);
+
+				// remove active class from buttons
+				$curGroup.find(elem.btnRadio).removeClass(mod.btnActive);
+				// add active class on current button
+				$curBtn.addClass(mod.btnActive);
+
+				// remove modifier classes from a body
+				$body.removeClass(modsArr.join(' '));
+				// add active class on a body
+				$body.addClass(_curMod);
+			} else if($curBtn.attr('data-toggle') !== undefined) {
+				// remove active class from current button
+				$curBtn.removeClass(mod.btnActive);
+				// remove active class from a body
+				$body.removeClass(_curMod);
+			}
+
+			// console.log("newCookieModsArr (after change): ", newCookieModsArr);
+			setCookieMod(cookies.specVersionMods, newCookieModsArr.join(', '));
 		}
 	});
-
+	// setCookieMod(cookies.specVersionMods, []);
 });

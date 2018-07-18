@@ -4,6 +4,10 @@
 @import utils/mixins
 @import utils/placeholders
 
+// variables
+$displace: -1px
+// variables end
+
 .spec-panel
 	display: none
 	position: fixed
@@ -149,16 +153,16 @@
 .vspec-btn:hover,
 .spec-panel .sv-btn:not(.active):hover,
 .spec-panel .vnorm-btn:hover
-	-webkit-transform: translate(-1px, -1px)
-	-ms-transform: translate(-1px, -1px)
-	transform: translate(-1px, -1px)
+	-webkit-transform: translate($displace, $displace)
+	-ms-transform: translate($displace, $displace)
+	transform: translate($displace, $displace)
 
 .vspec-btn:focus,
 .spec-panel .sv-btn:not(.active):focus,
 .spec-panel .vnorm-btn:focus
-	-webkit-transform: translate(-1px, -1px)
-	-ms-transform: translate(-1px, -1px)
-	transform: translate(-1px, -1px)
+	-webkit-transform: translate($displace, $displace)
+	-ms-transform: translate($displace, $displace)
+	transform: translate($displace, $displace)
 
 .vspec-btn:active,
 .spec-panel .vnorm-btn:active,
