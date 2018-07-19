@@ -47,7 +47,7 @@ $displace: 1px
 		display: block
 
 	&:hover,
-	.mobile-device &
+	.touchevents &
 		overflow-y: auto
 
 		+media('<mob-md')
@@ -125,15 +125,26 @@ $displace: 1px
 
 // button enable special version
 .sv-btn-on
+	$size: 42px
+
 	position: fixed
 	left: 10px
 	top: 10px
-	$size: 42px
 	width: $size
 	height: $size
 	font-size: 16px
 	z-index: 9998
 	background-color: wheat
+
+	.header &
+		$size: 60px
+		float: right
+		position: relative
+		left: auto
+		top: auto
+		width: $size
+		height: $size
+		box-shadow: none
 
 	.vspec &
 		display: none
@@ -157,9 +168,17 @@ $displace: 1px
 		transform: translate(-$displace, -$displace)
 		box-shadow: 3px 3px 3px rgba(black, 0.3)
 
+		.header &
+			box-shadow: none
+			transform: none
+
 	&, &:active
 		transform: translate(0, 0)
 		box-shadow: 2px 2px 2px rgba(black, 0.2)
+
+		.header &
+			box-shadow: none
+			transform: none
 
 .spec-panel .sv-btn
 	$size: 42px

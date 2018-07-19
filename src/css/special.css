@@ -99,6 +99,15 @@ body.vspec::before {
 	margin-top: 0 !important;
 }
 
+.vspec .header-options__aside {
+	width: 60px;
+	margin-left: -60px;
+}
+
+.vspec .phs__container {
+	margin-right: 60px;
+}
+
 .vspec path,
 .vspec polygon {
 	fill: currentColor !important;
@@ -506,7 +515,7 @@ body.vspec::before {
 
 @media (max-width: 359px) {
 	.vspec .logo {
-		width: 140px;
+		width: 180px;
 	}
 }
 

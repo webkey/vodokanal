@@ -1271,9 +1271,11 @@ html.position .footer{
 
 /*header options aside*/
 .header-options__aside{
-	width: 260px;
+	/*width: 260px;*/
+	width: 120px;
 	float: right;
-	margin: 0 0 0 -260px;
+	/*margin: 0 0 0 -260px;*/
+	margin: 0 0 0 -120px;
 	position: relative;
 }
 .header-options__aside:before,
@@ -1538,6 +1540,7 @@ html.position .footer{
 .login{
 	float: right;
 	width: 200px;
+	display: none;
 }
 .login a{
 	display: block;
@@ -1619,7 +1622,9 @@ html.position .footer{
 	color: #fff;
 }
 .phs__container{
-	margin-right: 260px;
+	/*margin-right: 260px;*/
+	/*margin-right: 60px;*/
+	margin-right: 120px;
 	height: 100%;
 	position: relative;
 }
