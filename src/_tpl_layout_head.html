@@ -44,7 +44,7 @@
 <div class="spec-panel spec-panel-js">
 	<div class="spec-panel_h">
 		@@include("_tpl_spacial--tools-btn.html", {
-			"classes": "vnorm-btn special-version-toggle-js active",
+			"classes": "sv-btn sv-btn-off special-version-toggle-js",
 			"mod": "",
 			"icon": "includes/svg/icon-special.svg",
 			"text": "Обычная версия"
@@ -58,7 +58,8 @@
 				"text": "Маленкий размер шрифта"
 			})
 			@@include("_tpl_spacial--tools-btn.html", {
-				"classes": "sv-btn sv-btn-size--md sv-btn-radio-js active",
+				"classes": "sv-btn sv-btn-size--md sv-btn-radio-js",
+				"active": "true",
 				"mod": "fontsize-normal",
 				"icon": "includes/svg/icon-text-size.svg",
 				"text": "Средний размер шрифта"
@@ -73,7 +74,8 @@
 		<hr>
 		<div class="sv-btn-group vbtn-group-js">
 			@@include("_tpl_spacial--tools-btn.html", {
-				"classes": "sv-btn vcolor-btn-black sv-btn-radio-js active",
+				"classes": "sv-btn vcolor-btn-black sv-btn-radio-js",
+				"active": "true",
 				"mod": "schemecolor-black",
 				"icon": "includes/svg/icon-scheme-color.svg",
 				"text": "Черным по белому"
@@ -94,7 +96,8 @@
 		<hr>
 		<div class="sv-btn-group vbtn-group-js">
 			@@include("_tpl_spacial--tools-btn.html", {
-				"classes": "sv-btn sv-spacing-btn--small sv-btn-radio-js active",
+				"classes": "sv-btn sv-spacing-btn--small sv-btn-radio-js",
+				"active": "true",
 				"mod": "spacing-normal",
 				"icon": "",
 				"text": "Стандартный интервал"
@@ -115,7 +118,7 @@
 		<hr>
 		<div class="sv-btn-group vbtn-group-js">
 			@@include("_tpl_spacial--tools-btn.html", {
-				"classes": "sv-btn vimg-btn sv-btn-radio-js",
+				"classes": "sv-btn sv-btn-img sv-btn-radio-js",
 				"mod": "imageson",
 				"icon": "includes/svg/icon-images.svg",
 				"text": "Изображения",
@@ -127,7 +130,7 @@
 	</div>
 </div>
 @@include("_tpl_spacial--tools-btn.html", {
-	"classes": "vspec-btn special-version-toggle-js",
+	"classes": "sv-btn-on special-version-toggle-js",
 	"mod": "",
 	"icon": "includes/svg/icon-special.svg",
 	"text": "Версия для слабовидящих"

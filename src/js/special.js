@@ -125,20 +125,6 @@ $(document).on('ready', function () {
 	/**
 	 * !change settings
 	 * */
-	$body.on('click', '.vimg-btn-js', function (e) {
-		e.preventDefault();
-		var $curBtn = $(this);
-		$curBtn.toggleClass(mod.btnActive);
-		if($curBtn.hasClass(mod.btnActive)) {
-			$curBtn.attr('title', $curBtn.attr('data-title-on'));
-		} else {
-			$curBtn.attr('title', $curBtn.attr('data-title-off'));
-		}
-		$body.toggleClass(mod.imagesOn);
-	});
-
-	// size
-
 	$body.on('click', elem.btnRadio, function (e) {
 		e.preventDefault();
 		var $curBtn = $(this);
@@ -182,21 +168,24 @@ $(document).on('ready', function () {
 				}
 			}
 
-			if(!$curBtn.hasClass(mod.btnActive)) {
+			if (!$curBtn.hasClass(mod.btnActive)) {
 				newCookieModsArr.push(_curMod);
 
 				// remove active class from buttons
-				$curGroup.find(elem.btnRadio).removeClass(mod.btnActive);
+				$curGroup.find(elem.btnRadio).removeClass(mod.btnActive).attr('tabindex', '');
 				// add active class on current button
 				$curBtn.addClass(mod.btnActive);
+				if ($curBtn.attr('data-toggle') === undefined){
+					$curBtn.attr('tabindex', '-1');
+				}
 
 				// remove modifier classes from a body
 				$body.removeClass(modsArr.join(' '));
 				// add active class on a body
 				$body.addClass(_curMod);
-			} else if($curBtn.attr('data-toggle') !== undefined) {
+			} else if ($curBtn.attr('data-toggle') !== undefined) {
 				// remove active class from current button
-				$curBtn.removeClass(mod.btnActive);
+				$curBtn.removeClass(mod.btnActive).attr('tabindex', '');
 				// remove active class from a body
 				$body.removeClass(_curMod);
 			}
@@ -206,4 +195,8 @@ $(document).on('ready', function () {
 		}
 	});
 	// setCookieMod(cookies.specVersionMods, []);
+
+	$body.on('mouseup', elem.btnRadio, function () {
+		$(this).blur();
+	})
 });

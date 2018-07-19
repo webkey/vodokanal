@@ -141,123 +141,27 @@
 	}
 }
 
-.vspec-btn,
-.spec-panel .sv-btn,
-.spec-panel .vnorm-btn {
+.sv-btn-on {
+	position: fixed;
+	left: 10px;
+	top: 10px;
 	width: 42px;
 	height: 42px;
-	position: relative;
-	overflow: hidden;
 	font-size: 16px;
-	line-height: 1;
-	letter-spacing: normal;
-	text-decoration: none;
-	border-radius: 2px;
-	border: 1px solid #000;
-	box-sizing: border-box;
+	z-index: 9998;
+	background-color: wheat;
 }
 
-@media (max-width: 479px) {
-	.vspec-btn,
-	.spec-panel .sv-btn,
-	.spec-panel .vnorm-btn {
-		width: 36px;
-		height: 36px;
-	}
+.vspec .sv-btn-on {
+	display: none;
 }
 
-.schemecolor-white .vspec-btn, .schemecolor-white
-.spec-panel .sv-btn, .schemecolor-white
-.spec-panel .vnorm-btn {
-	border-color: #fff;
-}
-
-.schemecolor-blue .vspec-btn, .schemecolor-blue
-.spec-panel .sv-btn, .schemecolor-blue
-.spec-panel .vnorm-btn {
-	border-color: #004c92;
-}
-
-.vspec-btn:hover,
-.spec-panel .sv-btn:not(.active):hover,
-.spec-panel .vnorm-btn:hover {
-	-ms-transform: translate(-1px, -1px);
-	transform: translate(-1px, -1px);
-}
-
-.vspec-btn:focus,
-.spec-panel .sv-btn:not(.active):focus,
-.spec-panel .vnorm-btn:focus {
-	-ms-transform: translate(-1px, -1px);
-	transform: translate(-1px, -1px);
-}
-
-.vspec-btn:active,
-.spec-panel .vnorm-btn:active,
-.spec-panel .sv-btn:active,
-.spec-panel .vspec .vnorm-btn:active {
-	-ms-transform: translate(0, 0);
-	transform: translate(0, 0);
-}
-
-.vspec-btn.active,
-.spec-panel .vnorm-btn.active,
-.spec-panel .sv-btn.active,
-.spec-panel .vspec .vnorm-btn.active {
-	box-shadow: 0 0 0 2px #fff, 0 0 0 6px #000;
-}
-
-@media (max-width: 479px) {
-	.vspec-btn.active,
-	.spec-panel .vnorm-btn.active,
-	.spec-panel .sv-btn.active,
-	.spec-panel .vspec .vnorm-btn.active {
-		box-shadow: 0 0 0 2px #fff, 0 0 0 4px #000;
-	}
-}
-
-.schemecolor-white .vspec-btn.active, .schemecolor-white
-.spec-panel .vnorm-btn.active, .schemecolor-white
-.spec-panel .sv-btn.active, .schemecolor-white
-.spec-panel .vspec .vnorm-btn.active {
-	box-shadow: 0 0 0 2px #000, 0 0 0 6px #fff;
-}
-
-@media (max-width: 479px) {
-	.schemecolor-white .vspec-btn.active, .schemecolor-white
-	.spec-panel .vnorm-btn.active, .schemecolor-white
-	.spec-panel .sv-btn.active, .schemecolor-white
-	.spec-panel .vspec .vnorm-btn.active {
-		box-shadow: 0 0 0 2px #000, 0 0 0 4px #fff;
-	}
-}
-
-.schemecolor-blue .vspec-btn.active, .schemecolor-blue
-.spec-panel .vnorm-btn.active, .schemecolor-blue
-.spec-panel .sv-btn.active, .schemecolor-blue
-.spec-panel .vspec .vnorm-btn.active {
-	box-shadow: 0 0 0 2px #c8e5ff, 0 0 0 6px #004c92;
-}
-
-@media (max-width: 479px) {
-	.schemecolor-blue .vspec-btn.active, .schemecolor-blue
-	.spec-panel .vnorm-btn.active, .schemecolor-blue
-	.spec-panel .sv-btn.active, .schemecolor-blue
-	.spec-panel .vspec .vnorm-btn.active {
-		box-shadow: 0 0 0 2px #c8e5ff, 0 0 0 4px #004c92;
-	}
-}
-
-.vspec-btn span,
-.spec-panel .sv-btn span,
-.spec-panel .vnorm-btn span {
+.sv-btn-on span {
 	font-size: 0;
 	line-height: 0;
 }
 
-.vspec-btn svg,
-.spec-panel .sv-btn svg,
-.spec-panel .vnorm-btn svg {
+.sv-btn-on svg {
 	display: block;
 	position: absolute;
 	left: 50%;
@@ -267,43 +171,191 @@
 	box-sizing: border-box;
 }
 
-.vspec-btn path,
-.spec-panel .sv-btn path,
-.spec-panel .vnorm-btn path {
+.sv-btn-on path {
 	fill: currentColor;
 }
 
-.spec-panel .vnorm-btn {
-	display: none;
+.sv-btn-on:hover, .sv-btn-on:focus {
+	-ms-transform: translate(-1px, -1px);
+	    transform: translate(-1px, -1px);
+	box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
 }
 
-.vspec .spec-panel .vnorm-btn {
-	display: block;
-}
-
-@media (max-width: 479px) {
-	.vspec .spec-panel .vnorm-btn {
-		display: inline-block;
-	}
-}
-
-.vspec-btn {
-	position: fixed;
-	left: 10px;
-	top: 10px;
-	z-index: 9998;
-	background-color: wheat;
-	border: none;
+.sv-btn-on, .sv-btn-on:active {
+	-ms-transform: translate(0, 0);
+	    transform: translate(0, 0);
 	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
 }
 
-.vspec .vspec-btn {
+.spec-panel .sv-btn {
+	width: 42px;
+	height: 42px;
+	position: relative;
+	font-size: 16px;
+	line-height: 1;
+	letter-spacing: normal;
+	text-decoration: none;
+	border-radius: 1px;
+	border: 1px solid #000;
+	box-sizing: border-box;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
+	-webkit-user-select: none !important;
+	   -moz-user-select: none !important;
+	    -ms-user-select: none !important;
+	        user-select: none !important;
+}
+
+@media (max-width: 479px) {
+	.spec-panel .sv-btn {
+		width: 36px;
+		height: 36px;
+	}
+}
+
+.schemecolor-white .spec-panel .sv-btn {
+	border-color: #fff;
+}
+
+.schemecolor-blue .spec-panel .sv-btn {
+	border-color: #004c92;
+}
+
+.spec-panel .sv-btn::after {
+	content: "";
+	display: none;
+	position: absolute;
+	top: 50%;
+	right: -22px;
+	height: 24px;
+	width: 24px;
+	margin-top: -12px;
+	width: 0;
+	height: 0;
+	z-index: 2;
+	border-right: 14px solid currentColor;
+	border-bottom: 12px solid transparent;
+	border-top: 12px solid transparent;
+}
+
+@media (max-width: 479px) {
+	.spec-panel .sv-btn::after {
+		border: none;
+		width: 0;
+		height: 0;
+		z-index: 2;
+		border-bottom: 14px solid currentColor;
+		border-left: 12px solid transparent;
+		border-right: 12px solid transparent;
+		top: auto;
+		right: auto;
+		left: 50%;
+		bottom: -20px;
+		margin: 0 0 0 -12px;
+	}
+}
+
+.spec-panel .sv-btn:hover, .spec-panel .sv-btn:focus,
+.spec-panel .sv-btn[data-toggle]:hover,
+.spec-panel .sv-btn[data-toggle]:focus,
+.spec-panel .sv-btn.active[data-toggle]:hover,
+.spec-panel .sv-btn.active[data-toggle]:focus {
+	box-shadow: 0 0 0 2px #fff, 0 0 0 5px #000;
+}
+
+.schemecolor-white .spec-panel .sv-btn:hover, .schemecolor-white .spec-panel .sv-btn:focus, .schemecolor-white
+.spec-panel .sv-btn[data-toggle]:hover, .schemecolor-white
+.spec-panel .sv-btn[data-toggle]:focus, .schemecolor-white
+.spec-panel .sv-btn.active[data-toggle]:hover, .schemecolor-white
+.spec-panel .sv-btn.active[data-toggle]:focus {
+	box-shadow: 0 0 0 2px #000, 0 0 0 5px #fff;
+}
+
+.schemecolor-blue .spec-panel .sv-btn:hover, .schemecolor-blue .spec-panel .sv-btn:focus, .schemecolor-blue
+.spec-panel .sv-btn[data-toggle]:hover, .schemecolor-blue
+.spec-panel .sv-btn[data-toggle]:focus, .schemecolor-blue
+.spec-panel .sv-btn.active[data-toggle]:hover, .schemecolor-blue
+.spec-panel .sv-btn.active[data-toggle]:focus {
+	box-shadow: 0 0 0 2px #c8e5ff, 0 0 0 5px #004c92;
+}
+
+.spec-panel .sv-btn.active, .spec-panel .sv-btn.active:hover, .spec-panel .sv-btn.active:focus {
+	cursor: default;
+	box-shadow: none;
+	border-width: 4px;
+}
+
+.spec-panel .sv-btn.active::after {
+	display: block;
+}
+
+.spec-panel .sv-btn.active[data-toggle], .spec-panel .sv-btn.active[data-toggle]:hover, .spec-panel .sv-btn.active[data-toggle]:focus {
+	cursor: pointer;
+}
+
+.spec-panel .sv-btn span {
+	font-size: 0;
+	line-height: 0;
+}
+
+.spec-panel .sv-btn svg {
+	display: block;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	-ms-transform: translate(-50%, -50%);
+	    transform: translate(-50%, -50%);
+	box-sizing: border-box;
+}
+
+@media (max-width: 479px) {
+	.spec-panel .sv-btn svg {
+		-ms-transform: translate(-50%, -50%) scale(0.85);
+		    transform: translate(-50%, -50%) scale(0.85);
+	}
+}
+
+.spec-panel .sv-btn path {
+	fill: currentColor;
+}
+
+.spec-panel .sv-btn-off {
 	display: none;
 }
 
-/* vsize-btn */
-.spec-panel .vsize.active {
-	cursor: default;
+.vspec .spec-panel .sv-btn-off {
+	display: block;
+}
+
+.vspec .spec-panel .sv-btn-off::before {
+	content: "";
+	display: block;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 40px;
+	height: 3px;
+	margin: -1px 0 0 -20px;
+	border: none;
+	background-color: currentColor;
+	-ms-transform: rotate(-0.1turn);
+	    transform: rotate(-0.1turn);
+}
+
+@media (max-width: 479px) {
+	.vspec .spec-panel .sv-btn-off::before {
+		width: 34px;
+		margin: -1px 0 0 -17px;
+	}
+}
+
+.vspec .spec-panel .sv-btn-off::after {
+	content: none;
+}
+
+@media (max-width: 479px) {
+	.vspec .spec-panel .sv-btn-off {
+		display: inline-block;
+	}
 }
 
 /* special version color */
@@ -334,6 +386,13 @@
 
 .spec-panel .sv-spacing-btn--small .icon, .spec-panel .sv-spacing-btn--medium .icon, .spec-panel .sv-spacing-btn--large .icon {
 	margin: -8px 0 0 -1px;
+}
+
+@media (max-width: 479px) {
+	.spec-panel .sv-spacing-btn--small .icon, .spec-panel .sv-spacing-btn--medium .icon, .spec-panel .sv-spacing-btn--large .icon {
+		-ms-transform: scale(0.85);
+		    transform: scale(0.85);
+	}
 }
 
 .spec-panel .sv-spacing-btn--small .icon::before, .spec-panel .sv-spacing-btn--small .icon::after, .spec-panel .sv-spacing-btn--medium .icon::before, .spec-panel .sv-spacing-btn--medium .icon::after, .spec-panel .sv-spacing-btn--large .icon::before, .spec-panel .sv-spacing-btn--large .icon::after {

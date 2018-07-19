@@ -5,7 +5,7 @@
 @import utils/placeholders
 
 // variables
-$displace: -1px
+$displace: 1px
 // variables end
 
 .spec-panel
@@ -123,21 +123,62 @@ $displace: -1px
 		height: 56px
 		width: 100%
 
-.vspec-btn,
-.spec-panel .sv-btn,
-.spec-panel .vnorm-btn
+// button enable special version
+.sv-btn-on
+	position: fixed
+	left: 10px
+	top: 10px
 	$size: 42px
 	width: $size
 	height: $size
+	font-size: 16px
+	z-index: 9998
+	background-color: wheat
+
+	.vspec &
+		display: none
+
+	span
+		font-size: 0
+		line-height: 0
+
+	svg
+		display: block
+		position: absolute
+		left: 50%
+		top: 50%
+		transform: translate(-50%, -50%)
+		box-sizing: border-box
+
+	path
+		fill: currentColor
+
+	&:hover, &:focus
+		transform: translate(-$displace, -$displace)
+		box-shadow: 3px 3px 3px rgba(black, 0.3)
+
+	&, &:active
+		transform: translate(0, 0)
+		box-shadow: 2px 2px 2px rgba(black, 0.2)
+
+.spec-panel .sv-btn
+	$size: 42px
+	$arr: 24px
+
+	width: $size
+	height: $size
 	position: relative
-	overflow: hidden
 	font-size: 16px
 	line-height: 1
 	letter-spacing: normal
 	text-decoration: none
-	border-radius: 2px
+	border-radius: 1px
+	//border: 3px solid
+	//border-color: rgba($spec-text-color, 0.2) rgba($spec-text-color, 0.6) $spec-text-color rgba($spec-text-color, 0.4)
 	border: 1px solid $spec-text-color
 	box-sizing: border-box
+	-webkit-tap-highlight-color: rgba(0,0,0,0) !important
+	user-select: none !important
 
 	+media('<mob-md')
 		$size: 36px
@@ -150,98 +191,132 @@ $displace: -1px
 	.schemecolor-blue &
 		border-color: $spec-text-color--scheme-blue
 
-.vspec-btn:hover,
-.spec-panel .sv-btn:not(.active):hover,
-.spec-panel .vnorm-btn:hover
-	-webkit-transform: translate($displace, $displace)
-	-ms-transform: translate($displace, $displace)
-	transform: translate($displace, $displace)
-
-.vspec-btn:focus,
-.spec-panel .sv-btn:not(.active):focus,
-.spec-panel .vnorm-btn:focus
-	-webkit-transform: translate($displace, $displace)
-	-ms-transform: translate($displace, $displace)
-	transform: translate($displace, $displace)
-
-.vspec-btn:active,
-.spec-panel .vnorm-btn:active,
-.spec-panel .sv-btn:active,
-.spec-panel .vspec .vnorm-btn:active
-	-webkit-transform: translate(0, 0)
-	-ms-transform: translate(0, 0)
-	transform: translate(0, 0)
-
-.vspec-btn.active,
-.spec-panel .vnorm-btn.active,
-.spec-panel .sv-btn.active,
-.spec-panel .vspec .vnorm-btn.active
-	$w1: 0 0 0 2px
-	$w2: 0 0 0 6px
-	$w1--sm: 0 0 0 2px
-	$w2--sm: 0 0 0 4px
-	box-shadow: $w1 $spec-bg-color, $w2 $spec-text-color
-
-	+media('<mob-md')
-		box-shadow: $w1--sm $spec-bg-color, $w2--sm $spec-text-color
-
-	.schemecolor-white &
-		box-shadow: $w1 $spec-bg-color--scheme-white, $w2 $spec-text-color--scheme-white
+	&::after
+		content: ""
+		display: none
+		position: absolute
+		top: 50%
+		right: -22px
+		height: $arr
+		width: $arr
+		margin-top: -#{round($arr/2)}
+		+triangle("left", currentColor, round($arr/2), 1.2)
 
 		+media('<mob-md')
-			box-shadow: $w1--sm $spec-bg-color--scheme-white, $w2--sm $spec-text-color--scheme-white
+			border: none
+			+triangle("top", currentColor, round($arr/2), 1.2)
+			top: auto
+			right: auto
+			left: 50%
+			bottom: -20px
+			margin: 0 0 0 -#{round($arr/2)}
 
-	.schemecolor-blue &
-		box-shadow: $w1 $spec-bg-color--scheme-blue, $w2 $spec-text-color--scheme-blue
+.spec-panel
+	.sv-btn,
+	.sv-btn[data-toggle],
+	.sv-btn.active[data-toggle]
+		$w1: 0 0 0 2px
+		$w2: 0 0 0 5px
+		$w1--sm: 0 0 0 2px
+		$w2--sm: 0 0 0 4px
 
-		+media('<mob-md')
-			box-shadow: $w1--sm $spec-bg-color--scheme-blue, $w2--sm $spec-text-color--scheme-blue
+		&:hover, &:focus
+			//transform: translate(-$displace, -$displace)
+			box-shadow: $w1 $spec-bg-color, $w2 $spec-text-color
 
-.vspec-btn span,
-.spec-panel .sv-btn span,
-.spec-panel .vnorm-btn span
-	font-size: 0
-	line-height: 0
+			.schemecolor-white &
+				box-shadow: $w1 $spec-bg-color--scheme-white, $w2 $spec-text-color--scheme-white
 
-.vspec-btn svg,
-.spec-panel .sv-btn svg,
-.spec-panel .vnorm-btn svg
-	display: block
-	position: absolute
-	left: 50%
-	top: 50%
-	transform: translate(-50%, -50%)
-	box-sizing: border-box
+			.schemecolor-blue &
+				box-shadow: $w1 $spec-bg-color--scheme-blue, $w2 $spec-text-color--scheme-blue
 
-.vspec-btn path,
-.spec-panel .sv-btn path,
-.spec-panel .vnorm-btn path
-	fill: currentColor
+	.sv-btn.active
+		&, &:hover, &:focus
+			cursor: default
+			box-shadow: none
+			border-width: 4px
 
-.spec-panel .vnorm-btn
+			//transform: translate(0, 0)
+			//$w1: 0 0 0 4px
+			//$w2: 0 0 0 10px
+			//$w1--sm: 0 0 0 2px
+			//$w2--sm: 0 0 0 4px
+
+			//cursor: default
+			//transform: translate(0, 0)
+			//border-color: currentColor
+			//border-width: 1px
+			//box-shadow: $w1 $spec-bg-color, $w2 $spec-text-color
+			//
+			//+media('<mob-md')
+			//	box-shadow: $w1--sm $spec-bg-color, $w2--sm $spec-text-color
+			//
+			//.schemecolor-white &
+			//	box-shadow: $w1 $spec-bg-color--scheme-white, $w2 $spec-text-color--scheme-white
+			//
+			//	+media('<mob-md')
+			//		box-shadow: $w1--sm $spec-bg-color--scheme-white, $w2--sm $spec-text-color--scheme-white
+			//
+			//.schemecolor-blue &
+			//	box-shadow: $w1 $spec-bg-color--scheme-blue, $w2 $spec-text-color--scheme-blue
+			//
+			//	+media('<mob-md')
+			//		box-shadow: $w1--sm $spec-bg-color--scheme-blue, $w2--sm $spec-text-color--scheme-blue
+
+		&::after
+			display: block
+
+	.sv-btn.active[data-toggle]
+		&, &:hover, &:focus
+			cursor: pointer
+
+	.sv-btn
+		span
+			font-size: 0
+			line-height: 0
+
+		svg
+			display: block
+			position: absolute
+			left: 50%
+			top: 50%
+			transform: translate(-50%, -50%)
+			box-sizing: border-box
+
+			+media('<mob-md')
+				transform: translate(-50%, -50%) scale(0.85)
+
+		path
+			fill: currentColor
+
+.spec-panel .sv-btn-off
 	display: none
 
-.vspec .spec-panel .vnorm-btn
+.vspec .spec-panel .sv-btn-off
 	display: block
+
+	&::before
+		content: ""
+		display: block
+		position: absolute
+		left: 50%
+		top: 50%
+		width: 40px
+		height: 3px
+		margin: -1px 0 0 -20px
+		border: none
+		background-color: currentColor
+		transform: rotate(-0.1turn)
+
+		+media('<mob-md')
+			width: 34px
+			margin: -1px 0 0 -17px
+
+	&::after
+		content: none
 
 	+media('<mob-md')
 		display: inline-block
-
-.vspec-btn
-	position: fixed
-	left: 10px
-	top: 10px
-	z-index: 9998
-	background-color: wheat
-	border: none
-	box-shadow: 2px 2px 2px rgba(black, 0.2)
-
-.vspec .vspec-btn
-	display: none
-
-/* vsize-btn
-.spec-panel .vsize.active
-	cursor: default
 
 /* special version color
 .spec-panel .vcolor-btn-black
@@ -273,6 +348,9 @@ $icon-spacing--space: 3px // h
 
 			&
 				margin: -#{round(nth($icon-spacing--size, 1)/2)} 0 0 -#{round(nth($icon-spacing--size, 2)/2)}
+
+				+media('<mob-md')
+					transform: scale(0.85)
 
 			&::before, &::after
 				content: ""
