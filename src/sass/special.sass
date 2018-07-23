@@ -88,11 +88,11 @@ body.vspec::before
 	.footer
 		margin-top: 0 !important
 
-	.header-options__aside
+	//.header-options__aside
 		width: 60px
 		margin-left: -60px
 
-	.phs__container
+	//.phs__container
 		margin-right: 60px
 
 .vspec path,
@@ -361,86 +361,136 @@ body.vspec::before
 .vspec .header-options__holder
 	border-bottom: 2px solid currentColor
 
-.vspec .logo
-	box-shadow: none
-	border: 0 solid currentColor
-	border-width: 0 2px 2px 2px
-	box-sizing: border-box
-	height: 202px
+// logo
+.vspec
+	.logo
+		box-shadow: none
+		border: 0 solid currentColor
+		border-width: 0 2px 2px 2px
+		box-sizing: border-box
+		height: 202px
 
-.vspec.schemecolor-white .logo > a::before,
-.vspec.schemecolor-white .logo > span::before
-	-webkit-filter: grayscale(1) contrast(3) invert(0)
-	filter: grayscale(1) contrast(3) invert(0)
+		//.schemecolor-white .logo > a::before,
+		//.schemecolor-white .logo > span::before
+			-webkit-filter: grayscale(1) contrast(3) invert(0)
+			filter: grayscale(1) contrast(3) invert(0)
 
-.vspec.schemecolor-blue .logo > a::before,
-.vspec.schemecolor-blue .logo > span::before
-	-webkit-filter: grayscale(1) contrast(1) invert(1)
-	filter: grayscale(1) contrast(1) invert(1)
+		//.schemecolor-blue .logo > a::before,
+		//.schemecolor-blue .logo > span::before
+			-webkit-filter: grayscale(1) contrast(1) invert(1)
+			filter: grayscale(1) contrast(1) invert(1)
 
-.vspec.main-page .logo
-	height: 174px
+		+media('<tab-sm')
+			height: 80px
+			border: none
 
-//.vspec.inner-page .logo
-	border-width: 0 2px 2px 2px
+		+media('<359px')
+			width: 180px
 
-@media (max-width: 979px)
-	.vspec.inner-page .logo
-		height: 80px
-		border: none
+		& > a, & > span
+			font-size: 7px // нужно для свг-спрайта
 
-@media (max-width: 767px)
-	.vspec .logo
-		height: 80px
-		border: none
-	.vspec.main-page .logo
-		height: 80px
+			&::before
+				display: block
+				opacity: 1
+				left: 50%
+				top: 50%
+				transform: translate(-50%, -50%)
 
-.logo-reduce .vspec .logo
-	height: 200px
+				width: 22.694375em
+				height: 18.430125em
+				background:
+					color: transparent
+					image: url(../img/logo.svg)
+					size: 36.7361875em 150em
+					repeat: no-repeat
+					position: -1.25em -1.25em
 
-.vspec .logo > a:before,
-.vspec .logo > span:before,
-.vspec .logo > a:after,
-.vspec .logo > span:after
-	background-color: transparent
+				//+media('<tab-lg')
+					background-size: 130px auto
 
-.vspec .logo > a:before,
-.vspec .logo > span:before
-	opacity: 1
-	background-image: url(../img/logo.png)
+				//+media('<mob-lg')
+					background-position: $space-mob 50%
 
-.vspec.inner-page .logo > a:after,
-.vspec.inner-page .logo > span:after
-	opacity: 0
+			&::after
+				display: none
 
-.vspec .logo > a:after,
-.vspec .logo > span:after
-	-webkit-background-size: contain
-	background-size: contain
-	width: calc(100% - 20px)
-	left: 10px
+	// for home page
+	&.main-page .logo
+		height: 174px
 
-@media (max-width: 767px)
-	.vspec .logo > a:before,
-	.vspec .logo > span:before
-		opacity: 0
-	.vspec .logo > a:after,
-	.vspec .logo > span:after
-		opacity: 1
+		+media('<tab-sm')
+			height: 80px
 
-@media (max-width: 979px)
-	.vspec.inner-page .logo > a:before,
-	.vspec.inner-page .logo > span:before
-		opacity: 0
-	.vspec.inner-page .logo > a:after,
-	.vspec.inner-page .logo > span:after
-		opacity: 1
+			& > a, & > span
+				font-size: 5px
 
-@media (max-width: 359px)
-	.vspec .logo
-		width: 180px
+				&::before
+					background-size: 36.036188em 151.8em
+					background-position: -1.25em -105.9375em
+					width: 34.2361875em
+					height: 6.5186875em
 
+	// for inner page
+	&.inner-page .logo
+		+media('<tab-lg')
+			height: 80px
+			border: none
+
+			& > a, & > span
+				font-size: 5px
+
+				&::before
+					background-size: 36.036188em 151.8em
+					background-position: -1.25em -105.9375em
+					width: 34.2361875em
+					height: 6.5186875em
+
+	&.schemecolor-white
+		.logo
+			& > a, & > span
+				&::before
+					background-position: -1.25em -85em
+
+		&.main-page .logo
+			+media('<tab-sm')
+				& > a, & > span
+					&::before
+						background-position: -1.25em -141.7875em
+						width: 34.2361875em
+						height: 6.5186875em
+
+		&.inner-page .logo
+			+media('<tab-lg')
+				& > a, & > span
+					&::before
+						background-position: -1.25em -141.7875em
+						width: 34.2361875em
+						height: 6.5186875em
+
+	&.schemecolor-blue
+		.logo
+			& > a, & > span
+				&::before
+					background-position: -1.25em -22.1875em
+
+		&.main-page .logo
+			+media('<tab-sm')
+				& > a, & > span
+					&::before
+						background-position: -1.25em -115em
+						width: 34.2361875em
+						height: 6.5186875em
+
+		&.inner-page .logo
+			+media('<tab-lg')
+				& > a, & > span
+					&::before
+						background-position: -1.25em -115em
+						width: 34.2361875em
+						height: 6.5186875em
+
+// questions-slider
 .vspec .questions-slider
 	height: auto
 
@@ -510,6 +560,23 @@ body.vspec::before
 .vspec .phs__list > .phs__item > .phs__btn,
 .vspec .phones-clone > .phs-clone__btn
 	border: 2px solid transparent
+
+.vspec
+	.phs__btn, .phs-clone__btn
+		+media('<mob-lg')
+			padding-left: $space-sm
+
+		+media('<mob-md')
+			padding-left: $space-mob
+
+	.phones-drop .phs__btn
+		+media('<mob-lg')
+			padding-left: $space-sm
+			padding-right: $space-sm
+
+		+media('<mob-md')
+			padding-left: $space-mob
+			padding-right: $space-mob
 
 .vspec .phs__container > .phs__list > .phs__item:hover > .phs__btn,
 .vspec .phs__container > .phs__list > .phs__item.show-drop > .phs__btn,
@@ -685,9 +752,17 @@ body.vspec::before
 	.vspec .nav-main-page .nav__list > li
 		border-top: 1px solid #000
 
-.vspec .nav-main-page .nav-drop__list > li > a
-	background-color: $spec-bg-color
-	color: inherit
+
+.nav-main-page .nav-drop__list > li > a
+	.vspec &
+		background-color: $spec-bg-color
+		color: inherit
+
+	.schemecolor-white &
+		background-color: $spec-bg-color--scheme-white
+
+	.schemecolor-blue &
+		background-color: $spec-bg-color--scheme-blue
 
 .vspec .nav-main-page .nav-drop__list > li > a:hover
 	text-decoration: underline
@@ -721,7 +796,7 @@ body.vspec::before
 
 @media (min-width: 768px)
 	.vspec .nav-cloned > .nav-cloned__btn
-		background-color: $spec-bg-color
+		background: none
 		color: inherit
 
 @media (min-width: 980px)
@@ -2726,28 +2801,28 @@ body.vspec .press-adt__list .press-adt__item:hover
 	.questions,
 	.main-contacts,
 	.article-press
-		padding-left: 30px
-		padding-right: 30px
+		padding-left: $space
+		padding-right: $space
 
 		+media('<mob-lg')
-			padding-left: 20px
-			padding-right: 20px
+			padding-left: $space-sm
+			padding-right: $space-sm
 
 		+media('<mob-md')
-			padding-left: 15px
-			padding-right: 15px
+			padding-left: $space-mob
+			padding-right: $space-mob
 
 	.class
-		margin-left: -30px
-		margin-right: -30px
+		margin-left: -$space
+		margin-right: -$space
 
 		+media('<mob-lg')
-			margin-left: -20px
-			margin-right: -20px
+			margin-left: -$space-sm
+			margin-right: -$space-sm
 
 		+media('<mob-md')
-			margin-left: -15px
-			margin-right: -15px
+			margin-left: -$space-mob
+			margin-right: -$space-mob
 
 /* layout spaces end
 
@@ -2762,10 +2837,6 @@ body.vspec .press-adt__list .press-adt__item:hover
 .vspec .category-links__icon,
 .vspec .tel__services a:after,
 .vspec .depict-icons-pin-w,
-.vspec .logo > a:before,
-.vspec .logo > span:before,
-.vspec .logo > a:after,
-.vspec .logo > span:after,
 .vspec .depict-icons-angle-btm,
 .vspec .press-adt__icon > i,
 .vspec .someclass,
@@ -2781,10 +2852,6 @@ body.vspec .press-adt__list .press-adt__item:hover
 .vspec.schemecolor-white .depict-icons-magnifier,
 .vspec.schemecolor-white .tel__services a:after,
 .vspec.schemecolor-white .depict-icons-pin-w,
-.vspec.schemecolor-white .logo > a:before,
-.vspec.schemecolor-white .logo > span:before,
-.vspec.schemecolor-white .logo > a:after,
-.vspec.schemecolor-white .logo > span:after,
 .vspec.schemecolor-white .depict-icons-angle-btm,
 .vspec.schemecolor-white .press-adt__icon > i,
 .vspec.schemecolor-white .someclass,

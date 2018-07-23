@@ -99,15 +99,6 @@ body.vspec::before {
 	margin-top: 0 !important;
 }
 
-.vspec .header-options__aside {
-	width: 60px;
-	margin-left: -60px;
-}
-
-.vspec .phs__container {
-	margin-right: 60px;
-}
-
 .vspec path,
 .vspec polygon {
 	fill: currentColor !important;
@@ -429,20 +420,60 @@ body.vspec::before {
 	height: 202px;
 }
 
-.vspec.schemecolor-white .logo > a::before,
-.vspec.schemecolor-white .logo > span::before {
-	-webkit-filter: grayscale(1) contrast(3) invert(0);
-	filter: grayscale(1) contrast(3) invert(0);
+@media (max-width: 767px) {
+	.vspec .logo {
+		height: 80px;
+		border: none;
+	}
 }
 
-.vspec.schemecolor-blue .logo > a::before,
-.vspec.schemecolor-blue .logo > span::before {
-	-webkit-filter: grayscale(1) contrast(1) invert(1);
-	filter: grayscale(1) contrast(1) invert(1);
+@media (max-width: 358px) {
+	.vspec .logo {
+		width: 180px;
+	}
+}
+
+.vspec .logo > a, .vspec .logo > span {
+	font-size: 7px;
+}
+
+.vspec .logo > a::before, .vspec .logo > span::before {
+	display: block;
+	opacity: 1;
+	left: 50%;
+	top: 50%;
+	-ms-transform: translate(-50%, -50%);
+	    transform: translate(-50%, -50%);
+	width: 22.694375em;
+	height: 18.430125em;
+	background-color: transparent;
+	background-image: url(../img/logo.svg);
+	background-size: 36.7361875em 150em;
+	background-repeat: no-repeat;
+	background-position: -1.25em -1.25em;
+}
+
+.vspec .logo > a::after, .vspec .logo > span::after {
+	display: none;
 }
 
 .vspec.main-page .logo {
 	height: 174px;
+}
+
+@media (max-width: 767px) {
+	.vspec.main-page .logo {
+		height: 80px;
+	}
+	.vspec.main-page .logo > a, .vspec.main-page .logo > span {
+		font-size: 5px;
+	}
+	.vspec.main-page .logo > a::before, .vspec.main-page .logo > span::before {
+		background-size: 36.036188em 151.8em;
+		background-position: -1.25em -105.9375em;
+		width: 34.2361875em;
+		height: 6.5186875em;
+	}
 }
 
 @media (max-width: 979px) {
@@ -450,72 +481,54 @@ body.vspec::before {
 		height: 80px;
 		border: none;
 	}
+	.vspec.inner-page .logo > a, .vspec.inner-page .logo > span {
+		font-size: 5px;
+	}
+	.vspec.inner-page .logo > a::before, .vspec.inner-page .logo > span::before {
+		background-size: 36.036188em 151.8em;
+		background-position: -1.25em -105.9375em;
+		width: 34.2361875em;
+		height: 6.5186875em;
+	}
+}
+
+.vspec.schemecolor-white .logo > a::before, .vspec.schemecolor-white .logo > span::before {
+	background-position: -1.25em -85em;
 }
 
 @media (max-width: 767px) {
-	.vspec .logo {
-		height: 80px;
-		border: none;
-	}
-	.vspec.main-page .logo {
-		height: 80px;
-	}
-}
-
-.logo-reduce .vspec .logo {
-	height: 200px;
-}
-
-.vspec .logo > a:before,
-.vspec .logo > span:before,
-.vspec .logo > a:after,
-.vspec .logo > span:after {
-	background-color: transparent;
-}
-
-.vspec .logo > a:before,
-.vspec .logo > span:before {
-	opacity: 1;
-	background-image: url(../img/logo.png);
-}
-
-.vspec.inner-page .logo > a:after,
-.vspec.inner-page .logo > span:after {
-	opacity: 0;
-}
-
-.vspec .logo > a:after,
-.vspec .logo > span:after {
-	background-size: contain;
-	width: calc(100% - 20px);
-	left: 10px;
-}
-
-@media (max-width: 767px) {
-	.vspec .logo > a:before,
-	.vspec .logo > span:before {
-		opacity: 0;
-	}
-	.vspec .logo > a:after,
-	.vspec .logo > span:after {
-		opacity: 1;
+	.vspec.schemecolor-white.main-page .logo > a::before, .vspec.schemecolor-white.main-page .logo > span::before {
+		background-position: -1.25em -141.7875em;
+		width: 34.2361875em;
+		height: 6.5186875em;
 	}
 }
 
 @media (max-width: 979px) {
-	.vspec.inner-page .logo > a:before,
-	.vspec.inner-page .logo > span:before {
-		opacity: 0;
-	}
-	.vspec.inner-page .logo > a:after,
-	.vspec.inner-page .logo > span:after {
-		opacity: 1;
+	.vspec.schemecolor-white.inner-page .logo > a::before, .vspec.schemecolor-white.inner-page .logo > span::before {
+		background-position: -1.25em -141.7875em;
+		width: 34.2361875em;
+		height: 6.5186875em;
 	}
 }
 
-@media (max-width: 359px) {
-	.vspec .logo {
-		width: 180px;
+.vspec.schemecolor-blue .logo > a::before, .vspec.schemecolor-blue .logo > span::before {
+	background-position: -1.25em -22.1875em;
+}
+
+@media (max-width: 767px) {
+	.vspec.schemecolor-blue.main-page .logo > a::before, .vspec.schemecolor-blue.main-page .logo > span::before {
+		background-position: -1.25em -115em;
+		width: 34.2361875em;
+		height: 6.5186875em;
+	}
+}
+
+@media (max-width: 979px) {
+	.vspec.schemecolor-blue.inner-page .logo > a::before, .vspec.schemecolor-blue.inner-page .logo > span::before {
+		background-position: -1.25em -115em;
+		width: 34.2361875em;
+		height: 6.5186875em;
 	}
 }
 
@@ -603,6 +616,32 @@ body.vspec::before {
 .vspec .phs__list > .phs__item > .phs__btn,
 .vspec .phones-clone > .phs-clone__btn {
 	border: 2px solid transparent;
+}
+
+@media (max-width: 639px) {
+	.vspec .phs__btn, .vspec .phs-clone__btn {
+		padding-left: 20px;
+	}
+}
+
+@media (max-width: 479px) {
+	.vspec .phs__btn, .vspec .phs-clone__btn {
+		padding-left: 15px;
+	}
+}
+
+@media (max-width: 639px) {
+	.vspec .phones-drop .phs__btn {
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+}
+
+@media (max-width: 479px) {
+	.vspec .phones-drop .phs__btn {
+		padding-left: 15px;
+		padding-right: 15px;
+	}
 }
 
 .vspec .phs__container > .phs__list > .phs__item:hover > .phs__btn,
@@ -800,6 +839,14 @@ body.vspec::before {
 	color: inherit;
 }
 
+.schemecolor-white .nav-main-page .nav-drop__list > li > a {
+	background-color: #000;
+}
+
+.schemecolor-blue .nav-main-page .nav-drop__list > li > a {
+	background-color: #c8e5ff;
+}
+
 .vspec .nav-main-page .nav-drop__list > li > a:hover {
 	text-decoration: underline;
 }
@@ -839,7 +886,7 @@ body.vspec::before {
 
 @media (min-width: 768px) {
 	.vspec .nav-cloned > .nav-cloned__btn {
-		background-color: #fff;
+		background: none;
 		color: inherit;
 	}
 }
@@ -3187,10 +3234,6 @@ body.vspec .press-adt__list .press-adt__item:hover {
 .vspec .category-links__icon,
 .vspec .tel__services a:after,
 .vspec .depict-icons-pin-w,
-.vspec .logo > a:before,
-.vspec .logo > span:before,
-.vspec .logo > a:after,
-.vspec .logo > span:after,
 .vspec .depict-icons-angle-btm,
 .vspec .press-adt__icon > i,
 .vspec .someclass,
@@ -3208,10 +3251,6 @@ body.vspec .press-adt__list .press-adt__item:hover {
 .vspec.schemecolor-white .depict-icons-magnifier,
 .vspec.schemecolor-white .tel__services a:after,
 .vspec.schemecolor-white .depict-icons-pin-w,
-.vspec.schemecolor-white .logo > a:before,
-.vspec.schemecolor-white .logo > span:before,
-.vspec.schemecolor-white .logo > a:after,
-.vspec.schemecolor-white .logo > span:after,
 .vspec.schemecolor-white .depict-icons-angle-btm,
 .vspec.schemecolor-white .press-adt__icon > i,
 .vspec.schemecolor-white .someclass,

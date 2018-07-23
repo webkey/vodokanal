@@ -26,12 +26,22 @@ var gulp = require('gulp'), // Подключаем Gulp
 	stripCssComments = require('gulp-strip-css-comments'), // Удалить комментарии (css)
 	removeEmptyLines = require('gulp-remove-empty-lines'), // Удалить пустые строки
 	revts = require('gulp-rev-timestamp'), // Дабавить версии к подключаемым файлам
-	beautify = require('gulp-beautify') // Причесать js
-	;
+	beautify = require('gulp-beautify'), // Причесать js
+	svgSprite = require("gulp-svg-sprites") // Сгенерировать svg-спрайт
+;
 
 var path = {
 	'dist': '1'
 };
+
+gulp.task('sprites', function () {
+	return gulp.src('src/img/logo/*.svg')
+		.pipe(svgSprite({
+			baseSize: 16,
+			padding: 20
+		}))
+		.pipe(gulp.dest("src/img/logo/sprite"));
+});
 
 gulp.task('htmlCompilation', function () { // Таск формирования ДОМ страниц
 	return gulp.src(['src/__*.html'])

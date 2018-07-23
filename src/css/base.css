@@ -148,7 +148,6 @@
 	width: 42px;
 	height: 42px;
 	font-size: 16px;
-	z-index: 9998;
 	background-color: wheat;
 }
 
@@ -160,10 +159,6 @@
 	width: 60px;
 	height: 60px;
 	box-shadow: none;
-}
-
-.vspec .sv-btn-on {
-	display: none;
 }
 
 .sv-btn-on span {
@@ -207,6 +202,32 @@
 	box-shadow: none;
 	-ms-transform: none;
 	    transform: none;
+}
+
+.vspec .sv-btn-on {
+	background: none;
+}
+
+.vspec .sv-btn-on::before {
+	content: "";
+	display: block;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 40px;
+	height: 3px;
+	margin: -1px 0 0 -20px;
+	border: none;
+	background-color: currentColor;
+	-ms-transform: rotate(-0.1turn);
+	    transform: rotate(-0.1turn);
+}
+
+@media (max-width: 479px) {
+	.vspec .sv-btn-on::before {
+		width: 34px;
+		margin: -1px 0 0 -17px;
+	}
 }
 
 .spec-panel .sv-btn {

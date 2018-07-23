@@ -38,6 +38,7 @@
     "modernizr": "^3.3.1"
   },
   "dependencies": {
+    "gulp-svg-sprites": "^4.1.2",
     "object-fit-images": "^3.2.3"
   }
 }
