@@ -7418,3 +7418,8 @@ body:not(.mobile-device) .back-to-top:hover>span{
 	transition-delay: 0.2s;
 }
 /*back to top end*/
+
+.nav-cloned:hover .nav-cloned__drop{
+	top: 100%;
+	opacity: 1;
+}

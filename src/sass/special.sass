@@ -4,6 +4,7 @@
 @import utils/mixins
 @import utils/placeholders
 
+@import "special-reset"
 /*=========== SPECIAL ===========
 .hide-page
 	display: none !important
@@ -167,6 +168,190 @@ body.vspec::before
 
 	&.imageson .img-group
 		display: block
+
+.vspec table td, .vspec table th
+	color: currentColor
+	border-color: currentColor
+	font-size: inherit
+	line-height: inherit
+
+.vspec table caption
+	font-size: $font-size--small
+	line-height: $line-height--small
+	color: inherit
+	font-style: italic
+
+.vspec hr
+	border-bottom-color: currentColor
+
+.vspec .mark
+	color: $spec-bg-color
+	background-color: currentColor
+
+.vspec a,
+.vspec .dark-text,
+.vspec .dark-text-light,
+.vspec .text-color-alt
+	color: currentColor
+	-webkit-transition: none
+	transition: none
+
+.user-content ul > li
+	&::before
+		.vspec &
+			background-color: currentColor
+			top: 1.9em
+
+		.vspec.fontsize-large &
+			top: 1.5em
+
+	&:first-child::before
+		.vspec &
+			top: 0.8em
+
+.user-content ul ul li
+	&::before
+		.vspec &
+			top: 2em
+
+		.vspec.fontsize-large &
+			top: 1.5em
+
+.vspec .user-content ol > li::before
+	color: currentColor
+
+.vspec .user-content .tbl td,
+.vspec .user-content .tbl th,
+.vspec .user-content .tbl th,
+.vspec .user-content .tbl thead td,
+.vspec .user-content .tbl tfoot td
+	color: currentColor
+	background-color: $spec-bg-color
+	border: 1px solid currentColor
+	font-size: inherit
+	line-height: inherit
+
+.vspec .user-content blockquote
+	border: 2px solid currentColor
+	background-color: transparent
+
+.vspec .user-content blockquote q,
+.vspec .user-content blockquote cite
+	font-size: inherit
+	line-height: inherit
+	font-family: inherit
+	color: currentColor
+
+.vspec .user-content blockquote q::before,
+.vspec .user-content blockquote q::after
+	background-image: none
+
+.vspec .user-content .pref
+	font-size: inherit
+	line-height: inherit
+	font-family: inherit
+	color: currentColor
+
+.vspec .input-wrap
+	font-size: $font-size
+	line-height: $line-height
+	letter-spacing: $letter-spacing
+
+.vspec
+	.breadcrumbs
+		letter-spacing: inherit
+		font-size: $font-size--small
+		line-height: $line-height--small
+		color: currentColor
+		padding: 0
+		margin-bottom: $bottom-space-item
+
+	.breadcrumbs, .user-content .breadcrumbs
+		li
+			float: none
+			display: inline
+			padding: 0
+			margin: 0 0.3em 0 0
+
+			&:before
+				position: relative
+				left: auto
+				top: auto
+				background: none
+				margin-right: 0.5em
+
+	&.fontsize-large
+		.breadcrumbs, .user-content .breadcrumbs
+			li
+				&:before
+					top: auto
+
+.vspec
+	input[type="text"],
+	input[type="password"],
+	input[type="email"],
+	input[type="search"],
+	textarea
+		font-family: inherit
+		box-shadow: none
+		height: 50px
+		font-size: $font-size
+		line-height: 30px
+		color: inherit
+		padding: 8px 15px
+		border: 2px solid currentColor
+		transition: none
+
+		&.error
+			border-color: currentColor
+			box-shadow: none
+			color: inherit
+
+		&:focus
+			box-shadow: none
+
+		+placeholder
+			color: currentColor
+
+.btn-default, input[type="submit"], input[type="button"], input[type="reset"], button
+	.vspec &
+		font-family: inherit
+		color: $spec-text-color
+		border-color: $spec-text-color
+		background-color: $spec-bg-color
+		transition: none
+
+		&:hover
+			border-color: $spec-text-color
+			background-color: $spec-text-color
+			color: $spec-bg-color
+
+	.vspec.schemecolor-white &
+		color: $spec-text-color--scheme-white
+		border-color: $spec-text-color--scheme-white
+		background-color: $spec-bg-color--scheme-white
+
+		&:hover
+			color: $spec-bg-color--scheme-white
+			border-color: $spec-text-color--scheme-white
+			background-color: $spec-text-color--scheme-white
+
+	.vspec.schemecolor-blue &
+		color: $spec-text-color--scheme-blue
+		border-color: $spec-text-color--scheme-blue
+		background-color: $spec-bg-color--scheme-blue
+
+		&:hover
+			color: $spec-bg-color--scheme-blue
+			border-color: $spec-text-color--scheme-blue
+			background-color: $spec-text-color--scheme-blue
+
+.vspec
+	.label-holder, label
+		color: inherit
+		font-size: inherit
+		line-height: inherit
+		letter-spacing: inherit
 
 /* bg
 .vspec .content-wrap,
@@ -584,6 +769,22 @@ body.vspec::before
 .vspec .phones-clone.show-drop > .phs-clone__btn
 	border-color: currentColor
 
+.vspec
+	.phs__btn.phs__item_opener .phs__number:after,
+	.phs-clone__btn.phs__item_opener .phs__number:after
+		border-top-color: $spec-text-color
+
+	//color scheme
+	&.schemecolor-white
+		.phs__btn.phs__item_opener .phs__number:after,
+		.phs-clone__btn.phs__item_opener .phs__number:after
+			border-top-color: $spec-text-color--scheme-white
+
+	&.schemecolor-blue
+		.phs__btn.phs__item_opener .phs__number:after,
+		.phs-clone__btn.phs__item_opener .phs__number:after
+			border-top-color: $spec-text-color--scheme-blue
+
 .vspec .header-options
 	position: relative
 	left: auto
@@ -640,115 +841,199 @@ body.vspec::before
 .vspec .login a:hover .login__inner
 	text-decoration: none
 
-.vspec .search-form
-	border-color: currentColor
-	height: 62px
-	width: calc(100% + 2px)
-	left: -2px
+// search form
+.search-form
+	.vspec &
+		border-color: currentColor
+		height: 62px
+		width: calc(100% + 2px)
+		left: -2px
 
-@media (max-width: 479px)
-	.vspec .search-form
-		width: 100%
-		left: 0
+		+media('<mob-md')
+			width: 100%
+			left: 0
 
-.vspec .search-form input[type="search"],
-.vspec .search-form input[type="text"]
-	font-size: 20px
-	line-height: 26px
-	padding: 14px 0 18px
-	height: 60px
-	color: inherit
-	border: none
-	background: transparent
-	font-family: inherit
+		input[type="search"], input[type="text"]
+			font-size: 20px
+			line-height: 26px
+			padding: 14px 0 18px
+			height: 60px
+			color: inherit
+			border: none
+			background: transparent
+			font-family: inherit
 
-.vspec .search-form .btn-search input,
-.vspec .search-form .btn-search input:hover
-	background: transparent
+		.btn-search-close
+			&::before, &::after
+				background-color: currentColor
 
-.vspec .btn-search,
-.vspec .btn-search::before,
-.vspec .btn-search::after,
-.vspec .btn-search-close,
-.vspec .btn-search-close::before,
-.vspec .btn-search-close::after,
-.vspec .btn-search-open,
-.vspec .btn-search-open::before,
-.vspec .btn-search-open::after
-	-webkit-transition: none
-	transition: none
+		.btn-search
+			&::before, &::after
+				border-color: currentColor
 
-.vspec .btn-search:before,
-.vspec .btn-search:after
-	border-color: currentColor
+		.btn-search-close, .btn-search
+			input,
+				&, &:hover
+					background: transparent
 
-.logo-reduce.vspec .nav
-	margin-top: 140px
-
-//.vspec .nav-main-page
-	height: 112px
-
-.vspec .nav__list
-	border-color: currentColor
-
-.vspec .nav__list li,
-.vspec .nav__list li > a
-	border-color: currentColor
-	letter-spacing: normal
-	transition: none
-
-.vspec .nav__list li > a,
-.vspec .nav__list li.hover > a,
-.vspec .nav__list li > a:hover,
-.vspec .nav__list li.active > a
+.btn-search-open
 	color: inherit
 
-//.vspec .nav__list li.current > a
-	background-color: $main-bg-color-invert
-	color: $main-bg-color
+	.vspec &
+		& > i
+			width: 24px
+			height: 24px
+			margin: -12px 0 0 -12px
+			background: none
+
+			&::before, &::after
+				content: ''
+				position: absolute
+				left: 0
+				top: 0
+				border: 1px solid currentColor
+				border-radius: 1px
+
+			&::before
+				width: 14px
+				height: 14px
+				border-width: 2px
+				border-radius: 50%
+
+			&::after
+				left: 17px
+				top: 13px
+				width: 0
+				height: 8px
+				transform: rotate(-45deg)
+
+	&:hover
+		& > i
+			transform: scale(1.2, 1.2)
+
+
+// nav
+.nav
+	.vspec.logo-reduce &
+		margin-top: 140px
 
 .vspec
-	.nav__list li.current > a::before
-		content: ""
-		width: 6px
-		height: 6px
-		border-radius: 3px
-		display: block
-		position: absolute
-		letter-spacing: 5px
-		background-color: $spec-text-color
-		left: 8px
-		top: 50%
-		margin-top: -2px
+	.nav__list
+		border-color: currentColor
 
-	&.schemecolor-white
-		.nav__list li.current > a::before
+		li
+			&,
+			& > a
+				border-color: currentColor
+				letter-spacing: normal
+
+			& > a,
+			&.hover > a,
+			& > a:hover,
+			&.active > a
+				color: inherit
+
+			&.hover > a,
+			& > a:hover
+				text-decoration: underline
+
+			// current
+			&.current > a::before
+				content: ""
+				width: 6px
+				height: 6px
+				border-radius: 3px
+				display: block
+				position: absolute
+				letter-spacing: 5px
+				background-color: $spec-text-color
+				left: 8px
+				top: 50%
+				margin-top: -2px
+
+	.nav .nav__list li > a > [class*="depict-icons-angle-"]
+		background: none
+		width: 14px
+		height: 12px
+		margin-left: -7px
+
+		&::before
+			content: ""
+			display: block
+			position: absolute
+			+triangle('bottom', currentColor !important, 7px, 1.7)
+			border-bottom-color: transparent
+
+	.nav-main-page .nav__list li > a > [class*="depict-icons-angle-"]
+		+media('>=tab-sm')
+			transform: none
+
+	.nav-main-page .nav__list .nav-drop li > a > [class*="depict-icons-angle-"]
+		+media('>=tab-sm')
+			transform: rotate(-90deg)
+
+// scheme color
+.schemecolor-white
+	.nav__list
+		li.current > a::before
 			background-color: $spec-text-color--scheme-white
 
-	&.schemecolor-blue
-		.nav__list li.current > a::before
+.schemecolor-blue
+	.nav__list
+		li.current > a::before
 			background-color: $spec-text-color--scheme-blue
 
-//.vspec .nav__list li.current > a > .depict-icons-angle-btm
-	-webkit-filter: grayscale(1) contrast(10)
-	filter: grayscale(1) contrast(10)
-
 @media (min-width: 768px)
-	.vspec .nav-main-page .nav__list > li > a
-		color: inherit
-		border: 2px solid transparent
-	//.vspec .nav-main-page .nav__list > li > a
-		height: 100%
-	.vspec .nav-main-page .nav__list > li.hover > a
-		color: inherit
-		border-color: inherit
-	.vspec .nav-main-page .nav-drop,
-	.vspec .nav-main-page .nav-sub-drop
-		border: 2px solid #000
+	.vspec
+		.nav-main-page .nav__list > li > a
+			color: inherit
+			border: 2px solid transparent
+
+		.nav-main-page .nav__list > li.hover > a
+			color: inherit
+			border-color: inherit
+
+		.nav-main-page
+			.nav-drop,
+			.nav-sub-drop
+				border: 2px solid $spec-text-color
+
+		.nav-main-page .nav__list [class*="depict-icons-angle-"],
+		.nav-cloned [class*="depict-icons-angle-"]
+			&::before
+				border-top-color: currentColor
+
+		.nav-main-page .nav__list>li.active>a>[class*="depict-icons-angle-"]
+			transform: rotate(0deg)
+
+			&::before
+				border-top-width: 5px
+				border-top-color: currentColor
+				border-bottom-color: transparent
+
+		.nav-main-page .nav__list>li.hover>a,
+		.no-js & .nav-main-page .nav__list>li:hover>a
+			& > [class*="depict-icons-angle-"]:before
+				border-top-color: inherit
+
+	// scheme color
+	.schemecolor-white
+		.nav-main-page
+			.nav-drop,
+			.nav-sub-drop
+				border: 2px solid $spec-text-color--scheme-white
+
+	.schemecolor-blue
+		.nav-main-page
+			.nav-drop,
+			.nav-sub-drop
+				border: 2px solid $spec-text-color--scheme-blue
+
 
 @media (max-width: 767px)
 	.vspec .nav-main-page .nav__list
 		border-bottom: 1px solid #000
+
 	.vspec .nav-main-page .nav__list > li
 		border-top: 1px solid #000
 
@@ -770,9 +1055,8 @@ body.vspec::before
 .vspec .nav-main-page .nav-drop__list > li.hover > a,
 .no-js .vspec .nav-main-page .nav-drop__list > li:hover > a,
 .vspec .nav-main-page .nav-drop__list > li.active > a,
-.vspec .nav-main-page .nav-drop__list > li.current > a,
-.vspec .nav-main-page .nav-sub-drop__list > li > a
-	background-color: $spec-bg-color
+.vspec .nav-main-page .nav-drop__list > li.current > a
+	//background-color: $spec-bg-color
 	color: inherit
 
 .vspec .btn-menu,
@@ -791,13 +1075,29 @@ body.vspec::before
 
 .vspec .btn-lines,
 .vspec .btn-lines > span
-	-webkit-transition: none
+	transition: none
+	color: inherit
 	transition: none
 
 @media (min-width: 768px)
-	.vspec .nav-cloned > .nav-cloned__btn
-		background: none
+	.vspec .nav-cloned
 		color: inherit
+
+		& > .nav-cloned__btn
+			background: none
+			color: inherit
+			transition: none
+
+	.vspec
+		.nav-cloned__drop
+			border: 2px solid $spec-text-color
+			box-sizing: border-box
+
+		&.schemecolor-white .nav-cloned__drop
+			border-color: $spec-text-color--scheme-white
+
+		&.schemecolor-blue .nav-cloned__drop
+			border-color: $spec-text-color--scheme-blue
 
 @media (min-width: 980px)
 	.vspec.inner-page .nav__holder
@@ -820,6 +1120,15 @@ body.vspec::before
 @media (max-width: 767px)
 	.vspec.main-page .nav__holder
 		background-color: $spec-bg-color
+
+	.schemecolor-white
+		&.main-page .nav__holder
+			background-color: $spec-bg-color--scheme-white
+
+	.schemecolor-blue
+		&.main-page .nav__holder
+			background-color: $spec-bg-color--scheme-blue
+
 	.vspec .nav-drop__list > li,
 	.vspec .nav-sub-drop__list > li
 		border-top-color: #000
@@ -851,10 +1160,6 @@ body.vspec::before
 
 .vspec .nav__list > li:first-child
 	border-top: none
-
-.vspec .btn-search-close:before,
-.vspec .btn-search-close:after
-	background-color: currentColor
 
 .vspec .promo-slider
 	height: auto
@@ -1183,6 +1488,12 @@ body.vspec::before
 	color: inherit
 	font-size: inherit
 	line-height: inherit
+
+.vspec .tel__services a
+	margin-right: 0
+
+	&:after
+		display: none
 
 .vspec .useful-links,
 .vspec .work-list,
@@ -1844,72 +2155,6 @@ body.vspec::before
 			& ~ div
 				padding-top: 0
 				opacity: 1
-
-//.vspec .content-box__caption,
-//.vspec .columns-box__column
-//	border-color: currentColor
-//
-//.content-box__caption h2
-//	letter-spacing: inherit
-//
-//.vspec .years-slider,
-//.vspec .years-sldr__item
-//	border-color: currentColor
-//
-//.vspec .years-sldr__item > span
-//	color: inherit
-//
-//.vspec .years-sldr__item > span:hover,
-//.vspec .years-sldr__item.slide-current > span
-//	box-shadow: inset 0 0 0 1px currentColor, 0 0 0 1px currentColor
-//
-//.vspec .case__photo-card
-//	border-color: currentColor
-//
-//.vspec .case__photo-card:hover,
-//.vspec .case__contacts-card:hover
-//	border-color: currentColor
-//	box-shadow: inset 0 0 0 1px currentColor
-//
-//.vspec .contacts-card__caption:after
-//	border-color: currentColor
-//
-//.vspec .contacts-card__post,
-//.vspec .photo-card__post,
-//.vspec .photo-card__switcher > span:hover,
-//.vspec .photo-card__name a:hover
-//	color: inherit
-//
-//.vspec .glance
-//	border: 1px solid currentColor
-//
-//.vspec .glance__box
-//	background: none
-//	color: inherit
-//	border: 1px solid currentColor
-//
-//.vspec .glance__box:before,
-//.vspec .glance__box:after
-//	content: none
-//
-//.vspec .glance__unit:after
-//	border-color: currentColor
-//
-//.vspec .glance__count,
-//.vspec .glance__unit,
-//.vspec .glance__text
-//	color: inherit
-//
-//.vspec .main-contacts
-//	border-bottom: 2px solid currentColor
-//
-//.vspec .contacts-panel__switcher
-//	background-color: currentColor
-//
-//.vspec .contacts-panel__list,
-//.vspec .contacts-panel__phones
-//	color: inherit
-//
 /* about end
 
 .vspec .press-archive
@@ -2043,195 +2288,6 @@ body.vspec .press-adt__list .press-adt__item:hover
 		font-size: $font-size--small
 		line-height: $line-height--small
 		font-style: italic
-
-.vspec
-	//background-color: $main-bg-color
-	background-color: #fff
-	//color: currentColor
-
-.vspec table td, .vspec table th
-	color: currentColor
-	border-color: currentColor
-	font-size: inherit
-	line-height: inherit
-
-.vspec table caption
-	font-size: $font-size--small
-	line-height: $line-height--small
-	color: inherit
-	font-style: italic
-
-.vspec hr
-	border-bottom-color: currentColor
-
-.vspec .mark
-	color: $spec-bg-color
-	background-color: currentColor
-
-.vspec a,
-.vspec .dark-text,
-.vspec .dark-text-light,
-.vspec .text-color-alt
-	color: currentColor
-	-webkit-transition: none
-	transition: none
-
-.user-content ul > li
-	&::before
-		.vspec &
-			background-color: currentColor
-			top: 1.9em
-
-		.vspec.fontsize-large &
-			top: 1.5em
-
-	&:first-child::before
-		.vspec &
-			top: 0.8em
-
-.user-content ul ul li
-	&::before
-		.vspec &
-			top: 2em
-
-		.vspec.fontsize-large &
-			top: 1.5em
-
-.vspec .user-content ol > li::before
-	color: currentColor
-
-.vspec .user-content .tbl td,
-.vspec .user-content .tbl th,
-.vspec .user-content .tbl th,
-.vspec .user-content .tbl thead td,
-.vspec .user-content .tbl tfoot td
-	color: currentColor
-	background-color: $spec-bg-color
-	border: 1px solid currentColor
-	font-size: inherit
-	line-height: inherit
-
-.vspec .user-content blockquote
-	border: 2px solid currentColor
-	background-color: transparent
-
-.vspec .user-content blockquote q,
-.vspec .user-content blockquote cite
-	font-size: inherit
-	line-height: inherit
-	font-family: inherit
-	color: currentColor
-
-.vspec .user-content blockquote q::before,
-.vspec .user-content blockquote q::after
-	background-image: none
-
-.vspec .user-content .pref
-	font-size: inherit
-	line-height: inherit
-	font-family: inherit
-	color: currentColor
-
-.vspec .input-wrap
-	font-size: $font-size
-	line-height: $line-height
-	letter-spacing: $letter-spacing
-
-.vspec
-	.breadcrumbs
-		letter-spacing: inherit
-		font-size: $font-size--small
-		line-height: $line-height--small
-		color: currentColor
-		padding: 0
-		margin-bottom: $bottom-space-item
-
-	.breadcrumbs, .user-content .breadcrumbs
-		li
-			float: none
-			display: inline
-			padding: 0
-			margin: 0 0.3em 0 0
-
-			&:before
-				position: relative
-				left: auto
-				top: auto
-				background: none
-				margin-right: 0.5em
-
-	&.fontsize-large
-		.breadcrumbs, .user-content .breadcrumbs
-			li
-				&:before
-					top: auto
-
-.vspec
-	input[type="text"],
-	input[type="password"],
-	input[type="email"],
-	input[type="search"],
-	textarea
-		font-family: inherit
-		box-shadow: none
-		height: 50px
-		font-size: $font-size
-		line-height: 30px
-		color: inherit
-		padding: 8px 15px
-		border: 2px solid currentColor
-		transition: none
-
-		&.error
-			border-color: currentColor
-			box-shadow: none
-			color: inherit
-
-		&:focus
-			box-shadow: none
-
-		+placeholder
-			color: currentColor
-
-.btn-default, input[type="submit"], input[type="button"], input[type="reset"], button
-	.vspec &
-		font-family: inherit
-		color: $spec-text-color
-		border-color: $spec-text-color
-		background-color: $spec-bg-color
-		transition: none
-
-		&:hover
-			border-color: $spec-text-color
-			background-color: $spec-text-color
-			color: $spec-bg-color
-
-	.vspec.schemecolor-white &
-		color: $spec-text-color--scheme-white
-		border-color: $spec-text-color--scheme-white
-		background-color: $spec-bg-color--scheme-white
-
-		&:hover
-			color: $spec-bg-color--scheme-white
-			border-color: $spec-text-color--scheme-white
-			background-color: $spec-text-color--scheme-white
-
-	.vspec.schemecolor-blue &
-		color: $spec-text-color--scheme-blue
-		border-color: $spec-text-color--scheme-blue
-		background-color: $spec-bg-color--scheme-blue
-
-		&:hover
-			color: $spec-bg-color--scheme-blue
-			border-color: $spec-text-color--scheme-blue
-			background-color: $spec-text-color--scheme-blue
-
-.vspec
-	.label-holder, label
-		color: inherit
-		font-size: inherit
-		line-height: inherit
-		letter-spacing: inherit
 
 .vspec .arrow,
 .vspec .slider-typography .slick-prev,
@@ -2827,17 +2883,17 @@ body.vspec .press-adt__list .press-adt__item:hover
 /* layout spaces end
 
 /*=========== BLACK AND WHITE images ===========
-.vspec .phs__btn.phs__item_opener .phs__number:after,
-.vspec .phs-clone__btn.phs__item_opener .phs__number:after,
-.vspec .nav-inner-page .depict-icons-angle-btm,
+//.vspec .phs__btn.phs__item_opener .phs__number:after,
+//.vspec .phs-clone__btn.phs__item_opener .phs__number:after,
+//.vspec .nav-inner-page .depict-icons-angle-btm,
 .vspec .questions__icon img,
 .vspec .questions-slider .slick-arrow:before,
 .vspec .depict-icons-user,
-.vspec .depict-icons-magnifier,
+//.vspec .depict-icons-magnifier,
 .vspec .category-links__icon,
-.vspec .tel__services a:after,
+//.vspec .tel__services a:after,
 .vspec .depict-icons-pin-w,
-.vspec .depict-icons-angle-btm,
+//.vspec .depict-icons-angle-btm,
 .vspec .press-adt__icon > i,
 .vspec .someclass,
 .vspec .someclass
@@ -2845,14 +2901,14 @@ body.vspec .press-adt__list .press-adt__item:hover
 
 .vspec.schemecolor-white .phs__btn.phs__item_opener .phs__number:after,
 .vspec.schemecolor-white .phs-clone__btn.phs__item_opener .phs__number:after,
-.vspec.schemecolor-white .nav-inner-page .depict-icons-angle-btm,
+//.vspec.schemecolor-white .nav-inner-page .depict-icons-angle-btm,
 .vspec.schemecolor-white .questions__icon img,
 .vspec.schemecolor-white .questions-slider .slick-arrow:before,
 .vspec.schemecolor-white .depict-icons-user,
-.vspec.schemecolor-white .depict-icons-magnifier,
-.vspec.schemecolor-white .tel__services a:after,
+//.vspec.schemecolor-white .depict-icons-magnifier,
+//.vspec.schemecolor-white .tel__services a:after,
 .vspec.schemecolor-white .depict-icons-pin-w,
-.vspec.schemecolor-white .depict-icons-angle-btm,
+//.vspec.schemecolor-white .depict-icons-angle-btm,
 .vspec.schemecolor-white .press-adt__icon > i,
 .vspec.schemecolor-white .someclass,
 .vspec.schemecolor-white .someclass
@@ -2880,7 +2936,7 @@ body.vspec .press-adt__list .press-adt__item:hover
 .vspec .depict-icons-arrow-next-n
 	filter: grayscale(1) contrast(10) invert(1)
 
-@media (max-width: 767px)
+//@media (max-width: 767px)
 	.vspec .nav__list .depict-icons-angle-btm
 		filter: grayscale(1) contrast(3) invert(1)
 

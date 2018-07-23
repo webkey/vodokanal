@@ -27,7 +27,8 @@ input[type="submit"],
 .meter,
 .uncos-footer,
 .spacer,
-.footer-bottom{
+.footer-bottom,
+.spec-panel{
 	display: none !important;
 }
 .columns-box-wrap{ overflow: visible !important; }

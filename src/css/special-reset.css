@@ -1,0 +1,20 @@
+/*=========== SPECIAL RESET =========== */
+/* reset transition */
+.vspec .btn-search, .vspec .btn-search::before, .vspec .btn-search::after,
+.vspec .btn-search-close,
+.vspec .btn-search-close::before,
+.vspec .btn-search-close::after,
+.vspec .btn-search-open,
+.vspec .btn-search-open::before,
+.vspec .btn-search-open::after {
+	transition: none;
+}
+
+.vspec .nav__list li a {
+	transition: none;
+}
+
+/* reset transition end */
+/*=========== SPECIAL RESET end =========== */
+
+/*# sourceMappingURL=special-reset.css.map */

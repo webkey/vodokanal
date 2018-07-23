@@ -1,3 +1,21 @@
+/*=========== SPECIAL RESET =========== */
+/* reset transition */
+.vspec .btn-search, .vspec .btn-search::before, .vspec .btn-search::after,
+.vspec .btn-search-close,
+.vspec .btn-search-close::before,
+.vspec .btn-search-close::after,
+.vspec .btn-search-open,
+.vspec .btn-search-open::before,
+.vspec .btn-search-open::after {
+	transition: none;
+}
+
+.vspec .nav__list li a {
+	transition: none;
+}
+
+/* reset transition end */
+/*=========== SPECIAL RESET end =========== */
 /*=========== SPECIAL =========== */
 .hide-page {
 	display: none !important;
@@ -182,6 +200,234 @@ body.vspec::before {
 
 .vspec.imageson .img-group {
 	display: block;
+}
+
+.vspec table td, .vspec table th {
+	color: currentColor;
+	border-color: currentColor;
+	font-size: inherit;
+	line-height: inherit;
+}
+
+.vspec table caption {
+	font-size: 0.89em;
+	line-height: 1.75;
+	color: inherit;
+	font-style: italic;
+}
+
+.vspec hr {
+	border-bottom-color: currentColor;
+}
+
+.vspec .mark {
+	color: #fff;
+	background-color: currentColor;
+}
+
+.vspec a,
+.vspec .dark-text,
+.vspec .dark-text-light,
+.vspec .text-color-alt {
+	color: currentColor;
+	transition: none;
+}
+
+.vspec .user-content ul > li::before {
+	background-color: currentColor;
+	top: 1.9em;
+}
+
+.vspec.fontsize-large .user-content ul > li::before {
+	top: 1.5em;
+}
+
+.vspec .user-content ul > li:first-child::before {
+	top: 0.8em;
+}
+
+.vspec .user-content ul ul li::before {
+	top: 2em;
+}
+
+.vspec.fontsize-large .user-content ul ul li::before {
+	top: 1.5em;
+}
+
+.vspec .user-content ol > li::before {
+	color: currentColor;
+}
+
+.vspec .user-content .tbl td,
+.vspec .user-content .tbl th,
+.vspec .user-content .tbl th,
+.vspec .user-content .tbl thead td,
+.vspec .user-content .tbl tfoot td {
+	color: currentColor;
+	background-color: #fff;
+	border: 1px solid currentColor;
+	font-size: inherit;
+	line-height: inherit;
+}
+
+.vspec .user-content blockquote {
+	border: 2px solid currentColor;
+	background-color: transparent;
+}
+
+.vspec .user-content blockquote q,
+.vspec .user-content blockquote cite {
+	font-size: inherit;
+	line-height: inherit;
+	font-family: inherit;
+	color: currentColor;
+}
+
+.vspec .user-content blockquote q::before,
+.vspec .user-content blockquote q::after {
+	background-image: none;
+}
+
+.vspec .user-content .pref {
+	font-size: inherit;
+	line-height: inherit;
+	font-family: inherit;
+	color: currentColor;
+}
+
+.vspec .input-wrap {
+	font-size: 18px;
+	line-height: 1.78;
+	letter-spacing: normal;
+}
+
+.vspec .breadcrumbs {
+	letter-spacing: inherit;
+	font-size: 0.89em;
+	line-height: 1.75;
+	color: currentColor;
+	padding: 0;
+	margin-bottom: 2em;
+}
+
+.vspec .breadcrumbs li, .vspec .user-content .breadcrumbs li {
+	float: none;
+	display: inline;
+	padding: 0;
+	margin: 0 0.3em 0 0;
+}
+
+.vspec .breadcrumbs li:before, .vspec .user-content .breadcrumbs li:before {
+	position: relative;
+	left: auto;
+	top: auto;
+	background: none;
+	margin-right: 0.5em;
+}
+
+.vspec.fontsize-large .breadcrumbs li:before, .vspec.fontsize-large .user-content .breadcrumbs li:before {
+	top: auto;
+}
+
+.vspec input[type="text"],
+.vspec input[type="password"],
+.vspec input[type="email"],
+.vspec input[type="search"],
+.vspec textarea {
+	font-family: inherit;
+	box-shadow: none;
+	height: 50px;
+	font-size: 18px;
+	line-height: 30px;
+	color: inherit;
+	padding: 8px 15px;
+	border: 2px solid currentColor;
+	transition: none;
+}
+
+.vspec input[type="text"].error,
+.vspec input[type="password"].error,
+.vspec input[type="email"].error,
+.vspec input[type="search"].error,
+.vspec textarea.error {
+	border-color: currentColor;
+	box-shadow: none;
+	color: inherit;
+}
+
+.vspec input[type="text"]:focus,
+.vspec input[type="password"]:focus,
+.vspec input[type="email"]:focus,
+.vspec input[type="search"]:focus,
+.vspec textarea:focus {
+	box-shadow: none;
+}
+
+.vspec input[type="text"]::-webkit-input-placeholder, .vspec input[type="password"]::-webkit-input-placeholder, .vspec input[type="email"]::-webkit-input-placeholder, .vspec input[type="search"]::-webkit-input-placeholder, .vspec textarea::-webkit-input-placeholder {
+	color: currentColor;
+}
+
+.vspec input[type="text"]:-moz-placeholder, .vspec input[type="password"]:-moz-placeholder, .vspec input[type="email"]:-moz-placeholder, .vspec input[type="search"]:-moz-placeholder, .vspec textarea:-moz-placeholder {
+	color: currentColor;
+}
+
+.vspec input[type="text"]::-moz-placeholder, .vspec input[type="password"]::-moz-placeholder, .vspec input[type="email"]::-moz-placeholder, .vspec input[type="search"]::-moz-placeholder, .vspec textarea::-moz-placeholder {
+	opacity: 1;
+	color: currentColor;
+}
+
+.vspec input[type="text"]:-ms-input-placeholder, .vspec input[type="password"]:-ms-input-placeholder, .vspec input[type="email"]:-ms-input-placeholder, .vspec input[type="search"]:-ms-input-placeholder, .vspec textarea:-ms-input-placeholder {
+	opacity: 1;
+	color: currentColor;
+}
+
+.vspec input[type="text"].placeholder, .vspec input[type="password"].placeholder, .vspec input[type="email"].placeholder, .vspec input[type="search"].placeholder, .vspec textarea.placeholder {
+	color: currentColor;
+}
+
+.vspec .btn-default, .vspec input[type="submit"], .vspec input[type="button"], .vspec input[type="reset"], .vspec button {
+	font-family: inherit;
+	color: #000;
+	border-color: #000;
+	background-color: #fff;
+	transition: none;
+}
+
+.vspec .btn-default:hover, .vspec input[type="submit"]:hover, .vspec input[type="button"]:hover, .vspec input[type="reset"]:hover, .vspec button:hover {
+	border-color: #000;
+	background-color: #000;
+	color: #fff;
+}
+
+.vspec.schemecolor-white .btn-default, .vspec.schemecolor-white input[type="submit"], .vspec.schemecolor-white input[type="button"], .vspec.schemecolor-white input[type="reset"], .vspec.schemecolor-white button {
+	color: #fff;
+	border-color: #fff;
+	background-color: #000;
+}
+
+.vspec.schemecolor-white .btn-default:hover, .vspec.schemecolor-white input[type="submit"]:hover, .vspec.schemecolor-white input[type="button"]:hover, .vspec.schemecolor-white input[type="reset"]:hover, .vspec.schemecolor-white button:hover {
+	color: #000;
+	border-color: #fff;
+	background-color: #fff;
+}
+
+.vspec.schemecolor-blue .btn-default, .vspec.schemecolor-blue input[type="submit"], .vspec.schemecolor-blue input[type="button"], .vspec.schemecolor-blue input[type="reset"], .vspec.schemecolor-blue button {
+	color: #004c92;
+	border-color: #004c92;
+	background-color: #c8e5ff;
+}
+
+.vspec.schemecolor-blue .btn-default:hover, .vspec.schemecolor-blue input[type="submit"]:hover, .vspec.schemecolor-blue input[type="button"]:hover, .vspec.schemecolor-blue input[type="reset"]:hover, .vspec.schemecolor-blue button:hover {
+	color: #c8e5ff;
+	border-color: #004c92;
+	background-color: #004c92;
+}
+
+.vspec .label-holder, .vspec label {
+	color: inherit;
+	font-size: inherit;
+	line-height: inherit;
+	letter-spacing: inherit;
 }
 
 /* bg */
@@ -651,6 +897,21 @@ body.vspec::before {
 	border-color: currentColor;
 }
 
+.vspec .phs__btn.phs__item_opener .phs__number:after,
+.vspec .phs-clone__btn.phs__item_opener .phs__number:after {
+	border-top-color: #000;
+}
+
+.vspec.schemecolor-white .phs__btn.phs__item_opener .phs__number:after,
+.vspec.schemecolor-white .phs-clone__btn.phs__item_opener .phs__number:after {
+	border-top-color: #fff;
+}
+
+.vspec.schemecolor-blue .phs__btn.phs__item_opener .phs__number:after,
+.vspec.schemecolor-blue .phs-clone__btn.phs__item_opener .phs__number:after {
+	border-top-color: #004c92;
+}
+
 .vspec .header-options {
 	position: relative;
 	left: auto;
@@ -732,8 +993,7 @@ body.vspec::before {
 	}
 }
 
-.vspec .search-form input[type="search"],
-.vspec .search-form input[type="text"] {
+.vspec .search-form input[type="search"], .vspec .search-form input[type="text"] {
 	font-size: 20px;
 	line-height: 26px;
 	padding: 14px 0 18px;
@@ -744,29 +1004,60 @@ body.vspec::before {
 	font-family: inherit;
 }
 
-.vspec .search-form .btn-search input,
-.vspec .search-form .btn-search input:hover {
-	background: transparent;
+.vspec .search-form .btn-search-close::before, .vspec .search-form .btn-search-close::after {
+	background-color: currentColor;
 }
 
-.vspec .btn-search,
-.vspec .btn-search::before,
-.vspec .btn-search::after,
-.vspec .btn-search-close,
-.vspec .btn-search-close::before,
-.vspec .btn-search-close::after,
-.vspec .btn-search-open,
-.vspec .btn-search-open::before,
-.vspec .btn-search-open::after {
-	transition: none;
-}
-
-.vspec .btn-search:before,
-.vspec .btn-search:after {
+.vspec .search-form .btn-search::before, .vspec .search-form .btn-search::after {
 	border-color: currentColor;
 }
 
-.logo-reduce.vspec .nav {
+.vspec .search-form .btn-search-close input, .vspec .search-form .btn-search-close input:hover, .vspec .search-form .btn-search input, .vspec .search-form .btn-search input:hover {
+	background: transparent;
+}
+
+.btn-search-open {
+	color: inherit;
+}
+
+.vspec .btn-search-open > i {
+	width: 24px;
+	height: 24px;
+	margin: -12px 0 0 -12px;
+	background: none;
+}
+
+.vspec .btn-search-open > i::before, .vspec .btn-search-open > i::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0;
+	border: 1px solid currentColor;
+	border-radius: 1px;
+}
+
+.vspec .btn-search-open > i::before {
+	width: 14px;
+	height: 14px;
+	border-width: 2px;
+	border-radius: 50%;
+}
+
+.vspec .btn-search-open > i::after {
+	left: 17px;
+	top: 13px;
+	width: 0;
+	height: 8px;
+	-ms-transform: rotate(-45deg);
+	    transform: rotate(-45deg);
+}
+
+.btn-search-open:hover > i {
+	-ms-transform: scale(1.2, 1.2);
+	    transform: scale(1.2, 1.2);
+}
+
+.vspec.logo-reduce .nav {
 	margin-top: 140px;
 }
 
@@ -778,7 +1069,6 @@ body.vspec::before {
 .vspec .nav__list li > a {
 	border-color: currentColor;
 	letter-spacing: normal;
-	transition: none;
 }
 
 .vspec .nav__list li > a,
@@ -786,6 +1076,11 @@ body.vspec::before {
 .vspec .nav__list li > a:hover,
 .vspec .nav__list li.active > a {
 	color: inherit;
+}
+
+.vspec .nav__list li.hover > a,
+.vspec .nav__list li > a:hover {
+	text-decoration: underline;
 }
 
 .vspec .nav__list li.current > a::before {
@@ -802,11 +1097,45 @@ body.vspec::before {
 	margin-top: -2px;
 }
 
-.vspec.schemecolor-white .nav__list li.current > a::before {
+.vspec .nav .nav__list li > a > [class*="depict-icons-angle-"] {
+	background: none;
+	width: 14px;
+	height: 12px;
+	margin-left: -7px;
+}
+
+.vspec .nav .nav__list li > a > [class*="depict-icons-angle-"]::before {
+	content: "";
+	display: block;
+	position: absolute;
+	width: 0;
+	height: 0;
+	z-index: 2;
+	border-top: 12px solid currentColor !important;
+	border-left: 7px solid transparent;
+	border-right: 7px solid transparent;
+	border-bottom-color: transparent;
+}
+
+@media (min-width: 768px) {
+	.vspec .nav-main-page .nav__list li > a > [class*="depict-icons-angle-"] {
+		-ms-transform: none;
+		    transform: none;
+	}
+}
+
+@media (min-width: 768px) {
+	.vspec .nav-main-page .nav__list .nav-drop li > a > [class*="depict-icons-angle-"] {
+		-ms-transform: rotate(-90deg);
+		    transform: rotate(-90deg);
+	}
+}
+
+.schemecolor-white .nav__list li.current > a::before {
 	background-color: #fff;
 }
 
-.vspec.schemecolor-blue .nav__list li.current > a::before {
+.schemecolor-blue .nav__list li.current > a::before {
 	background-color: #004c92;
 }
 
@@ -822,6 +1151,31 @@ body.vspec::before {
 	.vspec .nav-main-page .nav-drop,
 	.vspec .nav-main-page .nav-sub-drop {
 		border: 2px solid #000;
+	}
+	.vspec .nav-main-page .nav__list [class*="depict-icons-angle-"]::before,
+	.vspec .nav-cloned [class*="depict-icons-angle-"]::before {
+		border-top-color: currentColor;
+	}
+	.vspec .nav-main-page .nav__list > li.active > a > [class*="depict-icons-angle-"] {
+		-ms-transform: rotate(0deg);
+		    transform: rotate(0deg);
+	}
+	.vspec .nav-main-page .nav__list > li.active > a > [class*="depict-icons-angle-"]::before {
+		border-top-width: 5px;
+		border-top-color: currentColor;
+		border-bottom-color: transparent;
+	}
+	.vspec .nav-main-page .nav__list > li.hover > a > [class*="depict-icons-angle-"]:before,
+	.no-js .vspec .nav-main-page .nav__list > li:hover > a > [class*="depict-icons-angle-"]:before {
+		border-top-color: inherit;
+	}
+	.schemecolor-white .nav-main-page .nav-drop,
+	.schemecolor-white .nav-main-page .nav-sub-drop {
+		border: 2px solid #fff;
+	}
+	.schemecolor-blue .nav-main-page .nav-drop,
+	.schemecolor-blue .nav-main-page .nav-sub-drop {
+		border: 2px solid #004c92;
 	}
 }
 
@@ -854,9 +1208,7 @@ body.vspec::before {
 .vspec .nav-main-page .nav-drop__list > li.hover > a,
 .no-js .vspec .nav-main-page .nav-drop__list > li:hover > a,
 .vspec .nav-main-page .nav-drop__list > li.active > a,
-.vspec .nav-main-page .nav-drop__list > li.current > a,
-.vspec .nav-main-page .nav-sub-drop__list > li > a {
-	background-color: #fff;
+.vspec .nav-main-page .nav-drop__list > li.current > a {
 	color: inherit;
 }
 
@@ -882,12 +1234,28 @@ body.vspec::before {
 .vspec .btn-lines,
 .vspec .btn-lines > span {
 	transition: none;
+	color: inherit;
+	transition: none;
 }
 
 @media (min-width: 768px) {
+	.vspec .nav-cloned {
+		color: inherit;
+	}
 	.vspec .nav-cloned > .nav-cloned__btn {
 		background: none;
 		color: inherit;
+		transition: none;
+	}
+	.vspec .nav-cloned__drop {
+		border: 2px solid #000;
+		box-sizing: border-box;
+	}
+	.vspec.schemecolor-white .nav-cloned__drop {
+		border-color: #fff;
+	}
+	.vspec.schemecolor-blue .nav-cloned__drop {
+		border-color: #004c92;
 	}
 }
 
@@ -911,6 +1279,12 @@ body.vspec::before {
 @media (max-width: 767px) {
 	.vspec.main-page .nav__holder {
 		background-color: #fff;
+	}
+	.schemecolor-white.main-page .nav__holder {
+		background-color: #000;
+	}
+	.schemecolor-blue.main-page .nav__holder {
+		background-color: #c8e5ff;
 	}
 	.vspec .nav-drop__list > li,
 	.vspec .nav-sub-drop__list > li {
@@ -948,11 +1322,6 @@ body.vspec::before {
 
 .vspec .nav__list > li:first-child {
 	border-top: none;
-}
-
-.vspec .btn-search-close:before,
-.vspec .btn-search-close:after {
-	background-color: currentColor;
 }
 
 .vspec .promo-slider {
@@ -1344,6 +1713,14 @@ body.vspec::before {
 	color: inherit;
 	font-size: inherit;
 	line-height: inherit;
+}
+
+.vspec .tel__services a {
+	margin-right: 0;
+}
+
+.vspec .tel__services a:after {
+	display: none;
 }
 
 .vspec .useful-links,
@@ -2281,238 +2658,6 @@ body.vspec .press-adt__list .press-adt__item:hover {
 	font-style: italic;
 }
 
-.vspec {
-	background-color: #fff;
-}
-
-.vspec table td, .vspec table th {
-	color: currentColor;
-	border-color: currentColor;
-	font-size: inherit;
-	line-height: inherit;
-}
-
-.vspec table caption {
-	font-size: 0.89em;
-	line-height: 1.75;
-	color: inherit;
-	font-style: italic;
-}
-
-.vspec hr {
-	border-bottom-color: currentColor;
-}
-
-.vspec .mark {
-	color: #fff;
-	background-color: currentColor;
-}
-
-.vspec a,
-.vspec .dark-text,
-.vspec .dark-text-light,
-.vspec .text-color-alt {
-	color: currentColor;
-	transition: none;
-}
-
-.vspec .user-content ul > li::before {
-	background-color: currentColor;
-	top: 1.9em;
-}
-
-.vspec.fontsize-large .user-content ul > li::before {
-	top: 1.5em;
-}
-
-.vspec .user-content ul > li:first-child::before {
-	top: 0.8em;
-}
-
-.vspec .user-content ul ul li::before {
-	top: 2em;
-}
-
-.vspec.fontsize-large .user-content ul ul li::before {
-	top: 1.5em;
-}
-
-.vspec .user-content ol > li::before {
-	color: currentColor;
-}
-
-.vspec .user-content .tbl td,
-.vspec .user-content .tbl th,
-.vspec .user-content .tbl th,
-.vspec .user-content .tbl thead td,
-.vspec .user-content .tbl tfoot td {
-	color: currentColor;
-	background-color: #fff;
-	border: 1px solid currentColor;
-	font-size: inherit;
-	line-height: inherit;
-}
-
-.vspec .user-content blockquote {
-	border: 2px solid currentColor;
-	background-color: transparent;
-}
-
-.vspec .user-content blockquote q,
-.vspec .user-content blockquote cite {
-	font-size: inherit;
-	line-height: inherit;
-	font-family: inherit;
-	color: currentColor;
-}
-
-.vspec .user-content blockquote q::before,
-.vspec .user-content blockquote q::after {
-	background-image: none;
-}
-
-.vspec .user-content .pref {
-	font-size: inherit;
-	line-height: inherit;
-	font-family: inherit;
-	color: currentColor;
-}
-
-.vspec .input-wrap {
-	font-size: 18px;
-	line-height: 1.78;
-	letter-spacing: normal;
-}
-
-.vspec .breadcrumbs {
-	letter-spacing: inherit;
-	font-size: 0.89em;
-	line-height: 1.75;
-	color: currentColor;
-	padding: 0;
-	margin-bottom: 2em;
-}
-
-.vspec .breadcrumbs li, .vspec .user-content .breadcrumbs li {
-	float: none;
-	display: inline;
-	padding: 0;
-	margin: 0 0.3em 0 0;
-}
-
-.vspec .breadcrumbs li:before, .vspec .user-content .breadcrumbs li:before {
-	position: relative;
-	left: auto;
-	top: auto;
-	background: none;
-	margin-right: 0.5em;
-}
-
-.vspec.fontsize-large .breadcrumbs li:before, .vspec.fontsize-large .user-content .breadcrumbs li:before {
-	top: auto;
-}
-
-.vspec input[type="text"],
-.vspec input[type="password"],
-.vspec input[type="email"],
-.vspec input[type="search"],
-.vspec textarea {
-	font-family: inherit;
-	box-shadow: none;
-	height: 50px;
-	font-size: 18px;
-	line-height: 30px;
-	color: inherit;
-	padding: 8px 15px;
-	border: 2px solid currentColor;
-	transition: none;
-}
-
-.vspec input[type="text"].error,
-.vspec input[type="password"].error,
-.vspec input[type="email"].error,
-.vspec input[type="search"].error,
-.vspec textarea.error {
-	border-color: currentColor;
-	box-shadow: none;
-	color: inherit;
-}
-
-.vspec input[type="text"]:focus,
-.vspec input[type="password"]:focus,
-.vspec input[type="email"]:focus,
-.vspec input[type="search"]:focus,
-.vspec textarea:focus {
-	box-shadow: none;
-}
-
-.vspec input[type="text"]::-webkit-input-placeholder, .vspec input[type="password"]::-webkit-input-placeholder, .vspec input[type="email"]::-webkit-input-placeholder, .vspec input[type="search"]::-webkit-input-placeholder, .vspec textarea::-webkit-input-placeholder {
-	color: currentColor;
-}
-
-.vspec input[type="text"]:-moz-placeholder, .vspec input[type="password"]:-moz-placeholder, .vspec input[type="email"]:-moz-placeholder, .vspec input[type="search"]:-moz-placeholder, .vspec textarea:-moz-placeholder {
-	color: currentColor;
-}
-
-.vspec input[type="text"]::-moz-placeholder, .vspec input[type="password"]::-moz-placeholder, .vspec input[type="email"]::-moz-placeholder, .vspec input[type="search"]::-moz-placeholder, .vspec textarea::-moz-placeholder {
-	opacity: 1;
-	color: currentColor;
-}
-
-.vspec input[type="text"]:-ms-input-placeholder, .vspec input[type="password"]:-ms-input-placeholder, .vspec input[type="email"]:-ms-input-placeholder, .vspec input[type="search"]:-ms-input-placeholder, .vspec textarea:-ms-input-placeholder {
-	opacity: 1;
-	color: currentColor;
-}
-
-.vspec input[type="text"].placeholder, .vspec input[type="password"].placeholder, .vspec input[type="email"].placeholder, .vspec input[type="search"].placeholder, .vspec textarea.placeholder {
-	color: currentColor;
-}
-
-.vspec .btn-default, .vspec input[type="submit"], .vspec input[type="button"], .vspec input[type="reset"], .vspec button {
-	font-family: inherit;
-	color: #000;
-	border-color: #000;
-	background-color: #fff;
-	transition: none;
-}
-
-.vspec .btn-default:hover, .vspec input[type="submit"]:hover, .vspec input[type="button"]:hover, .vspec input[type="reset"]:hover, .vspec button:hover {
-	border-color: #000;
-	background-color: #000;
-	color: #fff;
-}
-
-.vspec.schemecolor-white .btn-default, .vspec.schemecolor-white input[type="submit"], .vspec.schemecolor-white input[type="button"], .vspec.schemecolor-white input[type="reset"], .vspec.schemecolor-white button {
-	color: #fff;
-	border-color: #fff;
-	background-color: #000;
-}
-
-.vspec.schemecolor-white .btn-default:hover, .vspec.schemecolor-white input[type="submit"]:hover, .vspec.schemecolor-white input[type="button"]:hover, .vspec.schemecolor-white input[type="reset"]:hover, .vspec.schemecolor-white button:hover {
-	color: #000;
-	border-color: #fff;
-	background-color: #fff;
-}
-
-.vspec.schemecolor-blue .btn-default, .vspec.schemecolor-blue input[type="submit"], .vspec.schemecolor-blue input[type="button"], .vspec.schemecolor-blue input[type="reset"], .vspec.schemecolor-blue button {
-	color: #004c92;
-	border-color: #004c92;
-	background-color: #c8e5ff;
-}
-
-.vspec.schemecolor-blue .btn-default:hover, .vspec.schemecolor-blue input[type="submit"]:hover, .vspec.schemecolor-blue input[type="button"]:hover, .vspec.schemecolor-blue input[type="reset"]:hover, .vspec.schemecolor-blue button:hover {
-	color: #c8e5ff;
-	border-color: #004c92;
-	background-color: #004c92;
-}
-
-.vspec .label-holder, .vspec label {
-	color: inherit;
-	font-size: inherit;
-	line-height: inherit;
-	letter-spacing: inherit;
-}
-
 .vspec .arrow,
 .vspec .slider-typography .slick-prev,
 .vspec .slider-typography .slick-next {
@@ -3224,17 +3369,11 @@ body.vspec .press-adt__list .press-adt__item:hover {
 
 /* layout spaces end */
 /*=========== BLACK AND WHITE images =========== */
-.vspec .phs__btn.phs__item_opener .phs__number:after,
-.vspec .phs-clone__btn.phs__item_opener .phs__number:after,
-.vspec .nav-inner-page .depict-icons-angle-btm,
 .vspec .questions__icon img,
 .vspec .questions-slider .slick-arrow:before,
 .vspec .depict-icons-user,
-.vspec .depict-icons-magnifier,
 .vspec .category-links__icon,
-.vspec .tel__services a:after,
 .vspec .depict-icons-pin-w,
-.vspec .depict-icons-angle-btm,
 .vspec .press-adt__icon > i,
 .vspec .someclass,
 .vspec .someclass {
@@ -3244,14 +3383,10 @@ body.vspec .press-adt__list .press-adt__item:hover {
 
 .vspec.schemecolor-white .phs__btn.phs__item_opener .phs__number:after,
 .vspec.schemecolor-white .phs-clone__btn.phs__item_opener .phs__number:after,
-.vspec.schemecolor-white .nav-inner-page .depict-icons-angle-btm,
 .vspec.schemecolor-white .questions__icon img,
 .vspec.schemecolor-white .questions-slider .slick-arrow:before,
 .vspec.schemecolor-white .depict-icons-user,
-.vspec.schemecolor-white .depict-icons-magnifier,
-.vspec.schemecolor-white .tel__services a:after,
 .vspec.schemecolor-white .depict-icons-pin-w,
-.vspec.schemecolor-white .depict-icons-angle-btm,
 .vspec.schemecolor-white .press-adt__icon > i,
 .vspec.schemecolor-white .someclass,
 .vspec.schemecolor-white .someclass {
@@ -3287,13 +3422,6 @@ body.vspec .press-adt__list .press-adt__item:hover {
 .vspec .depict-icons-arrow-next-n {
 	-webkit-filter: grayscale(1) contrast(10) invert(1);
 	        filter: grayscale(1) contrast(10) invert(1);
-}
-
-@media (max-width: 767px) {
-	.vspec .nav__list .depict-icons-angle-btm {
-		-webkit-filter: grayscale(1) contrast(3) invert(1);
-		        filter: grayscale(1) contrast(3) invert(1);
-	}
 }
 
 /*=========== BLACK AND WHITE images end =========== */
