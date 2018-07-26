@@ -10,7 +10,11 @@
 	transition: none;
 }
 
-.vspec .nav__list li a {
+.vspec .nav__list li a,
+.vspec .file__info,
+.vspec .file__info:before,
+.vspec .file__info > div,
+.vspec .file__info > div > b {
 	transition: none;
 }
 
@@ -190,10 +194,6 @@ body.vspec::before {
 	display: none;
 }
 
-.file__info {
-	letter-spacing: normal;
-}
-
 .vspec .img-group {
 	display: none;
 }
@@ -202,11 +202,24 @@ body.vspec::before {
 	display: block;
 }
 
+.vspec img {
+	display: none;
+}
+
+.vspec.imageson img {
+	display: block;
+}
+
 .vspec table td, .vspec table th {
 	color: currentColor;
 	border-color: currentColor;
 	font-size: inherit;
 	line-height: inherit;
+}
+
+.vspec table td span, .vspec table td p, .vspec table td ul, .vspec table th span, .vspec table th p, .vspec table th ul {
+	background: none !important;
+	color: inherit !important;
 }
 
 .vspec table caption {
@@ -264,10 +277,14 @@ body.vspec::before {
 .vspec .user-content .tbl thead td,
 .vspec .user-content .tbl tfoot td {
 	color: currentColor;
-	background-color: #fff;
+	background-color: transparent;
 	border: 1px solid currentColor;
 	font-size: inherit;
 	line-height: inherit;
+}
+
+.vspec .user-content .tbl tbody tr:nth-child(even) td {
+	background-color: transparent;
 }
 
 .vspec .user-content blockquote {
@@ -327,6 +344,68 @@ body.vspec::before {
 
 .vspec.fontsize-large .breadcrumbs li:before, .vspec.fontsize-large .user-content .breadcrumbs li:before {
 	top: auto;
+}
+
+.vspec .file {
+	display: block;
+	color: inherit;
+}
+
+.vspec .file .file__info {
+	border-color: currentColor;
+	letter-spacing: normal;
+	text-align: left;
+}
+
+.vspec .file .file__info > div > b {
+	color: inherit;
+}
+
+.vspec .file:hover .file__info {
+	border-color: #000;
+}
+
+.vspec .file:hover .file__info::before {
+	background-color: #000;
+}
+
+.vspec .file:hover .file__info > div,
+.vspec .file:hover .file__info > div > b {
+	color: #fff;
+}
+
+.vspec .file__icon {
+	display: none;
+}
+
+.vspec.imageson .file__icon {
+	display: block;
+}
+
+.vspec.schemecolor-white .file:hover .file__info {
+	border-color: #fff;
+}
+
+.vspec.schemecolor-white .file:hover .file__info::before {
+	background-color: #fff;
+}
+
+.vspec.schemecolor-white .file:hover .file__info > div,
+.vspec.schemecolor-white .file:hover .file__info > div > b {
+	color: #000;
+}
+
+.vspec.schemecolor-blue .file:hover .file__info {
+	border-color: #004c92;
+}
+
+.vspec.schemecolor-blue .file:hover .file__info::before {
+	background-color: #004c92;
+}
+
+.vspec.schemecolor-blue .file:hover .file__info > div,
+.vspec.schemecolor-blue .file:hover .file__info > div > b {
+	color: #c8e5ff;
 }
 
 .vspec input[type="text"],
@@ -1102,6 +1181,8 @@ body.vspec::before {
 	width: 14px;
 	height: 12px;
 	margin-left: -7px;
+	bottom: 4px;
+	z-index: 1;
 }
 
 .vspec .nav .nav__list li > a > [class*="depict-icons-angle-"]::before {
@@ -2319,7 +2400,7 @@ body.vspec::before {
 	line-height: inherit;
 	letter-spacing: inherit;
 	color: inherit;
-	background: none;
+	background: none !important;
 	margin-bottom: 0.8em;
 }
 
@@ -2354,7 +2435,7 @@ body.vspec::before {
 	font-size: inherit;
 	line-height: inherit;
 	letter-spacing: inherit;
-	color: inherit;
+	color: inherit !important;
 	white-space: normal;
 	text-align: inherit;
 	text-transform: none;
@@ -2720,6 +2801,10 @@ body.vspec .press-adt__list .press-adt__item:hover {
 	display: none;
 }
 
+.vspec .faq-list h3 + div {
+	color: inherit;
+}
+
 .vspec .faq-list h3:hover > span {
 	text-decoration: none;
 }
@@ -2767,6 +2852,10 @@ body.vspec .press-adt__list .press-adt__item:hover {
 .vspec .gallery__title a:hover .gallery__title-text, .vspec .gallery__title a:hover .gallery__title-count {
 	text-decoration: none;
 	color: inherit;
+}
+
+.vspec .gallery__previews .gallery__img img {
+	display: block;
 }
 
 .vspec .gallery__previews .slick-arrow,
@@ -2930,6 +3019,11 @@ body.vspec .press-adt__list .press-adt__item:hover {
 	letter-spacing: inherit;
 	height: auto;
 	margin-bottom: 0.8em;
+}
+
+.vspec .works__text span, .vspec .works__text ul, .vspec .works__text p {
+	background-color: transparent !important;
+	color: inherit !important;
 }
 
 .vspec .btn-more {
@@ -3374,9 +3468,7 @@ body.vspec .press-adt__list .press-adt__item:hover {
 .vspec .depict-icons-user,
 .vspec .category-links__icon,
 .vspec .depict-icons-pin-w,
-.vspec .press-adt__icon > i,
-.vspec .someclass,
-.vspec .someclass {
+.vspec .press-adt__icon > i {
 	-webkit-filter: grayscale(1) contrast(3) invert(1);
 	        filter: grayscale(1) contrast(3) invert(1);
 }
@@ -3387,33 +3479,24 @@ body.vspec .press-adt__list .press-adt__item:hover {
 .vspec.schemecolor-white .questions-slider .slick-arrow:before,
 .vspec.schemecolor-white .depict-icons-user,
 .vspec.schemecolor-white .depict-icons-pin-w,
-.vspec.schemecolor-white .press-adt__icon > i,
-.vspec.schemecolor-white .someclass,
-.vspec.schemecolor-white .someclass {
+.vspec.schemecolor-white .press-adt__icon > i {
 	-webkit-filter: grayscale(1) contrast(3) invert(0);
 	        filter: grayscale(1) contrast(3) invert(0);
 }
 
-.vspec .contacts-panel__list li [class*="depict-"],
-.vspec .someclass,
-.vspec .someclass {
+.vspec .contacts-panel__list li [class*="depict-"] {
 	-webkit-filter: grayscale(1) contrast(5);
 	        filter: grayscale(1) contrast(5);
 }
 
 .vspec img,
 .vspec .history-sldr__item.slide-current img,
-.vspec .file,
-.vspec .someclass,
-.vspec .someclass {
+.vspec .file__icon {
 	-webkit-filter: grayscale(1) contrast(1) invert(0);
 	        filter: grayscale(1) contrast(1) invert(0);
 }
 
-.vspec.schemecolor-white .history-sldr__item.slide-current img,
-.vspec.schemecolor-white .file,
-.vspec.schemecolor-white .someclass,
-.vspec.schemecolor-white .someclass {
+.vspec.schemecolor-white .history-sldr__item.slide-current img {
 	-webkit-filter: grayscale(1) contrast(1) invert(1);
 	        filter: grayscale(1) contrast(1) invert(1);
 }

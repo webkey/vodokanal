@@ -159,9 +159,6 @@ body.vspec::before
 .vspec .to-print
 	display: none
 
-.file__info
-	letter-spacing: normal
-
 .vspec
 	.img-group
 		display: none
@@ -169,17 +166,31 @@ body.vspec::before
 	&.imageson .img-group
 		display: block
 
-.vspec table td, .vspec table th
-	color: currentColor
-	border-color: currentColor
-	font-size: inherit
-	line-height: inherit
+.vspec
+	img
+		display: none
 
-.vspec table caption
-	font-size: $font-size--small
-	line-height: $line-height--small
-	color: inherit
-	font-style: italic
+	&.imageson
+		img
+			display: block
+
+.vspec
+	table
+		td, th
+			color: currentColor
+			border-color: currentColor
+			font-size: inherit
+			line-height: inherit
+
+			span, p, ul
+				background: none !important
+				color: inherit !important
+
+		caption
+			font-size: $font-size--small
+			line-height: $line-height--small
+			color: inherit
+			font-style: italic
 
 .vspec hr
 	border-bottom-color: currentColor
@@ -220,16 +231,23 @@ body.vspec::before
 .vspec .user-content ol > li::before
 	color: currentColor
 
-.vspec .user-content .tbl td,
-.vspec .user-content .tbl th,
-.vspec .user-content .tbl th,
-.vspec .user-content .tbl thead td,
-.vspec .user-content .tbl tfoot td
-	color: currentColor
-	background-color: $spec-bg-color
-	border: 1px solid currentColor
-	font-size: inherit
-	line-height: inherit
+.vspec
+	.user-content
+		.tbl
+			td,
+			th,
+			th,
+			thead td,
+			tfoot td
+				color: currentColor
+				background-color: transparent
+				border: 1px solid currentColor
+				font-size: inherit
+				line-height: inherit
+
+			tbody tr:nth-child(even)
+				td
+					background-color: transparent
 
 .vspec .user-content blockquote
 	border: 2px solid currentColor
@@ -285,6 +303,63 @@ body.vspec::before
 			li
 				&:before
 					top: auto
+
+.vspec
+	.file
+		display: block
+		color: inherit
+
+		.file__info
+			border-color: currentColor
+			letter-spacing: normal
+			text-align: left
+
+			& > div > b
+				color: inherit
+
+		&:hover
+			.file__info
+				border-color: $spec-text-color
+
+				&::before
+					background-color: $spec-text-color
+
+				& > div,
+				& > div > b
+					color: $spec-bg-color
+
+	.file__icon
+		display: none
+
+	&.imageson
+		.file__icon
+			display: block
+
+	&.schemecolor-white
+		.file
+			&:hover
+				.file__info
+					border-color: $spec-text-color--scheme-white
+
+					&::before
+						background-color: $spec-text-color--scheme-white
+
+					& > div,
+					& > div > b
+						color: $spec-bg-color--scheme-white
+
+	&.schemecolor-blue
+		.file
+			&:hover
+				.file__info
+					border-color: $spec-text-color--scheme-blue
+
+					&::before
+						background-color: $spec-text-color--scheme-blue
+
+					& > div,
+					& > div > b
+						color: $spec-bg-color--scheme-blue
 
 .vspec
 	input[type="text"],
@@ -956,6 +1031,8 @@ body.vspec::before
 		width: 14px
 		height: 12px
 		margin-left: -7px
+		bottom: 4px
+		z-index: 1
 
 		&::before
 			content: ""
@@ -1992,7 +2069,7 @@ body.vspec::before
 		line-height: inherit
 		letter-spacing: inherit
 		color: inherit
-		background: none
+		background: none !important
 		margin-bottom: $bottom-space
 
 		&::before, &::after
@@ -2022,7 +2099,7 @@ body.vspec::before
 		font-size: inherit
 		line-height: inherit
 		letter-spacing: inherit
-		color: inherit
+		color: inherit !important
 		white-space: normal
 		text-align: inherit
 		text-transform: none
@@ -2338,13 +2415,16 @@ body.vspec .press-adt__list .press-adt__item:hover
 			font-weight: normal
 			border: none
 
-			&>span
+			& > span
 				border: none
 				text-decoration: underline
 				color: inherit
 
-			&>i
+			& > i
 				display: none
+
+			& + div
+				color: inherit
 
 			// hover
 			&:hover
@@ -2391,6 +2471,9 @@ body.vspec .press-adt__list .press-adt__item:hover
 		.gallery__title-text, .gallery__title-count
 			text-decoration: none
 			color: inherit
+
+	.gallery__previews .gallery__img img
+		display: block
 
 	.gallery__previews .slick-arrow,
 	.fancybox-custom-btn span
@@ -2534,6 +2617,10 @@ body.vspec .press-adt__list .press-adt__item:hover
 		letter-spacing: inherit
 		height: auto
 		margin-bottom: $bottom-space
+
+		span, ul, p
+			background-color: transparent !important
+			color: inherit !important
 
 	.btn-more
 		font-size: inherit
@@ -2883,62 +2970,44 @@ body.vspec .press-adt__list .press-adt__item:hover
 /* layout spaces end
 
 /*=========== BLACK AND WHITE images ===========
-//.vspec .phs__btn.phs__item_opener .phs__number:after,
-//.vspec .phs-clone__btn.phs__item_opener .phs__number:after,
-//.vspec .nav-inner-page .depict-icons-angle-btm,
-.vspec .questions__icon img,
-.vspec .questions-slider .slick-arrow:before,
-.vspec .depict-icons-user,
-//.vspec .depict-icons-magnifier,
-.vspec .category-links__icon,
-//.vspec .tel__services a:after,
-.vspec .depict-icons-pin-w,
-//.vspec .depict-icons-angle-btm,
-.vspec .press-adt__icon > i,
-.vspec .someclass,
-.vspec .someclass
-	filter: grayscale(1) contrast(3) invert(1)
-
-.vspec.schemecolor-white .phs__btn.phs__item_opener .phs__number:after,
-.vspec.schemecolor-white .phs-clone__btn.phs__item_opener .phs__number:after,
-//.vspec.schemecolor-white .nav-inner-page .depict-icons-angle-btm,
-.vspec.schemecolor-white .questions__icon img,
-.vspec.schemecolor-white .questions-slider .slick-arrow:before,
-.vspec.schemecolor-white .depict-icons-user,
-//.vspec.schemecolor-white .depict-icons-magnifier,
-//.vspec.schemecolor-white .tel__services a:after,
-.vspec.schemecolor-white .depict-icons-pin-w,
-//.vspec.schemecolor-white .depict-icons-angle-btm,
-.vspec.schemecolor-white .press-adt__icon > i,
-.vspec.schemecolor-white .someclass,
-.vspec.schemecolor-white .someclass
-	filter: grayscale(1) contrast(3) invert(0)
-
-.vspec .contacts-panel__list li [class*="depict-"],
-.vspec .someclass,
-.vspec .someclass
-	filter: grayscale(1) contrast(5)
-
-.vspec img,
-.vspec .history-sldr__item.slide-current img,
-.vspec .file,
-.vspec .someclass,
-.vspec .someclass
-	filter: grayscale(1) contrast(1) invert(0)
-
-.vspec.schemecolor-white .history-sldr__item.slide-current img,
-.vspec.schemecolor-white .file,
-.vspec.schemecolor-white .someclass,
-.vspec.schemecolor-white .someclass
-	filter: grayscale(1) contrast(1) invert(1)
-
-.vspec .depict-icons-arrow-prev-n,
-.vspec .depict-icons-arrow-next-n
-	filter: grayscale(1) contrast(10) invert(1)
-
-//@media (max-width: 767px)
-	.vspec .nav__list .depict-icons-angle-btm
+.vspec
+	.questions__icon img,
+	.questions-slider .slick-arrow:before,
+	.depict-icons-user,
+	.category-links__icon,
+	.depict-icons-pin-w,
+	.press-adt__icon > i
 		filter: grayscale(1) contrast(3) invert(1)
+
+.vspec.schemecolor-white
+	.phs__btn.phs__item_opener .phs__number:after,
+	.phs-clone__btn.phs__item_opener .phs__number:after,
+	.questions__icon img,
+	.questions-slider .slick-arrow:before,
+	.depict-icons-user,
+	.depict-icons-pin-w,
+	.press-adt__icon > i
+		filter: grayscale(1) contrast(3) invert(0)
+
+.vspec
+	.contacts-panel__list li [class*="depict-"]
+		filter: grayscale(1) contrast(5)
+
+.vspec
+	img,
+	.history-sldr__item.slide-current img,
+	//#preloader
+	.file__icon
+		filter: grayscale(1) contrast(1) invert(0)
+
+.vspec.schemecolor-white
+	.history-sldr__item.slide-current img
+		filter: grayscale(1) contrast(1) invert(1)
+
+.vspec
+	.depict-icons-arrow-prev-n,
+	.depict-icons-arrow-next-n
+		filter: grayscale(1) contrast(10) invert(1)
 
 /*=========== BLACK AND WHITE images end ===========
 /*=========== SPECIAL end ===========
