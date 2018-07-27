@@ -134,16 +134,7 @@ $displace: 1px
 	height: $size
 	font-size: 16px
 	background-color: wheat
-
-	.header &
-		$size: 60px
-		float: right
-		position: relative
-		left: auto
-		top: auto
-		width: $size
-		height: $size
-		box-shadow: none
+	box-sizing: border-box
 
 	span
 		font-size: 0
@@ -196,6 +187,68 @@ $displace: 1px
 			+media('<mob-md')
 				width: 34px
 				margin: -1px 0 0 -17px
+
+	// in header
+	.header &
+		$size: 60px
+		float: right
+		position: relative
+		left: auto
+		top: auto
+		width: $size
+		height: $size
+		box-shadow: none
+
+	// in footer
+	.footer &
+		$size: auto
+		left: auto
+		top: auto
+		display: block
+		position: relative
+		width: $size
+		height: $size
+		padding-left: 40px
+		font-size: 16px
+		//color: inherit
+		color: white
+		background: none
+		box-shadow: none
+
+		+media('<mob-md')
+			float: left
+			left: 50%
+			width: 265px
+			max-width: 100%
+			text-align: left
+			vertical-align: top
+			transform: translate(-50%, 0)
+
+		&:hover, &:focus, &:active
+			transform: none
+
+			+media('<mob-md')
+				transform: translate(-50%, 0)
+
+		span
+			font-size: inherit
+			line-height: inherit
+
+		svg
+			left: 0
+			transform: translate(0, -50%)
+
+		.vspec &
+			color: inherit
+			font-size: 20px
+			line-height: 26px
+			width: auto
+			float: none
+			left: auto
+			transform: none
+
+			&:before
+				content: none
 
 .spec-panel .sv-btn
 	$size: 42px

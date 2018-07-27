@@ -97,7 +97,7 @@ body.vspec::before {
 }
 
 .vspec .article-press {
-	padding-top: 30px;
+	padding: 30px 0 0;
 	color: inherit;
 }
 
@@ -196,6 +196,10 @@ body.vspec::before {
 
 .vspec .img-group {
 	display: none;
+}
+
+.vspec .img-group__holder {
+	margin: 0 -6px;
 }
 
 .vspec.imageson .img-group {
@@ -1224,6 +1228,7 @@ body.vspec::before {
 	.vspec .nav-main-page .nav__list > li > a {
 		color: inherit;
 		border: 2px solid transparent;
+		padding-top: 20px;
 	}
 	.vspec .nav-main-page .nav__list > li.hover > a {
 		color: inherit;
@@ -2599,8 +2604,7 @@ body.vspec::before {
 	border-color: currentColor;
 	border-top: none;
 	margin-bottom: 2em;
-	padding-top: 0;
-	padding-bottom: 0;
+	padding: 0;
 }
 
 .press-archive > strong {
@@ -2631,6 +2635,10 @@ body.vspec::before {
 	border: none;
 }
 
+.vspec .press-adt {
+	overflow: visible;
+}
+
 .vspec .press-adt__list {
 	padding: 0;
 	overflow: visible;
@@ -2643,6 +2651,7 @@ body.vspec::before {
 	display: block;
 	width: auto;
 	min-height: 0;
+	padding: 0;
 	border: none;
 	box-shadow: none;
 	font-size: inherit;
@@ -3392,12 +3401,9 @@ body.vspec .press-adt__list .press-adt__item:hover {
 .vspec .social-networks,
 .vspec .footer-holder,
 .vspec .site-map,
-.vspec .press-archive,
-.vspec .press-adt__item,
 .vspec .category-links,
 .vspec .questions,
-.vspec .main-contacts,
-.vspec .article-press {
+.vspec .main-contacts {
 	padding-left: 30px;
 	padding-right: 30px;
 }
@@ -3411,12 +3417,9 @@ body.vspec .press-adt__list .press-adt__item:hover {
 	.vspec .social-networks,
 	.vspec .footer-holder,
 	.vspec .site-map,
-	.vspec .press-archive,
-	.vspec .press-adt__item,
 	.vspec .category-links,
 	.vspec .questions,
-	.vspec .main-contacts,
-	.vspec .article-press {
+	.vspec .main-contacts {
 		padding-left: 20px;
 		padding-right: 20px;
 	}
@@ -3431,12 +3434,9 @@ body.vspec .press-adt__list .press-adt__item:hover {
 	.vspec .social-networks,
 	.vspec .footer-holder,
 	.vspec .site-map,
-	.vspec .press-archive,
-	.vspec .press-adt__item,
 	.vspec .category-links,
 	.vspec .questions,
-	.vspec .main-contacts,
-	.vspec .article-press {
+	.vspec .main-contacts {
 		padding-left: 15px;
 		padding-right: 15px;
 	}

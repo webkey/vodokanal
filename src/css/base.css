@@ -149,16 +149,7 @@
 	height: 42px;
 	font-size: 16px;
 	background-color: wheat;
-}
-
-.header .sv-btn-on {
-	float: right;
-	position: relative;
-	left: auto;
-	top: auto;
-	width: 60px;
-	height: 60px;
-	box-shadow: none;
+	box-sizing: border-box;
 }
 
 .sv-btn-on span {
@@ -228,6 +219,81 @@
 		width: 34px;
 		margin: -1px 0 0 -17px;
 	}
+}
+
+.header .sv-btn-on {
+	float: right;
+	position: relative;
+	left: auto;
+	top: auto;
+	width: 60px;
+	height: 60px;
+	box-shadow: none;
+}
+
+.footer .sv-btn-on {
+	left: auto;
+	top: auto;
+	display: block;
+	position: relative;
+	width: auto;
+	height: auto;
+	padding-left: 40px;
+	font-size: 16px;
+	color: white;
+	background: none;
+	box-shadow: none;
+}
+
+@media (max-width: 479px) {
+	.footer .sv-btn-on {
+		float: left;
+		left: 50%;
+		width: 265px;
+		max-width: 100%;
+		text-align: left;
+		vertical-align: top;
+		-ms-transform: translate(-50%, 0);
+		    transform: translate(-50%, 0);
+	}
+}
+
+.footer .sv-btn-on:hover, .footer .sv-btn-on:focus, .footer .sv-btn-on:active {
+	-ms-transform: none;
+	    transform: none;
+}
+
+@media (max-width: 479px) {
+	.footer .sv-btn-on:hover, .footer .sv-btn-on:focus, .footer .sv-btn-on:active {
+		-ms-transform: translate(-50%, 0);
+		    transform: translate(-50%, 0);
+	}
+}
+
+.footer .sv-btn-on span {
+	font-size: inherit;
+	line-height: inherit;
+}
+
+.footer .sv-btn-on svg {
+	left: 0;
+	-ms-transform: translate(0, -50%);
+	    transform: translate(0, -50%);
+}
+
+.vspec .footer .sv-btn-on {
+	color: inherit;
+	font-size: 20px;
+	line-height: 26px;
+	width: auto;
+	float: none;
+	left: auto;
+	-ms-transform: none;
+	    transform: none;
+}
+
+.vspec .footer .sv-btn-on:before {
+	content: none;
 }
 
 .spec-panel .sv-btn {

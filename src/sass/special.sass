@@ -71,7 +71,7 @@ body.vspec::before
 		padding-bottom: 30px
 
 	.article-press
-		padding-top: 30px
+		padding: 30px 0 0
 		color: inherit
 
 	.press-archive + .press-adt .article-press
@@ -162,6 +162,9 @@ body.vspec::before
 .vspec
 	.img-group
 		display: none
+
+	.img-group__holder
+		margin: 0 -6px
 
 	&.imageson .img-group
 		display: block
@@ -1065,6 +1068,7 @@ body.vspec::before
 		.nav-main-page .nav__list > li > a
 			color: inherit
 			border: 2px solid transparent
+			padding-top: 20px
 
 		.nav-main-page .nav__list > li.hover > a
 			color: inherit
@@ -2238,8 +2242,7 @@ body.vspec::before
 	border-color: currentColor
 	border-top: none
 	margin-bottom: $bottom-space-item
-	padding-top: 0
-	padding-bottom: 0
+	padding: 0
 
 .press-archive > strong
 	font-size: $sub-title-font-size
@@ -2264,26 +2267,30 @@ body.vspec::before
 .vspec .years__list a > span
 	border: none
 
-.vspec .press-adt__list
-	padding: 0
-	overflow: visible
-	font-size: inherit
-	line-height: inherit
-	letter-spacing: inherit
+.vspec
+	.press-adt
+		overflow: visible
 
-.vspec .press-adt__item
-	display: block
-	width: auto
-	min-height: 0
-	border: none
-	box-shadow: none
-	font-size: inherit
-	line-height: inherit
-	letter-spacing: inherit
-	color: currentColor
-	margin-bottom: $bottom-space-item
-	-webkit-transition: none
-	transition: none
+	.press-adt__list
+		padding: 0
+		overflow: visible
+		font-size: inherit
+		line-height: inherit
+		letter-spacing: inherit
+
+	.press-adt__item
+		display: block
+		width: auto
+		min-height: 0
+		padding: 0
+		border: none
+		box-shadow: none
+		font-size: inherit
+		line-height: inherit
+		letter-spacing: inherit
+		color: currentColor
+		margin-bottom: $bottom-space-item
+		transition: none
 
 body.vspec .press-adt__list .press-adt__item:hover
 	border-color: currentColor
@@ -2938,12 +2945,12 @@ body.vspec .press-adt__list .press-adt__item:hover
 	.social-networks,
 	.footer-holder,
 	.site-map,
-	.press-archive,
-	.press-adt__item,
+	//.press-archive,
+	//.press-adt__item,
 	.category-links,
 	.questions,
-	.main-contacts,
-	.article-press
+	//.article-press
+	.main-contacts
 		padding-left: $space
 		padding-right: $space
 

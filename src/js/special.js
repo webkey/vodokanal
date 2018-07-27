@@ -1,5 +1,6 @@
 $(document).on('ready', function () {
-	if(!$('.spec-panel-js').length) {
+	var $specialBtn = $('.special-version-toggle-js');
+	if (!$specialBtn.length) {
 		return false;
 	}
 
@@ -109,7 +110,22 @@ $(document).on('ready', function () {
 	/**
 	 * !switch special version
 	 * */
-	$('.special-version-toggle-js').on('click', function (e) {
+	/* replace title and text in buttons */
+	$.each($specialBtn, function () {
+		var $curBtn = $(this),
+			$text = $('span', $curBtn);
+		if(getCookie(cookies.specVersionOn) === 'true'){
+			var titleOff = $curBtn.attr('data-title-off');
+			$curBtn.attr('title', titleOff);
+			$text.html(titleOff);
+		} else {
+			var titleOn = $curBtn.attr('data-title-on');
+			$curBtn.attr('title', titleOn);
+			$text.html(titleOn);
+		}
+	});
+
+	$specialBtn.on('click', function (e) {
 		e.preventDefault();
 		$('body').addClass(mod.hidePage); // first hide content
 		// toggle special version cookie
