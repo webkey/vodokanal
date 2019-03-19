@@ -7528,7 +7528,7 @@ body:not(.mobile-device) .back-to-top:hover>span{
 	height: 390px;
 }
 .map-holder .address-selector-holder{
-	position: absolute;
+	/*position: absolute;*/
 	z-index: 1000;
 	width: 100%;
 }

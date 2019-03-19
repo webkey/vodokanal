@@ -8,7 +8,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Минскводоканал - Список страниц</title>
+	<title>Яндекс</title>
 	<!--[if IE]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	<!--Mobile optimized-->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -33,7 +33,7 @@
 	</script>
 </head>
 
-<body>
+<body class="inner-page top-panel-show">
 	<!--[if lt IE 8]>
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
@@ -134,50 +134,140 @@
 		</div>
 	</div>
 	<!--special end-->
-	<div class="wrapper user-content">
+	<!--WRAPPER-->
+	<div class="wrapper">
+		<!--MAIN-->
 		<div class="main">
 			<div class="max-wrap">
 				<div class="main-holder">
 					<!--MAIN CONTENT-->
 					<div class="content-wrap">
-						<div class="user-content">
-							<ul style="padding: 30px;">
-								<li><a href="about.html">О предприятии</a></li>
-								<li><a href="index.html">Главная</a></li>
-								<li><a href="press.html">Пресс-центр</a></li>
-								<li><a href="press-inner.html">Пресс-центр статья</a></li>
-								<li><a href="faq.html">Ответы на часто задаваемые вопросы</a></li>
-								<li><a href="gallery.html">фотогалерея</a></li>
-								<li><a href="kind-of-works.html">Виды деятельности</a></li>
-								<li><a href="contacts.html">Контаты</a></li>
-								<li><a href="404.html">Ошибка 404</a></li>
-								<li><a href="typography.html">Typography</a></li>
-								<li><a href="quality-google.html">Качество воды (google map)</a></li>
-								<li><a href="quality-yandex.html">Качество воды (yandex map)</a></li>
-							</ul>
+						<div class="content user-content">
+							<!--page heading-->
+							<div class="page-heading">
+								<!--breadcrumbs-->
+								<ul class="breadcrumbs">
+									<li><a href="#">Главная</a></li>
+									<li>Качество воды</li>
+								</ul>
+								<!--breadcrumbs end-->
+								<h1>Качество воды</h1>
+								<!--to print-->
+								<a href="#" class="to-print"><span>На печать</span><i class="iconsvg-printer"></i></a>
+								<!--to print end-->
+							</div>
+							<!--page heading end-->
+							<!--vodokanal map-->
+							<div class="map-holder">
+								<div class="address-selector-holder">
+									<input type="text" placeholder="Введите улицу и номер дома" id="address-selector" data-placement="bottom" data-content="После названия улицы введите номер дома">
+								</div>
+								<div id="vodomap"></div>
+							</div>
+							<div class="info-holder" style="margin-bottom: 0px;">
+								<div><b>Адміністратыўны раён:</b> <span id="info-vicinity"></span></div>
+								<div><b>Зона ўплыву:</b> <span id="info-vodozbor"></span> </div>
+								<div><b>Сярэднія даныя, па стане на <span style="font-weight:600;"> ліпень 2018г.</span></b></div>
+								<br>
+								<div class="user-content">
+									<p id="zone_tab0_info"></p>
+									<table class="tbl tbl-import">
+										<thead>
+											<tr>
+												<th>Паказчык</th>
+												<th>Адзінкі вымярэння</th>
+												<th>Значэнне *</th>
+												<th>Максімальна дапушчальная канцэнтрацыя **</th>
+											</tr>
+										</thead>
+										<tbody id="info-params-0">
+										</tbody>
+									</table>
+									<p id="zone_tab1_info"></p>
+									<table class="tbl tbl-import hidden">
+										<thead>
+											<tr>
+												<th>Паказчык</th>
+												<th>Адзінкі вымярэння</th>
+												<th>Значэнне *</th>
+												<th>Максімальна дапушчальная канцэнтрацыя **</th>
+											</tr>
+										</thead>
+										<tbody id="info-params-1">
+										</tbody>
+									</table>
+									<p id="zone_tab2_info"></p>
+									<table class="tbl tbl-import hidden">
+										<thead>
+											<tr>
+												<th>Паказчык</th>
+												<th>Адзінкі вымярэння</th>
+												<th>Значэнне *</th>
+												<th>Максімальна дапушчальная канцэнтрацыя **</th>
+											</tr>
+										</thead>
+										<tbody id="info-params-2">
+										</tbody>
+									</table>
+									<p id="zone_tab3_info"></p>
+									<table class="tbl tbl-import hidden">
+										<thead>
+											<tr>
+												<th>Паказчык</th>
+												<th>Адзінкі вымярэння</th>
+												<th>Значэнне *</th>
+												<th>Максімальна дапушчальная канцэнтрацыя **</th>
+											</tr>
+										</thead>
+										<tbody id="info-params-3">
+										</tbody>
+									</table>
+									<p id="zone_tab4_info"></p>
+									<table class="tbl tbl-import hidden">
+										<thead>
+											<tr>
+												<th>Паказчык</th>
+												<th>Адзінкі вымярэння</th>
+												<th>Значэнне *</th>
+												<th>Максімальна дапушчальная канцэнтрацыя **</th>
+											</tr>
+										</thead>
+										<tbody id="info-params-4">
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<!--vodokanal map end-->
 						</div>
 					</div>
 					<!--MAIN CONTENT end-->
 				</div>
 			</div>
 		</div>
+		<!--main end-->
+		<div class="spacer">&nbsp;</div>
 	</div>
-	<!--back to top-->
-	<a href="#" class="back-to-top">
-	<i class="#"></i>
-	<span>Наверх</span>
-</a>
-	<!--back to top end-->
+	<!--WRAPPER end-->
 	<!--JQuery library-->
 	<script src="js/jquery-1.12.0.min.js"></script>
 	<!--JQuery UI-->
 	<script src="js/jquery-ui.min.js"></script>
 	<!--Special-->
 	<script src="js/special.js?rev=@@hash"></script>
+	<!--Map-->
+	<!--<script src="http://maps.googleapis.com/maps/api/js"></script>-->
+	<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1GgUBL8oVrFnfHfgwJjKLlP-9Dzxs3Zg&callback=initMap" async defer></script>-->
+	<!--<script src="//maps.googleapis.com/maps/api/js?key=AIzaSyDkG9PmmMb-1KCrffTMu-WtimFhQ55dZcY&libraries=places"></script>-->
+	<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;coordorder=longlat"></script>
 	<!--Widgets-->
 	<script src="js/widgets.js"></script>
 	<!--Main functions-->
 	<script src="js/functions.js"></script>
+	<script src="assets/templates/main/js/bootstrap.min.js"></script>
+	<!--<script src="js/geoxml.js"></script>-->
+	<script src="js/togeojson.js"></script>
+	<!--map-->
+	<script src="js/quality-yandex.js"></script>
 </body>
 
 </html>
